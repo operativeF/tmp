@@ -16,6 +16,9 @@
 
 namespace boost {
 	namespace tmp {
+		/// \brief
+		/// Given a unary predicate, separate a list into a list of two lists, with the first being the
+		/// values where the predicate holds.
 		template <typename F, typename C = listify_>
 		struct partition_ {};
 

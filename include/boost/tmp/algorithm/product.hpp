@@ -11,7 +11,16 @@
 #include "../call.hpp"
 #include "../vocabulary.hpp"
 
-namespace boost {
+// \brief
+// Given n lists, generates the Cartesian product of those n lists (n-tuples).
+// \example
+// 	using xl0 = list_<x<1>, x<2>, x<3>, x<4>, x<5>, x<6>, x<7>, x<8>, x<9>, x<10>>;
+//	using xr0 = list_<x<1>, x<2>, x<3>, x<4>, x<5>, x<6>, x<7>, x<8>, x<9>, x<10>>;
+//
+//  using result = call_<product_<>, xl0, xr0>;
+//  \text Will generate the Cartesian product of the lists xl0 and xr0:
+//  result = list_<list_<x<1>, x<1>>, list_<x<1>, x<2>>, ..., list_<x<1>, x<10>>, ..., list_<x<10>, x<1>>, list_<x<10>, x<2>>, ..., list_<x<10>, x<10>>>
+namespace boost { 
 	namespace tmp {
 		template <typename F = listify_, typename C = listify_>
 		struct product_ {};

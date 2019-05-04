@@ -11,7 +11,7 @@
 namespace boost {
 	namespace tmp {
 		/// \brief turns a list of types into a variadic pack of those types /
-		/// example: call<all<>,ture_,false_,true_> is equivalent to
+		/// example: call<all<>,true_,false_,true_> is equivalent to
 		/// call<unpack<all<>>,list<true_,false_,true_>>
 		template <typename C>
 		struct unpack_ {};

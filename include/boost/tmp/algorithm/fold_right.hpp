@@ -16,7 +16,8 @@
 
 namespace boost {
 	namespace tmp {
-		/// \breif fold right considers the last element in the input pack the initial state, use
+		/// \brief folds right over a list using a binary predicate
+		/// fold right considers the last element in the input pack the initial state, use
 		/// push_back to add initial state if needed
 		template <typename F, typename C = identity_>
 		struct fold_right_ {};

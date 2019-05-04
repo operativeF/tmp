@@ -13,6 +13,8 @@
 #include "rotate.hpp"
 #include "../vocabulary.hpp"
 
+// \brief
+// Given a variadic parameter pack, remove the nth value in the pack.
 namespace boost {
 	namespace tmp {
 		template <typename N = uint_<0>, typename C = listify_>
