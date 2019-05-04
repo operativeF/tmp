@@ -1,0 +1,27 @@
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-16.04'
+    #mac:
+    #  imageName: 'macos-10.14'
+
+trigger:
+  branches:
+    include:
+    - operativef-dev
+
+pool:
+  vmImage: $(imageName)
+
+steps:
+# Linux g++5
+- script: sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+- script: sudo add-apt-repository ppa:george-edison55/precise-backports
+- script: sudo apt-get install g++-5
+- script: sudo apt-get install cmake
+- script: sudo apt-get install cmake-data
+- script: |
+    cmake ./
+  displayName: 'Invoke cmake'
+- script: |
+    cmake --build . --config Release --target all
