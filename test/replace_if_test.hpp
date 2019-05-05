@@ -9,6 +9,6 @@ namespace replace_if_test
 {
     int run()
     {
-        
+        return 0;
     }
 } // namespace replace_if_test

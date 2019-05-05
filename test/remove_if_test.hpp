@@ -9,6 +9,6 @@ namespace remove_if_test
 {
     int run()
     {
-        
+        return 0;
     }
 } // namespace remove_if_test

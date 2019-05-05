@@ -9,6 +9,6 @@ namespace drop_test
 {
     int run()
     {
-        
+        return 0;
     }
 } // namespace drop_test

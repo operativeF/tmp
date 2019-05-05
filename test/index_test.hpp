@@ -9,6 +9,6 @@ namespace index_test
 {
     int run()
     {
-        
+        return 0;
     }
 } // namespace index_test

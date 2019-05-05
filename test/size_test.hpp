@@ -9,6 +9,6 @@ namespace size_test
 {
     int run()
     {
-        
+        return 0;
     }
 } // namespace size_test

@@ -9,6 +9,6 @@ namespace insert_test
 {
     int run()
     {
-        
+        return 0;
     }
 } // namespace insert_test

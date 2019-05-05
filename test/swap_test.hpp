@@ -9,6 +9,6 @@ namespace swap_test
 {
     int run()
     {
-        
+        return 0;
     }
 } // namespace swap_test

@@ -9,6 +9,6 @@ namespace rotate_test
 {
     int run()
     {
-        
+        return 0;
     }
 } // namespace rotate_test
