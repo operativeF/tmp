@@ -18,11 +18,8 @@ jobs:
       mkdir build
       cd build
       cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
-    displayName: 'Invoke cmake'
-  - script: |
-      cd ../
       make VERBOSE=1
-      ./build/boost_tmp_test
+      ./boost_tmp_test
 
 - job: Linux_gplusplus6
   pool:
@@ -38,11 +35,8 @@ jobs:
       mkdir build
       cd build
       cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
-    displayName: 'Invoke cmake'
-  - script: |
-      cd ../
       make VERBOSE=1
-      ./build/boost_tmp_test
+      ./boost_tmp_test
 
 - job: Linux_clang3_6
   pool:
@@ -60,8 +54,5 @@ jobs:
       mkdir build
       cd build
       cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
-    displayName: 'Invoke cmake'
-  - script: |
-      cd ../
       make VERBOSE=1
-      ./build/boost_tmp_test
+      ./boost_tmp_test
