@@ -1,27 +1,61 @@
-strategy:
-  matrix:
-    linux:
-      imageName: 'ubuntu-16.04'
-    #mac:
-    #  imageName: 'macos-10.14'
-
 trigger:
   branches:
     include:
     - operativef-dev
 
-pool:
-  vmImage: $(imageName)
+jobs:
+- job: Linux_gplusplus5
+  pool:
+    vmImage: 'ubuntu-16.04'
+  variables:
+    toolset: g++-5
+  steps:
+  - script: sudo add-apt-repository ppa:ubuntu-toolchain-r/test \
+                                    ppa:george-edison55/precise-backports
+            sudo apt-get install g++-5 cmake
+  - script: |
+      mkdir build
+      cd build
+      cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
+    displayName: 'Invoke cmake'
+  - script:
+      make VERBOSE=1
+      ./boost_tmp_test
 
-steps:
-# Linux g++5
-- script: sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-- script: sudo add-apt-repository ppa:george-edison55/precise-backports
-- script: sudo apt-get install g++-5
-- script: sudo apt-get install cmake
-- script: sudo apt-get install cmake-data
-- script: |
-    cmake ./
-  displayName: 'Invoke cmake'
-- script: |
-    cmake --build . --config Release --target all
+- job: Linux_gplusplus6
+  pool:
+    vmImage: 'ubuntu-16.04'
+  variables:
+    toolset: g++-6
+  steps:
+  - script: sudo add-apt-repository ppa:ubuntu-toolchain-r/test \
+                                    ppa:george-edison55/precise-backports
+            sudo apt-get install g++-6 cmake cmake-data
+  - script: |
+      mkdir build
+      cd build
+      cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
+    displayName: 'Invoke cmake'
+  - script:
+      make VERBOSE=1
+      ./boost_tmp_test
+
+- job: Linux_clang3_6
+  pool:
+    vmImage: 'ubuntu-16.04'
+  variables:
+    toolset: clang-3.6
+  steps:
+  - script: sudo add-apt-repository ppa:ubuntu-toolchain-r/test \
+                                    ppa:george-edison55/precise-backports \
+                                    "deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.8 main"
+            sudo apt-get update
+            sudo apt-get install clang-3.6 cmake cmake-data
+  - script: |
+      mkdir build
+      cd build
+      cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
+    displayName: 'Invoke cmake'
+  - script:
+      make VERBOSE=1
+      ./boost_tmp_test
