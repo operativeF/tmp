@@ -10,6 +10,7 @@
 
 #include "../call.hpp"
 #include "../vocabulary.hpp"
+#include "../sequence/join.hpp"
 
 // \brief
 // Given n lists, generates the Cartesian product of those n lists (n-tuples).
