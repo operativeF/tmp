@@ -10,8 +10,8 @@ jobs:
   variables:
     toolset: g++-5
   steps:
-  - script: sudo add-apt-repository ppa:ubuntu-toolchain-r/test \
-                                    ppa:george-edison55/precise-backports
+  - script: sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+            sudo add-apt-repository ppa:george-edison55/precise-backports
             sudo apt-get install g++-5 cmake
   - script: |
       mkdir build
@@ -28,8 +28,8 @@ jobs:
   variables:
     toolset: g++-6
   steps:
-  - script: sudo add-apt-repository ppa:ubuntu-toolchain-r/test \
-                                    ppa:george-edison55/precise-backports
+  - script: sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+            sudo add-apt-repository ppa:george-edison55/precise-backports
             sudo apt-get install g++-6 cmake cmake-data
   - script: |
       mkdir build
@@ -46,9 +46,9 @@ jobs:
   variables:
     toolset: clang-3.6
   steps:
-  - script: sudo add-apt-repository ppa:ubuntu-toolchain-r/test \
-                                    ppa:george-edison55/precise-backports \
-                                    "deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.8 main"
+  - script: sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+            sudo add-apt-repository ppa:george-edison55/precise-backports
+            sudo add-apt-repository "deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.8 main"
             sudo apt-get update
             sudo apt-get install clang-3.6 cmake cmake-data
   - script: |
