@@ -8,7 +8,7 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   variables:
-    toolset: g++
+    toolset: g++-5
   steps:
   - script: |
       sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -20,14 +20,15 @@ jobs:
       cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
     displayName: 'Invoke cmake'
   - script: |
+      cd ../
       make VERBOSE=1
-      ./boost_tmp_test
+      ./build/boost_tmp_test
 
 - job: Linux_gplusplus6
   pool:
     vmImage: 'ubuntu-16.04'
   variables:
-    toolset: g++
+    toolset: g++-6
   steps:
   - script: |
       sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -39,14 +40,15 @@ jobs:
       cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
     displayName: 'Invoke cmake'
   - script: |
+      cd ../
       make VERBOSE=1
-      ./boost_tmp_test
+      ./build/boost_tmp_test
 
 - job: Linux_clang3_6
   pool:
     vmImage: 'ubuntu-16.04'
   variables:
-    toolset: clang++
+    toolset: clang++-3.6
   steps:
   - script: |
       sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -60,5 +62,6 @@ jobs:
       cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
     displayName: 'Invoke cmake'
   - script: |
+      cd ../
       make VERBOSE=1
-      ./boost_tmp_test
+      ./build/boost_tmp_test
