@@ -4,55 +4,44 @@ trigger:
     - operativef-dev
 
 jobs:
-- job: Linux_gplusplus5
+- job: linux_gpp
   pool:
     vmImage: 'ubuntu-16.04'
-  variables:
-    toolset: g++-5
+    
+  strategy:
+    matrix:
+      g++ 5:
+        g++_version: 'g++-5'
+      g++ 6:
+        g++_version: 'g++-6'
+
   steps:
   - script: |
       sudo add-apt-repository ppa:ubuntu-toolchain-r/test
       sudo add-apt-repository ppa:george-edison55/precise-backports
-      sudo apt-get install g++-5 cmake
+      sudo apt-get install $(g++_version) cmake
   - script: |
       mkdir build
       cd build
-      cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
+      cmake .. -DCMAKE_CXX_COMPILER=$(g++_version) -DMAKE_INCLUDE_TESTS=ON
       make VERBOSE=1
       ./boost_tmp_test
 
-- job: Linux_gplusplus6
-  pool:
-    vmImage: 'ubuntu-16.04'
-  variables:
-    toolset: g++-6
-  steps:
-  - script: |
-      sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-      sudo add-apt-repository ppa:george-edison55/precise-backports
-      sudo apt-get install g++-6 cmake cmake-data
-  - script: |
-      mkdir build
-      cd build
-      cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
-      make VERBOSE=1
-      ./boost_tmp_test
-
-- job: Linux_clang3_6
-  pool:
-    vmImage: 'ubuntu-16.04'
-  variables:
-    toolset: clang++-3.6
-  steps:
-  - script: |
-      sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-      sudo add-apt-repository ppa:george-edison55/precise-backports
-      sudo add-apt-repository "deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.8 main"
-      sudo apt-get update
-      sudo apt-get install clang-3.6 cmake cmake-data
-  - script: |
-      mkdir build
-      cd build
-      cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
-      make VERBOSE=1
-      ./boost_tmp_test
+#- job: Linux_clang3_6
+#  pool:
+#    vmImage: 'ubuntu-16.04'
+#  variables:
+#    toolset: clang++-3.6
+#  steps:
+#  - script: |
+#      sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+#      sudo add-apt-repository ppa:george-edison55/precise-backports
+#      sudo add-apt-repository "deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.6 main"
+#      sudo apt-get update
+#      sudo apt-get install clang-3.6 cmake cmake-data
+#  - script: |
+#      mkdir build
+#      cd build
+#      cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
+#      make VERBOSE=1
+#      ./boost_tmp_test
