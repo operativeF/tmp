@@ -11,37 +11,46 @@ jobs:
   strategy:
     matrix:
       g++ 5:
-        g++_version: 'g++-5'
+        g++_version: '5'
       g++ 6:
-        g++_version: 'g++-6'
+        g++_version: '6'
 
   steps:
   - script: |
       sudo add-apt-repository ppa:ubuntu-toolchain-r/test
       sudo add-apt-repository ppa:george-edison55/precise-backports
-      sudo apt-get install $(g++_version) cmake
+      sudo apt-get install g++-$(g++_version) cmake
   - script: |
       mkdir build
       cd build
-      cmake .. -DCMAKE_CXX_COMPILER=$(g++_version) -DMAKE_INCLUDE_TESTS=ON
+      cmake .. -DCMAKE_CXX_COMPILER=g++-$(g++_version) -DMAKE_INCLUDE_TESTS=ON
       make VERBOSE=1
       ./boost_tmp_test
 
-#- job: Linux_clang3_6
-#  pool:
-#    vmImage: 'ubuntu-16.04'
-#  variables:
-#    toolset: clang++-3.6
-#  steps:
-#  - script: |
-#      sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-#      sudo add-apt-repository ppa:george-edison55/precise-backports
-#      sudo add-apt-repository "deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.6 main"
-#      sudo apt-get update
-#      sudo apt-get install clang-3.6 cmake cmake-data
-#  - script: |
-#      mkdir build
-#      cd build
-#      cmake .. -DCMAKE_CXX_COMPILER=$(toolset) -DMAKE_INCLUDE_TESTS=ON
-#      make VERBOSE=1
-#      ./boost_tmp_test
+- job: linux_clang
+  pool:
+    vmImage: 'ubuntu-16.04'
+
+  strategy:
+    matrix:
+      clang_3.6:
+        clang_version: '3.6'
+      clang_3.7:
+        clang_version: '3.7'
+      clang_3.8:
+        clang_version: '3.8'
+      clang_3.9:
+        clang_version: '3.9'
+
+  steps:
+  - script: |
+      sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+      sudo add-apt-repository ppa:george-edison55/precise-backports
+      sudo add-apt-repository "deb http://llvm.org/apt/precise/ llvm-toolchain-precise-$(clang_version) main"
+      sudo apt-get install clang-$(clang_version) cmake cmake-data
+  - script: |
+      mkdir build
+      cd build
+      cmake .. -DCMAKE_CXX_COMPILER=clang-$(clang_version) -DMAKE_INCLUDE_TESTS=ON
+      make VERBOSE=1
+      ./boost_tmp_test
