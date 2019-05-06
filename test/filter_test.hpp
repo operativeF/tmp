@@ -30,8 +30,8 @@ namespace filter_test {
 		using make_stride2_sequence =
 		        lift_<divide_by_two_celing, make_sequence_<lift_<multiply_by_2>>>;
 
-		call_<make_sequence_<make_algo<make_stride2_sequence>>, extent>{} =
-		        call_<make_sequence_<make_algo<make_filtered_sequence>>, extent>{};
+		//call_<make_sequence_<make_algo<make_stride2_sequence>>, extent>{} =
+		//        call_<make_sequence_<make_algo<make_filtered_sequence>>, extent>{};
 
 		// fusion
 #ifdef BOOST_TMP_CPP14

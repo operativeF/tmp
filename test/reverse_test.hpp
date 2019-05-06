@@ -12,8 +12,8 @@ namespace reverse_test {
 	int run() {
 		using rhs = make_sequence_<identity_, reverse_<reverse_<>>>;
 		using lhs = make_sequence_<>;
-		call_<make_sequence_<make_algo<lhs>>, extent>{} =
-		        call_<make_sequence_<make_algo<rhs>>, extent>{};
+		//call_<make_sequence_<make_algo<lhs>>, extent>{} =
+		//        call_<make_sequence_<make_algo<rhs>>, extent>{};
 
 		list_<uint_<0>>{} = call_<make_sequence_<identity_, reverse_<>>, uint_<1>>{};
 
