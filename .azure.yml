@@ -14,6 +14,10 @@ jobs:
         g++_version: '5'
       g++ 6:
         g++_version: '6'
+      g++ 7:
+        g++_version: '7'
+      g++ latest:
+        g++_version: ''
 
   steps:
   - script: |
