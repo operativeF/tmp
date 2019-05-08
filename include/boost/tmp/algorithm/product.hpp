@@ -12,17 +12,18 @@
 #include "../vocabulary.hpp"
 #include "../sequence/join.hpp"
 
-// \brief
-// Given n lists, generates the Cartesian product of those n lists (n-tuples).
-// \example
-// 	using xl0 = list_<x<1>, x<2>, x<3>, x<4>, x<5>, x<6>, x<7>, x<8>, x<9>, x<10>>;
-//	using xr0 = list_<x<1>, x<2>, x<3>, x<4>, x<5>, x<6>, x<7>, x<8>, x<9>, x<10>>;
-//
-//  using result = call_<product_<>, xl0, xr0>;
-//  \text Will generate the Cartesian product of the lists xl0 and xr0:
-//  result = list_<list_<x<1>, x<1>>, list_<x<1>, x<2>>, ..., list_<x<1>, x<10>>, ..., list_<x<10>, x<1>>, list_<x<10>, x<2>>, ..., list_<x<10>, x<10>>>
+
 namespace boost { 
 	namespace tmp {
+		// \brief
+		// Given two lists, generates the Cartesian product of said lists (n x m tuples generated).
+		// \example
+		// 	using xl0 = list_<x<1>, x<2>, ..., x<n>>;
+		//	using xr0 = list_<x<1>, x<2>, ..., x<m>>;
+		//
+		//  using result = call_<product_<>, xl0, xr0>;
+		//  \text Will generate the Cartesian product of the lists xl0 and xr0, from xl0[1]-xl0[n] and xr0[1]-xr0[m]:
+		//  result = list_<list_<x<1>, x<1>>, list_<x<1>, x<2>>, ..., list_<x<1>, x<n>>, ..., list_<x<n>, x<1>>, list_<x<n>, x<2>>, ..., list_<x<n>, x<m>>>
 		template <typename F = listify_, typename C = listify_>
 		struct product_ {};
 

@@ -13,6 +13,11 @@ namespace boost {
 		/// \brief turns a list of types into a variadic pack of those types /
 		/// example: call<all<>,true_,false_,true_> is equivalent to
 		/// call<unpack<all<>>,list<true_,false_,true_>>
+		/// \requirement
+		/// Unpack always needs a continuation, so even if you're just unpacking
+		/// a list, you need to use it like the following:
+		/// using alist = list_<uint_<0>>;
+		/// uint_<0>{} = call_<unpack_<identity_>, alist>{}; // This will be vaild
 		template <typename C>
 		struct unpack_ {};
 		namespace detail {

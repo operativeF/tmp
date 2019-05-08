@@ -8,6 +8,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+/// \brief Swaps two variadic parametic pack values. Must be only two values.
 #include "../identity.hpp"
 #include "../vocabulary.hpp"
 namespace boost {

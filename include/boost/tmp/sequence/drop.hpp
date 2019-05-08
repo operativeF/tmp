@@ -12,8 +12,11 @@
 #include "rotate.hpp"
 #include "../vocabulary.hpp"
 
+
 namespace boost {
 	namespace tmp {
+		/// \brief Drop n values, starting from the front,
+		/// off the passed in list.
 		template <typename N = uint_<0>, typename C = listify_>
 		struct drop_ {};
 

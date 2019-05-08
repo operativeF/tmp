@@ -15,6 +15,7 @@
 
 // \brief
 // Given a variadic parameter pack, remove the nth value in the pack.
+// Reduces the size of the list by 1 as a result.
 namespace boost {
 	namespace tmp {
 		template <typename N = uint_<0>, typename C = listify_>

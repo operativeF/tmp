@@ -16,6 +16,7 @@ namespace boost {
 		struct find_if_ {};
 		namespace detail {
 			template <typename T>
+			// @TODO: Document this workaround more thoroughly.
 			using id_ = T; // weird clang workaround
 			template <bool Found, int At, template <typename...> class F>
 			struct county {

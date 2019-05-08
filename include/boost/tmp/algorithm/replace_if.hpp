@@ -1,7 +1,8 @@
 #ifndef BOOST_TMP_REPLACE_IF_HPP_INCLUDED
 #define BOOST_TMP_REPLACE_IF_HPP_INCLUDED
 
-//  Copyright 2018 Odin Holmes.
+//  Copyright 2018-2019 Odin Holmes.
+//                      Thomas Figueroa.
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //
@@ -16,6 +17,8 @@
 #include "../sequence/join.hpp"
 #include "../vocabulary.hpp"
 
+/// \brief Given a variadic parameter pack, replace every value that fulfills
+/// the predicate F with the value Input.
 namespace boost {
 	namespace tmp {
 		template <typename Input, typename F, typename C = listify_>

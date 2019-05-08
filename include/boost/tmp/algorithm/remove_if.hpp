@@ -16,6 +16,8 @@
 #include "../sequence/join.hpp"
 #include "../vocabulary.hpp"
 
+/// \brief Given a predicate F, check the variadic parameter pack passed in
+/// and remove the value if the predicate holds true.
 namespace boost {
 	namespace tmp {
 		template <typename F, typename C = listify_>

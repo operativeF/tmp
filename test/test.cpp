@@ -1,4 +1,5 @@
 //  Copyright 2018-2019 Odin Holmes.
+//                      Thomas Figueroa.
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //
@@ -7,19 +8,25 @@
 
 #include "contains_test.hpp"
 #include "count_if_test.hpp"
+#include "drop_test.hpp"
 #include "erase_test.hpp"
 #include "filter_test.hpp"
-#include "tee_test.hpp"
 //#include "find_if_test.hpp" @TODO: Currently not working with clang (any version)
 #include "fold_left_test.hpp"
 #include "fold_right_test.hpp"
+#include "insert_test.hpp"
 #include "join_test.hpp"
 #include "logic_test.hpp"
 #include "partition_test.hpp"
 #include "product_test.hpp"
+#include "remove_if_test.hpp"
+#include "replace_if_test.hpp"
 #include "reverse_test.hpp"
+#include "size_test.hpp"
+#include "swap_test.hpp"
 #include "sort_test.hpp"
 #include "take_test.hpp"
+#include "tee_test.hpp"
 #include "transform_test.hpp"
 #include "try_test.hpp"
 #include "zip_with_index_test.hpp"
@@ -188,6 +195,7 @@ void f(int){}
 
 
 
+// @TODO: Make this parallel, eventually.
 int main() {
 
 
@@ -211,8 +219,26 @@ int main() {
 
     r = visit(visitor,make_variant(j),make_variant(k));
 
-	return join_test::run() || transform_test::run() || fold_left_test::run() ||
-														zip_with_index_test::run()||
-														filter_test::run();
+	return    contains_test::run()
+		   || count_if_test::run()
+		   || drop_test::run()
+		   || erase_test::run()
+		   || filter_test::run()
+		   || fold_left_test::run()
+		   || fold_right_test::run()
+		   || join_test::run()
+		   || logic_test::run()
+		   || partition_test::run()
+		   || product_test::run()
+		   || remove_if_test::run()
+		   || replace_if_test::run()
+		   || reverse_test::run()
+		   || size_test::run()
+		   || swap_test::run()
+		   || take_test::run()
+		   || transform_test::run()
+		   || try_test::run()
+		   || zip_with_index_test::run();
+		   //|| insert_test::run();
 }
 

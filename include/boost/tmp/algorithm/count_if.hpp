@@ -16,6 +16,10 @@
 #include "../sequence/size.hpp"
 #include "../vocabulary.hpp"
 
+/// \brief Given a predicate F, check the variadic parameter pack passed in and count
+/// each time that the predicate holds true. Returns n counts as uint_<n>.
+/// \example
+/// 
 namespace boost {
 	namespace tmp {
 		template <typename F, typename C = identity_>

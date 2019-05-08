@@ -18,6 +18,7 @@
 
 namespace boost {
 	namespace tmp {
+		/// \brief Given a predicate P, if true, return T, and if false, return F.
 		template <typename P, typename T, typename F = always_<nothing_>>
 		struct if_ {};
 

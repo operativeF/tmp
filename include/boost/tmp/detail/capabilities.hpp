@@ -2,6 +2,7 @@
 #define BOOST_TMP_CAPABILITIES_HPP_INCLUDED
 
 #if __clang_major__ == 3
+// @TODO: This bug should be documented in some fashion.
 #define BOOST_TMP_CLANG_ARITY_BUG
 #endif
 #if __cplusplus >= 201103L

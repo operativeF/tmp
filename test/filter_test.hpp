@@ -26,23 +26,23 @@ namespace filter_test {
 	using result0 = tmp::call_<tmp::unpack_<tmp::filter_<tmp::lift_<is_even>>>, xs0>;
 
 	int run() {
-		using make_filtered_sequence = make_sequence_<identity_, filter_<lift_<is_even>>>;
-		using make_stride2_sequence =
-		        lift_<divide_by_two_celing, make_sequence_<lift_<multiply_by_2>>>;
+		//using make_filtered_sequence = make_sequence_<identity_, filter_<lift_<is_even>>>;
+		//using make_stride2_sequence =
+		//        lift_<divide_by_two_celing, make_sequence_<lift_<multiply_by_2>>>;
 
 		//call_<make_sequence_<make_algo<make_stride2_sequence>>, extent>{} =
 		//        call_<make_sequence_<make_algo<make_filtered_sequence>>, extent>{};
 
 		// fusion
 #ifdef BOOST_TMP_CPP14
-		int i                 = 1;
-		std::pair<int, int>{} = pack_(false, 'a', i, 2, true) >>=
-		        filter_<lift_<std::remove_reference_t, is_<int>>>{} |
-		        [](auto l, auto r) { return std::make_pair(l, r); };
-		(void)(1 ==
-		       (pack_(false, 'a', 1, true) >>=
-		        filter_<lift_<std::remove_reference_t, is_<int>>>{} | [](auto l) { return l; }));
-		pack_() = pack_() >>= filter_<lift_<is_even>>{};
+		//int i                 = 1;
+		//std::pair<int, int>{} = pack_(false, 'a', i, 2, true) >>=
+		//        filter_<lift_<std::remove_reference_t, is_<int>>>{} |
+		//        [](auto l, auto r) { return std::make_pair(l, r); };
+		//(void)(1 ==
+		//       (pack_(false, 'a', 1, true) >>=
+		//        filter_<lift_<std::remove_reference_t, is_<int>>>{} | [](auto l) { return l; }));
+		//pack_() = pack_() >>= filter_<lift_<is_even>>{};
 #endif
 
 		return 0;

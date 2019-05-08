@@ -8,6 +8,7 @@
 #include <memory>
 #include "test_util.hpp"
 #include "../include/boost/tmp/logic.hpp"
+#include "../include/boost/tmp/vocabulary.hpp"
 
 namespace logic_test {
 	template <typename T>

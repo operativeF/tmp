@@ -5,10 +5,17 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include "test_util.hpp"
+#include "../include/boost/tmp/sequence/size.hpp"
+
 namespace size_test
 {
     int run()
     {
+        using alist = list_<uint_<0>, uint_<2>, uint_<4>>;
+
+        uint_<3>{} = call_<unpack_<size_<>>, alist>{};
+
         return 0;
     }
 } // namespace size_test

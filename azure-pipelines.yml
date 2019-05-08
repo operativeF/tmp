@@ -47,8 +47,6 @@ jobs:
         clang_version: '-5.0'
       clang_6.0:
         clang_version: '-6.0'
-      clang_latest:
-        clang_version: '++'
 
   steps:
   - script: |
@@ -59,6 +57,29 @@ jobs:
   - script: |
       mkdir build
       cd build
-      cmake .. -DCMAKE_CXX_COMPILER=clang-$(clang_version) -DMAKE_INCLUDE_TESTS=ON
+      cmake .. -DCMAKE_CXX_COMPILER=clang$(clang_version) -DMAKE_INCLUDE_TESTS=ON
       make VERBOSE=1
       ./boost_tmp_test
+
+- job: macos_clang
+  pool:
+    vmImage: macos-10.13
+  steps:
+  - script: |
+      mkdir build
+      cd build
+      cmake .. -DCMAKE_CXX_COMPILER=clang++ -DMAKE_INCLUDE_TESTS=ON
+      make VERBOSE=1
+      ./boost_tmp_test
+
+- job: msvc_2017
+  pool:
+    vmImage: vs2017-win2016
+  steps:
+  - script: |
+      mkdir build
+      cd build
+      cmake .. -DMAKE_INCLUDE_TESTS=ON
+      cmake --build . --config Release
+      cd Release
+      boost_tmp_test

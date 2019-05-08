@@ -13,6 +13,12 @@
 #include "rotate.hpp"
 #include "../vocabulary.hpp"
 
+///
+// @BUG: This does not work as expected.
+// Inserting will cause a permutation of the current list with the
+// to-be-inserted value. Also, as long as N < size of input list, it'll compile.
+// Attempting to insert a value in a position greater than the size of the list
+// will result in an error, as the value goes negative.
 namespace boost {
 	namespace tmp {
 		template <typename N = uint_<0>, typename V = nothing_, typename C = listify_>
