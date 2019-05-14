@@ -5,10 +5,8 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-namespace rotate_test
-{
-    int run()
-    {
-        return 0;
-    }
+namespace rotate_test {
+	int run() {
+		return 0;
+	}
 } // namespace rotate_test

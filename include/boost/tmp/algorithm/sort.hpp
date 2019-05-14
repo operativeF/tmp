@@ -15,7 +15,6 @@
 #include "../sequence/take.hpp"
 #include "../vocabulary.hpp"
 
-
 namespace boost {
 	namespace tmp {
 		template <typename F = less_<>, typename C = listify_>

@@ -8,24 +8,24 @@
 #include "test_util.hpp"
 #include "../include/boost/tmp/algorithm/product.hpp"
 
-namespace product_test
-{
+namespace product_test {
 
-	using xl0 = list_<uint_<1>, uint_<2>, uint_<3>, uint_<4>, uint_<5>, uint_<6>, uint_<7>, uint_<8>, uint_<9>, uint_<10>>;
-	using xr0 = list_<uint_<1>, uint_<2>, uint_<3>, uint_<4>, uint_<5>, uint_<6>, uint_<7>, uint_<8>, uint_<9>, uint_<10>>;
+	using xl0 = list_<uint_<1>, uint_<2>, uint_<3>, uint_<4>, uint_<5>, uint_<6>, uint_<7>,
+	                  uint_<8>, uint_<9>, uint_<10>>;
+	using xr0 = list_<uint_<1>, uint_<2>, uint_<3>, uint_<4>, uint_<5>, uint_<6>, uint_<7>,
+	                  uint_<8>, uint_<9>, uint_<10>>;
 
 	using result0 = call_<product_<>, xl0, xr0>;
 
 	using xl1 = list_<uint_<1>, uint_<2>, uint_<3>>;
 	using xr1 = list_<uint_<1>, uint_<2>, uint_<3>>;
-	
+
 	using result1 = call_<product_<>, xl1, xr1>;
 	int run() {
-		list_<
-			list_<uint_<1>, uint_<1>>, list_<uint_<1>, uint_<2>>, list_<uint_<1>, uint_<3>>,
-			list_<uint_<2>, uint_<1>>, list_<uint_<2>, uint_<2>>, list_<uint_<2>, uint_<3>>,
-			list_<uint_<3>, uint_<1>>, list_<uint_<3>, uint_<2>>, list_<uint_<3>, uint_<3>>
-		>{} = result1{};
+		list_<list_<uint_<1>, uint_<1>>, list_<uint_<1>, uint_<2>>, list_<uint_<1>, uint_<3>>,
+		      list_<uint_<2>, uint_<1>>, list_<uint_<2>, uint_<2>>, list_<uint_<2>, uint_<3>>,
+		      list_<uint_<3>, uint_<1>>, list_<uint_<3>, uint_<2>>, list_<uint_<3>, uint_<3>>>{} =
+		        result1{};
 		return 0;
 	}
 } // namespace product_test

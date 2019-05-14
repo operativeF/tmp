@@ -12,7 +12,6 @@
 #include "rotate.hpp"
 #include "../vocabulary.hpp"
 
-
 namespace boost {
 	namespace tmp {
 		/// \brief Drop n values, starting from the front,

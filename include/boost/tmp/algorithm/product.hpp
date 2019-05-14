@@ -9,11 +9,10 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include "../call.hpp"
-#include "../vocabulary.hpp"
 #include "../sequence/join.hpp"
+#include "../vocabulary.hpp"
 
-
-namespace boost { 
+namespace boost {
 	namespace tmp {
 		// \brief
 		// Given two lists, generates the Cartesian product of said lists (n x m tuples generated).
@@ -22,8 +21,9 @@ namespace boost {
 		//	using xr0 = list_<x<1>, x<2>, ..., x<m>>;
 		//
 		//  using result = call_<product_<>, xl0, xr0>;
-		//  \text Will generate the Cartesian product of the lists xl0 and xr0, from xl0[1]-xl0[n] and xr0[1]-xr0[m]:
-		//  result = list_<list_<x<1>, x<1>>, list_<x<1>, x<2>>, ..., list_<x<1>, x<n>>, ..., list_<x<n>, x<1>>, list_<x<n>, x<2>>, ..., list_<x<n>, x<m>>>
+		//  \text Will generate the Cartesian product of the lists xl0 and xr0, from xl0[1]-xl0[n]
+		//  and xr0[1]-xr0[m]: result = list_<list_<x<1>, x<1>>, list_<x<1>, x<2>>, ..., list_<x<1>,
+		//  x<n>>, ..., list_<x<n>, x<1>>, list_<x<n>, x<2>>, ..., list_<x<n>, x<m>>>
 		template <typename F = listify_, typename C = listify_>
 		struct product_ {};
 

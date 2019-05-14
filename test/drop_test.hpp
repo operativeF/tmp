@@ -8,15 +8,13 @@
 #include "test_util.hpp"
 #include "../include/boost/tmp/sequence/drop.hpp"
 
-namespace drop_test
-{
-    int run()
-    {
-        using drop_list = list_<uint_<0>, uint_<1>>;
+namespace drop_test {
+	int run() {
+		using drop_list = list_<uint_<0>, uint_<1>>;
 
-        list_<uint_<1>>{} = call_<unpack_<drop_<uint_<1>>>, drop_list>{};
-        list_<>{}         = call_<unpack_<drop_<uint_<2>>>, drop_list>{};
+		list_<uint_<1>>{} = call_<unpack_<drop_<uint_<1>>>, drop_list>{};
+		list_<>{}         = call_<unpack_<drop_<uint_<2>>>, drop_list>{};
 
-        return 0;
-    }
+		return 0;
+	}
 } // namespace drop_test

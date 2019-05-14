@@ -19,7 +19,7 @@ namespace erase_test {
 	using result2 = call_<unpack_<erase_<uint_<9>>>, xs0>;
 
 	int run() {
-		
+
 		list_<x<2>, x<3>, x<4>, x<5>, x<6>, x<7>, x<8>, x<9>, x<10>>{} = result0{};
 		list_<x<1>, x<3>, x<4>, x<5>, x<6>, x<7>, x<8>, x<9>, x<10>>{} = result1{};
 		list_<x<1>, x<2>, x<3>, x<4>, x<5>, x<6>, x<7>, x<8>, x<9>>{}  = result2{};

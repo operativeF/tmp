@@ -10,7 +10,7 @@
 
 /*
 namespace tee_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
 	int run() {
 		{
@@ -50,11 +50,11 @@ namespace tee_test {
 			false_{} = call_<tee_<is_<int>, is_<int>, is_<int>, or_<>>, char>{};
 			true_{}  = call_<tee_<is_<int>, identity_, or_<>>,
                             int>{}; // short circuiting should save from hard error
-			true_{}  = call_<tee_<is_<int>, identity_, is_<int>, or_<>>,
+            true_{}  = call_<tee_<is_<int>, identity_, is_<int>, or_<>>,
                             int>{}; // short circuiting should save from hard error
-		}
+        }
 
-		return 0;
-	}
+        return 0;
+    }
 } // namespace tee_test
 */
