@@ -1,4 +1,19 @@
- # boost.tmp (Tacit Meta Programming) 
+## Build Status
+|  __Compiler__                 | __Test__ |
+|:-----------------------------:|:--------:|
+| VS2017 - MSVC C++14           | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=msvc_2017)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
+| Mac OS - clang latest         | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=macos_clang)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
+| Linux - g++ latest            | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=linux_gpp&configuration=linux_gpp%20gpp_latest)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
+| Linux - g++ 5                 | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=linux_gpp&configuration=linux_gpp%20gpp_5)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
+| Linux - g++ 6                 | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=linux_gpp&configuration=linux_gpp%20gpp_6)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
+| Linux - g++ 7                 | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=linux_gpp&configuration=linux_gpp%20gpp_7)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
+| Linux - clang 3.6             | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=linux_clang&configuration=linux_clang%20clang_3.6)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
+| Linux - clang 3.9             | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=linux_clang&configuration=linux_clang%20clang_3.9)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
+| Linux - clang 4.0             | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=linux_clang&configuration=linux_clang%20clang_4.0)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
+| Linux - clang 5.0             | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=linux_clang&configuration=linux_clang%20clang_5.0)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
+| Linux - clang 6.0             | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=linux_clang&configuration=linux_clang%20clang_6.0)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
+
+# boost.tmp (Tacit Meta Programming) 
  ## Warning! still work in progress
 I decided to rewrite all of kvasir::mpl on a slightly different paradigm to extend compiler support further back and get some more speed out of low arity calls. Therefore most of this code has seen little or no testing beyond the skimpy unit test coverage so far. Bug reports welcome, do not use this in anything you don't want to see blow up spectacularly... yet. 
 
