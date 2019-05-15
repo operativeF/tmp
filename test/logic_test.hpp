@@ -6,9 +6,10 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <memory>
+
+#include <boost/tmp/logic.hpp>
+#include <boost/tmp/vocabulary.hpp>
 #include "test_util.hpp"
-#include "../include/boost/tmp/logic.hpp"
-#include "../include/boost/tmp/vocabulary.hpp"
 
 namespace logic_test {
 	template <typename T>

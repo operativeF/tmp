@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(boost_tmp)
 
-# create the moost_tmp library target
 add_library(boost_tmp INTERFACE)
 # tmp requires a number of features to compile, this will automatically set the c++ standard version
 # to support those features. The c++ version is not explicitly set, so that cmake can figure
@@ -27,17 +26,22 @@ if(MSVC)
 	# Disable unreferenced inline function removal warning
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4514")
 	# Enable usage of updated __cplusplus macro
-	set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus" )
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus")	
 endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/boost/)
-
 add_executable(boost_tmp_test test/test.cpp)
-target_link_libraries(boost_tmp_test boost_tmp)
-target_compile_options(boost_tmp_test PUBLIC -ftemplate-depth=2048 -Wall)
+target_link_libraries(boost_tmp_test PRIVATE boost_tmp)
+target_include_directories(boost_tmp_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+if(MSVC)
+	target_compile_options(boost_tmp_test PRIVATE /Wall)
+else() # clang / GCC
+	target_compile_options(boost_tmp_test PRIVATE -ftemplate-depth=2048 -Wall)
+endif()
 
 option(MAKE_INCLUDE_TESTS OFF)
-if (MAKE_INCLUDE_TESTS)
+
+if(MAKE_INCLUDE_TESTS)
 	function(convert_name out filename)
 		string(REGEX REPLACE "[\\./]" "_" result "${filename}")
 		set(${out} ${result} PARENT_SCOPE)

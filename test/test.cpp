@@ -11,7 +11,7 @@
 #include "drop_test.hpp"
 #include "erase_test.hpp"
 #include "filter_test.hpp"
-//#include "find_if_test.hpp" @TODO: Currently not working with clang (any version)
+#include "find_if_test.hpp"   // @TODO: Currently not working with clang (any version)
 #include "fold_left_test.hpp"
 #include "fold_right_test.hpp"
 #include "insert_test.hpp"

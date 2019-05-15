@@ -9,7 +9,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <type_traits>
-#include "vocabulary.hpp"
+
+#include <boost/tmp/vocabulary.hpp>
 
 namespace boost {
 	namespace tmp {

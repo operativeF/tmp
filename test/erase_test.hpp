@@ -5,9 +5,10 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/sequence/erase.hpp>
+#include <boost/tmp/vocabulary.hpp>
 #include "test_util.hpp"
-#include "../include/boost/tmp/sequence/erase.hpp"
-#include "../include/boost/tmp/vocabulary.hpp"
+
 namespace erase_test {
 	template <int>
 	struct x;

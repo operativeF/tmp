@@ -8,8 +8,9 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include "detail/capabilities.hpp"
-#include "detail/dispatch.hpp"
+#include <boost/tmp/detail/capabilities.hpp>
+#include <boost/tmp/detail/dispatch.hpp>
+
 #include "identity.hpp"
 
 namespace boost {

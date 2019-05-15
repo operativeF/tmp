@@ -8,9 +8,10 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/identity.hpp>
+#include <boost/tmp/vocabulary.hpp>
 #include "drop.hpp"
-#include "../identity.hpp"
-#include "../vocabulary.hpp"
+
 namespace boost {
 	namespace tmp {
 		template <typename I, typename C = identity_>

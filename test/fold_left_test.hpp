@@ -5,9 +5,9 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/algorithm/fold_left.hpp>
+#include <boost/tmp/sequence/join.hpp>
 #include "test_util.hpp"
-#include "../include/boost/tmp/algorithm/fold_left.hpp"
-#include "../include/boost/tmp/sequence/join.hpp"
 
 namespace fold_left_test {
 	template <typename T, typename U>

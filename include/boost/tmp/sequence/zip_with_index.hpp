@@ -9,9 +9,10 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <utility>
-#include "../call.hpp"
-#include "../sequence/make_sequence.hpp"
-#include "../vocabulary.hpp"
+
+#include <boost/tmp/call.hpp>
+#include <boost/tmp/sequence/make_sequence.hpp>
+#include <boost/tmp/vocabulary.hpp>
 
 namespace boost {
 	namespace tmp {

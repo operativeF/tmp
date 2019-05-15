@@ -10,7 +10,7 @@
 
 #include "drop.hpp"
 #include "rotate.hpp"
-#include "../vocabulary.hpp"
+#include <boost/tmp/vocabulary.hpp>
 
 namespace boost {
 	namespace tmp {

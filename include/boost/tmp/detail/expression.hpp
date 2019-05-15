@@ -9,9 +9,10 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <type_traits>
+
+#include <boost/tmp/always.hpp>
+#include <boost/tmp/pack.hpp>
 #include "capabilities.hpp"
-#include "../always.hpp"
-#include "../pack.hpp"
 
 namespace boost {
 	namespace tmp {

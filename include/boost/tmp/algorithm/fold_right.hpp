@@ -10,9 +10,9 @@
 
 #include <utility>
 
-#include "../call.hpp"
-#include "../detail/dispatch.hpp"
-#include "../vocabulary.hpp"
+#include <boost/tmp/call.hpp>
+#include <boost/tmp/vocabulary.hpp>
+#include <boost/tmp/detail/dispatch.hpp>
 
 namespace boost {
 	namespace tmp {

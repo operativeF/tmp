@@ -9,8 +9,9 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 /// \brief Swaps two variadic parametic pack values. Must be only two values.
-#include "../identity.hpp"
-#include "../vocabulary.hpp"
+#include <boost/tmp/identity.hpp>
+#include <boost/tmp/vocabulary.hpp>
+
 namespace boost {
 	namespace tmp {
 		template <typename C = listify_>

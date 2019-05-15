@@ -8,10 +8,11 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/detail/dispatch.hpp>
+#include <boost/tmp/sequence/unpack.hpp>
+
 #include "always.hpp"
-#include "detail/dispatch.hpp"
 #include "identity.hpp"
-#include "sequence/unpack.hpp"
 #include "vocabulary.hpp"
 
 namespace boost {

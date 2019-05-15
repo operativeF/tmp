@@ -8,12 +8,13 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include "../algorithm/find_if.hpp"
-#include "../detail/capabilities.hpp"
-#include "../fusion.hpp"
-#include "../sequence/index.hpp"
-#include "../sequence/size.hpp"
-#include "../sequence/unpack.hpp"
+#include <boost/tmp/algorithm/find_if.hpp>
+#include <boost/tmp/detail/capabilities.hpp>
+#include <boost/tmp/fusion.hpp>
+#include <boost/tmp/sequence/index.hpp>
+#include <boost/tmp/sequence/size.hpp>
+#include <boost/tmp/sequence/unpack.hpp>
+
 namespace boost {
 	namespace tmp {
 #ifdef BOOST_TMP_CPP14

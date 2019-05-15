@@ -10,7 +10,7 @@
 
 #include "../detail/dispatch.hpp"
 #include "../sequence/unpack.hpp"
-#include "../vocabulary.hpp"
+#include <boost/tmp/vocabulary.hpp>
 
 namespace boost {
 	namespace tmp {

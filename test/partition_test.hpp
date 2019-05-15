@@ -6,8 +6,8 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/algorithm/partition.hpp>
 #include "test_util.hpp"
-#include "../include/boost/tmp/algorithm/partition.hpp"
 
 namespace partition_test {
 	using xs0 = list_<uint_<1>, uint_<2>, uint_<3>, uint_<4>, uint_<5>, uint_<6>, uint_<7>,

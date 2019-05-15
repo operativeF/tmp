@@ -11,7 +11,7 @@
 #include "drop.hpp"
 #include "push_front.hpp"
 #include "rotate.hpp"
-#include "../vocabulary.hpp"
+#include <boost/tmp/vocabulary.hpp>
 
 ///
 // @BUG: This does not work as expected.

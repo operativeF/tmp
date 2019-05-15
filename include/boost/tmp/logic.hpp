@@ -9,7 +9,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <type_traits>
-#include "algorithm/find_if.hpp"
+
+#include <boost/tmp/algorithm/find_if.hpp>
 #include "call.hpp"
 #include "comparison.hpp"
 #include "vocabulary.hpp"

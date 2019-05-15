@@ -8,10 +8,10 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include "../algorithm/contains.hpp"
-#include "../identity.hpp"
-#include "../logic.hpp"
-#include "../sequence/index.hpp"
+#include <boost/tmp/sequence/index.hpp>
+#include <boost/tmp/algorithm/contains.hpp>
+#include <boost/tmp/identity.hpp>
+#include <boost/tmp/logic.hpp>
 
 namespace boost {
 	namespace tmp {

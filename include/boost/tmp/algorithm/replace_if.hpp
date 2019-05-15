@@ -9,13 +9,13 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/always.hpp>
+#include <boost/tmp/call.hpp>
+#include <boost/tmp/if.hpp>
+#include <boost/tmp/vocabulary.hpp>
+#include <boost/tmp/detail/dispatch.hpp>
+#include <boost/tmp/sequence/join.hpp>
 #include "transform.hpp"
-#include "../always.hpp"
-#include "../call.hpp"
-#include "../detail/dispatch.hpp"
-#include "../if.hpp"
-#include "../sequence/join.hpp"
-#include "../vocabulary.hpp"
 
 /// \brief Given a variadic parameter pack, replace every value that fulfills
 /// the predicate F with the value Input.

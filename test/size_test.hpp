@@ -5,8 +5,8 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/sequence/size.hpp>
 #include "test_util.hpp"
-#include "../include/boost/tmp/sequence/size.hpp"
 
 namespace size_test {
 	int run() {

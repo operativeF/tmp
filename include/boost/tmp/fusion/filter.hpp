@@ -8,18 +8,18 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include "../algorithm/filter.hpp"
-#include "../call.hpp"
-#include "../comparison.hpp"
-#include "../detail/capabilities.hpp"
-#include "../detail/dispatch.hpp"
-#include "../detail/expression.hpp"
-#include "../pack.hpp"
-#include "../sequence/index.hpp"
-#include "../sequence/make_sequence.hpp"
-#include "../sequence/tee.hpp"
-#include "../sequence/zip_with_index.hpp"
-#include "../vocabulary.hpp"
+#include <boost/tmp/algorithm/filter.hpp>
+#include <boost/tmp/call.hpp>
+#include <boost/tmp/comparison.hpp>
+#include <boost/tmp/detail/capabilities.hpp>
+#include <boost/tmp/detail/dispatch.hpp>
+#include <boost/tmp/detail/expression.hpp>
+#include <boost/tmp/pack.hpp>
+#include <boost/tmp/sequence/index.hpp>
+#include <boost/tmp/sequence/make_sequence.hpp>
+#include <boost/tmp/sequence/tee.hpp>
+#include <boost/tmp/sequence/zip_with_index.hpp>
+#include <boost/tmp/vocabulary.hpp>
 
 namespace boost {
 	namespace tmp {

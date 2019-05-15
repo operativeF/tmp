@@ -6,11 +6,12 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <memory>
+
+#include <boost/tmp/comparison.hpp>
+#include <boost/tmp/fusion/find_if.hpp>
+#include <boost/tmp/pack.hpp>
+#include <boost/tmp/sequence/unpack.hpp>
 #include "test_util.hpp"
-#include "../include/boost/tmp/comparison.hpp"
-#include "../include/boost/tmp/fusion/find_if.hpp"
-#include "../include/boost/tmp/pack.hpp"
-#include "../include/boost/tmp/sequence/unpack.hpp"
 
 namespace find_if_test {
 	template <typename T>

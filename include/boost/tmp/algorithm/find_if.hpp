@@ -8,8 +8,9 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include "../detail/capabilities.hpp"
-#include "../vocabulary.hpp"
+#include <boost/tmp/vocabulary.hpp>
+#include <boost/tmp/detail/capabilities.hpp>
+
 namespace boost {
 	namespace tmp {
 		template <typename F, typename C = identity_>
@@ -32,7 +33,7 @@ namespace boost {
 			};
 
 			constexpr unsigned select_foldey_loop(int rest_size) {
-				return rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008;
+				return static_cast<unsigned>(rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008);
 			}
 			constexpr unsigned select_foldey(int chunk_size, int rest_size, int found_at_index) {
 				return found_at_index == -1 ? select_foldey_loop(rest_size) :

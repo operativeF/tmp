@@ -8,10 +8,10 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/vocabulary.hpp>
 #include "drop.hpp"
 #include "pop_front.hpp"
 #include "rotate.hpp"
-#include "../vocabulary.hpp"
 
 // \brief
 // Given a variadic parameter pack, remove the nth value in the pack.

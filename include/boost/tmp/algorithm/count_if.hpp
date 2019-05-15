@@ -8,13 +8,13 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include "transform.hpp"
-#include "../call.hpp"
-#include "../detail/dispatch.hpp"
-#include "../if.hpp"
-#include "../sequence/join.hpp"
-#include "../sequence/size.hpp"
-#include "../vocabulary.hpp"
+#include <boost/tmp/algorithm/transform.hpp>
+#include <boost/tmp/call.hpp>
+#include <boost/tmp/detail/dispatch.hpp>
+#include <boost/tmp/if.hpp>
+#include <boost/tmp/sequence/join.hpp>
+#include <boost/tmp/sequence/size.hpp>
+#include <boost/tmp/vocabulary.hpp>
 
 /// \brief Given a predicate F, check the variadic parameter pack passed in and count
 /// each time that the predicate holds true. Returns n counts as uint_<n>.

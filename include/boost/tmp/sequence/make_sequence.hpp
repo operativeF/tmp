@@ -9,10 +9,12 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <utility>
+
+#include <boost/tmp/algorithm/transform.hpp>
+#include <boost/tmp/call.hpp>
+#include <boost/tmp/vocabulary.hpp>
+
 #include "unpack.hpp"
-#include "../algorithm/transform.hpp"
-#include "../call.hpp"
-#include "../vocabulary.hpp"
 
 namespace boost {
 	namespace tmp {

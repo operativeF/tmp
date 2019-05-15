@@ -7,11 +7,14 @@
 //
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
-#include "detail/capabilities.hpp"
-#include "detail/expression.hpp"
-#include "detail/fusion_execute.hpp"
-#include "detail/fusion_rebind.hpp"
+
+#include <boost/tmp/detail/capabilities.hpp>
+#include <boost/tmp/detail/expression.hpp>
+#include <boost/tmp/detail/fusion_execute.hpp>
+#include <boost/tmp/detail/fusion_rebind.hpp>
+
 #include "pack.hpp"
+
 namespace boost {
 	namespace tmp {
 #ifdef BOOST_TMP_CPP14

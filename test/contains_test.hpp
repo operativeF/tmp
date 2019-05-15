@@ -5,9 +5,11 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/algorithm/contains.hpp>
+#include <boost/tmp/comparison.hpp>
+
 #include "test_util.hpp"
-#include "../include/boost/tmp/algorithm/contains.hpp"
-#include "../include/boost/tmp/comparison.hpp"
+
 namespace contains_test {
 	template <int>
 	struct x;
