@@ -1,3 +1,7 @@
+# boost.tmp (Tacit Meta Programming) 
+ ## Warning! still work in progress
+I decided to rewrite all of kvasir::mpl on a slightly different paradigm to extend compiler support further back and get some more speed out of low arity calls. Therefore most of this code has seen little or no testing beyond the skimpy unit test coverage so far. Bug reports welcome, do not use this in anything you don't want to see blow up spectacularly... yet. 
+
 ## Build Status
 |  __Compiler__                 | __Test__ |
 |:-----------------------------:|:--------:|
@@ -12,10 +16,6 @@
 | Linux - clang 4.0             | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=linux_clang&configuration=linux_clang%20clang_4.0)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
 | Linux - clang 5.0             | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=linux_clang&configuration=linux_clang%20clang_5.0)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
 | Linux - clang 6.0             | [![Build Status](https://dev.azure.com/luckyware/boost_tmp/_apis/build/status/operativeF.tmp?branchName=operativef_dev&jobName=linux_clang&configuration=linux_clang%20clang_6.0)](https://dev.azure.com/luckyware/boost_tmp/_build/latest?definitionId=11?branchName=operativef_dev)
-
-# boost.tmp (Tacit Meta Programming) 
- ## Warning! still work in progress
-I decided to rewrite all of kvasir::mpl on a slightly different paradigm to extend compiler support further back and get some more speed out of low arity calls. Therefore most of this code has seen little or no testing beyond the skimpy unit test coverage so far. Bug reports welcome, do not use this in anything you don't want to see blow up spectacularly... yet. 
 
  ### What is boost.tmp?
 A (not yet submitted to) boost general purpose Template Meta Programming (TMP) library which covers the domains of boost.MPL, boost.Fusion, boost.mp11 and boost.hana. 
