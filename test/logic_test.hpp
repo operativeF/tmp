@@ -7,8 +7,7 @@
 
 #include <memory>
 
-#include <boost/tmp/logic.hpp>
-#include <boost/tmp/vocabulary.hpp>
+#include <boost/tmp.hpp>
 #include "test_util.hpp"
 
 namespace logic_test {

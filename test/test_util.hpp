@@ -8,10 +8,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/tmp/call.hpp>
-#include <boost/tmp/sequence/make_sequence.hpp>
-#include <boost/tmp/sequence/push_front.hpp>
-#include <boost/tmp/sequence/tee.hpp>
+#include <boost/tmp.hpp>
 
 using namespace boost::tmp;
 template <typename T>

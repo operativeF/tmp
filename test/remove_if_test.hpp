@@ -5,7 +5,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/tmp/algorithm/remove_if.hpp>
+#include <boost/tmp.hpp>
 #include "test_util.hpp"
 
 namespace remove_if_test {

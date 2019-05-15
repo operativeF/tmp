@@ -5,11 +5,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/tmp/comparison.hpp>
-#include <boost/tmp/fusion.hpp>
-#include <boost/tmp/fusion/filter.hpp>
-#include <boost/tmp/pack.hpp>
-#include <boost/tmp/sequence/zip.hpp>
+#include <boost/tmp.hpp>
 #include "test_util.hpp"
 
 namespace filter_test {

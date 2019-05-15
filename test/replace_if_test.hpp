@@ -5,7 +5,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/tmp/algorithm/replace_if.hpp>
+#include <boost/tmp.hpp>
 #include "test_util.hpp"
 
 namespace replace_if_test {

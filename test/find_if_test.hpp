@@ -7,10 +7,7 @@
 
 #include <memory>
 
-#include <boost/tmp/comparison.hpp>
-#include <boost/tmp/fusion/find_if.hpp>
-#include <boost/tmp/pack.hpp>
-#include <boost/tmp/sequence/unpack.hpp>
+#include <boost/tmp.hpp>
 #include "test_util.hpp"
 
 namespace find_if_test {

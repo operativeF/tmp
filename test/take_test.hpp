@@ -5,8 +5,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/tmp/sequence/take.hpp>
-#include <boost/tmp/vocabulary.hpp>
+#include <boost/tmp.hpp>
 #include "test_util.hpp"
 
 namespace take_test {
