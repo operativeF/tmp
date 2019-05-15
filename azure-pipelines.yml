@@ -3,83 +3,167 @@ trigger:
     include:
     - operativef-dev
 
-jobs:
-- job: linux_gpp
-  pool:
-    vmImage: 'ubuntu-16.04'
-    
-  strategy:
-    matrix:
-      gpp_5:
-        g++_version: '-5'
-      gpp_6:
-        g++_version: '-6'
-      gpp_7:
-        g++_version: '-7'
-      gpp_latest:
-        g++_version: ''
+stages:
+  - stage: build_linux_gpp
+    dependsOn: []
+    displayName: G++ Linux Build
+    jobs:
+    - job: build
+      pool:
+        vmImage: 'ubuntu-16.04'
+        
+      strategy:
+        matrix:
+          gpp_5:
+            g++_version: '-5'
+          gpp_6:
+            g++_version: '-6'
+          gpp_7:
+            g++_version: '-7'
+          gpp_latest:
+            g++_version: ''
 
-  steps:
-  - script: |
-      sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-      sudo add-apt-repository ppa:george-edison55/precise-backports
-      sudo apt-get install g++$(g++_version) cmake
-  - script: |
-      mkdir build
-      cd build
-      cmake .. -DCMAKE_CXX_COMPILER=g++$(g++_version) -DMAKE_INCLUDE_TESTS=ON
-      make VERBOSE=1
-      ./boost_tmp_test
+      steps:
+      - script: |
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+          sudo add-apt-repository ppa:george-edison55/precise-backports
+          sudo apt-get install g++$(g++_version) cmake
+      - script: |
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_CXX_COMPILER=g++$(g++_version) -DMAKE_INCLUDE_TESTS=ON
+          make VERBOSE=1
+      - task: PublishPipelineArtifact@0
+        inputs:
+          artifactName: 'boost_tmp_test'
+          targetPath: '${Build.SourcesDirectory}/build'
 
-- job: linux_clang
-  pool:
-    vmImage: 'ubuntu-16.04'
+  - stage: test_linux_gpp
+    displayName: G++ Linux Test
+    dependsOn: build_linux_gpp
+    jobs:
+    - job: test
+      pool:
+          vmImage: 'ubuntu-16.04'
+      steps:
+      - task: DownloadPipelineArtifact@0
+        inputs:
+          artifactName: 'boost_tmp_test'
+          targetPath: $(System.DefaultWorkingDirectory)
+      - script: boost_tmp_test
 
-  strategy:
-    matrix:
-      clang_3.6:
-        clang_version: '-3.6'
-      clang_3.9:
-        clang_version: '-3.9'
-      clang_4.0:
-        clang_version: '-4.0'
-      clang_5.0:
-        clang_version: '-5.0'
-      clang_6.0:
-        clang_version: '-6.0'
+  - stage: build_linux_clang
+    dependsOn: []
+    displayName: Clang Linux Build
+    jobs:
+    - job: build
+      pool:
+        vmImage: 'ubuntu-16.04'
 
-  steps:
-  - script: |
-      sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-      sudo add-apt-repository ppa:george-edison55/precise-backports
-      sudo add-apt-repository "deb http://llvm.org/apt/precise/ llvm-toolchain-precise-$(clang_version) main"
-      sudo apt-get install clang$(clang_version) cmake cmake-data
-  - script: |
-      mkdir build
-      cd build
-      cmake .. -DCMAKE_CXX_COMPILER=clang$(clang_version) -DMAKE_INCLUDE_TESTS=ON
-      make VERBOSE=1
-      ./boost_tmp_test
+      strategy:
+        matrix:
+          clang_3.6:
+            clang_version: '-3.6'
+          clang_3.9:
+            clang_version: '-3.9'
+          clang_4.0:
+            clang_version: '-4.0'
+          clang_5.0:
+            clang_version: '-5.0'
+          clang_6.0:
+            clang_version: '-6.0'
 
-- job: macos_clang
-  pool:
-    vmImage: macos-10.13
-  steps:
-  - script: |
-      mkdir build
-      cd build
-      cmake .. -DCMAKE_CXX_COMPILER=clang++ -DMAKE_INCLUDE_TESTS=ON
-      make VERBOSE=1
-      ./boost_tmp_test
+      steps:
+      - script: |
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+          sudo add-apt-repository ppa:george-edison55/precise-backports
+          sudo add-apt-repository "deb http://llvm.org/apt/precise/ llvm-toolchain-precise-$(clang_version) main"
+          sudo apt-get install clang$(clang_version) cmake cmake-data
+      - script: |
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_CXX_COMPILER=clang$(clang_version) -DMAKE_INCLUDE_TESTS=ON
+          make VERBOSE=1
+      - task: PublishPipelineArtifact@0
+        inputs:
+          artifactName: 'boost_tmp_test'
+          targetPath: '${Build.SourcesDirectory}/build'
+          
+  - stage: test_linux_clang
+    displayName: Clang Linux Test
+    dependsOn: build_linux_clang
+    jobs:
+    - job: test
+      pool:
+        vmImage: 'ubuntu-16.04'
+      steps:
+      - task: DownloadPipelineArtifact@0
+        inputs:
+          artifactName: 'boost_tmp_test'
+          targetPath: $(System.DefaultWorkingDirectory)
+      - script: boost_tmp_test
 
-- job: msvc_2017
-  pool:
-    vmImage: vs2017-win2016
-  steps:
-  - script: |
-      mkdir build
-      cd build
-      cmake .. -DMAKE_INCLUDE_TESTS=ON
-      cmake --build . --config Release
-      cd Release
-      boost_tmp_test
+  - stage: build_macos_clang
+    dependsOn: []
+    displayName: Clang MacOS Build
+    jobs:
+    - job: macos_clang
+      pool:
+        vmImage: macos-10.13
+      steps:
+      - script: |
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_CXX_COMPILER=clang++ -DMAKE_INCLUDE_TESTS=ON
+          make VERBOSE=1
+      - task: PublishPipelineArtifact@0
+        inputs:
+          artifactName: 'boost_tmp_test'
+          targetPath: '${Build.SourcesDirectory}/build'
+
+  - stage: test_macos_clang
+    displayName: Clang MacOS Test
+    dependsOn: build_macos_clang
+    jobs:
+    - job: test
+      pool:
+        vmImage: vs2017-win2016
+      steps:
+      - task: DownloadPipelineArtifact@0
+        inputs:
+          artifactName: 'boost_tmp_test'
+          targetPath: $(System.DefaultWorkingDirectory)
+      - script: boost_tmp_test
+
+  - stage: build_msvc_2017
+    dependsOn: []
+    displayName: MSVC2017 Win10 Build
+    jobs:
+    - job: build
+      pool:
+        vmImage: vs2017-win2016
+      steps:
+      - script: |
+          mkdir build
+          cd build
+          cmake .. -DMAKE_INCLUDE_TESTS=ON
+          cmake --build . --config Release
+          cd Release
+      - task: PublishPipelineArtifact@0
+        inputs:
+          artifactName: 'boost_tmp_test'
+          targetPath: '${Build.SourcesDirectory}/build/Release'
+
+  - stage: test_msvc_2017
+    displayName: MSVC2017 Win10 Test
+    dependsOn: build_msvc_2017
+    jobs:
+    - job: test
+      pool:
+        vmImage: vs2017-win2016
+      steps:
+      - task: DownloadPipelineArtifact@0
+        inputs:
+          artifactName: 'boost_tmp_test'
+          targetPath: $(System.DefaultWorkingDirectory)
+      - script: boost_tmp_test
