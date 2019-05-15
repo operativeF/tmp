@@ -10,13 +10,13 @@ jobs:
     
   strategy:
     matrix:
-      g++ 5:
+      gpp_5:
         g++_version: '-5'
-      g++ 6:
+      gpp_6:
         g++_version: '-6'
-      g++ 7:
+      gpp_7:
         g++_version: '-7'
-      g++ latest:
+      gpp_latest:
         g++_version: ''
 
   steps:
