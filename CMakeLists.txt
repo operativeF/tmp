@@ -30,13 +30,13 @@ if(MSVC)
 endif()
 
 add_executable(boost_tmp_test test/test.cpp)
-target_link_libraries(boost_tmp_test PRIVATE boost_tmp)
-target_include_directories(boost_tmp_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(boost_tmp_test boost_tmp)
+target_include_directories(boost_tmp_test ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if(MSVC)
-	target_compile_options(boost_tmp_test PRIVATE /Wall)
+	target_compile_options(boost_tmp_test /Wall)
 else() # clang / GCC
-	target_compile_options(boost_tmp_test PRIVATE -ftemplate-depth=2048 -Wall)
+	target_compile_options(boost_tmp_test -ftemplate-depth=2048 -Wall)
 endif()
 
 option(MAKE_INCLUDE_TESTS OFF)
