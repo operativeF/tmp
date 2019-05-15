@@ -8,13 +8,13 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/algorithm/transform.hpp>
 #include <boost/tmp/always.hpp>
 #include <boost/tmp/call.hpp>
-#include <boost/tmp/if.hpp>
-#include <boost/tmp/vocabulary.hpp>
 #include <boost/tmp/detail/dispatch.hpp>
+#include <boost/tmp/if.hpp>
 #include <boost/tmp/sequence/join.hpp>
-#include "transform.hpp"
+#include <boost/tmp/vocabulary.hpp>
 
 /// \brief Given a predicate F, check the variadic parameter pack passed in
 /// and remove the value if the predicate holds true.

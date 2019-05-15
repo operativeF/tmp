@@ -9,7 +9,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/tmp/detail/dispatch.hpp>
-#include "identity.hpp"
+#include <boost/tmp/identity.hpp>
 
 namespace boost {
 	namespace tmp {

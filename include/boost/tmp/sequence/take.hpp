@@ -8,8 +8,8 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include "drop.hpp"
-#include "rotate.hpp"
+#include <boost/tmp/sequence/drop.hpp>
+#include <boost/tmp/sequence/rotate.hpp>
 #include <boost/tmp/vocabulary.hpp>
 
 namespace boost {

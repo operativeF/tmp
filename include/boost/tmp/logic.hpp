@@ -11,9 +11,9 @@
 #include <type_traits>
 
 #include <boost/tmp/algorithm/find_if.hpp>
-#include "call.hpp"
-#include "comparison.hpp"
-#include "vocabulary.hpp"
+#include <boost/tmp/call.hpp>
+#include <boost/tmp/comparison.hpp>
+#include <boost/tmp/vocabulary.hpp>
 
 namespace boost {
 	namespace tmp {

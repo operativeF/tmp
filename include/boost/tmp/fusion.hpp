@@ -12,8 +12,7 @@
 #include <boost/tmp/detail/expression.hpp>
 #include <boost/tmp/detail/fusion_execute.hpp>
 #include <boost/tmp/detail/fusion_rebind.hpp>
-
-#include "pack.hpp"
+#include <boost/tmp/pack.hpp>
 
 namespace boost {
 	namespace tmp {

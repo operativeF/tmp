@@ -6,7 +6,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include "test_util.hpp"
-#include "../include/boost/tmp/sequence/tee.hpp"
+#include <boost/tmp/sequence/tee.hpp>
 
 /*
 namespace tee_test {

@@ -8,12 +8,12 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/algorithm/fold_left.hpp>
 #include <boost/tmp/comparison.hpp>
 #include <boost/tmp/detail/capabilities.hpp>
 #include <boost/tmp/sequence/push_front.hpp>
 #include <boost/tmp/sequence/take.hpp>
 #include <boost/tmp/vocabulary.hpp>
-#include "fold_left.hpp"
 
 namespace boost {
 	namespace tmp {

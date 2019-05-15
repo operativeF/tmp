@@ -11,8 +11,8 @@
 #include <type_traits>
 
 #include <boost/tmp/always.hpp>
+#include <boost/tmp/detail/capabilities.hpp>
 #include <boost/tmp/pack.hpp>
-#include "capabilities.hpp"
 
 namespace boost {
 	namespace tmp {

@@ -8,11 +8,11 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/algorithm/filter.hpp>
+#include <boost/tmp/algorithm/remove_if.hpp>
 #include <boost/tmp/call.hpp>
-#include <boost/tmp/vocabulary.hpp>
 #include <boost/tmp/sequence/tee.hpp>
-#include "filter.hpp"
-#include "remove_if.hpp"
+#include <boost/tmp/vocabulary.hpp>
 
 namespace boost {
 	namespace tmp {

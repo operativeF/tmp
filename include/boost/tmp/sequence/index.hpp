@@ -9,8 +9,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/tmp/identity.hpp>
+#include <boost/tmp/sequence/drop.hpp>
 #include <boost/tmp/vocabulary.hpp>
-#include "drop.hpp"
 
 namespace boost {
 	namespace tmp {

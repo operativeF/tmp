@@ -8,7 +8,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include "vocabulary.hpp"
+#include <boost/tmp/vocabulary.hpp>
 
 #if defined(__has_builtin)
 #if __has_builtin(__type_pack_element)

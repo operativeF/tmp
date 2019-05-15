@@ -10,9 +10,9 @@
 
 #include <boost/tmp/detail/dispatch.hpp>
 #include <boost/tmp/logic.hpp>
+#include <boost/tmp/sequence/push_front.hpp>
+#include <boost/tmp/sequence/rotate.hpp>
 #include <boost/tmp/vocabulary.hpp>
-#include "push_front.hpp"
-#include "rotate.hpp"
 
 namespace boost {
 	namespace tmp {

@@ -10,8 +10,7 @@
 
 #include <boost/tmp/detail/capabilities.hpp>
 #include <boost/tmp/detail/dispatch.hpp>
-
-#include "identity.hpp"
+#include <boost/tmp/identity.hpp>
 
 namespace boost {
 	namespace tmp {
