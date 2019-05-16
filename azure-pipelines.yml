@@ -143,13 +143,13 @@ stages:
     jobs:
     - job: test
       pool:
-        vmImage: vs2017-win2016
+        vmImage: macos-10.13
       steps:
       - download: 'current'
         artifact: tmp_test_clang_latest
       - script: |
           cd $(Pipeline.Workspace)/tmp_test_clang_latest
-          boost_tmp_test
+          sudo chmod +x ./boost_tmp_test
 
   - stage: build_msvc_2017
     dependsOn: []
