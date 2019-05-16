@@ -58,8 +58,7 @@ stages:
         artifact: tmp_test_gpp$(g++_version)
       - script: |
           cd $(Pipeline.Workspace)/tmp_test_gpp$(g++_version)
-          ls
-          boost_tmp_test
+          ./boost_tmp_test
 
   - stage: build_linux_clang
     dependsOn: []
@@ -120,7 +119,7 @@ stages:
         artifact: tmp_test_clang$(clang_version)
       - script: |
           cd $(Pipeline.Workspace)/tmp_test_clang$(clang_version)
-          boost_tmp_test
+          ./boost_tmp_test
 
   - stage: build_macos_clang
     dependsOn: []
@@ -150,8 +149,7 @@ stages:
         artifact: tmp_test_clang_latest
       - script: |
           cd $(Pipeline.Workspace)/tmp_test_clang_latest
-          ls
-          boost_tmp_test
+          ./boost_tmp_test
 
   - stage: build_msvc_2017
     dependsOn: []
