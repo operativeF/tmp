@@ -33,7 +33,7 @@ stages:
           cd build
           cmake .. -DCMAKE_CXX_COMPILER=g++$(g++_version) -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
-      - upload: build/boost_tmp_test/*
+      - upload: build/boost_tmp_test
         artifact: tmp_test_gpp$(g++_version)
 
   - stage: test_linux_gpp
@@ -58,6 +58,7 @@ stages:
         artifact: tmp_test_gpp$(g++_version)
       - script: |
           cd $(Pipeline.Workspace)/tmp_test_gpp$(g++_version)
+          ls
           boost_tmp_test
 
   - stage: build_linux_clang
@@ -149,6 +150,7 @@ stages:
         artifact: tmp_test_clang_latest
       - script: |
           cd $(Pipeline.Workspace)/tmp_test_clang_latest
+          ls
           boost_tmp_test
 
   - stage: build_msvc_2017
