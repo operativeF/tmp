@@ -119,7 +119,8 @@ stages:
         artifact: tmp_test_clang$(clang_version)
       - script: |
           ls $(Pipeline.Workspace)
-          $(Pipeline.Workspace)/tmp_test_clang$(clang_version)/boost_tmp_test
+          cd $(Pipeline.Workspace)/tmp_test_clang$(clang_version)/boost_tmp_test
+          ls
 
   - stage: build_macos_clang
     dependsOn: []
@@ -181,5 +182,7 @@ stages:
       - script: |
           ls $(Pipeline.Workspace)
           $(Pipeline.Workspace)/tmp_test_msvc2017/boost_tmp_test
-          cd $(Pipeline.Workspace)
+          cd $(Pipeline.Workspace)/tmp_test_msvc2017
+          ls
+          cd boost_tmp_test
           ls
