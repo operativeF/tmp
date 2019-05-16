@@ -56,13 +56,9 @@ stages:
       steps:
       - download: 'current'
         artifact: tmp_test_gpp$(g++_version)
-      - task: CopyFiles@2
-        inputs:
-          sourceFolder: $(Pipeline.Workspace)/tmp_test_gpp$(g++_version)
-          targetFolder: $(Build.SourcesDirectory)/tmp_test_gpp$(g++_version)
       - script: |
-          cd $(Build.SourcesDirectory)/tmp_test_gpp$(g++_version)
-          ./boost_tmp_test
+          cd $(Pipeline.Workspace)/tmp_test_gpp$(g++_version)
+          sudo chmod +x ./boost_tmp_test
 
   - stage: build_linux_clang
     dependsOn: []
@@ -121,13 +117,9 @@ stages:
       steps:
       - download: 'current'
         artifact: tmp_test_clang$(clang_version)
-      - task: CopyFiles@2
-        inputs:
-          sourceFolder: $(Pipeline.Workspace)/tmp_test_clang$(clang_version)
-          targetFolder: $(Build.SourcesDirectory)/tmp_test_clang$(clang_version)
       - script: |
-          cd $(Build.SourcesDirectory)/tmp_test_gpp$(g++_version)
-          ./boost_tmp_test
+          cd $(Pipeline.Workspace)/tmp_test_clang$(clang_version)
+          sudo chmod +x ./boost_tmp_test
 
   - stage: build_macos_clang
     dependsOn: []
@@ -155,13 +147,9 @@ stages:
       steps:
       - download: 'current'
         artifact: tmp_test_clang_latest
-      - task: CopyFiles@2
-        inputs:
-          sourceFolder: $(Pipeline.Workspace)/tmp_test_clang_latest
-          targetFolder: $(Build.SourcesDirectory)/tmp_test_clang_latest
       - script: |
-          cd $(Build.SourcesDirectory)/tmp_test_clang_latest
-          ./boost_tmp_test
+          cd $(Pipeline.Workspace)/tmp_test_clang_latest
+          sudo chmod +x boost_tmp_test
 
   - stage: build_msvc_2017
     dependsOn: []
