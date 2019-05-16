@@ -33,10 +33,8 @@ stages:
           cd build
           cmake .. -DCMAKE_CXX_COMPILER=g++$(g++_version) -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
-      - task: PublishPipelineArtifact@0
-        inputs:
-          artifactName: 'boost_tmp_test'
-          targetPath: $(Build.SourcesDirectory)/build'
+      - upload: boost_tmp_test
+        artifact: tmp_test
 
   - stage: test_linux_gpp
     displayName: G++ Linux Test
@@ -46,10 +44,8 @@ stages:
       pool:
           vmImage: 'ubuntu-16.04'
       steps:
-      - task: DownloadPipelineArtifact@0
-        inputs:
-          artifactName: 'boost_tmp_test'
-          targetPath: $(System.DefaultWorkingDirectory)
+      - download:
+        artifact: tmp_test
       - script: boost_tmp_test
 
   - stage: build_linux_clang
@@ -84,10 +80,8 @@ stages:
           cd build
           cmake .. -DCMAKE_CXX_COMPILER=clang$(clang_version) -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
-      - task: PublishPipelineArtifact@0
-        inputs:
-          artifactName: 'boost_tmp_test'
-          targetPath: $(Build.SourcesDirectory)/build
+      - upload: boost_tmp_test
+        artifact: tmp_test
           
   - stage: test_linux_clang
     displayName: Clang Linux Test
@@ -97,10 +91,8 @@ stages:
       pool:
         vmImage: 'ubuntu-16.04'
       steps:
-      - task: DownloadPipelineArtifact@0
-        inputs:
-          artifactName: 'boost_tmp_test'
-          targetPath: $(System.DefaultWorkingDirectory)
+      - download:
+        artifact: tmp_test
       - script: boost_tmp_test
 
   - stage: build_macos_clang
@@ -116,10 +108,8 @@ stages:
           cd build
           cmake .. -DCMAKE_CXX_COMPILER=clang++ -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
-      - task: PublishPipelineArtifact@0
-        inputs:
-          artifactName: 'boost_tmp_test'
-          targetPath: $(Build.SourcesDirectory)/build
+      - upload: boost_tmp_test
+        artifact: tmp_test
 
   - stage: test_macos_clang
     displayName: Clang MacOS Test
@@ -129,10 +119,8 @@ stages:
       pool:
         vmImage: vs2017-win2016
       steps:
-      - task: DownloadPipelineArtifact@0
-        inputs:
-          artifactName: 'boost_tmp_test'
-          targetPath: $(System.DefaultWorkingDirectory)
+      - download:
+        artifact: tmp_test
       - script: boost_tmp_test
 
   - stage: build_msvc_2017
@@ -149,10 +137,8 @@ stages:
           cmake .. -DMAKE_INCLUDE_TESTS=ON
           cmake --build . --config Release
           cd Release
-      - task: PublishPipelineArtifact@0
-        inputs:
-          artifactName: 'boost_tmp_test'
-          targetPath: $(Build.SourcesDirectory)/build/Release
+      - upload: boost_tmp_test
+        artifact: tmp_test
 
   - stage: test_msvc_2017
     displayName: MSVC2017 Win10 Test
@@ -162,8 +148,6 @@ stages:
       pool:
         vmImage: vs2017-win2016
       steps:
-      - task: DownloadPipelineArtifact@0
-        inputs:
-          artifactName: 'boost_tmp_test'
-          targetPath: $(System.DefaultWorkingDirectory)
+      - download:
+        artifact: tmp_test
       - script: boost_tmp_test
