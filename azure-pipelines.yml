@@ -44,7 +44,7 @@ stages:
       pool:
           vmImage: 'ubuntu-16.04'
       steps:
-      - download:
+      - download: 'current'
         artifact: tmp_test
       - script: boost_tmp_test
 
@@ -91,7 +91,7 @@ stages:
       pool:
         vmImage: 'ubuntu-16.04'
       steps:
-      - download:
+      - download: 'current'
         artifact: tmp_test
       - script: boost_tmp_test
 
@@ -119,7 +119,7 @@ stages:
       pool:
         vmImage: vs2017-win2016
       steps:
-      - download:
+      - download: 'current'
         artifact: tmp_test
       - script: boost_tmp_test
 
@@ -148,6 +148,6 @@ stages:
       pool:
         vmImage: vs2017-win2016
       steps:
-      - download:
+      - download: 'current'
         artifact: tmp_test
       - script: boost_tmp_test
