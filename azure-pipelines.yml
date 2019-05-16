@@ -34,7 +34,7 @@ stages:
           cmake .. -DCMAKE_CXX_COMPILER=g++$(g++_version) -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
       - upload: build
-        artifact: tmp_test
+        artifact: tmp_test_g++$(g++_version)
 
   - stage: test_linux_gpp
     displayName: G++ Linux Test
@@ -43,9 +43,19 @@ stages:
     - job: test
       pool:
           vmImage: 'ubuntu-16.04'
+      strategy:
+        matrix:
+          gpp_5:
+            g++_version: '-5'
+          gpp_6:
+            g++_version: '-6'
+          gpp_7:
+            g++_version: '-7'
+          gpp_latest:
+            g++_version: ''
       steps:
       - download: 'current'
-        artifact: tmp_test
+        artifact: tmp_test_g++$(g++_version)
       - script: boost_tmp_test
 
   - stage: build_linux_clang
@@ -81,7 +91,7 @@ stages:
           cmake .. -DCMAKE_CXX_COMPILER=clang$(clang_version) -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
       - upload: build
-        artifact: tmp_test
+        artifact: tmp_test_clang$(clang_version)
           
   - stage: test_linux_clang
     displayName: Clang Linux Test
@@ -90,9 +100,21 @@ stages:
     - job: test
       pool:
         vmImage: 'ubuntu-16.04'
+      strategy:
+          matrix:
+            clang_3.6:
+              clang_version: '-3.6'
+            clang_3.9:
+              clang_version: '-3.9'
+            clang_4.0:
+              clang_version: '-4.0'
+            clang_5.0:
+              clang_version: '-5.0'
+            clang_6.0:
+              clang_version: '-6.0'
       steps:
       - download: 'current'
-        artifact: tmp_test
+        artifact: tmp_test_clang$(clang_version)
       - script: boost_tmp_test
 
   - stage: build_macos_clang
@@ -109,7 +131,7 @@ stages:
           cmake .. -DCMAKE_CXX_COMPILER=clang++ -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
       - upload: build
-        artifact: tmp_test
+        artifact: tmp_test_clang_latest
 
   - stage: test_macos_clang
     displayName: Clang MacOS Test
@@ -120,7 +142,7 @@ stages:
         vmImage: vs2017-win2016
       steps:
       - download: 'current'
-        artifact: tmp_test
+        artifact: tmp_test_clang_latest
       - script: boost_tmp_test
 
   - stage: build_msvc_2017
@@ -137,8 +159,8 @@ stages:
           cmake .. -DMAKE_INCLUDE_TESTS=ON
           cmake --build . --config Release
           cd Release
-      - upload: build
-        artifact: tmp_test
+      - upload: build/Release
+        artifact: tmp_test_msvc2017
 
   - stage: test_msvc_2017
     displayName: MSVC2017 Win10 Test
@@ -149,5 +171,7 @@ stages:
         vmImage: vs2017-win2016
       steps:
       - download: 'current'
-        artifact: tmp_test
-      - script: boost_tmp_test
+        artifact: tmp_test_msvc2017
+      - script: |
+          cd Release
+          boost_tmp_test
