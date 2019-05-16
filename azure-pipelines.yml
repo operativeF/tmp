@@ -33,7 +33,7 @@ stages:
           cd build
           cmake .. -DCMAKE_CXX_COMPILER=g++$(g++_version) -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
-      - upload: build/*
+      - upload: build
         artifact: tmp_test
 
   - stage: test_linux_gpp
@@ -80,7 +80,7 @@ stages:
           cd build
           cmake .. -DCMAKE_CXX_COMPILER=clang$(clang_version) -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
-      - upload: build/*
+      - upload: build
         artifact: tmp_test
           
   - stage: test_linux_clang
@@ -108,7 +108,7 @@ stages:
           cd build
           cmake .. -DCMAKE_CXX_COMPILER=clang++ -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
-      - upload: build/*
+      - upload: build
         artifact: tmp_test
 
   - stage: test_macos_clang
@@ -137,7 +137,7 @@ stages:
           cmake .. -DMAKE_INCLUDE_TESTS=ON
           cmake --build . --config Release
           cd Release
-      - upload: build/*
+      - upload: build
         artifact: tmp_test
 
   - stage: test_msvc_2017
