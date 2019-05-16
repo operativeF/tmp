@@ -56,7 +56,6 @@ stages:
       steps:
       - download: 'current'
         artifact: tmp_test_gpp$(g++_version)
-        path: tmp_test_gpp$(g++_version)
       - script: |
           ls $(Pipeline.Workspace)
           $(Pipeline.Workspace)/tmp_test_gpp$(g++_version)/boost_tmp_test
@@ -118,7 +117,6 @@ stages:
       steps:
       - download: 'current'
         artifact: tmp_test_clang$(clang_version)
-        path: tmp_test_clang$(clang_version)
       - script: |
           ls $(Pipeline.Workspace)
           $(Pipeline.Workspace)/tmp_test_clang$(clang_version)/boost_tmp_test
@@ -149,10 +147,9 @@ stages:
       steps:
       - download: 'current'
         artifact: tmp_test_clang_latest
-        path: macos_clang_build
       - script: |
           ls $(Pipeline.Workspace)
-          $(Pipeline.Workspace)/macos_clang_build/boost_tmp_test
+          $(Pipeline.Workspace)/tmp_test_clang_latest/boost_tmp_test
 
   - stage: build_msvc_2017
     dependsOn: []
@@ -181,9 +178,8 @@ stages:
       steps:
       - download: 'current'
         artifact: tmp_test_msvc2017
-        path: msvc_build
       - script: |
           ls $(Pipeline.Workspace)
-          $(Pipeline.Workspace)/msvc_build/boost_tmp_test
+          $(Pipeline.Workspace)/tmp_test_msvc2017/boost_tmp_test
           cd $(Pipeline.Workspace)
           ls
