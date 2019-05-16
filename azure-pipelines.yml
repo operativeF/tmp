@@ -149,7 +149,7 @@ stages:
         artifact: tmp_test_clang_latest
       - script: |
           cd $(Pipeline.Workspace)/tmp_test_clang_latest
-          sudo chmod +x boost_tmp_test
+          boost_tmp_test
 
   - stage: build_msvc_2017
     dependsOn: []
