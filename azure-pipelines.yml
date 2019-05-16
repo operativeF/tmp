@@ -34,7 +34,7 @@ stages:
           cmake .. -DCMAKE_CXX_COMPILER=g++$(g++_version) -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
       - upload: build
-        artifact: tmp_test_g++$(g++_version)
+        artifact: tmp_test_gpp$(g++_version)
 
   - stage: test_linux_gpp
     displayName: G++ Linux Test
@@ -55,8 +55,11 @@ stages:
             g++_version: ''
       steps:
       - download: 'current'
-        artifact: tmp_test_g++$(g++_version)
-      - script: boost_tmp_test
+        artifact: tmp_test_gpp$(g++_version)
+        path: tmp_test_gpp$(g++_version)
+      - script: |
+          ls $(Pipeline.Workspace)
+          $(Pipeline.Workspace)/tmp_test_gpp$(g++_version)/boost_tmp_test
 
   - stage: build_linux_clang
     dependsOn: []
@@ -115,7 +118,10 @@ stages:
       steps:
       - download: 'current'
         artifact: tmp_test_clang$(clang_version)
-      - script: boost_tmp_test
+        path: tmp_test_clang$(clang_version)
+      - script: |
+          ls $(Pipeline.Workspace)
+          $(Pipeline.Workspace)/tmp_test_clang$(clang_version)/boost_tmp_test
 
   - stage: build_macos_clang
     dependsOn: []
@@ -143,7 +149,10 @@ stages:
       steps:
       - download: 'current'
         artifact: tmp_test_clang_latest
-      - script: boost_tmp_test
+        path: macos_clang_build
+      - script: |
+          ls $(Pipeline.Workspace)
+          $(Pipeline.Workspace)/macos_clang_build/boost_tmp_test
 
   - stage: build_msvc_2017
     dependsOn: []
@@ -172,6 +181,9 @@ stages:
       steps:
       - download: 'current'
         artifact: tmp_test_msvc2017
+        path: msvc_build
       - script: |
-          cd Release
-          boost_tmp_test
+          ls $(Pipeline.Workspace)
+          $(Pipeline.Workspace)/msvc_build/boost_tmp_test
+          cd $(Pipeline.Workspace)
+          ls
