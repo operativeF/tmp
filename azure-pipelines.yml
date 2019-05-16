@@ -33,7 +33,7 @@ stages:
           cd build
           cmake .. -DCMAKE_CXX_COMPILER=g++$(g++_version) -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
-      - upload: build
+      - upload: build/**
         artifact: tmp_test_gpp$(g++_version)
 
   - stage: test_linux_gpp
@@ -57,8 +57,8 @@ stages:
       - download: 'current'
         artifact: tmp_test_gpp$(g++_version)
       - script: |
-          ls $(Pipeline.Workspace)
-          $(Pipeline.Workspace)/tmp_test_gpp$(g++_version)/boost_tmp_test
+          cd $(Pipeline.Workspace)/tmp_test_gpp$(g++_version)
+          boost_tmp_test
 
   - stage: build_linux_clang
     dependsOn: []
@@ -92,7 +92,7 @@ stages:
           cd build
           cmake .. -DCMAKE_CXX_COMPILER=clang$(clang_version) -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
-      - upload: build
+      - upload: build/**
         artifact: tmp_test_clang$(clang_version)
           
   - stage: test_linux_clang
@@ -118,9 +118,8 @@ stages:
       - download: 'current'
         artifact: tmp_test_clang$(clang_version)
       - script: |
-          ls $(Pipeline.Workspace)
-          cd $(Pipeline.Workspace)/tmp_test_clang$(clang_version)/boost_tmp_test
-          ls
+          cd $(Pipeline.Workspace)/tmp_test_clang$(clang_version)
+          boost_tmp_test
 
   - stage: build_macos_clang
     dependsOn: []
@@ -135,7 +134,7 @@ stages:
           cd build
           cmake .. -DCMAKE_CXX_COMPILER=clang++ -DMAKE_INCLUDE_TESTS=ON
           make VERBOSE=1
-      - upload: build
+      - upload: build/**
         artifact: tmp_test_clang_latest
 
   - stage: test_macos_clang
@@ -149,8 +148,8 @@ stages:
       - download: 'current'
         artifact: tmp_test_clang_latest
       - script: |
-          ls $(Pipeline.Workspace)
-          $(Pipeline.Workspace)/tmp_test_clang_latest/boost_tmp_test
+          cd $(Pipeline.Workspace)/tmp_test_clang_latest
+          boost_tmp_test
 
   - stage: build_msvc_2017
     dependsOn: []
@@ -180,9 +179,5 @@ stages:
       - download: 'current'
         artifact: tmp_test_msvc2017
       - script: |
-          ls $(Pipeline.Workspace)
-          $(Pipeline.Workspace)/tmp_test_msvc2017/boost_tmp_test
           cd $(Pipeline.Workspace)/tmp_test_msvc2017
-          ls
-          cd boost_tmp_test
-          ls
+          boost_tmp_test
