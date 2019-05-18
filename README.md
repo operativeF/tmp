@@ -204,9 +204,9 @@ using result = mpl::vector<
         typename std::remove_const<typename std::remove_reference<char>::type>::type,
         typename std::add_pointer<char>::type>::type>;
 ```
-the 'transpiler' behind the scenes is actually quite powerfull and capable of flowing the branches of a tree-like composition. There are however some caveats: only lazy metafunctions are supported, 'wrappers' (thik putting things in a list) are supported through a SFINAE test which can cause subtle surprising behavior and things get really complicated as soon as one tries to use a higher order function in another higher order function. 
+the 'transpiler' behind the scenes is actually quite powerful and capable of flowing the branches of a tree-like composition. There are however some caveats: only lazy metafunctions are supported, 'wrappers' (think putting things in a list) are supported through a SFINAE test which can cause subtle surprising behavior and things get really complicated as soon as one tries to use a higher order function in another higher order function. 
 
-Many other libraries have emerged since boost.MPL which have experimented with different kinds of higher metafunctions and composition, including my (in my opinion) failed attempt in the brigand library. Before kvasir none of them could support arbitrary complexity without a considerable performance penalty and many of them require duplication of the public interface in one form or another (like the lazy namespace in brigand or quoted and non-quoted interface in boost.mp11). 
+Many other libraries have emerged since boost.MPL which have experimented with different kinds of higher metafunctions and composition, including my (in my opinion) failed attempt in the brigand library. Before kvasir, none of them could support arbitrary complexity without a considerable performance penalty and many of them require duplication of the public interface in one form or another (like the lazy namespace in brigand or quoted and non-quoted interface in boost.mp11). 
 
  ### new concepts
 #### metaclosures
