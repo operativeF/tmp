@@ -8,7 +8,7 @@
 #include <boost/tmp.hpp>
 #include "test_util.hpp"
 
-/*
+
 namespace tee_test {
     using namespace boost::tmp;
 
@@ -57,4 +57,3 @@ namespace tee_test {
         return 0;
     }
 } // namespace tee_test
-*/
