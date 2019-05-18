@@ -22,6 +22,9 @@ namespace filter_test {
 	using result0 = tmp::call_<tmp::unpack_<tmp::filter_<tmp::lift_<is_even>>>, xs0>;
 
 	int run() {
+		list_<int_<2>, int_<4>, int_<6>, int_<8>, int_<10>>{} =
+		        tmp::call_<tmp::unpack_<tmp::filter_<tmp::lift_<is_even>>>, xs0>{};
+
 		// using make_filtered_sequence = make_sequence_<identity_, filter_<lift_<is_even>>>;
 		// using make_stride2_sequence =
 		//        lift_<divide_by_two_celing, make_sequence_<lift_<multiply_by_2>>>;
