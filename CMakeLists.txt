@@ -21,8 +21,6 @@ target_compile_features(boost_tmp INTERFACE
 
 set(CMAKE_CXX_STANDARD 17)
 if(MSVC)
-	# Disable relative include path warning
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4464")
 	# Disable unreferenced inline function removal warning
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4514")
 	# Enable usage of updated __cplusplus macro
