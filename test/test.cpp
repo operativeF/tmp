@@ -6,18 +6,20 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include "all_of_test.hpp"
 #include "clamp_test.hpp"
 #include "contains_test.hpp"
 #include "count_if_test.hpp"
 #include "drop_test.hpp"
 #include "erase_test.hpp"
 #include "filter_test.hpp"
-#include "find_if_test.hpp"   // @TODO: Currently not working with clang (any version)
+#include "find_if_test.hpp"
 #include "fold_left_test.hpp"
 #include "fold_right_test.hpp"
 #include "insert_test.hpp"
 #include "join_test.hpp"
 #include "logic_test.hpp"
+#include "none_of_test.hpp"
 #include "partition_test.hpp"
 #include "product_test.hpp"
 #include "remove_if_test.hpp"
