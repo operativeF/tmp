@@ -20,6 +20,9 @@ namespace boost {
 		template <typename V = nothing_, typename C = identity_>
 		struct less_ {};
 
+		template <typename V = nothing_, typename C = identity_>
+		struct greater_ {};
+
 		namespace detail {
 			template <typename P, typename C>
 			struct dispatch<1, is_<P, C>> {
@@ -37,6 +40,18 @@ namespace boost {
 			struct dispatch<1, less_<V, C>> {
 				template<typename T>
 				using f = typename dispatch<1, C>::template f < bool_<V::value<T::value>>;
+			};
+
+			template <typename C>
+			struct dispatch<2, greater_<C>> {
+				template <typename T, typename U>
+				using f = typename dispatch<1, C>::template f < bool_<U::value<T::value>>;
+			};
+
+			template <typename V, typename C>
+			struct dispatch<1, greater_<V, C>> {
+				template<typename T>
+				using f = typename dispatch<1, C>::template f < bool_<T::value<V::value>>;
 			};
 		} // namespace detail
 	} // namespace tmp

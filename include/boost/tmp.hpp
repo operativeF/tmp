@@ -8,6 +8,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/algorithm/clamp.hpp>
 #include <boost/tmp/algorithm/contains.hpp>
 #include <boost/tmp/algorithm/count_if.hpp>
 #include <boost/tmp/algorithm/filter.hpp>
