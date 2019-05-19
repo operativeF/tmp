@@ -9,6 +9,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/tmp/algorithm/all_of.hpp>
+#include <boost/tmp/algorithm/any_of.hpp>
 #include <boost/tmp/algorithm/clamp.hpp>
 #include <boost/tmp/algorithm/contains.hpp>
 #include <boost/tmp/algorithm/count_if.hpp>

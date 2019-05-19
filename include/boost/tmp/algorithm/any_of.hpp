@@ -1,5 +1,5 @@
-#ifndef BOOST_TMP_CLAMP_HPP_INCLUDED
-#define BOOST_TMP_CLAMP_HPP_INCLUDED
+#ifndef BOOST_TMP_ANY_OF_HPP_INCLUDED
+#define BOOST_TMP_ANY_OF_HPP_INCLUDED
 
 //  Copyright 2018-2019 Odin Holmes.
 //                      Thomas Figueroa.
@@ -9,25 +9,24 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/tmp/algorithm/filter.hpp>
-#include <boost/tmp/algorithm/remove_if.hpp>
+#include <boost/tmp/algorithm/find_if.hpp>
 #include <boost/tmp/call.hpp>
-#include <boost/tmp/comparison.hpp>
 #include <boost/tmp/identity.hpp>
 #include <boost/tmp/if.hpp>
 #include <boost/tmp/logic.hpp>
-#include <boost/tmp/sequence/tee.hpp>
 #include <boost/tmp/vocabulary.hpp>
 
 namespace boost {
 	namespace tmp {
-		template <typename L, typename H, typename C = identity_>
-		struct clamp_;
+		template <typename F = identity_, typename C = identity_>
+		struct any_of_;
 
 		namespace detail {
-			template <unsigned N, typename L, typename H, typename C>
-			struct dispatch<N, clamp_<L, H, C>>
-			    : dispatch<N, tee_<filter_<less_<L>, filter_<greater_<H>>>, C>> {};
+			template <unsigned N, typename F, typename C>
+			struct dispatch<N, any_of_<F, C>>
+			    : dispatch<N,
+			               find_if_<F, if_<is_<nothing_>, always_<false_, C>, always_<true_, C>>>> {
+			};
 		} // namespace detail
 	} // namespace tmp
 } // namespace boost
