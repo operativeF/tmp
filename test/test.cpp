@@ -13,6 +13,7 @@
 #include "count_if_test.hpp"
 #include "drop_test.hpp"
 #include "erase_test.hpp"
+#include "extrema_test.hpp"
 #include "filter_test.hpp"
 #include "find_if_test.hpp"
 #include "fold_left_test.hpp"

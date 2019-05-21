@@ -13,6 +13,7 @@
 #include <boost/tmp/algorithm/clamp.hpp>
 #include <boost/tmp/algorithm/contains.hpp>
 #include <boost/tmp/algorithm/count_if.hpp>
+#include <boost/tmp/algorithm/extrema.hpp>
 #include <boost/tmp/algorithm/filter.hpp>
 #include <boost/tmp/algorithm/find_if.hpp>
 #include <boost/tmp/algorithm/fold_left.hpp>
