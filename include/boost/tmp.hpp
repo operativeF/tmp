@@ -2,6 +2,7 @@
 #define BOOST_TMP_HPP_INCLUDED
 
 //  Copyright 2018 Odin Holmes.
+//            2019 Thomas Figueroa.
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //
@@ -21,6 +22,7 @@
 #include <boost/tmp/algorithm/none_of.hpp>
 #include <boost/tmp/algorithm/partition.hpp>
 #include <boost/tmp/algorithm/product.hpp>
+#include <boost/tmp/algorithm/range_math.hpp>
 #include <boost/tmp/algorithm/remove_if.hpp>
 #include <boost/tmp/algorithm/replace_if.hpp>
 #include <boost/tmp/algorithm/sort.hpp>

@@ -13,6 +13,7 @@
 #include <boost/tmp/detail/capabilities.hpp>
 #include <boost/tmp/sequence/push_front.hpp>
 #include <boost/tmp/sequence/take.hpp>
+#include <boost/tmp/sequence/unpack.hpp>
 #include <boost/tmp/vocabulary.hpp>
 
 namespace boost {
