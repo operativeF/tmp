@@ -22,7 +22,7 @@ namespace boost {
 		struct extrema_ {};
 
 		namespace detail {
-			constexpr unsigned extrema_select(unsigned N) {
+			constexpr int extrema_select(unsigned N) {
 				return N == 0 ? 0 :
 				                N < 2 ?
 				                1 :
