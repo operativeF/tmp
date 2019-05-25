@@ -27,6 +27,7 @@ stages:
       - script: |
           sudo add-apt-repository ppa:ubuntu-toolchain-r/test
           sudo add-apt-repository ppa:george-edison55/precise-backports
+          sudo apt-get update
           sudo apt-get install g++$(g++_version) cmake
       - script: |
           mkdir build
