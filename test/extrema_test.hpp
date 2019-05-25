@@ -10,17 +10,17 @@
 #include "test_util.hpp"
 
 namespace extrema_test {
-    using alist = list_<uint_<6>, uint_<5>, uint_<11>>;
-	using blist = list_<uint_<11>, uint_<6>, uint_<5>>;
-	using clist = list_<uint_<5>, uint_<11>, uint_<6>, uint_<1>>;
-	using dlist = list_<uint_<5>, uint_<70>, uint_<61>, uint_<1>>;
+    using alist = list_<int_<6>, int_<5>, int_<11>>;
+	using blist = list_<int_<11>, int_<6>, int_<5>>;
+	using clist = list_<int_<5>, int_<11>, int_<6>, int_<1>>;
+	using dlist = list_<int_<-5>, int_<70>, int_<61>, int_<1>>;
 
 	int run() {
-    	uint_<5>{} = call_<unpack_<min_element_<>>, alist>{};
-    	uint_<5>{} = call_<unpack_<min_element_<>>, blist>{};
-    	uint_<11>{} = call_<unpack_<max_element_<>>, clist>{};
-    	uint_<11>{} = call_<unpack_<max_element_<>>, alist>{};
-    	uint_<70>{} = call_<unpack_<max_element_<>>, dlist>{};
+    	int_<5>{} = call_<unpack_<min_element_<>>, alist>{};
+    	int_<5>{} = call_<unpack_<min_element_<>>, blist>{};
+    	int_<11>{} = call_<unpack_<max_element_<>>, clist>{};
+    	int_<11>{} = call_<unpack_<max_element_<>>, alist>{};
+    	int_<70>{} = call_<unpack_<max_element_<>>, dlist>{};
 
 		return 0;
 	}

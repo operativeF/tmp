@@ -110,10 +110,10 @@ namespace boost {
 			};
 
 			template <typename T, typename U>
-			using lesser_v = uint_<(T::value < U::value) ? T::value : U::value>;
+			using lesser_v = int_<(T::value < U::value) ? T::value : U::value>;
 
 			template <typename T, typename U>
-			using greater_v = uint_<!(T::value < U::value) ? T::value : U::value>;
+			using greater_v = int_<!(T::value < U::value) ? T::value : U::value>;
 		} // namespace detail
 
 		template <typename C = identity_>
