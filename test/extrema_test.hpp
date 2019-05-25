@@ -11,17 +11,16 @@
 
 namespace extrema_test {
     using alist = list_<uint_<6>, uint_<5>, uint_<11>>;
-	template <typename T, typename U>
-	using add = uint_<(T::value + U::value)>;
-
-	template <typename T, typename U>
-	using lesser_v = uint_<(T::value < U::value) ? T::value : U::value>;
-
-	template <typename T, typename U>
-	using greater_v = uint_<(U::value < T::value) ? U::value : T::value>;
+	using blist = list_<uint_<11>, uint_<6>, uint_<5>>;
+	using clist = list_<uint_<5>, uint_<11>, uint_<6>, uint_<1>>;
+	using dlist = list_<uint_<5>, uint_<70>, uint_<61>, uint_<1>>;
 
 	int run() {
-    uint_<5>{} = call_<unpack_<extrema_<lift_<lesser_v>>>, alist>{};
+    	uint_<5>{} = call_<unpack_<min_element_<>>, alist>{};
+    	uint_<5>{} = call_<unpack_<min_element_<>>, blist>{};
+    	uint_<11>{} = call_<unpack_<max_element_<>>, clist>{};
+    	uint_<11>{} = call_<unpack_<max_element_<>>, alist>{};
+    	uint_<70>{} = call_<unpack_<max_element_<>>, dlist>{};
 
 		return 0;
 	}

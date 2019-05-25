@@ -109,7 +109,19 @@ namespace boost {
 				              T53, T54, T55, T56, T57, T58, T59, T60, T61, T62, T63>;
 			};
 
+			template <typename T, typename U>
+			using lesser_v = uint_<(T::value < U::value) ? T::value : U::value>;
+
+			template <typename T, typename U>
+			using greater_v = uint_<!(T::value < U::value) ? T::value : U::value>;
 		} // namespace detail
+
+		template <typename C = identity_>
+		using max_element_ = extrema_<lift_<detail::greater_v>, C>;
+
+		template <typename C = identity_>
+		using min_element_ = extrema_<lift_<detail::lesser_v>, C>;
+
 	} // namespace tmp
 } // namespace boost
 
