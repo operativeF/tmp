@@ -39,6 +39,7 @@
 #include "set_test.hpp"
 
 
+#include <algorithm>
 #include <type_traits>
 #include <variant>
 #include <new>

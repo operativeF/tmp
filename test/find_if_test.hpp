@@ -34,7 +34,7 @@ namespace find_if_test {
 
 		uint_<400>{} = call_<make_sequence_<identity_, find_if_<is_<uint_<400>>>>, uint_<500>>{};
 #ifdef BOOST_TMP_CPP14
-
+		/*
 		constexpr auto xs0 = tmp::val_pack_(
 
 		);
@@ -52,6 +52,7 @@ namespace find_if_test {
 		(void)(1 == (val_pack_(false, 'a', 1, true) >>= find_if_<is_<int>>{}));
 
 		std::unique_ptr<int> p = pack_(std::unique_ptr<int>{}) >>= find_if_<always_<true_>>{};
+		*/
 #endif
 		return 0;
 	}
