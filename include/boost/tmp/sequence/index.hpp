@@ -10,6 +10,7 @@
 
 #include <boost/tmp/identity.hpp>
 #include <boost/tmp/sequence/drop.hpp>
+#include <boost/tmp/sequence/unpack.hpp>
 #include <boost/tmp/vocabulary.hpp>
 
 namespace boost {

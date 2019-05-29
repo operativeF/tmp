@@ -99,6 +99,8 @@ stages:
               clang_version: '-5.0'
             clang_6.0:
               clang_version: '-6.0'
+            clang_7.0:
+              clang_version: '-7.0'
       steps:
       - download: 'current'
         artifact: tmp_test_clang$(clang_version)
