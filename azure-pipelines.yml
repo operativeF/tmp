@@ -130,7 +130,7 @@ stages:
     jobs:
     - job: test
       pool:
-        vmImage: macos-10.13
+        vmImage: macos-10.14
       steps:
       - download: 'current'
         artifact: tmp_test_clang_latest
@@ -140,7 +140,7 @@ stages:
 
   - stage: build_msvc_2017
     dependsOn: []
-    displayName: MSVC2017 Win10 Build
+    displayName: MSVC2017 WinServer2016 Build
     jobs:
     - job: build
       pool:
@@ -156,7 +156,7 @@ stages:
         artifact: tmp_test_msvc2017
 
   - stage: test_msvc_2017
-    displayName: MSVC2017 Win10 Test
+    displayName: MSVC2017 WinServer2016 Test
     dependsOn: build_msvc_2017
     jobs:
     - job: test
@@ -167,4 +167,35 @@ stages:
         artifact: tmp_test_msvc2017
       - script: |
           cd $(Pipeline.Workspace)/tmp_test_msvc2017
+          boost_tmp_test
+
+  - stage: build_msvc_2019
+    dependsOn: []
+    displayName: MSVC2019 WinServer_2019 Build
+    jobs:
+    - job: build
+      pool:
+        vmImage: windows-2019
+      steps:
+      - script: |
+          mkdir build
+          cd build
+          cmake .. -DMAKE_INCLUDE_TESTS=ON
+          cmake --build . --config Release
+          cd Release
+      - upload: build/Release
+        artifact: tmp_test_msvc2019
+
+  - stage: test_msvc_2019
+    displayName: MSVC2017 WinServer_2019 Test
+    dependsOn: build_msvc_2019
+    jobs:
+    - job: test
+      pool:
+        vmImage: windows-2019
+      steps:
+      - download: 'current'
+        artifact: tmp_test_msvc2019
+      - script: |
+          cd $(Pipeline.Workspace)/tmp_test_msvc2019
           boost_tmp_test
