@@ -18,6 +18,8 @@ namespace boost {
 	namespace tmp {
 		template <typename... Fs>
 		struct tee_ {};
+		template <typename T>
+		using id_ = T;
 		namespace detail {
 			template <typename N, typename L, typename C, typename... Fs>
 			struct tee_impl {
@@ -36,7 +38,7 @@ namespace boost {
 				                   Ts...>;
 			};
 			template <typename L, typename C, typename... Fs>
-			struct tee_impl<uint_<1>, L, C, Fs...> {
+			struct tee_impl<uint_<1>, id_<L>, C, Fs...> {
 				template <typename T0>
 				using f = typename dispatch<find_dispatch(sizeof...(Fs) + 1), C>::template f<
 				        typename dispatch<1, Fs>::template f<T0>...,
@@ -50,7 +52,7 @@ namespace boost {
 				        typename dispatch<1, Fs>::template f<T0>..., T0>;
 			};
 			template <typename L, typename C, typename... Fs>
-			struct tee_impl<uint_<2>, L, C, Fs...> {
+			struct tee_impl<uint_<2>, id_<L>, C, Fs...> {
 				template <typename T0, typename T1>
 				using f = typename dispatch<find_dispatch(sizeof...(Fs) + 1), C>::template f<
 				        typename dispatch<2, Fs>::template f<T0, T1>...,

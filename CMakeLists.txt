@@ -19,13 +19,7 @@ target_compile_features(boost_tmp INTERFACE
 		cxx_user_literals
 		${CPP_EXTRA_FEATURES})
 
-if(clang)
-	# There's some dumbass clang template specialization ambiguity 
-	# error that occurs in C++17, apparently.
-	set(CMAKE_CXX_STANDARD 14)
-else()
-	set(CMAKE_CXX_STANDARD 17)
-endif()
+set(CMAKE_CXX_STANDARD 17)
 
 if(MSVC)
 	# Disable unreferenced inline function removal warning

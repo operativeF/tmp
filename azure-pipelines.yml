@@ -187,7 +187,7 @@ stages:
         artifact: tmp_test_msvc2019
 
   - stage: test_msvc_2019
-    displayName: MSVC2017 WinServer_2019 Test
+    displayName: MSVC2019 WinServer_2019 Test
     dependsOn: build_msvc_2019
     jobs:
     - job: test
