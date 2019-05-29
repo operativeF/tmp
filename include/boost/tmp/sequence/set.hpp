@@ -10,6 +10,7 @@
 
 #include <boost/tmp/algorithm/fold_left.hpp>
 #include <boost/tmp/if.hpp>
+#include <boost/tmp/sequence/index.hpp>
 #include <boost/tmp/sequence/push_front.hpp>
 #include <boost/tmp/vocabulary.hpp>
 

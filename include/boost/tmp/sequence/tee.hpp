@@ -19,6 +19,9 @@ namespace boost {
 		template <typename... Fs>
 		struct tee_ {};
 		namespace detail {
+			template <typename T>
+			using _id = T; // Weird clang workaround again.
+			
 			template <typename N, typename L, typename C, typename... Fs>
 			struct tee_impl {
 				template <typename... Ts>
@@ -213,7 +216,7 @@ namespace boost {
 			template <unsigned N, typename F0, typename F1, typename... Fs>
 			struct dispatch<N, tee_<F0, F1, Fs...>>
 			    : dispatch<find_dispatch(sizeof...(Fs) + 2),
-			               rotate_<uint_<sizeof...(Fs)>, push_front_<uint_<N>, lift_<tee_impl>>>>::
+			               id_<rotate_<uint_<sizeof...(Fs)>, push_front_<uint_<N>, lift_<tee_impl>>>>>::
 			              template f<F0, F1, Fs...> {};
 
 		} // namespace detail
