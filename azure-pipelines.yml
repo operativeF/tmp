@@ -14,14 +14,12 @@ stages:
         
       strategy:
         matrix:
-          gpp_5:
-            g++_version: '-5'
-          gpp_6:
-            g++_version: '-6'
           gpp_7:
             g++_version: '-7'
-          gpp_latest:
-            g++_version: ''
+          gpp_8:
+            g++_version: '-8'
+          gpp_9:
+            g++_version: '-9'
 
       steps:
       - script: |
@@ -47,13 +45,11 @@ stages:
       strategy:
         matrix:
           gpp_5:
-            g++_version: '-5'
-          gpp_6:
-            g++_version: '-6'
-          gpp_7:
             g++_version: '-7'
-          gpp_latest:
-            g++_version: ''
+          gpp_6:
+            g++_version: '-8'
+          gpp_7:
+            g++_version: '-9'
       steps:
       - download: 'current'
         artifact: tmp_test_gpp$(g++_version)
@@ -71,12 +67,6 @@ stages:
 
       strategy:
         matrix:
-          clang_3.6:
-            clang_version: '-3.6'
-          clang_3.9:
-            clang_version: '-3.9'
-          clang_4.0:
-            clang_version: '-4.0'
           clang_5.0:
             clang_version: '-5.0'
           clang_6.0:
@@ -105,12 +95,6 @@ stages:
         vmImage: 'ubuntu-16.04'
       strategy:
           matrix:
-            clang_3.6:
-              clang_version: '-3.6'
-            clang_3.9:
-              clang_version: '-3.9'
-            clang_4.0:
-              clang_version: '-4.0'
             clang_5.0:
               clang_version: '-5.0'
             clang_6.0:
