@@ -17,6 +17,7 @@
 #include <boost/tmp/algorithm/extrema.hpp>
 #include <boost/tmp/algorithm/filter.hpp>
 #include <boost/tmp/algorithm/find_if.hpp>
+#include <boost/tmp/algorithm/flatten.hpp>
 #include <boost/tmp/algorithm/fold_left.hpp>
 #include <boost/tmp/algorithm/fold_right.hpp>
 #include <boost/tmp/algorithm/none_of.hpp>
