@@ -23,6 +23,18 @@ namespace boost {
 		template <typename V = nothing_, typename C = identity_>
 		struct greater_ {};
 
+		template<typename V = nothing_, typename C = identity_>
+		struct bounded_open {};
+
+		template<typename V = nothing_, typename C = identity_>
+		struct bounded_closed {};
+
+		template<typename V = nothing_, typename C = identity_>
+		struct bounded_clopen_lo {};
+
+		template<typename V = nothing_, typename C = identity_>
+		struct bounded_clopen_hi {};
+
 		namespace detail {
 			template <typename P, typename C>
 			struct dispatch<1, is_<P, C>> {

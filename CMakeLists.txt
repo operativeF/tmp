@@ -30,7 +30,9 @@ endif()
 
 add_executable(boost_tmp_test test/test.cpp)
 target_link_libraries(boost_tmp_test boost_tmp)
-include_directories(boost_tmp_test ${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(boost_tmp_test
+	${CMAKE_CURRENT_SOURCE_DIR}/include
+	${CMAKE_CURRENT_SOURCE_DIR}/include/boost/tmp_units/NamedType )
 
 if(MSVC)
 	set(COMP_OPTIONS /Wall)

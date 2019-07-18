@@ -17,6 +17,8 @@ namespace boost {
 	namespace tmp {
 		template <typename I, typename C = identity_>
 		struct index_ {};
+		template <typename I, typename C = identity_>
+		using unpack_index_ = unpack_<index_<I, C>>;
 		template <typename C = identity_>
 		using front_ = index_<uint_<0>, C>;
 

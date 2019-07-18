@@ -8,6 +8,7 @@
 
 #include "all_of_test.hpp"
 #include "any_of_test.hpp"
+#include <boost/tmp_units/test/atomize_test.hpp>
 #include "clamp_test.hpp"
 #include "contains_test.hpp"
 #include "count_if_test.hpp"
@@ -22,6 +23,7 @@
 #include "insert_test.hpp"
 #include "join_test.hpp"
 #include "logic_test.hpp"
+//#include "matrix_test.hpp"
 #include "none_of_test.hpp"
 #include "partition_test.hpp"
 #include "product_test.hpp"
@@ -228,6 +230,7 @@ int main() {
     r = visit(visitor,make_variant(j),make_variant(k));
 
 	return    contains_test::run()
+           || all_of_test::run()
 		   || count_if_test::run()
 		   || drop_test::run()
 		   || erase_test::run()
@@ -236,6 +239,7 @@ int main() {
 		   || fold_right_test::run()
 		   || join_test::run()
 		   || logic_test::run()
+           //|| matrix_test::run()
 		   || partition_test::run()
 		   || product_test::run()
 		   || remove_if_test::run()
