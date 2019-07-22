@@ -35,7 +35,6 @@ namespace find_if_test {
 	using blist = list_<uint_<1>, uint_<1>>;
 
 	int run() {
-		newl{} = list_<uint_<1>, uint_<1>>{};
 		uint_<8>{} = call_<unpack_<find_if_<lift_<is_even>>>, olist>{};
 		nothing_{} = call_<find_if_<lift_<is_even>>, int_<1>>{};
 

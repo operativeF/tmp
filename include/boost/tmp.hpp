@@ -27,6 +27,7 @@
 #include <boost/tmp/algorithm/remove_if.hpp>
 #include <boost/tmp/algorithm/replace_if.hpp>
 #include <boost/tmp/algorithm/sort.hpp>
+#include <boost/tmp/algorithm/symmetric_difference.hpp>
 #include <boost/tmp/algorithm/transform.hpp>
 #include <boost/tmp/always.hpp>
 #include <boost/tmp/call.hpp>
