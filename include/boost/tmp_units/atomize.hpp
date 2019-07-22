@@ -15,11 +15,12 @@
 namespace tmp {
     namespace units {
 
+        // Break apart units of both numerator and denominator
         template<typename C>
         struct atomize_ {};
 
         namespace detail {
-            template<typename T>
+            template<typename C>
             struct atomize_impl {
                 
             };

@@ -18,31 +18,32 @@ namespace tmp {
 
         template<typename T>
         struct unit_ {
-            using numer_ = T::numer;
-            using denom_ = T::denom;
+            using numer_ = list_<>;
+            using denom_ = list_<>;
 
-            using type = list_<numer_, denom_>;
+            using list_type = list_<numer_, denom_>;
+
+            using type = composite_lu_<list_type>;
+            using primitive_unit = call_<primitize_<>, list_type>;
         };
 
-        template<typename... Ts>
-        struct comp_unit_ {
-            using numerator_ = list_<Ts::numer_...>;
-            using denominator = list_<Ts::denom_...>;
-            
-            using type = list_<numerator_, denominator_>;
-        };
-
+        // Equivalent to multiplying the units
         template<typename T, typename U, typename C = listify_>
         struct push_numer_ {};
 
+        // Equivalent to multiplying the units
         template<typename T, typename U, typename C = listify_>
         struct push_denom_ {};
 
+        // Remove units that are in both the numerator and denominator,
+        // returning the resulting sequence. Done after a decomposition.
         template<typename T, typename C = listify_>
-        struct communitize_ {};
+        struct cancellate_ {};
 
         namespace detail {
 
+            template<typename T, typename U, typename C>
+            struct push_numer_impl
 
         } // namespace detail
 

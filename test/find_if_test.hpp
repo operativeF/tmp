@@ -26,10 +26,17 @@ namespace find_if_test {
 		using f = tmp::bool_<(Y::value == X)>;
 	};
 
-	int run() {
+	using olist = list_<int_<1>, int_<1>, int_<1>, int_<1>, int_<1>, int_<1>, int_<1>, int_<1>, int_<2>>;
+	using rlist = list_<int_<1>, int_<3>, int_<4>, int_<2>>;
+	using alist = list_<list_<int_<1>, int_<3>>, list_<int_<1>, int_<2>>>;
 
-		uint_<8>{} = call_<find_if_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<1>, int_<1>,
-		                   int_<1>, int_<1>, int_<1>, int_<2>>{};
+	using new_list = call_<ui0_<>, alist>;
+
+	using blist = list_<uint_<1>, uint_<1>>;
+
+	int run() {
+		newl{} = list_<uint_<1>, uint_<1>>{};
+		uint_<8>{} = call_<unpack_<find_if_<lift_<is_even>>>, olist>{};
 		nothing_{} = call_<find_if_<lift_<is_even>>, int_<1>>{};
 
 		uint_<400>{} = call_<make_sequence_<identity_, find_if_<is_<uint_<400>>>>, uint_<500>>{};

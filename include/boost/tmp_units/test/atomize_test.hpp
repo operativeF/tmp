@@ -7,8 +7,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/tmp.hpp>
-#include <boost/tmp_units/NamedType/named_type.hpp>
-#include <boost/tmp_units/atomize.hpp>
 #include "test_util.hpp"
 
 namespace atomize_test {
