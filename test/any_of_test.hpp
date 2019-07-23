@@ -14,14 +14,20 @@ namespace any_of_test {
     template <typename T>
 	using is_even = bool_<(T::value % 2 == 0)>;
 
-    using alist = list_<uint_<2>, uint_<100>, uint_<4>, uint_<500>>;
-    using blist = list_<uint_<1>, uint_<3>>;
-    using clist = list_<uint_<1>, uint_<3>, uint_<4>>;
+    using alist = list_<int_<1>, int_<2>, int_<1>, int_<2>>;
+
+    template<typename F, typename C = listify_>
+    using erase_if_ = transform_<if_<F, erase_<>, listify_>, join_<C>>;
+
+    using blist = call_<unpack_<erase_if_<lift_<is_even>>>, alist>;
 
 	int run() {
-        bool_<true>{} = call_<unpack_<any_of_<lift_<is_even>>>, alist>{};
-		bool_<false>{} = call_<unpack_<any_of_<lift_<is_even>>>, blist>{};
-        bool_<true>{} = call_<unpack_<any_of_<lift_<is_even>>>, clist>{};
+
+        blist{} = list_<int_<1>, int_<1>>{};
+
+        //bool_<true>{} = call_<unpack_<any_of_<lift_<is_even>>>, alist>{};
+		//bool_<false>{} = call_<unpack_<any_of_<lift_<is_even>>>, blist>{};
+        //bool_<true>{} = call_<unpack_<any_of_<lift_<is_even>>>, clist>{};
 
         return 0;
 	}

@@ -23,9 +23,6 @@ namespace boost {
 			template <template <typename...> class F, typename T, typename... Ts>
 			using binary_symmetric_diff_helper_ = list_<F<T, Ts>...>;
 
-			template <template <typename...> class F, typename... Ts, typename... Us>
-			using binary_symmetric_diff_helper_ = list_<F<Us, Ts>...>;
-
 			template <template <typename...> class F, typename C, typename T, typename U>
 			struct binary_symmetric_diff_unpacker_ {};
 
@@ -33,7 +30,7 @@ namespace boost {
 			struct binary_symmetric_diff_unpacker_<F, C, list_<Ts...>, list_<Us...>> {
 				using type =
 				        typename dispatch<find_dispatch(sizeof...(Ts)),
-				                          join_<C>>::template f<binary_symmetric_diff_helper_<F, Ts..., Us...>...>;
+				                          join_<C>>::template f<binary_symmetric_diff_helper_<F, Ts, Us...>...>;
 			};
 
 			template <template <typename...> class F, typename C>

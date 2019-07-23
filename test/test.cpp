@@ -34,7 +34,7 @@
 #include "size_test.hpp"
 #include "sort_test.hpp"
 #include "swap_test.hpp"
-#include "symmetric_difference_test.hpp"
+//#include "symmetric_difference_test.hpp"
 #include "take_test.hpp"
 #include "tee_test.hpp"
 #include "transform_test.hpp"
