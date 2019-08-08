@@ -4,7 +4,7 @@
 
 namespace set_test {
 	using namespace boost::tmp;
-	using test = call_<make_unique, int_<1>, int_<2>, int_<1>, int_<2>>;
+	using test = call_<make_set, int_<1>, int_<2>, int_<1>, int_<2>>;
 	int run() {
         return 0;
 	}

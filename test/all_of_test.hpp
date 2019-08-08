@@ -16,25 +16,38 @@ namespace all_of_test {
 	using is_even = bool_<(T::value % 2 == 0)>;
 
 	template <typename T, typename U>
+	using is_equal = bool_<(std::is_same_v<T, U>)>;
+
+	template <typename T, typename U>
 	using push = call_<join_<>, T, U>;
 
 	using list_A = list_<list_<uint_<1>>, list_<uint_<2>>>;
 	using list_B = list_<list_<uint_<3>>, list_<uint_<4>>>;
-
-	//template<typename L1, typename L2, typename C = listify_>
-	//using divide_units_ = call_<fold_left_<lift_<push>>, list_<>, call_<ui0_<>, L1>, call_<ui1_<>, L2>>, list_<>, call_<ui1_<>, L1>, call_<ui0_<>, L2>>;
-	//using divide_units_test1 = call_<tee_<ui0_<>, ui0_<>, listify_>, list_A>;
-	//using divide_units_ = call_<tee_< tee_<ui0_<>, ui3_<>, listify_>, tee_<ui1_<>, ui2_<>, listify_>, listify_>, push<list_A, list_B> >;
+	using list_C = list_<uint_<2>, uint_<2>, uint_<2>, uint_<1>>;
 
 	using new_list = call_<divide_units_<>, list_A, list_B>;
 
+	template <typename T>
+	using is_equal_pair = call_<unpack_<lift_<is_equal>>, T>;
+
+	using aalist = list_<int_<1>, int_<2>, int_<3>>;
+	using bblist = list_<int_<2>, int_<1>, int_<7>, int_<4>, int_<3>>;
+
+	using new_set = call_<product_<>, aalist, bblist>;
+
+	using filt_set = call_<unpack_<filter_<lift_<is_equal_pair>>>, new_set>;
+
     using alist = list_<uint_<2>, uint_<100>, uint_<4>, uint_<500>>;
 
+	using cclist = list_<int_<1>, int_<2>, int_<3>, int_<1>, int_<2>>;
+
+	using ccset = call_<unpack_<make_set_<>>, cclist>;
+
+	using cccset = call_<unpack_<drop_<uint_<1>>>, ccset>;
+
 	int run() {
+		cccset{} = list_<int_<1>, int_<2>, int_<3>>{};
         bool_<true>{} = call_<unpack_<all_of_<lift_<is_even>>>, alist>{};
-		//list_<list_<uint_<1>, uint_<4>>, list_<uint_<2>, uint_<4>>>{} = new_list{};
-		new_list{} = list_< list_<list_<uint_<1>>, list_<uint_<4>>>, list_<list_<uint_<2>>, list_<uint_<3>>> >{};
-		//index_f{} = list_<uint_<1>>{};
 		return 0;
 	}
 } // namespace all_of_test

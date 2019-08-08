@@ -16,7 +16,8 @@ namespace boost {
 	namespace tmp {
 		/// \brief folds left over a list using a binary predicate /
 		/// fold left considers the first element in the input pack the initial state, use
-		/// `push_front<>` to add initial state if needed
+		/// `push_front_<>` to add initial state if needed
+		/// Multiple input, single output
 		template <typename F = listify_, typename C = identity_>
 		struct fold_left_ {};
 		namespace detail {

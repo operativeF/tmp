@@ -55,6 +55,7 @@
 #include <boost/tmp/sequence/push_front.hpp>
 #include <boost/tmp/sequence/reverse.hpp>
 #include <boost/tmp/sequence/rotate.hpp>
+#include <boost/tmp/sequence/set.hpp>
 #include <boost/tmp/sequence/size.hpp>
 #include <boost/tmp/sequence/swap.hpp>
 #include <boost/tmp/sequence/take.hpp>

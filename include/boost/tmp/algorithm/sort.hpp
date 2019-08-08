@@ -23,8 +23,11 @@ namespace boost {
 
 		namespace detail {
 			namespace btree {
+				// The binary tree as a list.
 				template <typename... Ts>
 				struct blist {};
+
+				// A node in the binary tree, connecting to other nodes (L)eft and (R)ight, and (E)dge
 				template <typename L, typename E, typename R>
 				struct bnode {};
 				template <typename T>
@@ -93,6 +96,11 @@ namespace boost {
 					template <template <typename...> class F, typename T>
 					using f = typename bpush<F<T, E0>::value, F>::template l2_0<T, E0, E1>;
 				};
+
+				// Push a node. The node postion (either Left or Right) from the Edge
+				// is determined by the type bpush<F<T, E>::value, F>::template
+				// and will dispatch the correct node position by calling each
+				// version's respective n<T, L, E, R> function.
 				template <typename L, typename E, typename R>
 				struct bun<bnode<L, E, R>> {
 					template <template <typename...> class F, typename T>
@@ -105,6 +113,7 @@ namespace boost {
 					using f = typename bpush<F<T, E>::value, F>::template nn<T, LL, LE, LR, E, RL,
 					                                                         RE, RR>;
 				};
+
 				template <typename LLL, typename LLE, typename LLR, typename LE, typename LR,
 				          typename E, typename... Ts>
 				struct bun<bnode<bnode<bnode<LLL, LLE, LLR>, LE, LR>, E, blist<Ts...>>> {
@@ -122,6 +131,12 @@ namespace boost {
 					                                                        RE, RRL, RRE, RRR>;
 				};
 
+				// Prune branch
+
+				// Remove leaf
+
+				// Remove 
+
 				template <typename LL, typename LE, typename LR, typename E, typename RL,
 				          typename RE, typename RR>
 				struct join7;
@@ -132,27 +147,38 @@ namespace boost {
 					using type = blist<LL..., LE, LR..., E, RL..., RE, RR...>;
 				};
 
+				// Binary tree flattener metaclosures
 				template <typename T>
 				struct bflat;
 
+				// Flatten single end node with Left, Edge, and Right
 				template <typename L, typename E, typename R>
 				struct bflat<bnode<L, E, R>> {
 					using type = typename bflat<
 					        bnode<typename bflat<L>::type, E, typename bflat<R>::type>>::type;
 				};
+
+				// Flatten two nodes, Left and Right from Edge, and flatten their respective Left
+				// and Right nodes with their Edges. Join the seven resulting types into
+				// a blist, respecting their order.
 				template <typename LL, typename LE, typename LR, typename E, typename RL,
 				          typename RE, typename RR>
 				struct bflat<bnode<bnode<LL, LE, LR>, E, bnode<RL, RE, RR>>> {
 					using type =
 					        typename join7<typename bflat<LL>::type, LE, typename bflat<LR>::type,
-					                       E, typename bflat<RL>::type, RE,
-					                       typename bflat<RR>::type>::type;
+					                       E, 
+										   typename bflat<RL>::type, RE, typename bflat<RR>::type
+									 >::type;
 				};
 
+				// From a node, combine the Left and Right chlidren 
+				// into a single blist.
 				template <typename... L, typename E, typename... R>
 				struct bflat<bnode<blist<L...>, E, blist<R...>>> {
 					using type = blist<L..., E, R...>;
 				};
+
+				// Final combination of all the resulting types.
 				template <typename... T>
 				struct bflat<blist<T...>> {
 					using type = blist<T...>;
@@ -162,6 +188,7 @@ namespace boost {
 				using collapse_t = typename btree::bflat<T>::type;
 			} // namespace btree
 
+			// Push elements to btree
 			template <typename F>
 			struct element_pusher {};
 			template <typename F>

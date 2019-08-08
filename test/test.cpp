@@ -48,6 +48,8 @@
 #include <variant>
 #include <new>
 
+/*
+
 namespace boost {
     namespace tmp {
         template<typename I, typename T>
@@ -204,13 +206,13 @@ void f(int){}
 
 
 
-
+*/
 
 // @TODO: Make this parallel, eventually.
 int main() {
 
 
-
+/*
     s1* s;
     s >>= [](auto...a){f(a...);} ^= []{};
     if(s){
@@ -229,6 +231,7 @@ int main() {
     (void)l;
 
     r = visit(visitor,make_variant(j),make_variant(k));
+*/
 
 	return    contains_test::run()
            || all_of_test::run()
