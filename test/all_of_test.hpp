@@ -30,8 +30,8 @@ namespace all_of_test {
 	template <typename T>
 	using is_equal_pair = call_<unpack_<lift_<is_equal>>, T>;
 
-	using aalist = list_<int_<1>, int_<2>, int_<3>>;
-	using bblist = list_<int_<2>, int_<1>, int_<7>, int_<4>, int_<3>>;
+	using aalist = list_<uint_<1>, uint_<2>, uint_<3>>;
+	using bblist = list_<uint_<2>, uint_<1>, uint_<7>, uint_<4>, uint_<3>>;
 
 	using new_set = call_<product_<>, aalist, bblist>;
 
@@ -39,14 +39,16 @@ namespace all_of_test {
 
     using alist = list_<uint_<2>, uint_<100>, uint_<4>, uint_<500>>;
 
-	using cclist = list_<int_<1>, int_<2>, int_<3>, int_<1>, int_<2>>;
+	using cclist = list_<uint_<1>, uint_<2>, uint_<3>, uint_<1>, uint_<2>>;
 
-	using ccset = call_<unpack_<make_set_<>>, cclist>;
+	using union_set = call_<union_<>, aalist, bblist>;
 
-	using cccset = call_<unpack_<drop_<uint_<1>>>, ccset>;
+	using intersect = call_<intersection_<>, aalist, bblist>;
+	using intersect_set = call_<unpack_<drop_<uint_<1>>>, intersect>;
 
 	int run() {
-		cccset{} = list_<int_<1>, int_<2>, int_<3>>{};
+		union_set{} = list_<uint_<1>, uint_<2>, uint_<3>, uint_<4>, uint_<7>>{};
+		//intersect_set{} = list_<uint_<1>, uint_<2>, uint_<3>>{};
         bool_<true>{} = call_<unpack_<all_of_<lift_<is_even>>>, alist>{};
 		return 0;
 	}

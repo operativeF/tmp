@@ -20,9 +20,9 @@ namespace boost {
 		struct flatten_;
 
 		namespace detail {
-			template <typename C, typename T, typename...>
+			template <typename C, typename... Ts>
 			struct flatten_impl {
-				using type = T;
+				using type = typename dispatch<0, join_<C>>::template f<Ts...>;
 			};
 
 			// Append to list function
