@@ -6,48 +6,36 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <type_traits>
 #include <boost/tmp.hpp>
 #include <boost/tmp_units/composite.hpp>
+#include <boost/tmp_units/units/length.hpp>
+#include <boost/tmp_units/units/area.hpp>
 #include "test_util.hpp"
 
 namespace all_of_test {
+	using namespace boost::tmp::units;
+
     template <typename T>
 	using is_even = bool_<(T::value % 2 == 0)>;
 
-	template <typename T, typename U>
-	using is_equal = bool_<(std::is_same_v<T, U>)>;
-
-	template <typename T, typename U>
-	using push = call_<join_<>, T, U>;
-
-	using list_A = list_<list_<uint_<1>>, list_<uint_<2>>>;
-	using list_B = list_<list_<uint_<3>>, list_<uint_<4>>>;
-	using list_C = list_<uint_<2>, uint_<2>, uint_<2>, uint_<1>>;
-
-	using new_list = call_<divide_units_<>, list_A, list_B>;
-
-	using aalist = list_<uint_<1>, uint_<2>, uint_<3>, uint_<9>>;
-	using bblist = list_<uint_<2>, uint_<1>, uint_<7>, uint_<4>, uint_<3>>;
-	
-	template <typename T, typename U>
-	using lessen = bool_<(T::value < U::value)>;
-	
-	using new_set = call_<product_<>, aalist, bblist>;
-
     using alist = list_<uint_<2>, uint_<100>, uint_<4>, uint_<500>>;
 
-	using union_set = call_<union_<>, aalist, bblist>;
+	constexpr auto nill = 10.0_m + 20.0_m;
 
-	using intersect_set = call_<intersection_<>, aalist, bblist>;
+	// Assignment operator must be overloaded.
+	// All operators must be overloaded. 
+	// Must prohibit implicit conversions like below.
+	constexpr auto aill = 1.0_m * 1.0_m;
 
-	using sym_set = call_<symmetric_difference_<>, aalist, bblist>;
-
-	using diff_a = call_<difference_B_<>, aalist, bblist>::c;
+	constexpr auto nillo = convertTo<millimeter_ld>()(10.04_m);
 
 	int run() {
-		sym_set{} = list_<uint_<4>, uint_<7>, uint_<9>>{};
-		union_set{} = list_<uint_<1>, uint_<2>, uint_<3>, uint_<4>, uint_<7>, uint_<9>>{};
-		intersect_set{} = list_<uint_<1>, uint_<2>, uint_<3>>{};
+		static_assert(aill == 1000.0_mm2, "true");
+
+		static_assert(nill == 0.030_km, "true");
+		static_assert(nill == 30000.0_mm, "true");		
+
         bool_<true>{} = call_<unpack_<all_of_<lift_<is_even>>>, alist>{};
 		return 0;
 	}

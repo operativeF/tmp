@@ -21,6 +21,7 @@ namespace boost::tmp::units
 	{
 	public:
 		using UnderlyingType = T;
+		using UnderlyingParam = Parameter;
 		
 		// constructor
 		explicit constexpr NamedType(T const& value) : value_(value) {}

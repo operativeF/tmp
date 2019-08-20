@@ -10,12 +10,6 @@
 
 namespace boost::tmp::units
 {
-    template<typename T, typename U, typename Operation>
-    struct composite_;
-
-    struct multiplied {};
-    struct divided {};
-
     template <typename T>
     struct Incrementable : crtp<T, Incrementable>
     {
@@ -40,21 +34,19 @@ namespace boost::tmp::units
         T operator-(T const& other) const { return T(this->underlying().get() - other.get()); }
     };
         
-    template <typename T>
-    struct Multiplicable : crtp<T, Multiplicable>
+    template <typename T, typename U>
+    struct Multiplicable : crtp_d<T, U, MultiOp, Multiplicable<T, U>>
     {
-        template<typename U>
-        typename composite_<T, U, multiplied>::type operator*(U const& other) const {
-            return composite_<T, U, multiplied>::type(this->underlying().get() * other.get());
+        typename call_<composite_<MultiOp>, T, U> operator*(U const& other) const {
+            return call_<composite_<MultiOp>, T, U>(this->underlying().get() * other.get());
         }
     };
 
-    template <typename T>
-    struct Divisible : crtp<T, Divisible>
+    template <typename T, typename U>
+    struct Divisible : crtp_d<T, U, DivOp, Divisible<T, U>>
     {
-        template<typename U>
-        typename composite_<T, U, divided>::type operator/(U const& other) const {
-            return composite_<T, U, divided>::type(this->underlying().get() / other.get());
+        typename call_<composite_<MultiOp>, T, U> operator/(U const& other) const {
+            return call_<composite_<MultiOp>, T, U>(this->underlying().get() / other.get());
         }
     };    
 
@@ -146,7 +138,7 @@ namespace std
         using NamedType = boost::tmp::units::NamedType<T, Parameter, Skills...>;
         using checkIfHashable = typename std::enable_if<NamedType::is_hashable, void>::type;
         
-        size_t operator()(fluent::NamedType<T, Parameter, Skills...> const& x) const
+        size_t operator()(boost::tmp::units::NamedType<T, Parameter, Skills...> const& x) const
         {
             return std::hash<T>()(x.get());
         }
