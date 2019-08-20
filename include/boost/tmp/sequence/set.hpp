@@ -27,29 +27,38 @@ namespace boost {
 		template<typename C = listify_>
 		struct cardinality_ {};
 
-		// Get all of the elements that are in both passed in lists.
+		// Get all of the elements that are in both passed in lists (sets).
 		template<typename C = listify_>
-		struct union_ {};
+		struct set_union_ {};
 
-		// Get only the elements common to both passed in lists.
+		// Get only the elements common to both passed in lists (sets).
 		template<typename C = listify_>
-		struct intersection_ {};
+		struct set_intersection_ {};
 
-		// Get all of the elements that are unique to both lists.
+		// Get all of the elements that are unique to both lists (sets).
 		template<typename C = listify_>
-		struct symmetric_difference_ {};
-
-		template<typename C = listify_>
-		struct difference_A_ {};
+		struct set_symmetric_difference_ {};
 
 		template<typename C = listify_>
-		struct difference_B_ {};
+		struct set_difference_A_ {};
+
+		template<typename C = listify_>
+		struct set_difference_B_ {};
 
 		template<typename F, typename C = listify_>
 		struct subset_ {};
 
 		template<typename C = listify_>
 		struct power_set_ {};
+
+		template<typename C = listify_>
+		struct set_numer_ {};
+
+		template<typename C = listify_>
+		struct set_denom_ {};
+
+		template<typename C = listify_>
+		struct set_quotient_ {};
 
 		namespace detail {
 			template <typename T>
@@ -104,7 +113,7 @@ namespace boost {
 			using productize = call_<product_<>, T, U>;
 
 			template<unsigned N, typename C>
-			struct dispatch<N, union_<C>> {
+			struct dispatch<N, set_union_<C>> {
 				template<typename T, typename U>
 				using f =
 				call_<
@@ -115,7 +124,7 @@ namespace boost {
 			};
 
 			template<unsigned N, typename C>
-			struct dispatch<N, intersection_<C>> {
+			struct dispatch<N, set_intersection_<C>> {
 				template<typename T, typename U>
 				using f =
 				call_<
@@ -131,7 +140,7 @@ namespace boost {
 			// Requires two sets be the input because
 			// more than two unique values will not be handled correctly.
 			template<unsigned N, typename C>
-			struct dispatch<N, symmetric_difference_<C>> {
+			struct dispatch<N, set_symmetric_difference_<C>> {
 				template<typename T, typename U>
 				using f =
 				call_<
@@ -146,13 +155,13 @@ namespace boost {
 			};
 
 			template<typename T, typename U>
-			using diff_helper = call_<intersection_<>, T, U>;
+			using diff_helper = call_<set_intersection_<>, T, U>;
 
 			template<typename T, typename U>
-			using diff_helper3 = call_<join_<>, diff_helper<T, U>, T>;
+			using diff_helper3 = call_<join_<>, diff_helper<T, U>, T, list_<>>;
 
 			template<unsigned N, typename C>
-			struct dispatch<N, difference_A_<C>> {
+			struct dispatch<N, set_difference_A_<C>> {
 				template<typename T, typename U>
 				using f =
 				call_<
@@ -167,7 +176,7 @@ namespace boost {
 			};
 			
 			template<unsigned N, typename C>
-			struct dispatch<N, difference_B_<C>> {
+			struct dispatch<N, set_difference_B_<C>> {
 				template<typename T, typename U>
 				using f =
 				call_<
@@ -178,6 +187,36 @@ namespace boost {
 						>
 					>,
 					diff_helper3<U, T>
+				>;
+			};
+
+			template<typename T, typename U>
+			using comp_join = call_<join_<>, T, U>;
+
+			template<unsigned N, typename C>
+			struct dispatch<N, set_quotient_<C>> {
+				template<typename T, typename U>
+				using f =
+				call_<
+				unpack_<
+					tee_<
+						tee_<
+							i0_<>,
+							i2_<>,
+							join_<>
+						>,
+						tee_<
+							i1_<>,
+							i3_<>,
+							join_<>
+						>,
+						tee_<
+							set_difference_A_<>,
+							set_difference_B_<>,
+							C
+						>
+					>
+				>, comp_join<T, U>
 				>;
 			};
 
