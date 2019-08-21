@@ -10,12 +10,14 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <ratio>
+#include <variant>
 #include <boost/tmp/sequence/set.hpp>
 #include <boost/tmp/vocabulary.hpp>
 
 namespace boost::tmp::units
 {
 	struct meter_l : uint_<1> {};
+    using unity_ratio = std::ratio<1, 1>;
 
 	template<template<typename...> typename F, template<typename...> typename G, typename U, typename P>
 	using quotient_fin = call_<set_quotient_<>, typename F<U, P>::impl, typename G<U, P>::impl>;
@@ -42,29 +44,28 @@ namespace boost::tmp::units
 		using f = meter_sq_impl<T, P>;
 	};
 
+	using new_variant = std::variant<meter_impl<unity_ratio, long double>, meter_sq_impl<unity_ratio, long double>>;
+
 	template<template<typename...> typename F, template<typename...> typename G, typename U, typename P>
-	constexpr typename dispatcher<quotient_fin<F, G, U, P>, nothing_>::template f<U, P> operator*(const F<U, P>& valA, const G<U, P>& valB) {
-
-		using in_numer = call_<set_numer_<>, F<U, P>::impl>;
-		using this_numer = call_<set_numer_<>, G<U, P>::impl>;
-		using in_denom = call_<set_denom_<>, F<U, P>::impl>;
-		using this_denom = call_<set_denom_<>, G<U, P>::impl>;
-
-		using comb_numer = call_<join_<>, in_numer, this_numer>;
-		using comb_denom = call_<join_<>, in_denom, this_denom>;
-
-		using diff_aa = call_<set_difference_A_<>, comb_numer, comb_denom>;
-		using diff_bb = call_<set_difference_B_<>, comb_numer, comb_denom>;
-
-		using quotient_fin = list_<diff_aa, diff_bb>;
+	constexpr new_variant operator*(const F<U, P>& valA, const G<U, P>& valB) {
+		using aa = typename F<U, P>::impl;
+		using bb = typename G<U, P>::impl;
+		using quote = call_<set_quotient_<>, aa, bb>;
+		
+		if constexpr(std::is_same_v<quote, list_<list_<meter_l>, list_<>>>)
+		{
+			return meter_impl<U, P>(valA.value * valB.value);
+		}
+		else
+		{
+			return meter_sq_impl<U, P>(valA.value * valB.value);
+		}
 
 //		Works without the "magic"
 //		return static_cast<typename dispatch<typename meter_sq_impl::impl, nothing_>::template f<U, P>>(valA.value * valB.value);
 
-		return (valA.value * valB.value);
+//		return static_cast<typename dispatcher<quotient_fin<F, G, U, P>, nothing_>::template f<U, P>>(valA.value * valB.value);
 	}
-
-    using unity_ratio = std::ratio<1, 1>;
 
 	// Make this a constexpr lambda?
 	template<typename ConvType>
