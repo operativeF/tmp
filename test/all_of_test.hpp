@@ -36,13 +36,13 @@ namespace all_of_test {
 
     using alist = list_<uint_<2>, uint_<100>, uint_<4>, uint_<500>>;
 
-	using union_set = call_<union_<>, aalist, bblist>;
+	using union_set = call_<set_union_<>, aalist, bblist>;
 
-	using intersect_set = call_<intersection_<>, aalist, bblist>;
+	using intersect_set = call_<set_intersection_<>, aalist, bblist>;
 
-	using sym_set = call_<symmetric_difference_<>, aalist, bblist>;
+	using sym_set = call_<set_symmetric_difference_<>, aalist, bblist>;
 
-	using diff_a = call_<difference_B_<>, aalist, bblist>::c;
+	using diff_a = call_<set_difference_B_<>, aalist, bblist>;
 
 	int run() {
 		sym_set{} = list_<uint_<4>, uint_<7>, uint_<9>>{};

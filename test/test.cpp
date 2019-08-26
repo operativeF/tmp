@@ -29,6 +29,7 @@
 #include "product_test.hpp"
 #include "range_math_test.hpp"
 #include "remove_if_test.hpp"
+#include "repeat_test.hpp"
 #include "replace_if_test.hpp"
 #include "reverse_test.hpp"
 #include "size_test.hpp"
