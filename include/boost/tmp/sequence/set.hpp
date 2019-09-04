@@ -58,6 +58,9 @@ namespace boost {
 		struct set_denom_ {};
 
 		template<typename C = listify_>
+		struct set_multiplier_ {};
+
+		template<typename C = listify_>
 		struct set_quotient_ {};
 
 		namespace detail {
@@ -192,6 +195,29 @@ namespace boost {
 
 			template<typename T, typename U>
 			using comp_join = call_<join_<>, T, U>;
+
+			template<unsigned N, typename C>
+			struct dispatch<N, set_multiplier_<C>> {
+				template<typename T, typename U>
+				using f =
+				call_<
+				unpack_<
+					tee_<
+						tee_<
+							i0_<>,
+							i2_<>,
+							join_<>
+						>,
+						tee_<
+							i1_<>,
+							i3_<>,
+							join_<>
+						>,
+						C
+					>
+				>, comp_join<T, U>
+				>;
+			};
 
 			template<unsigned N, typename C>
 			struct dispatch<N, set_quotient_<C>> {
