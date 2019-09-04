@@ -9,63 +9,15 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include <ratio>
-#include <variant>
 #include <boost/tmp/sequence/set.hpp>
 #include <boost/tmp/vocabulary.hpp>
+#include "evaluators.hpp"
+#include "type_dispatcher.hpp"
 
 namespace boost::tmp::units
 {
-	struct meter_l : uint_<1> {};
-    using unity_ratio = std::ratio<1, 1>;
-
-	template<template<typename...> typename F, template<typename...> typename G, typename U, typename P>
-	using quotient_fin = call_<set_quotient_<>, typename F<U, P>::impl, typename G<U, P>::impl>;
-
 	template<typename T, typename P>
-    struct meter_impl;
-	template<typename T, typename P>
-    struct meter_sq_impl;
-
-	template<typename L, typename T = nothing_>
-	struct dispatcher {
-		using f = nothing_;
-	};
-
-	template<>
-	struct dispatcher<list_<list_<meter_l>, list_<>>, nothing_> {
-		template<typename T = unity_ratio, typename P = long double>
-		using f = meter_impl<T, P>;
-	};
-
-	template<>
-	struct dispatcher<list_<list_<meter_l, meter_l>, list_<>>, nothing_> {
-		template<typename T = unity_ratio, typename P = long double>
-		using f = meter_sq_impl<T, P>;
-	};
-
-	using new_variant = std::variant<meter_impl<unity_ratio, long double>, meter_sq_impl<unity_ratio, long double>>;
-
-	template<template<typename...> typename F, template<typename...> typename G, typename U, typename P>
-	constexpr new_variant operator*(const F<U, P>& valA, const G<U, P>& valB) {
-		using aa = typename F<U, P>::impl;
-		using bb = typename G<U, P>::impl;
-		using quote = call_<set_quotient_<>, aa, bb>;
-		
-		if constexpr(std::is_same_v<quote, list_<list_<meter_l>, list_<>>>)
-		{
-			return meter_impl<U, P>(valA.value * valB.value);
-		}
-		else
-		{
-			return meter_sq_impl<U, P>(valA.value * valB.value);
-		}
-
-//		Works without the "magic"
-//		return static_cast<typename dispatch<typename meter_sq_impl::impl, nothing_>::template f<U, P>>(valA.value * valB.value);
-
-//		return static_cast<typename dispatcher<quotient_fin<F, G, U, P>, nothing_>::template f<U, P>>(valA.value * valB.value);
-	}
+	struct unitless_;
 
 	// Make this a constexpr lambda?
 	template<typename ConvType>
@@ -94,21 +46,6 @@ namespace boost::tmp::units
 		P value;
         using mod_ratio = T;
 		using impl = list_<list_<meter_l>, list_<>>;
-		
-		// Normalize this
-		constexpr meter_impl<T, P> operator+(meter_impl<T, P> val)
-		{
-			return static_cast<meter_impl<T, P>>(this->value + val.value);
-		}
-
-		template<typename U, typename P>
-		constexpr bool operator==(meter_impl<U, P> val)
-		{
-			// normalize
-			auto self_ = convertTo<meter_impl<unity_ratio, P>>()(*this);
-			auto other_ = convertTo<meter_impl<unity_ratio, P>>()(val);
-			return (self_.value == other_.value);
-		}
 	};
 
     using meter_ld      = meter_impl<unity_ratio, long double>;

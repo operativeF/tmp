@@ -10,6 +10,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include "length.hpp"
+#include "evaluators.hpp"
+#include "type_dispatcher.hpp"
 
 namespace boost::tmp::units
 {	
@@ -21,21 +23,6 @@ namespace boost::tmp::units
 		P value;
         using mod_ratio = T;
         using impl = list_<list_<meter_l, meter_l>, list_<>>;
-
-		// Add verification of inputs?
-		constexpr meter_sq_impl<T, P> operator+(meter_sq_impl<T, P> val)
-		{
-			return static_cast<meter_sq_impl<T, P>>(this->value + val.value);
-		}
-
-		template<typename U, typename P>
-		constexpr bool operator==(meter_sq_impl<U, P> val)
-		{
-			// normalize
-			auto self_ = convertTo<meter_sq<>>()(*this);
-			auto other_ = convertTo<meter_sq<>>()(val);
-			return (self_.value == other_.value);
-		}
 	};
 
 	template<typename P = long double>
