@@ -9,7 +9,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/tmp.hpp>
-#include "test_util.hpp"
 
 namespace boost
 {

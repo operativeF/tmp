@@ -18,6 +18,7 @@
 #include <boost/tmp/sequence/tee.hpp>
 #include <boost/tmp/algorithm/filter.hpp>
 #include <boost/tmp/algorithm/flatten.hpp>
+#include <boost/tmp/algorithm/product.hpp>
 
 namespace boost {
 	namespace tmp {
