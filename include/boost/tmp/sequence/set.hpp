@@ -15,6 +15,9 @@
 #include <boost/tmp/sequence/index.hpp>
 #include <boost/tmp/sequence/push_front.hpp>
 #include <boost/tmp/vocabulary.hpp>
+#include <boost/tmp/sequence/tee.hpp>
+#include <boost/tmp/algorithm/filter.hpp>
+#include <boost/tmp/algorithm/flatten.hpp>
 
 namespace boost {
 	namespace tmp {
