@@ -8,10 +8,14 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#include <boost/tmp/algorithm/filter.hpp>
+#include <boost/tmp/algorithm/sort.hpp>
 #include <boost/tmp/detail/dispatch.hpp>
 #include <boost/tmp/logic.hpp>
+#include <boost/tmp/sequence/join.hpp>
 #include <boost/tmp/sequence/push_front.hpp>
 #include <boost/tmp/sequence/rotate.hpp>
+#include <boost/tmp/sequence/tee.hpp>
 #include <boost/tmp/vocabulary.hpp>
 
 namespace boost {
@@ -125,19 +129,20 @@ namespace boost {
 			};
 
 			template <unsigned N, typename L, typename C, typename... Fs>
-			struct tee_impl<uint_<N>, L, and_<identity_, C>, Fs...> : tee_and_impl<true, C, Fs..., L> {};
+			struct tee_impl<uint_<N>, L, and_<identity_, C>, Fs...>
+			    : tee_and_impl<true, C, Fs..., L> {};
 			template <typename L, typename C, typename... Fs>
 			struct tee_impl<uint_<1>, L, and_<identity_, C>, Fs...>
-					: tee_and_impl_1<true, C, Fs..., L> {};
+			    : tee_and_impl_1<true, C, Fs..., L> {};
 			template <typename C, typename... Fs>
 			struct tee_impl<uint_<1>, identity_, and_<identity_, C>, Fs...>
-					: tee_and_impl_1<true, C, Fs..., identity_> {};
+			    : tee_and_impl_1<true, C, Fs..., identity_> {};
 			template <typename L, typename C, typename... Fs>
 			struct tee_impl<uint_<2>, L, and_<identity_, C>, Fs...>
-					: tee_and_impl_2<true, C, Fs..., L> {};
+			    : tee_and_impl_2<true, C, Fs..., L> {};
 			template <typename C, typename... Fs>
 			struct tee_impl<uint_<2>, identity_, and_<identity_, C>, Fs...>
-					: tee_and_impl_2<true, C, Fs..., identity_> {};
+			    : tee_and_impl_2<true, C, Fs..., identity_> {};
 
 			// in case the continuation is an or_
 
@@ -201,16 +206,16 @@ namespace boost {
 			struct tee_impl<N, L, or_<identity_, C>, Fs...> : tee_or_impl<false, C, Fs..., L> {};
 			template <typename L, typename C, typename... Fs>
 			struct tee_impl<uint_<1>, L, or_<identity_, C>, Fs...>
-					: tee_or_impl_1<false, C, Fs..., L> {};
+			    : tee_or_impl_1<false, C, Fs..., L> {};
 			template <typename C, typename... Fs>
 			struct tee_impl<uint_<1>, identity_, or_<identity_, C>, Fs...>
-					: tee_or_impl_1<false, C, Fs..., identity_> {};
+			    : tee_or_impl_1<false, C, Fs..., identity_> {};
 			template <typename L, typename C, typename... Fs>
 			struct tee_impl<uint_<2>, L, or_<identity_, C>, Fs...>
-					: tee_or_impl_2<false, C, Fs..., L> {};
+			    : tee_or_impl_2<false, C, Fs..., L> {};
 			template <typename C, typename... Fs>
 			struct tee_impl<uint_<2>, identity_, or_<identity_, C>, Fs...>
-					: tee_or_impl_2<false, C, Fs..., identity_> {};
+			    : tee_or_impl_2<false, C, Fs..., identity_> {};
 
 			template <unsigned N, typename F0, typename F1, typename... Fs>
 			struct dispatch<N, tee_<F0, F1, Fs...>>

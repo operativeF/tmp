@@ -13,6 +13,8 @@
 #include <boost/tmp/if.hpp>
 #include <boost/tmp/logic.hpp>
 #include <boost/tmp/vocabulary.hpp>
+#include <boost/tmp/sequence/join.hpp>
+#include <boost/tmp/algorithm/sort.hpp>
 
 namespace boost {
 	namespace tmp {
