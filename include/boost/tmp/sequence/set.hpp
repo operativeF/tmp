@@ -63,6 +63,9 @@ namespace boost {
 		template<typename C = listify_>
 		struct set_quotient_ {};
 
+		template<typename C = listify_>
+		struct set_divisor_ {};
+
 		namespace detail {
 			template <typename T>
 			struct unique_magic_type;
@@ -236,11 +239,30 @@ namespace boost {
 							i3_<>,
 							join_<>
 						>,
+						C
+					>
+				>, comp_join<T, U>
+				>;
+			};
+
+			template<unsigned N, typename C>
+			struct dispatch<N, set_divisor_<C>> {
+				template<typename T, typename U>
+				using f =
+				call_<
+				unpack_<
+					tee_<
 						tee_<
-							set_difference_A_<>,
-							set_difference_B_<>,
-							C
-						>
+							i0_<>,
+							i1_<>,
+							join_<>
+						>,
+						tee_<
+							i2_<>,
+							i3_<>,
+							join_<>
+						>,
+						remove_pairs_from_lists_<C>
 					>
 				>, comp_join<T, U>
 				>;

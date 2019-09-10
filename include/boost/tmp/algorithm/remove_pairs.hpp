@@ -18,7 +18,10 @@ namespace boost {
 	namespace tmp {
 		// Requires sets to be the input, unless 
 		template<typename C = listify_>
-		struct remove_pairs_;
+		struct remove_pairs_ {};
+
+		template<typename C = listify_>
+		struct remove_pairs_from_lists_ {};
 
 		namespace detail {
 			template <typename C, typename... Ts>
@@ -43,6 +46,30 @@ namespace boost {
 			struct dispatch<N, remove_pairs_<C>> {
 				template <typename... Ts>
 				using f = typename detail::remove_pairs_impl<C, list_<Ts...>>::type;
+			};
+
+			template <typename C, typename... Ts>
+			struct remove_pairs_from_lists_impl {
+				using type = typename dispatch<0, join_<C>>::template f<Ts...>;
+			};
+
+			template <typename C, typename T1, typename T, typename T2, typename T3, typename T4>
+			struct remove_pairs_from_lists_impl<C, list_<list_<T1, T, T2>, list_<T3, T, T4>>>
+			    : remove_pairs_from_lists_impl<C, list_<list_<T1, T2>, list_<T3, T4>>> {};
+
+			// Append to list function
+			template <typename C, typename T, typename... T1s, typename... T2s, typename... T3s, typename... T4s>
+			struct remove_pairs_from_lists_impl<C, list_<list_<T1s..., T, T2s...>, list_<T3s..., T, T4s...>>>
+			    : remove_pairs_from_lists_impl<C, list_<list_<T1s..., T2s...>, list_<T3s..., T4s...>>> {};
+
+			template <typename C, typename T, typename... T1s, typename... T2s>
+			struct remove_pairs_from_lists_impl<C, list_<list_<T, T1s...>, list_<T, T2s...>>>
+			    : remove_pairs_from_lists_impl<C, list_<list_<T1s...>, list_<T2s...>>> {};
+
+			template <unsigned N, typename C>
+			struct dispatch<N, remove_pairs_from_lists_<C>> {
+				template <typename... Ts>
+				using f = typename detail::remove_pairs_from_lists_impl<C, list_<Ts...>>::type;
 			};
 		} // namespace detail
 	} // namespace tmp
