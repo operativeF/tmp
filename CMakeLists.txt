@@ -19,13 +19,13 @@ target_compile_features(boost_tmp INTERFACE
 		cxx_user_literals
 		${CPP_EXTRA_FEATURES})
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 if(MSVC)
 	# Disable unreferenced inline function removal warning
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4514")
 	# Enable usage of updated __cplusplus macro
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus")	
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus /std:c++latest")
 endif()
 
 add_executable(boost_tmp_test test/test.cpp)
