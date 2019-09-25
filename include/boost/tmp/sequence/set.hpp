@@ -20,6 +20,8 @@
 #include <boost/tmp/algorithm/flatten.hpp>
 #include <boost/tmp/algorithm/product.hpp>
 
+#include <boost/tmp/list_operations.hpp>
+
 namespace boost {
 	namespace tmp {
 		template<typename C = listify_>
@@ -220,7 +222,7 @@ namespace boost {
 							i3_<>,
 							join_<>
 						>,
-						C
+						lift_<full_divide_lists, C>
 					>
 				>, comp_join<T, U>
 				>;
@@ -235,15 +237,15 @@ namespace boost {
 					tee_<
 						tee_<
 							i0_<>,
-							i2_<>,
+							i3_<>,
 							join_<>
 						>,
 						tee_<
 							i1_<>,
-							i3_<>,
+							i2_<>,
 							join_<>
 						>,
-						C
+						lift_<full_divide_lists, C>
 					>
 				>, comp_join<T, U>
 				>;
@@ -258,15 +260,15 @@ namespace boost {
 					tee_<
 						tee_<
 							i0_<>,
-							i1_<>,
-							join_<>
-						>,
-						tee_<
-							i2_<>,
 							i3_<>,
 							join_<>
 						>,
-						remove_pairs_from_lists_<C>
+						tee_<
+							i1_<>,
+							i2_<>,
+							join_<>
+						>,
+						lift_<full_divide_lists, C>
 					>
 				>, comp_join<T, U>
 				>;

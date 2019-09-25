@@ -15,6 +15,9 @@
 #include <boost/tmp/logic.hpp>
 #include <boost/tmp/vocabulary.hpp>
 
+#include <boost/tmp/algorithm/contains.hpp>
+#include <boost/tmp/sequence/erase.hpp>
+
 namespace boost {
 	namespace tmp {
 		namespace detail {
@@ -29,7 +32,7 @@ namespace boost {
 		using contains_swap = call_<unpack_<contains_<U>>, T>;
 
 		} // namespace detail
-
+		
 		template <typename Num, typename Den>
 		using divide_lists = call_<unpack_<push_front_<Num, fold_left_<if_<lift_<detail::contains_swap>, lift_<detail::erase_at>, front_<>>>>>, Den>;
 
