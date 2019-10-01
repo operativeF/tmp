@@ -9,7 +9,6 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#include <boost/tmp/algorithm/remove_pairs.hpp>
 #include <boost/tmp/algorithm/fold_left.hpp>
 #include <boost/tmp/if.hpp>
 #include <boost/tmp/sequence/index.hpp>
@@ -159,7 +158,7 @@ namespace boost {
 					join_<
 						sort_<
 							lift_<less>,
-							remove_pairs_<C>
+							C
 						>
 					>,
 					T, U
@@ -180,7 +179,7 @@ namespace boost {
 					unpack_<
 						sort_<
 							lift_<less>,
-							remove_pairs_<C>
+							C
 						>
 					>,
 					diff_helper3<T, U>
@@ -195,7 +194,7 @@ namespace boost {
 					unpack_<
 						sort_<
 							lift_<less>,
-							remove_pairs_<C>
+							C
 						>
 					>,
 					diff_helper3<U, T>

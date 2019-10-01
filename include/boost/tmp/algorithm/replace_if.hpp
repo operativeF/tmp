@@ -11,10 +11,8 @@
 
 #include <boost/tmp/algorithm/transform.hpp>
 #include <boost/tmp/always.hpp>
-#include <boost/tmp/call.hpp>
 #include <boost/tmp/detail/dispatch.hpp>
 #include <boost/tmp/if.hpp>
-#include <boost/tmp/sequence/join.hpp>
 #include <boost/tmp/vocabulary.hpp>
 
 /// \brief Given a variadic parameter pack, replace every value that fulfills

@@ -10,12 +10,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/tmp/algorithm/filter.hpp>
-#include <boost/tmp/algorithm/remove_if.hpp>
-#include <boost/tmp/call.hpp>
 #include <boost/tmp/comparison.hpp>
 #include <boost/tmp/identity.hpp>
-#include <boost/tmp/if.hpp>
-#include <boost/tmp/logic.hpp>
 #include <boost/tmp/sequence/tee.hpp>
 #include <boost/tmp/vocabulary.hpp>
 

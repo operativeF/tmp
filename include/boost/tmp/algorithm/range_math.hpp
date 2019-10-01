@@ -12,13 +12,7 @@
 #include <boost/tmp/algorithm/fold_left.hpp>
 #include <boost/tmp/algorithm/fold_right.hpp>
 #include <boost/tmp/algorithm/sort.hpp>
-#include <boost/tmp/algorithm/transform.hpp>
-#include <boost/tmp/call.hpp>
 #include <boost/tmp/identity.hpp>
-#include <boost/tmp/if.hpp>
-#include <boost/tmp/logic.hpp>
-#include <boost/tmp/sequence/tee.hpp>
-#include <boost/tmp/sequence/unpack.hpp>
 #include <boost/tmp/vocabulary.hpp>
 
 namespace boost {
