@@ -16,6 +16,8 @@
 #include <boost/tmp/sequence/unpack.hpp>
 #include <boost/tmp/vocabulary.hpp>
 
+// NOTE: Sort only works on lists, not parameter packs.
+
 namespace boost {
 	namespace tmp {
 		template <typename F = less_<>, typename C = listify_>

@@ -42,28 +42,30 @@ namespace boost {
 				using f = typename dispatch<1, C>::template f<bool_<std::is_same<P, T>::value>>;
 			};
 
+			// NOTE: Internal compiler error occurs when no parentheses are used around the values.
+			// Error is C1001; compiler file msc1.cpp, line 1596
 			template <typename C>
 			struct dispatch<2, less_<C>> {
 				template <typename T, typename U>
-				using f = typename dispatch<1, C>::template f < bool_<T::value<U::value>>;
+				using f = typename dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
 			};
 
-			template <typename V, typename C>
-			struct dispatch<1, less_<V, C>> {
+			template <typename U, typename C>
+			struct dispatch<1, less_<U, C>> {
 				template<typename T>
-				using f = typename dispatch<1, C>::template f < bool_<V::value<T::value>>;
+				using f = typename dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
 			};
 
 			template <typename C>
 			struct dispatch<2, greater_<C>> {
 				template <typename T, typename U>
-				using f = typename dispatch<1, C>::template f < bool_<U::value<T::value>>;
+				using f = typename dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
 			};
 
-			template <typename V, typename C>
-			struct dispatch<1, greater_<V, C>> {
+			template <typename U, typename C>
+			struct dispatch<1, greater_<U, C>> {
 				template<typename T>
-				using f = typename dispatch<1, C>::template f < bool_<T::value<V::value>>;
+				using f = typename dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
 			};
 		} // namespace detail
 	} // namespace tmp

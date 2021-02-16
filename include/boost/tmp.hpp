@@ -22,6 +22,7 @@
 #include <boost/tmp/algorithm/fold_left.hpp>
 #include <boost/tmp/algorithm/fold_right.hpp>
 #include <boost/tmp/algorithm/none_of.hpp>
+#include <boost/tmp/algorithm/pairing.hpp>
 #include <boost/tmp/algorithm/partition.hpp>
 #include <boost/tmp/algorithm/product.hpp>
 #include <boost/tmp/algorithm/range_math.hpp>

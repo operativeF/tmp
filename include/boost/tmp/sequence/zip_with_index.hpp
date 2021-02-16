@@ -24,7 +24,7 @@ namespace boost {
 
 			template <typename... Is>
 			struct indexer<list_<Is...>> {
-				template <typename F, template <typename...> class C, typename... Ts>
+				template <typename F, template<typename...> class C, typename... Ts>
 				using f = C<typename dispatch<2, F>::template f<Is, Ts>...>;
 			};
 

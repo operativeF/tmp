@@ -26,6 +26,25 @@ namespace boost {
 		struct int_ {
 			static constexpr long long value = I;
 		};
+
+		template<std::size_t S>
+		struct sizet_
+		{
+			static constexpr std::size_t value = S;
+		};
+
+		template<char C>
+		struct char_
+		{
+			static constexpr char value = C;
+		};
+
+		template<std::byte B>
+		struct byte_
+		{
+			static constexpr std::byte value = B;
+		};
+
 		template <bool B>
 		struct bool_ {
 			static constexpr bool value = B;
