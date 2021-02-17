@@ -50,6 +50,7 @@ namespace find_if_test {
 		constexpr auto xs1 = tmp::val_pack_(
 		        tmp::int_<1>{}, tmp::int_<2>{}, tmp::int_<3>{}, tmp::int_<4>{}, tmp::int_<5>{},
 		        tmp::int_<6>{}, tmp::int_<7>{}, tmp::int_<8>{}, tmp::int_<9>{}, tmp::int_<10>{});
+		(void)xs1;
 
 		constexpr auto result1 = xs1 >>= tmp::find_if_<tmp::lift_<equals_to<10>::template f>>{};
 		(void) result1;

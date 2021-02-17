@@ -128,10 +128,10 @@ namespace boost {
 			struct tee_impl<uint_<N>, L, and_<identity_, C>, Fs...> : tee_and_impl<true, C, Fs..., L> {};
 			template <typename L, typename C, typename... Fs>
 			struct tee_impl<uint_<1>, L, and_<identity_, C>, Fs...>
-					: tee_and_impl_1<true, C, Fs..., L> {};
+			    : tee_and_impl_1<true, C, Fs..., L> {};
 			template <typename C, typename... Fs>
 			struct tee_impl<uint_<1>, identity_, and_<identity_, C>, Fs...>
-					: tee_and_impl_1<true, C, Fs..., identity_> {};
+			    : tee_and_impl_1<true, C, Fs..., identity_> {};
 			template <typename L, typename C, typename... Fs>
 			struct tee_impl<uint_<2>, L, and_<identity_, C>, Fs...>
 					: tee_and_impl_2<true, C, Fs..., L> {};
@@ -201,10 +201,10 @@ namespace boost {
 			struct tee_impl<N, L, or_<identity_, C>, Fs...> : tee_or_impl<false, C, Fs..., L> {};
 			template <typename L, typename C, typename... Fs>
 			struct tee_impl<uint_<1>, L, or_<identity_, C>, Fs...>
-					: tee_or_impl_1<false, C, Fs..., L> {};
+			    : tee_or_impl_1<false, C, Fs..., L> {};
 			template <typename C, typename... Fs>
 			struct tee_impl<uint_<1>, identity_, or_<identity_, C>, Fs...>
-					: tee_or_impl_1<false, C, Fs..., identity_> {};
+			    : tee_or_impl_1<false, C, Fs..., identity_> {};
 			template <typename L, typename C, typename... Fs>
 			struct tee_impl<uint_<2>, L, or_<identity_, C>, Fs...>
 					: tee_or_impl_2<false, C, Fs..., L> {};
