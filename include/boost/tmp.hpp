@@ -34,6 +34,7 @@
 #include <boost/tmp/while.hpp>
 #include <boost/tmp/always.hpp>
 #include <boost/tmp/call.hpp>
+#include <boost/tmp/decay.hpp>
 #include <boost/tmp/comparison.hpp>
 #include <boost/tmp/detail/expression.hpp>
 #include <boost/tmp/detail/fusion_rebind.hpp>

@@ -8,7 +8,6 @@
 
 #include "all_of_test.hpp"
 #include "any_of_test.hpp"
-#include <boost/tmp_units/test/atomize_test.hpp>
 #include "clamp_test.hpp"
 #include "contains_test.hpp"
 #include "count_if_test.hpp"

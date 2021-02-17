@@ -26,14 +26,14 @@ namespace boost {
 				using type = typename dispatch<0, join_<C>>::template f<Ts...>;
 			};
 
-			template <typename C, typename T1, typename T, typename T2>
-			struct remove_pairs_impl<C, list_<T1, T, T, T2>>
-			    : remove_pairs_impl<C, list_<T1, T2>> {};
+			// template <typename C, typename T1, typename T, typename T2>
+			// struct remove_pairs_impl<C, list_<T1, T, T, T2>>
+			//     : remove_pairs_impl<C, list_<T1, T2>> {};
 
 			// Append to list function
-			template <typename C, typename... T1s, typename T, typename... T2s>
-			struct remove_pairs_impl<C, list_<T1s..., T, T, T2s...>>
-			    : remove_pairs_impl<C, list_<T1s..., T2s...>> {};
+			// template <typename C, typename... T1s, typename T, typename... T2s>
+			// struct remove_pairs_impl<C, list_<T1s..., T, T, T2s...>>
+			//     : remove_pairs_impl<C, list_<T1s..., T2s...>> {};
 
 			template <typename C, typename T, typename... T2s>
 			struct remove_pairs_impl<C, list_<T, T, T2s...>>
