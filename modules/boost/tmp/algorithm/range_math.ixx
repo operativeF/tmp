@@ -13,6 +13,7 @@ import Boost.TMP.Algorithm.FoldRight;
 import Boost.TMP.Algorithm.Sort;
 import Boost.TMP.Algorithm.Transform;
 
+import Boost.TMP.Base.Lift;
 import Boost.TMP.Base.Vocabulary;
 
 import Boost.TMP.Sequence.Tee;

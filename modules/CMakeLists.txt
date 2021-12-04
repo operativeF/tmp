@@ -26,9 +26,11 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/none_of.ixx
     ${TMP_ALGO_DIR}/pairing.ixx
     ${TMP_ALGO_DIR}/product.ixx
+    ${TMP_ALGO_DIR}/range_math.ixx
     ${TMP_ALGO_DIR}/remove_pairs.ixx
     ${TMP_ALGO_DIR}/sort.ixx
     ${TMP_ALGO_DIR}/transform.ixx
+    ${TMP_ALGO_DIR}/tmp_algorithm.ixx
 )
 
 set(TMP_MAIN_IXX
@@ -78,10 +80,11 @@ set(TMP_SEQ_IXX
     ${TMP_SEQ_DIR}/zip.ixx
 )
 
-add_library(boost_tmp_lib
+add_library(boost_tmp
     STATIC
         ${TMP_ALGO_IXX}
         ${TMP_MAIN_IXX}
         ${TMP_DETAIL_IXX}
         ${TMP_SEQ_IXX}
+        ${CMAKE_CURRENT_SOURCE_DIR}/boost/tmp.ixx
 )

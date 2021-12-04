@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(boost_tmp)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 
 if(MSVC)
 	# Disable unreferenced inline function removal warning

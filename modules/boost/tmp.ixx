@@ -10,5 +10,5 @@ export module Boost.TMP;
 
 export import Boost.TMP.Algorithm;
 export import Boost.TMP.Base;
-export import Boost.TMP.Fusion;
+// export import Boost.TMP.Fusion;
 export import Boost.TMP.Sequence;
