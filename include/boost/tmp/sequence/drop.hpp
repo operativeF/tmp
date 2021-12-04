@@ -11,7 +11,7 @@
 #include <boost/tmp/sequence/drop.hpp>
 #include <boost/tmp/sequence/rotate.hpp>
 #include <boost/tmp/vocabulary.hpp>
-
+ 
 namespace boost {
 	namespace tmp {
 		/// \brief Drop n values, starting from the front,
