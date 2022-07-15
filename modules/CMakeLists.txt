@@ -4,11 +4,11 @@
 #  See accompanying file LICENSE_1_0.txt or copy at
 #  http://www.boost.org/LICENSE_1_0.txt
 
-set(TMP_ALGO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/boost/tmp/algorithm)
-set(TMP_DETAIL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/boost/tmp/detail)
-set(TMP_FUSION_DIR ${CMAKE_CURRENT_SOURCE_DIR}/boost/tmp/fusion)
-set(TMP_SEQ_DIR ${CMAKE_CURRENT_SOURCE_DIR}/boost/tmp/sequence)
-set(TMP_MAIN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/boost/tmp)
+
+set(TMP_ALGO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/algorithm)
+set(TMP_DETAIL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/detail)
+set(TMP_SEQ_DIR ${CMAKE_CURRENT_SOURCE_DIR}/sequence)
+set(TMP_MAIN_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/all_of.ixx
@@ -25,10 +25,14 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/gather.ixx
     ${TMP_ALGO_DIR}/none_of.ixx
     ${TMP_ALGO_DIR}/pairing.ixx
+    ${TMP_ALGO_DIR}/partition.ixx
     ${TMP_ALGO_DIR}/product.ixx
     ${TMP_ALGO_DIR}/range_math.ixx
+    ${TMP_ALGO_DIR}/remove_if.ixx
     ${TMP_ALGO_DIR}/remove_pairs.ixx
+    ${TMP_ALGO_DIR}/replace_if.ixx
     ${TMP_ALGO_DIR}/sort.ixx
+    ${TMP_ALGO_DIR}/symmetric_difference.ixx
     ${TMP_ALGO_DIR}/transform.ixx
     ${TMP_ALGO_DIR}/tmp_algorithm.ixx
 )
@@ -42,6 +46,7 @@ set(TMP_MAIN_IXX
     ${TMP_MAIN_DIR}/identity.ixx
     ${TMP_MAIN_DIR}/if.ixx
     ${TMP_MAIN_DIR}/lift.ixx
+    ${TMP_MAIN_DIR}/list_operations.ixx
     ${TMP_MAIN_DIR}/logic.ixx
     ${TMP_MAIN_DIR}/pack.ixx
     ${TMP_MAIN_DIR}/tmp_base.ixx
@@ -49,7 +54,7 @@ set(TMP_MAIN_IXX
     ${TMP_MAIN_DIR}/vocabulary.ixx
 )
 
-set(TMP_DETAIL_IXX
+set(TMP_DETAIL_IXX                                                                                                                                                     
     ${TMP_DETAIL_DIR}/detail.ixx
     ${TMP_DETAIL_DIR}/dispatch.ixx
 )
@@ -67,6 +72,7 @@ set(TMP_SEQ_IXX
     ${TMP_SEQ_DIR}/pop_front.ixx
     ${TMP_SEQ_DIR}/push_back.ixx
     ${TMP_SEQ_DIR}/push_front.ixx
+    ${TMP_SEQ_DIR}/repeat_sequence.ixx
     ${TMP_SEQ_DIR}/reverse.ixx
     ${TMP_SEQ_DIR}/rotate.ixx
     ${TMP_SEQ_DIR}/sequence.ixx
@@ -80,11 +86,17 @@ set(TMP_SEQ_IXX
     ${TMP_SEQ_DIR}/zip.ixx
 )
 
-add_library(boost_tmp
-    STATIC
+set(TMP_BASE_IXX
+    ${CMAKE_CURRENT_SOURCE_DIR}/tmp.ixx
+)
+
+add_library(boost_tmp STATIC)
+
+target_sources(boost_tmp
+    PRIVATE
         ${TMP_ALGO_IXX}
         ${TMP_MAIN_IXX}
         ${TMP_DETAIL_IXX}
         ${TMP_SEQ_IXX}
-        ${CMAKE_CURRENT_SOURCE_DIR}/boost/tmp.ixx
+        ${TMP_BASE_IXX}
 )
