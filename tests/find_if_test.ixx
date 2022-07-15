@@ -17,10 +17,6 @@ export namespace find_if_test {
 
 	namespace tmp = boost::tmp;
 
-	constexpr auto a = tmp::val_pack_(
-
-	);
-
 	template <int X>
 	struct equals_to {
 		template <typename Y>

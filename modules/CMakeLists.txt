@@ -42,13 +42,11 @@ set(TMP_MAIN_IXX
     ${TMP_MAIN_DIR}/call.ixx
     ${TMP_MAIN_DIR}/comparison.ixx
     ${TMP_MAIN_DIR}/decay.ixx
-    ${TMP_MAIN_DIR}/fusion.ixx
     ${TMP_MAIN_DIR}/identity.ixx
     ${TMP_MAIN_DIR}/if.ixx
     ${TMP_MAIN_DIR}/lift.ixx
     ${TMP_MAIN_DIR}/list_operations.ixx
     ${TMP_MAIN_DIR}/logic.ixx
-    ${TMP_MAIN_DIR}/pack.ixx
     ${TMP_MAIN_DIR}/tmp_base.ixx
     ${TMP_MAIN_DIR}/try.ixx
     ${TMP_MAIN_DIR}/vocabulary.ixx
