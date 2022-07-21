@@ -91,7 +91,7 @@ set(TMP_BASE_IXX
 add_library(boost_tmp INTERFACE)
 
 target_sources(boost_tmp
-    PUBLIC
+    INTERFACE
         ${TMP_ALGO_IXX}
         ${TMP_MAIN_IXX}
         ${TMP_DETAIL_IXX}
