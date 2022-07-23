@@ -88,10 +88,11 @@ set(TMP_BASE_IXX
     ${CMAKE_CURRENT_SOURCE_DIR}/tmp.ixx
 )
 
-add_library(boost_tmp INTERFACE)
+add_library(boost_tmp STATIC)
 
 target_sources(boost_tmp
-    INTERFACE
+    PUBLIC
+        FILE_SET boost_tmp_modules TYPE CXX_MODULES FILES
         ${TMP_ALGO_IXX}
         ${TMP_MAIN_IXX}
         ${TMP_DETAIL_IXX}

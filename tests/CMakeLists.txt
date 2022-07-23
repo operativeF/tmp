@@ -1,10 +1,12 @@
 
-add_executable(tmp_test
-    test.cpp
-)
+add_executable(tmp_test)
 
 target_sources(tmp_test
     PRIVATE
+        test.cpp
+
+    PRIVATE
+        FILE_SET boost_tmp_test_modules TYPE CXX_MODULES FILES
         all_of_test.ixx
         any_of_test.ixx
         clamp_test.ixx
