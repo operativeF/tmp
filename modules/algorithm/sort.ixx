@@ -5,6 +5,12 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+module;
+
+#ifdef __GNUC__
+#include <cstdint>
+#endif // __GNUC__
+
 export module Boost.TMP.Algorithm.Sort;
 
 import Boost.TMP.Algorithm.FoldLeft;
@@ -16,12 +22,10 @@ import Boost.TMP.Sequence.PushFront;
 import Boost.TMP.Sequence.Take;
 import Boost.TMP.Sequence.Unpack;
 
-#ifdef __GNUC__
-import <cstdint>;
-#elif __clang__
+#if __clang__
 import std;
 #elif _MSC_VER
-import std.core;
+import std;
 #endif
 
 // NOTE: Sort only works on lists, not parameter packs.

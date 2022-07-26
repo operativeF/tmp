@@ -6,6 +6,12 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+module;
+
+#ifdef __GNUC__
+#include <cstdint>
+#endif // __GNUC__
+
 export module Boost.TMP.Algorithm.RemoveIf;
 
 import Boost.TMP.Algorithm.Transform;
@@ -18,12 +24,10 @@ import Boost.TMP.Base.Vocabulary;
 import Boost.TMP.Detail.Dispatch;
 import Boost.TMP.Sequence.Join;
 
-#ifdef __GNUC__
-import <cstdint>;
-#elif __clang__
+#if __clang__
 import std;
 #elif _MSC_VER
-import std.core;
+import std;
 #endif
 
 /// \brief Given a predicate F, check the variadic parameter pack passed in

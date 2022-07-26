@@ -5,6 +5,12 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+module;
+
+#ifdef __GNUC__
+#include <cstdint>
+#endif // __GNUC__
+
 export module Boost.TMP.Sequence.Insert;
 
 import Boost.TMP.Sequence.Drop;
@@ -13,13 +19,12 @@ import Boost.TMP.Sequence.Rotate;
 
 import Boost.TMP.Base.Vocabulary;
 
-#ifdef __GNUC__
-import <cstdint>;
-#elif __clang__
+#if __clang__
 import std;
 #elif _MSC_VER
-import std.core;
+import std;
 #endif
+
 ///
 // @BUG: This does not work as expected.
 // Inserting will cause a permutation of the current list with the

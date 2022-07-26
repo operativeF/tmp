@@ -99,3 +99,7 @@ target_sources(boost_tmp
         ${TMP_SEQ_IXX}
         ${TMP_BASE_IXX}
 )
+
+if(MSVC)
+    target_compile_options(boost_tmp PRIVATE /reference std=C:/dev/STL/std.ifc)
+endif()

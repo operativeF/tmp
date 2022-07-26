@@ -4,11 +4,17 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+#ifdef __GNUC__
+#include <type_traits>
+#endif // __GNUC__
+
 export module Boost.TMP.Test.RepeatSequence;
 
 import Boost.TMP;
 
-import std.core;
+#if _MSC_VER
+import std;
+#endif // _MSC_VER
 
 using namespace boost::tmp;
 

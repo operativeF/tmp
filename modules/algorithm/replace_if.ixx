@@ -6,6 +6,12 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+module;
+
+#ifdef __GNUC__
+#include <cstdint>
+#endif // __GNUC__
+
 export module Boost.TMP.Algorithm.ReplaceIf;
 
 import Boost.TMP.Base.Always;
@@ -18,7 +24,7 @@ import Boost.TMP.Detail.Dispatch;
 import Boost.TMP.Algorithm.Transform;
 import Boost.TMP.Sequence.Join;
 
-import std.core;
+import std;
 
 /// \brief Given a variadic parameter pack, replace every value that fulfills
 /// the predicate F with the value Input.

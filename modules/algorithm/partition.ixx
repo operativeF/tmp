@@ -17,7 +17,7 @@ import Boost.TMP.Detail.Dispatch;
 
 import Boost.TMP.Sequence.Tee;
 
-import std.core;
+import std;
 
 namespace boost::tmp {
 	/// \brief

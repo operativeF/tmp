@@ -48,6 +48,10 @@ target_sources(tmp_test
         tmp_all_tests.ixx
 )
 
+if(MSVC)
+    target_compile_options(tmp_test PRIVATE /reference std=C:/dev/STL/std.ifc)
+endif()
+
 target_link_libraries(tmp_test
     PRIVATE
         boost_tmp

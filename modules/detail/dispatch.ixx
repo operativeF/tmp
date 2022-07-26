@@ -5,14 +5,18 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-export module Boost.TMP.Detail.Dispatch;
+module;
 
 #ifdef __GNUC__
-import <cstdint>;
+#include <cstdint>
+#endif __GNUC__
+
+export module Boost.TMP.Detail.Dispatch;
+
+#if _MSC_VER
+import std;
 #elif __clang__
 import std;
-#elif _MSC_VER
-import std.core;
 #endif
 
 // FIXME: Export of detail namespace.

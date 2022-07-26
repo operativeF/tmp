@@ -13,12 +13,12 @@ import Boost.TMP.Base.Vocabulary;
 import Boost.TMP.Detail.Dispatch;
 
 #ifdef __GNUC__
-import <cstdint>;
-import <type_traits>;
+#include <cstdint>
+#include <type_traits>
 #elif __clang__
 import std;
 #elif _MSC_VER
-import std.core;
+import std;
 #endif
 
 namespace boost::tmp {

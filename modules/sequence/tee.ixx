@@ -5,6 +5,12 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+module;
+
+#ifdef __GNUC__
+#include <cstdint>
+#endif // __GNUC__
+
 export module Boost.TMP.Sequence.Tee;
 
 import Boost.TMP.Base.Identity;
@@ -16,12 +22,10 @@ import Boost.TMP.Detail.Dispatch;
 import Boost.TMP.Sequence.PushFront;
 import Boost.TMP.Sequence.Rotate;
 
-#ifdef __GNUC__
-import <cstdint>;
-#elif __clang__
+#if __clang__
 import std;
 #elif _MSC_VER
-import std.core;
+import std;
 #endif
 
 namespace boost::tmp {

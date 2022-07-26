@@ -5,19 +5,23 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+module;
+
+#ifdef __GNUC__
+#include <cstdint>
+#include <type_traits>
+#endif // __GNUC__
+
 export module Boost.TMP.Base.Call;
 
 import Boost.TMP.Detail.Dispatch;
 import Boost.TMP.Base.Identity;
 import Boost.TMP.Base.Vocabulary;
 
-#ifdef __GNUC__
-import <cstdint>;
-import <type_traits>;
-#elif __clang__
+#if __clang__
 import std;
 #elif _MSC_VER
-import std.core;
+import std;
 #endif
 
 namespace boost::tmp {

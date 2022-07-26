@@ -5,14 +5,18 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-export module Boost.TMP.Base.Decay;
+module;
 
 #ifdef __GNUC__
-import <cstdint>;
-#elif __clang__
+#include <cstdint>
+#endif // __GNUC__
+
+export module Boost.TMP.Base.Decay;
+
+#if __clang__
 import std;
 #elif _MSC_VER
-import std.core;
+import std;
 #endif
 
 export namespace boost::tmp {
