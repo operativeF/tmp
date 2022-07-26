@@ -9,10 +9,12 @@ module;
 
 #ifdef __GNUC__
 #include <cstdint>
+#include <utility>
 #endif // __GNUC__
 
 export module Boost.TMP.Sequence.Join;
 
+import Boost.TMP.Base.Lift;
 import Boost.TMP.Base.Vocabulary;
 import Boost.TMP.Sequence.Unpack;
 import Boost.TMP.Detail.Dispatch;

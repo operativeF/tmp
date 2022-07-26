@@ -12,6 +12,7 @@ import Boost.TMP.Base.Call;
 import Boost.TMP.Base.Comparison;
 import Boost.TMP.Base.Identity;
 import Boost.TMP.Base.If;
+import Boost.TMP.Base.Lift;
 import Boost.TMP.Base.Logic;
 import Boost.TMP.Base.Vocabulary;
 

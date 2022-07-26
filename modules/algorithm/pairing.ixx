@@ -8,7 +8,11 @@
 export module Boost.TMP.Algorithm.Pairing;
 
 import Boost.TMP.Base.Call;
+import Boost.TMP.Base.Lift;
 import Boost.TMP.Base.Vocabulary;
+
+import Boost.TMP.Detail.Dispatch;
+
 import Boost.TMP.Sequence.Join;
 
 namespace boost::tmp {

@@ -15,7 +15,9 @@ module;
 export module Boost.TMP.Sequence.Set;
 
 import Boost.TMP.Base.Call;
+import Boost.TMP.Base.Comparison;
 import Boost.TMP.Base.If;
+import Boost.TMP.Base.Lift;
 import Boost.TMP.Base.ListOperations;
 import Boost.TMP.Base.Vocabulary;
 
@@ -25,6 +27,8 @@ import Boost.TMP.Algorithm.FoldLeft;
 import Boost.TMP.Algorithm.Product;
 import Boost.TMP.Algorithm.RemovePairs;
 import Boost.TMP.Algorithm.Sort;
+
+import Boost.TMP.Detail.Dispatch;
 
 import Boost.TMP.Sequence.Drop;
 import Boost.TMP.Sequence.Index;

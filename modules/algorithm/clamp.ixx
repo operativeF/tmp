@@ -14,9 +14,13 @@ module;
 
 export module Boost.TMP.Algorithm.Clamp;
 
+import Boost.TMP.Algorithm.Filter;
+
 import Boost.TMP.Base.Comparison;
 import Boost.TMP.Base.Identity;
-import Boost.TMP.Algorithm.Filter;
+
+import Boost.TMP.Detail.Dispatch;
+
 import Boost.TMP.Sequence.Tee;
 
 #if __clang__

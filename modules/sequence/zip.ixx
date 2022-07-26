@@ -13,12 +13,14 @@ module;
 
 export module Boost.TMP.Sequence.Zip;
 
-import Boost.TMP.Sequence.Unpack;
+import Boost.TMP.Algorithm.Transform;
+
 import Boost.TMP.Base.Vocabulary;
 
 import Boost.TMP.Detail.Dispatch;
 
-import Boost.TMP.Algorithm.Transform;
+import Boost.TMP.Sequence.Unpack;
+
 
 #if __clang__
 import std;

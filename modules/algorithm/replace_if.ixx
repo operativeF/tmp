@@ -16,6 +16,7 @@ export module Boost.TMP.Algorithm.ReplaceIf;
 
 import Boost.TMP.Base.Always;
 import Boost.TMP.Base.Call;
+import Boost.TMP.Base.Identity;
 import Boost.TMP.Base.If;
 import Boost.TMP.Base.Vocabulary;
 
@@ -24,7 +25,9 @@ import Boost.TMP.Detail.Dispatch;
 import Boost.TMP.Algorithm.Transform;
 import Boost.TMP.Sequence.Join;
 
+#ifdef _MSC_VER
 import std;
+#endif // _MSC_VER
 
 /// \brief Given a variadic parameter pack, replace every value that fulfills
 /// the predicate F with the value Input.

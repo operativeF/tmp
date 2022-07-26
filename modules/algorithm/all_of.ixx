@@ -14,8 +14,10 @@ module;
 
 export module Boost.TMP.Algorithm.AllOf;
 
+import Boost.TMP.Base.Identity;
 import Boost.TMP.Base.Logic;
 import Boost.TMP.Base.Vocabulary;
+
 import Boost.TMP.Detail.Dispatch;
 
 #if __clang__

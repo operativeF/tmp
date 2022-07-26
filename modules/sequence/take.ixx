@@ -15,6 +15,8 @@ export module Boost.TMP.Sequence.Take;
 
 import Boost.TMP.Base.Vocabulary;
 
+import Boost.TMP.Detail.Dispatch;
+
 import Boost.TMP.Sequence.Drop;
 import Boost.TMP.Sequence.Rotate;
 

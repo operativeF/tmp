@@ -13,8 +13,11 @@ module;
 
 export module Boost.TMP.Sequence.ZipWithIndex;
 
+import Boost.TMP.Base.Lift;
 import Boost.TMP.Base.Vocabulary;
+
 import Boost.TMP.Detail.Dispatch;
+
 import Boost.TMP.Sequence.MakeSequence;
 
 #if __clang__

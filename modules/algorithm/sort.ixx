@@ -16,7 +16,11 @@ export module Boost.TMP.Algorithm.Sort;
 import Boost.TMP.Algorithm.FoldLeft;
 
 import Boost.TMP.Base.Comparison;
+import Boost.TMP.Base.Identity;
+import Boost.TMP.Base.Lift;
 import Boost.TMP.Base.Vocabulary;
+
+import Boost.TMP.Detail.Dispatch;
 
 import Boost.TMP.Sequence.PushFront;
 import Boost.TMP.Sequence.Take;

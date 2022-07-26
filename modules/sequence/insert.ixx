@@ -19,6 +19,8 @@ import Boost.TMP.Sequence.Rotate;
 
 import Boost.TMP.Base.Vocabulary;
 
+import Boost.TMP.Detail.Dispatch;
+
 #if __clang__
 import std;
 #elif _MSC_VER

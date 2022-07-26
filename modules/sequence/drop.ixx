@@ -16,6 +16,8 @@ export module Boost.TMP.Sequence.Drop;
 import Boost.TMP.Base.Call;
 import Boost.TMP.Base.Vocabulary;
 
+import Boost.TMP.Detail.Dispatch;
+
 import Boost.TMP.Sequence.Rotate;
 
 #if __clang__

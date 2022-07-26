@@ -16,6 +16,7 @@ export module Boost.TMP.Algorithm.CountIf;
 import Boost.TMP.Base.Always;
 import Boost.TMP.Base.Identity;
 import Boost.TMP.Base.If;
+import Boost.TMP.Base.Vocabulary;
 import Boost.TMP.Detail.Dispatch;
 import Boost.TMP.Sequence.Join;
 import Boost.TMP.Sequence.Size;

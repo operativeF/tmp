@@ -14,6 +14,7 @@ module;
 export module Boost.TMP.Sequence.PopFront;
 
 import Boost.TMP.Base.Vocabulary;
+import Boost.TMP.Detail.Dispatch;
 
 #if __clang__
 import std;

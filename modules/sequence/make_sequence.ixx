@@ -13,6 +13,7 @@ module;
 
 export module Boost.TMP.Sequence.MakeSequence;
 
+import Boost.TMP.Detail.Dispatch;
 import Boost.TMP.Base.Identity;
 import Boost.TMP.Base.Vocabulary;
 import Boost.TMP.Algorithm.Transform;

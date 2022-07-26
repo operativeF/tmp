@@ -8,6 +8,7 @@
 module;
 
 #ifdef __GNUC__
+#include <cstddef>
 #include <cstdint>
 #endif // __GNUC__
 

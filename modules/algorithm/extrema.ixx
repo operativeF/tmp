@@ -18,6 +18,7 @@ import Boost.TMP.Algorithm.FoldLeft;
 import Boost.TMP.Base.Call;
 import Boost.TMP.Base.Identity;
 import Boost.TMP.Base.Lift;
+import Boost.TMP.Base.Vocabulary;
 import Boost.TMP.Detail.Dispatch;
 
 #if __clang__

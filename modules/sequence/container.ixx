@@ -8,6 +8,7 @@
 export module Boost.TMP.Sequence.Container;
 
 import Boost.TMP.Base.Comparison;
+import Boost.TMP.Base.Identity;
 import Boost.TMP.Base.Lift;
 import Boost.TMP.Base.Vocabulary;
 

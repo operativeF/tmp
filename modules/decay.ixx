@@ -9,6 +9,7 @@ module;
 
 #ifdef __GNUC__
 #include <cstdint>
+#include <type_traits>
 #endif // __GNUC__
 
 export module Boost.TMP.Base.Decay;

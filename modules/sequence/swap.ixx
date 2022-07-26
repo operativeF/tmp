@@ -8,6 +8,7 @@
 export module Boost.TMP.Sequence.Swap;
 
 import Boost.TMP.Base.Vocabulary;
+import Boost.TMP.Detail.Dispatch;
 
 /// \brief Swaps two variadic parametic pack values. Must be only two values.
 namespace boost::tmp {

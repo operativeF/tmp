@@ -20,6 +20,8 @@ import Boost.TMP.Base.If;
 import Boost.TMP.Base.Logic;
 import Boost.TMP.Base.Vocabulary;
 
+import Boost.TMP.Detail.Dispatch;
+
 import Boost.TMP.Sequence.Join;
 
 #if __clang__

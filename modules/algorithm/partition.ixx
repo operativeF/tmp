@@ -5,6 +5,12 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+module;
+
+#ifdef __GNUC__
+#include <cstdint>
+#endif // __GNUC__
+
 export module Boost.TMP.Algorithm.Partition;
 
 import Boost.TMP.Algorithm.Filter;
@@ -17,7 +23,9 @@ import Boost.TMP.Detail.Dispatch;
 
 import Boost.TMP.Sequence.Tee;
 
+#ifdef _MSC_VER
 import std;
+#endif // _MSC_VER
 
 namespace boost::tmp {
 	/// \brief

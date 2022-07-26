@@ -14,6 +14,7 @@ module;
 export module Boost.TMP.Sequence.Tee;
 
 import Boost.TMP.Base.Identity;
+import Boost.TMP.Base.Lift;
 import Boost.TMP.Base.Logic;
 import Boost.TMP.Base.Vocabulary;
 
