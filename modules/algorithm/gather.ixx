@@ -28,13 +28,10 @@ import std;
 #endif
 
 export namespace boost::tmp {
-        // Sorts, and then groups items into a list of lists of the same type.
-        template<typename F, typename C = listify_>
-        struct gather_;
+    // Sorts, and then groups items into a list of lists of the same type.
+    template<typename F, typename C = listify_>
+    struct gather_;
 
-		namespace detail {
-            template <std::size_t N, typename F, typename C>
-			struct dispatch<N, gather_<F, C>>{};
-
-		} // namespace detail
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, gather_<F, C>>{};
 } // export namespace boost::tmp

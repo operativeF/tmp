@@ -15,10 +15,10 @@ target_sources(tmp_test
         drop_test.ixx
         each_test.ixx
         erase_test.ixx
-        extrema_test.ixx
+        # extrema_test.ixx
         filter_test.ixx
         find_if_test.ixx
-        flatten_test.ixx
+        # flatten_test.ixx
         fold_left_test.ixx
         fold_right_test.ixx
         index_test.ixx
@@ -28,16 +28,16 @@ target_sources(tmp_test
         none_of_test.ixx
         partition_test.ixx
         pop_front_test.ixx
-        product_test.ixx
+        # product_test.ixx
         push_back_test.ixx
         push_front_test.ixx
-        range_math_test.ixx
+        # range_math_test.ixx
         remove_if_test.ixx
         repeat_sequence_test.ixx
         replace_if_test.ixx
         reverse_test.ixx
         rotate_test.ixx
-        set_test.ixx
+        # set_test.ixx
         size_test.ixx
         sort_test.ixx
         swap_test.ixx

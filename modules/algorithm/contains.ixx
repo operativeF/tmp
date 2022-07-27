@@ -29,8 +29,6 @@ namespace boost::tmp {
 	export template <typename V, typename C = identity_>
 	struct contains_ {};
 
-	namespace detail {
-		template <std::size_t N, typename V, typename C>
-		struct dispatch<N, contains_<V, C>> : dispatch<N, or_<is_<V>, C>> {};
-	} // namespace detail
+	template <std::size_t N, typename V, typename C>
+	struct dispatch<N, contains_<V, C>> : dispatch<N, or_<is_<V>, C>> {};
 } // namespace boost::tmp

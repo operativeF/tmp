@@ -30,13 +30,11 @@ namespace boost::tmp {
 	export template <typename N = sizet_<0>, typename C = listify_>
 	struct take_ {};
 
-	namespace detail {
-		template <std::size_t N, typename P, typename C>
-		struct dispatch<N, take_<P, C>> {
-			template <typename... Ts>
-			using f = typename dispatch<
-				    find_dispatch(sizeof...(Ts)),
-				    rotate_<P, drop_<sizet_<(sizeof...(Ts) - P::value)>, C>>>::template f<Ts...>;
-		};
-	} // namespace detail
+	template <std::size_t N, typename P, typename C>
+	struct dispatch<N, take_<P, C>> {
+		template <typename... Ts>
+		using f = typename dispatch<
+				find_dispatch(sizeof...(Ts)),
+				rotate_<P, drop_<sizet_<(sizeof...(Ts) - P::value)>, C>>>::template f<Ts...>;
+	};
 } // namespace boost::tmp

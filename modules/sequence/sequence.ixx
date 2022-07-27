@@ -15,7 +15,7 @@ export import Boost.TMP.Sequence.PushFront;
 export import Boost.TMP.Sequence.RepeatSequence;
 export import Boost.TMP.Sequence.Reverse;
 export import Boost.TMP.Sequence.Rotate;
-export import Boost.TMP.Sequence.Set;
+// export import Boost.TMP.Sequence.Set;
 export import Boost.TMP.Sequence.Size;
 export import Boost.TMP.Sequence.Swap;
 export import Boost.TMP.Sequence.Take;

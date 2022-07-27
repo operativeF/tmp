@@ -11,9 +11,10 @@ import Boost.TMP;
 
 using namespace boost::tmp;
 
+template <typename T, typename U>
+using add = uint_<(T::value + U::value)>;
+
 export namespace fold_right_test {
-	template <typename T, typename U>
-	using add = uint_<(T::value + U::value)>;
 	int run() {
 		uint_<1>{}  = call_<fold_right_<lift_<add>>, uint_<1>>{};
 		uint_<3>{}  = call_<fold_right_<lift_<add>>, uint_<1>, uint_<2>>{};

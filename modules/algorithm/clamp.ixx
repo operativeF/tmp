@@ -33,9 +33,7 @@ namespace boost::tmp {
 	export template <typename L, typename H, typename C = identity_>
 	struct clamp_ {};
 
-	namespace detail {
-		template <std::size_t N, typename L, typename H, typename C>
-		struct dispatch<N, clamp_<L, H, C>>
-			: dispatch<N, tee_<filter_<less_<L>, filter_<greater_<H>>>, C>> {};
-	} // namespace detail
+	template <std::size_t N, typename L, typename H, typename C>
+	struct dispatch<N, clamp_<L, H, C>>
+		: dispatch<N, tee_<filter_<less_<L>, filter_<greater_<H>>>, C>> {};
 } // namespace boost::tmp

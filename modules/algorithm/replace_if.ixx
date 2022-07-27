@@ -15,7 +15,6 @@ module;
 export module Boost.TMP.Algorithm.ReplaceIf;
 
 import Boost.TMP.Base.Always;
-import Boost.TMP.Base.Call;
 import Boost.TMP.Base.Identity;
 import Boost.TMP.Base.If;
 import Boost.TMP.Base.Vocabulary;
@@ -23,7 +22,6 @@ import Boost.TMP.Base.Vocabulary;
 import Boost.TMP.Detail.Dispatch;
 
 import Boost.TMP.Algorithm.Transform;
-import Boost.TMP.Sequence.Join;
 
 #ifdef _MSC_VER
 import std;
@@ -35,9 +33,7 @@ namespace boost::tmp {
 	export template <typename Input, typename F, typename C = listify_>
 	struct replace_if_ {};
 
-	namespace detail {
-		template <std::size_t N, typename Input, typename F, typename C>
-		struct dispatch<N, replace_if_<Input, F, C>>
-			: dispatch<N, transform_<if_<F, always_<Input>, identity_>, C>> {};
-	} // namespace detail
+	template <std::size_t N, typename Input, typename F, typename C>
+	struct dispatch<N, replace_if_<Input, F, C>>
+		: dispatch<N, transform_<if_<F, always_<Input>, identity_>, C>> {};
 } // namespace boost::tmp

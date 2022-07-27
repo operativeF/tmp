@@ -16,23 +16,23 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/clamp.ixx
     ${TMP_ALGO_DIR}/contains.ixx
     ${TMP_ALGO_DIR}/count_if.ixx
-    ${TMP_ALGO_DIR}/extrema.ixx
+    # ${TMP_ALGO_DIR}/extrema.ixx
     ${TMP_ALGO_DIR}/filter.ixx
     ${TMP_ALGO_DIR}/find_if.ixx
-    ${TMP_ALGO_DIR}/flatten.ixx
+    # ${TMP_ALGO_DIR}/flatten.ixx
     ${TMP_ALGO_DIR}/fold_left.ixx
     ${TMP_ALGO_DIR}/fold_right.ixx
     ${TMP_ALGO_DIR}/gather.ixx
     ${TMP_ALGO_DIR}/none_of.ixx
-    ${TMP_ALGO_DIR}/pairing.ixx
+    # ${TMP_ALGO_DIR}/pairing.ixx
     ${TMP_ALGO_DIR}/partition.ixx
-    ${TMP_ALGO_DIR}/product.ixx
-    ${TMP_ALGO_DIR}/range_math.ixx
+    # ${TMP_ALGO_DIR}/product.ixx
+    # ${TMP_ALGO_DIR}/range_math.ixx
     ${TMP_ALGO_DIR}/remove_if.ixx
-    ${TMP_ALGO_DIR}/remove_pairs.ixx
+    # ${TMP_ALGO_DIR}/remove_pairs.ixx
     ${TMP_ALGO_DIR}/replace_if.ixx
     ${TMP_ALGO_DIR}/sort.ixx
-    ${TMP_ALGO_DIR}/symmetric_difference.ixx
+    # ${TMP_ALGO_DIR}/symmetric_difference.ixx
     ${TMP_ALGO_DIR}/transform.ixx
     ${TMP_ALGO_DIR}/tmp_algorithm.ixx
 )
@@ -45,7 +45,7 @@ set(TMP_MAIN_IXX
     ${TMP_MAIN_DIR}/identity.ixx
     ${TMP_MAIN_DIR}/if.ixx
     ${TMP_MAIN_DIR}/lift.ixx
-    ${TMP_MAIN_DIR}/list_operations.ixx
+    # ${TMP_MAIN_DIR}/list_operations.ixx
     ${TMP_MAIN_DIR}/logic.ixx
     ${TMP_MAIN_DIR}/tmp_base.ixx
     ${TMP_MAIN_DIR}/try.ixx
@@ -74,7 +74,7 @@ set(TMP_SEQ_IXX
     ${TMP_SEQ_DIR}/reverse.ixx
     ${TMP_SEQ_DIR}/rotate.ixx
     ${TMP_SEQ_DIR}/sequence.ixx
-    ${TMP_SEQ_DIR}/set.ixx
+    # ${TMP_SEQ_DIR}/set.ixx
     ${TMP_SEQ_DIR}/size.ixx
     ${TMP_SEQ_DIR}/swap.ixx
     ${TMP_SEQ_DIR}/take.ixx

@@ -11,14 +11,15 @@ import Boost.TMP;
 
 using namespace boost::tmp;
 
-export namespace count_if_test {
-	template <typename T>
-	using divide_by_two_celing = int_<((T::value >> 1) + (T::value & 1))>;
-	template <typename T>
-	using multiply_by_2 = sizet_<(T::value << 1)>;
+template <typename T>
+using divide_by_two_celing = int_<((T::value >> 1) + (T::value & 1))>;
+template <typename T>
+using multiply_by_2 = sizet_<(T::value << 1)>;
 
-	template <typename T>
-	using is_even = bool_<(T::value % 2 == 0)>;
+template <typename T>
+using is_even = bool_<(T::value % 2 == 0)>;
+
+export namespace count_if_test {
 	int run() {
 
 		sizet_<0>{} = call_<count_if_<lift_<is_even>>, int_<1>>{};

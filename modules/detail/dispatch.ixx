@@ -20,7 +20,7 @@ import std;
 #endif
 
 // FIXME: Export of detail namespace.
-export namespace boost::tmp::detail {
+export namespace boost::tmp {
 	consteval std::size_t find_dispatch(std::size_t n) {
 		return n <= 8 ? n :
 				        n < 16 ?

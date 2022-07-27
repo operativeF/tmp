@@ -15,11 +15,9 @@ namespace boost::tmp {
 	export template <typename C = listify_>
 	struct swap_ {};
 
-	namespace detail {
-		template <typename C>
-		struct dispatch<2, swap_<C>> {
-			template <typename T, typename U>
-			using f = typename dispatch<2, C>::template f<U, T>;
-		};
-	} // namespace detail
+	template <typename C>
+	struct dispatch<2, swap_<C>> {
+		template <typename T, typename U>
+		using f = typename dispatch<2, C>::template f<U, T>;
+	};
 } // namespace boost::tmp

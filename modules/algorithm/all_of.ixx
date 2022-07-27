@@ -16,7 +16,6 @@ export module Boost.TMP.Algorithm.AllOf;
 
 import Boost.TMP.Base.Identity;
 import Boost.TMP.Base.Logic;
-import Boost.TMP.Base.Vocabulary;
 
 import Boost.TMP.Detail.Dispatch;
 
@@ -30,9 +29,7 @@ namespace boost::tmp {
 	export template <typename F, typename C = identity_>
 	struct all_of_ {};
 		
-	namespace detail {
-		template <std::size_t N, typename F, typename C>
-		struct dispatch<N, all_of_<F, C>>
-            : dispatch<N, and_<F, C>> {};
-	} // namespace detail
+	template <std::size_t N, typename F, typename C>
+	struct dispatch<N, all_of_<F, C>>
+		: dispatch<N, and_<F, C>> {};
 } // namespace boost::tmp

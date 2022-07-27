@@ -14,10 +14,7 @@ import Boost.TMP;
 using namespace boost::tmp;
 
 namespace repeat_test {
-	using namespace boost::tmp;
-
 	int run() {
-
         return 0;
 	}
 } // namespace repeat_test

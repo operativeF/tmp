@@ -13,7 +13,6 @@ module;
 
 export module Boost.TMP.Sequence.Insert;
 
-import Boost.TMP.Sequence.Drop;
 import Boost.TMP.Sequence.PushFront;
 import Boost.TMP.Sequence.Rotate;
 
@@ -38,18 +37,16 @@ namespace boost::tmp {
 	export template <typename N = sizet_<0>, typename V = nothing_, typename C = listify_>
 	struct insert_ {};
 
-	namespace detail {
-		template <std::size_t N, typename I, typename V, typename C>
-		struct dispatch<N, insert_<I, V, C>> {
-			template <typename... Ts>
-			using f = typename dispatch<
-				    N, rotate_<I, push_front_<V, rotate_<sizet_<(sizeof...(Ts) - I::value - 1)>,
-				                                            C>>>>::template f<Ts...>;
-		};
-		template <typename I, typename V, typename C>
-		struct dispatch<0, insert_<I, V, C>> {
-			template <typename... Ts>
-			using f = typename dispatch<1, C>::template f<V>;
-		};
-	} // namespace detail
+	template <std::size_t N, typename I, typename V, typename C>
+	struct dispatch<N, insert_<I, V, C>> {
+		template <typename... Ts>
+		using f = typename dispatch<
+				N, rotate_<I, push_front_<V, rotate_<sizet_<(sizeof...(Ts) - I::value - 1)>,
+														C>>>>::template f<Ts...>;
+	};
+	template <typename I, typename V, typename C>
+	struct dispatch<0, insert_<I, V, C>> {
+		template <typename... Ts>
+		using f = typename dispatch<1, C>::template f<V>;
+	};
 } // namespace boost::tmp

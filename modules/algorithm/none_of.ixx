@@ -17,9 +17,6 @@ export module Boost.TMP.Algorithm.NoneOf;
 import Boost.TMP.Base.Identity;
 import Boost.TMP.Base.Logic;
 
-import Boost.TMP.Algorithm.FindIf;
-import Boost.TMP.Algorithm.Transform;
-
 import Boost.TMP.Detail.Dispatch;
 
 #if __clang__
@@ -33,9 +30,7 @@ namespace boost::tmp {
 	struct none_of_ {};
 
 	// @TODO: Make this shorting.
-	namespace detail {
-		template <std::size_t N, typename F, typename C>
-		struct dispatch<N, none_of_<F, C>>
-            : dispatch<N, and_<F, not_<C>>> {};
-	} // namespace detail
+	template <std::size_t N, typename F, typename C>
+	struct dispatch<N, none_of_<F, C>>
+		: dispatch<N, and_<F, not_<C>>> {};
 } // namespace boost::tmp

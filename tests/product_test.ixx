@@ -17,6 +17,7 @@ export namespace product_test {
 	using xr1 = list_<uint_<1>, uint_<2>, uint_<3>>;
 
 	using result1 = call_<product_<>, xl1, xr1>;
+
 	int run() {
 		list_<list_<uint_<1>, uint_<1>>, list_<uint_<1>, uint_<2>>, list_<uint_<1>, uint_<3>>,
 		      list_<uint_<2>, uint_<1>>, list_<uint_<2>, uint_<2>>, list_<uint_<2>, uint_<3>>,

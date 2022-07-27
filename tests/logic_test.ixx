@@ -11,11 +11,11 @@ import Boost.TMP;
 
 using namespace boost::tmp;
 
-export namespace logic_test {
-	template <typename T>
-	using is_even = bool_<(T::value % 2 == 0)>;
-	int run() {
+template <typename T>
+using is_even = bool_<(T::value % 2 == 0)>;
 
+export namespace logic_test {
+	int run() {
 		bool_<false>{} = call_<and_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<1>, int_<1>,
 		                       int_<1>, int_<1>, int_<1>, int_<1>>{};
 

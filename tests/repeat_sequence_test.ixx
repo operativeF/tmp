@@ -20,13 +20,10 @@ import std;
 
 using namespace boost::tmp;
 
-export namespace repeat_sequence_test {
+using repeat_1_10x = call_<repeat_sequence_<sizet_<69>, lift_<into_sequence>>, sizet_<1>>;
 
-    template<typename... Vs>
-    using into_sequence = std::index_sequence<Vs::value...>;
-    using repeat_1_10x = call_<repeat_sequence_<sizet_<69>, lift_<into_sequence>>, sizet_<1>>;
+export namespace repeat_sequence_test {
 	int run() {
-        // repeat_1_10x::nil{};
 		return 0;
 	}
 } // namespace repeat_sequence_test
