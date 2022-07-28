@@ -45,5 +45,5 @@ export import :Swap;
 export import :Take;
 export import :Tee;
 export import :Transform;
-// export import :Try;
+export import :Try;
 // export import :ZipWithIndex;

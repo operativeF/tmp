@@ -5,19 +5,9 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-module;
-
-#ifdef __GNUC__
-#include <cstdint>
-#endif // __GNUC__
-
 export module Boost.TMP.Tests:Erase;
 
 import Boost.TMP;
-
-#if _MSC_VER
-import std;
-#endif
 
 using namespace boost::tmp;
 

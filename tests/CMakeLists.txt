@@ -44,6 +44,7 @@ target_sources(tmp_test
         Boost.TMP.Tests-Take.ixx
         Boost.TMP.Tests-Tee.ixx
         Boost.TMP.Tests-Transform.ixx
+        Boost.TMP.Tests-Try.ixx
         
         Boost.TMP.Tests.ixx
 )
