@@ -11,13 +11,9 @@ import Boost.TMP;
 
 using namespace boost::tmp;
 
-using alist = list_<uint_<0>, uint_<1>>;
-
-using alist_swap = call_<unpack_<swap_<>>, alist>;
-
 export namespace swap_test {
 	int run() {
-		list_<uint_<1>, uint_<0>>{} = alist_swap{};
+		list_<int_<1>, int_<0>>{} = call_<swap_<>, int_<0>, int_<1>>{};
 		return 0;
 	}
 } // namespace swap_test

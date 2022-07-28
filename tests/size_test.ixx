@@ -11,11 +11,9 @@ import Boost.TMP;
 
 using namespace boost::tmp;
 
-using alist = list_<uint_<0>, uint_<2>, uint_<4>>;
-
 export namespace size_test {
 	int run() {
-		sizet_<3>{} = call_<unpack_<size_<>>, alist>{};
+		sizet_<3>{} = call_<size_<>, int_<0>, int_<2>, int_<4>>{};
 
 		return 0;
 	}

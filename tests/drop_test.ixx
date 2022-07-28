@@ -11,11 +11,9 @@ import Boost.TMP;
 
 using namespace boost::tmp;
 
-using drop_list = list_<uint_<0>, uint_<1>>;
-
 export namespace drop_test {
 	int run() {
-		list_<uint_<1>>{} = call_<unpack_<drop_<uint_<1>>>, drop_list>{};
+		list_<int_<1>>{} = call_<drop_<uint_<1>>, int_<0>, int_<1>>{};
 		return 0;
 	}
 } // namespace drop_test
