@@ -9,7 +9,7 @@ export module Boost.TMP.Tests:FoldLeft;
 
 import Boost.TMP;
 
-export namespace fold_left_test {
+namespace fold_left_test {
 	using namespace boost::tmp;
 
 	template <typename T, typename U>
