@@ -6,8 +6,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-import Boost.TMP;
-import Tests;
+import Boost.TMP.Tests;
 
 int main() {
 	return any_of_test::run() ||
