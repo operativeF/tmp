@@ -12,7 +12,6 @@ import :Algorithm.Contains;
 import :Algorithm.FindIf;
 import :Algorithm.FoldLeft;
 import :Algorithm.Sort;
-
 import :Base.Call;
 import :Base.Comparison;
 import :Base.Identity;
@@ -20,7 +19,6 @@ import :Base.If;
 import :Base.Lift;
 import :Base.Logic;
 import :Base.Vocabulary;
-
 import :Sequence.Erase;
 import :Sequence.Index;
 import :Sequence.PushFront;

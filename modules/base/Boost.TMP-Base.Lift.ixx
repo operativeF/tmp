@@ -13,8 +13,8 @@ module;
 
 export module Boost.TMP:Base.Lift;
 
-import :Detail.Dispatch;
 import :Base.Identity;
+import :Detail.Dispatch;
 
 #if __clang__
 import std;
