@@ -9,8 +9,10 @@ export module Boost.TMP.Tests:Each;
 
 import Boost.TMP;
 
-export namespace each_test {
-	int run() {
+namespace each_test {
+	using namespace boost::tmp;
+
+	export int run() {
 		return 0;
 	}
 } // namespace each_test

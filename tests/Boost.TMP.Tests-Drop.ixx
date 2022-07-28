@@ -9,10 +9,10 @@ export module Boost.TMP.Tests:Drop;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace drop_test {
+	using namespace boost::tmp;
 
-export namespace drop_test {
-	int run() {
+	export int run() {
 		list_<int_<1>>{} = call_<drop_<uint_<1>>, int_<0>, int_<1>>{};
 		return 0;
 	}

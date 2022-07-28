@@ -9,12 +9,12 @@ export module Boost.TMP.Tests:Clamp;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace clamp_test {
+	using namespace boost::tmp;
 
-using alist = list_<uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>;
+	using alist = list_<uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>;
 
-export namespace clamp_test {
-	int run() {
+	export int run() {
 		list_<uint_<4>>{} = call_<unpack_<clamp_<uint_<3>, uint_<10>>>, alist>{};
 
 		return 0;

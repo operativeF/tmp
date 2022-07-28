@@ -10,9 +10,9 @@ export module Boost.TMP.Tests:Set;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace set_test {
+	using namespace boost::tmp;
 
-export namespace set_test {
 	using aalist = list_<uint_<1>, uint_<2>, uint_<3>, uint_<9>, uint_<3>>;
 	using bblist = list_<uint_<2>, uint_<1>, uint_<7>, uint_<4>, uint_<3>>;
 	using cclist = list_<uint_<1>, uint_<2>, uint_<3>, uint_<9>, uint_<3>>;
@@ -37,7 +37,7 @@ export namespace set_test {
 	using quotient_b = list_<diff_c, diff_d>;
 
 
-	int run() {
+	export int run() {
 		quotient{} = list_<list_<uint_<3>, uint_<9>>, list_<uint_<4>, uint_<7>>>{};
 		sym_set{} = list_<uint_<3>, uint_<4>, uint_<7>, uint_<9>>{};
 		union_set{} = list_<uint_<1>, uint_<2>, uint_<3>, uint_<4>, uint_<7>, uint_<9>>{};

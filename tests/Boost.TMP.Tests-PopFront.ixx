@@ -9,10 +9,10 @@ export module Boost.TMP.Tests:PopFront;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace pop_front_test {
+	using namespace boost::tmp;
 
-export namespace pop_front_test {
-	int run() {
+	export int run() {
 		return 0;
 	}
 } // namespace pop_front_test

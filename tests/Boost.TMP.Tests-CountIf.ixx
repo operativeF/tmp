@@ -9,18 +9,18 @@ export module Boost.TMP.Tests:CountIf;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace count_if_test {
+	using namespace boost::tmp;
 
-template <typename T>
-using divide_by_two_celing = int_<((T::value >> 1) + (T::value & 1))>;
-template <typename T>
-using multiply_by_2 = sizet_<(T::value << 1)>;
+	template <typename T>
+	using divide_by_two_celing = int_<((T::value >> 1) + (T::value & 1))>;
+	template <typename T>
+	using multiply_by_2 = sizet_<(T::value << 1)>;
 
-template <typename T>
-using is_even = bool_<(T::value % 2 == 0)>;
+	template <typename T>
+	using is_even = bool_<(T::value % 2 == 0)>;
 
-export namespace count_if_test {
-	int run() {
+	export int run() {
 
 		sizet_<0>{} = call_<count_if_<lift_<is_even>>, int_<1>>{};
 		sizet_<1>{} = call_<count_if_<lift_<is_even>>, int_<2>>{};

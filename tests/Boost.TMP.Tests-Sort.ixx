@@ -9,15 +9,16 @@ export module Boost.TMP.Tests:Sort;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace sort_test {
+	using namespace boost::tmp;
 
-export namespace sort_test {
 	template <typename T, typename U>
 	using less = bool_<(T::value < U::value)>;
 
 	template <typename T, typename U>
 	using push_ = typename T::template push<U, less>;
-	int run() {
+
+	export int run() {
 		list_<sizet_<0>, sizet_<1>, sizet_<2>>{} =
 		        call_<sort_<lift_<less>>, sizet_<1>, sizet_<0>, sizet_<2>>{};
 		call_<make_sequence_<>, sizet_<100>>{} =

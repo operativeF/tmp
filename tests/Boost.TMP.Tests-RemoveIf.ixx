@@ -9,15 +9,15 @@ export module Boost.TMP.Tests:RemoveIf;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace remove_if_test {
+	using namespace boost::tmp;
 
-template <typename T>
-using is_even = bool_<(T::value % 2 == 0)>;
+	template <typename T>
+	using is_even = bool_<(T::value % 2 == 0)>;
 
-using alist = list_<uint_<0>, uint_<1>, uint_<2>, uint_<4>>;
+	using alist = list_<uint_<0>, uint_<1>, uint_<2>, uint_<4>>;
 
-export namespace remove_if_test {
-	int run() {
+	export int run() {
 		list_<uint_<1>>{} = call_<unpack_<remove_if_<lift_<is_even>>>, alist>{};
 		return 0;
 	}

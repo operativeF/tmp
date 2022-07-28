@@ -10,13 +10,13 @@ export module Boost.TMP.Tests:RangeMath;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace range_math_test {
+	using namespace boost::tmp;
 
-using alist = list_<int_<-2>, int_<100>, int_<4>, int_<500>>;
-using blist = list_<int_<10>, int_<20>, int_<5>, int_<1>>;
+	using alist = list_<int_<-2>, int_<100>, int_<4>, int_<500>>;
+	using blist = list_<int_<10>, int_<20>, int_<5>, int_<1>>;
 
-export namespace range_math_test {
-	int run() {
+	export int run() {
 		int_<602>{} = call_<unpack_<accumulate_<>>, alist>{};
 
 		int_<-606>{} = call_<unpack_<decimate_left_<>>, alist>{};

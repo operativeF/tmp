@@ -9,10 +9,10 @@ export module Boost.TMP.Tests:Index;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace index_test {
+	using namespace boost::tmp;
 
-export namespace index_test {
-	int run() {
+	export int run() {
 		return 0;
 	}
 } // namespace index_test

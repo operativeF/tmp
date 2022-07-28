@@ -9,10 +9,10 @@ export module Boost.TMP.Tests:PushBack;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace push_back_test {
+	using namespace boost::tmp;
 
-export namespace push_back_test {
-	int run() {
+	export int run() {
 		return 0;
 	}
 } // namespace push_back_test

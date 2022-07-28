@@ -9,10 +9,10 @@ export module Boost.TMP.Tests:Insert;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace insert_test {
+	using namespace boost::tmp;
 
-export namespace insert_test {
-	int run() {
+	export int run() {
 		return 0;
 	}
 } // namespace insert_test

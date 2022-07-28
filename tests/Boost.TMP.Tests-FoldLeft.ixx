@@ -9,15 +9,15 @@ export module Boost.TMP.Tests:FoldLeft;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
-
-template <typename T, typename U>
-using add = uint_<(T::value + U::value)>;
-template <typename T, typename U>
-using push = call_<join_<>, T, list_<U>>;
-
 export namespace fold_left_test {
-	int run() {
+	using namespace boost::tmp;
+
+	template <typename T, typename U>
+	using add = uint_<(T::value + U::value)>;
+	template <typename T, typename U>
+	using push = call_<join_<>, T, list_<U>>;
+
+	export int run() {
 		list_<>{}                   = call_<fold_left_<lift_<push>>, list_<>>{};
 		list_<uint_<1>, uint_<2>>{} = call_<fold_left_<lift_<push>>, list_<>, uint_<1>, uint_<2>>{};
 		list_<uint_<1>, uint_<2>, uint_<3>>{} =

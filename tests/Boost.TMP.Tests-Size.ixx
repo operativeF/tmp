@@ -9,10 +9,10 @@ export module Boost.TMP.Tests:Size;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace size_test {
+	using namespace boost::tmp;
 
-export namespace size_test {
-	int run() {
+	export int run() {
 		sizet_<3>{} = call_<size_<>, int_<0>, int_<2>, int_<4>>{};
 
 		return 0;

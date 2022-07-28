@@ -9,13 +9,13 @@ export module Boost.TMP.Tests:Extrema;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace zip_with_index_test {
+	using namespace boost::tmp;
 
-template <typename T>
-using doubleify = list_<T, T>;
+	template <typename T>
+	using doubleify = list_<T, T>;
 
-export namespace zip_with_index_test {
-	int run() {
+	export int run() {
 		return 0;
 	}
 } // namespace zip_with_index_test

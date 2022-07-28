@@ -9,10 +9,10 @@ export module Boost.TMP.Tests:Rotate;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace rotate_test {
+	using namespace boost::tmp;
 
-export namespace rotate_test {
-	int run() {
+	export int run() {
 		return 0;
 	}
 } // namespace rotate_test

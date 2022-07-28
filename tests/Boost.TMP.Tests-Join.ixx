@@ -19,12 +19,12 @@ import Boost.TMP;
 import std;
 #endif // _MSC_VER
 
-using namespace boost::tmp;
+namespace join_test {
+	using namespace boost::tmp;
 
-using joined_sequences = call_<join_seq_<lift_<into_sequence>>, std::index_sequence<1, 2>, std::index_sequence<3, 4>>;
+	using joined_sequences = call_<join_seq_<lift_<into_sequence>>, std::index_sequence<1, 2>, std::index_sequence<3, 4>>;
 
-export namespace join_test {
-	int run() {
+	export int run() {
 		joined_sequences{} = std::index_sequence<1, 2, 3, 4>{};
 		return 0;
 	}

@@ -9,10 +9,10 @@ export module Boost.TMP.Tests:Tee;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace tee_test {
+	using namespace boost::tmp;
 
-export namespace tee_test {
-	int run() {
+	export int run() {
 		{
 			list_<list_<>>{}          = call_<tee_<listify_, listify_>>{};
 			list_<list_<int>>{}       = call_<tee_<listify_, listify_>, int>{};

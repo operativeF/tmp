@@ -9,13 +9,13 @@ export module Boost.TMP.Tests:Filter;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace filter_test {
+	using namespace boost::tmp;
 
-template <typename N>
-using is_even = bool_<N::value % 2 == 0>;
+	template <typename N>
+	using is_even = bool_<N::value % 2 == 0>;
 
-export namespace filter_test {
-	int run() {
+	export int run() {
 		list_<int_<2>, int_<4>, int_<6>, int_<8>, int_<10>>{} =
 		        call_<filter_<lift_<is_even>>,
 					int_<1>, int_<2>, int_<3>, int_<4>, int_<5>,

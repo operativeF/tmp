@@ -9,13 +9,13 @@ export module Boost.TMP.Tests:FoldRight;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace fold_right_test {
+	using namespace boost::tmp;
 
-template <typename T, typename U>
-using add = uint_<(T::value + U::value)>;
+	template <typename T, typename U>
+	using add = uint_<(T::value + U::value)>;
 
-export namespace fold_right_test {
-	int run() {
+	export int run() {
 		uint_<1>{}  = call_<fold_right_<lift_<add>>, uint_<1>>{};
 		uint_<3>{}  = call_<fold_right_<lift_<add>>, uint_<1>, uint_<2>>{};
 		uint_<6>{}  = call_<fold_right_<lift_<add>>, uint_<1>, uint_<2>, uint_<3>>{};

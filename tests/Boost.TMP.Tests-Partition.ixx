@@ -10,16 +10,16 @@ export module Boost.TMP.Tests:Partition;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace partition_test {
+	using namespace boost::tmp;
 
-using xs0 = list_<uint_<1>, uint_<2>, uint_<3>, uint_<4>, uint_<5>, uint_<6>, uint_<7>,
-					uint_<8>, uint_<9>, uint_<10>>;
+	using xs0 = list_<uint_<1>, uint_<2>, uint_<3>, uint_<4>, uint_<5>, uint_<6>, uint_<7>,
+						uint_<8>, uint_<9>, uint_<10>>;
 
-template <typename T>
-using more_than_5 = bool_<(T::value > 5)>;
+	template <typename T>
+	using more_than_5 = bool_<(T::value > 5)>;
 
-export namespace partition_test {
-	int run() {
+	export int run() {
 		return 0;
 	}
 } // namespace partition_test

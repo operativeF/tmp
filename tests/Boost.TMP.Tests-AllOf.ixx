@@ -10,10 +10,10 @@ export module Boost.TMP.Tests:AllOf;
 
 import Boost.TMP;
 
-using namespace boost::tmp;
+namespace all_of_test {
+	using namespace boost::tmp;
 
-export namespace all_of_test {
-	int run() {
+	export int run() {
 		return 0;
 	}
 } // namespace all_of_test
