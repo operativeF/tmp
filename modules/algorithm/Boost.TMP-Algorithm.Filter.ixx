@@ -15,6 +15,7 @@ export module Boost.TMP:Algorithm.Filter;
 
 import :Base.Identity;
 import :Base.Lift;
+import :Base.Vocabulary;
 import :Detail.Dispatch;
 
 #if __clang__

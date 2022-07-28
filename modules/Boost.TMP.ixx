@@ -46,6 +46,8 @@ export import :Base.Logic;
 export import :Base.Try;
 export import :Base.Vocabulary;
 
+export import :Detail.Dispatch;
+
 export import :Sequence.Container;
 export import :Sequence.Drop;
 export import :Sequence.Each;

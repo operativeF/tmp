@@ -42,4 +42,4 @@ export namespace boost::tmp {
 		template <typename... Ts>
 		using f = typename dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
 	};
-} // export namespace boost::tmp::detail
+} // export namespace boost::tmp
