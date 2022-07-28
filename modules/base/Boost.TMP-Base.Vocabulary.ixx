@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Base.Vocabulary;
 
-import :Base.Always;
 import :Base.Lift;
 
 #if __clang__

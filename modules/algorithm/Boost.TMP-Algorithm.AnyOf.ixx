@@ -15,6 +15,7 @@ module;
 export module Boost.TMP:Algorithm.AnyOf;
 
 import :Algorithm.FindIf;
+import :Base.Always;
 import :Base.Identity;
 import :Base.If;
 import :Base.Logic;

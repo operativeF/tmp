@@ -40,7 +40,6 @@ set(TMP_MAIN_IXX
     ${TMP_MAIN_DIR}/Boost.TMP-Base.Always.ixx
     ${TMP_MAIN_DIR}/Boost.TMP-Base.Call.ixx
     ${TMP_MAIN_DIR}/Boost.TMP-Base.Comparison.ixx
-    ${TMP_MAIN_DIR}/Boost.TMP-Base.Decay.ixx
     ${TMP_MAIN_DIR}/Boost.TMP-Base.Foldey.ixx
     ${TMP_MAIN_DIR}/Boost.TMP-Base.Identity.ixx
     ${TMP_MAIN_DIR}/Boost.TMP-Base.If.ixx

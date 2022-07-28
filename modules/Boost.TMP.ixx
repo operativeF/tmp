@@ -36,7 +36,6 @@ export import :Algorithm.Transform;
 export import :Base.Always;
 export import :Base.Call;
 export import :Base.Comparison;
-export import :Base.Decay;
 export import :Base.Foldey;
 export import :Base.Identity;
 export import :Base.If;

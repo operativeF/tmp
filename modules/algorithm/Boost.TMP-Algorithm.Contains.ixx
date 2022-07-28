@@ -13,6 +13,7 @@ module;
 
 export module Boost.TMP:Algorithm.Contains;
 
+import :Base.Comparison;
 import :Base.Identity;
 import :Base.Logic;
 import :Detail.Dispatch;
