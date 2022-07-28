@@ -5,45 +5,45 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-export module Boost.TMP.Tests;
+export module Tests;
 
-export import Boost.TMP.Test.AllOf;
-export import Boost.TMP.Test.AnyOf;
-export import Boost.TMP.Test.Clamp;
-export import Boost.TMP.Test.Contains;
-export import Boost.TMP.Test.CountIf;
-export import Boost.TMP.Test.Drop;
-export import Boost.TMP.Test.Each;
-export import Boost.TMP.Test.Erase;
-// export import Boost.TMP.Test.Extrema; // TODO: 
-export import Boost.TMP.Test.Filter;
-export import Boost.TMP.Test.FindIf;
-// export import Boost.TMP.Test.Flatten;
-export import Boost.TMP.Test.FoldLeft;
-export import Boost.TMP.Test.FoldRight;
-export import Boost.TMP.Test.Index;
-export import Boost.TMP.Test.Insert;
-export import Boost.TMP.Test.Join;
-export import Boost.TMP.Test.Logic;
-export import Boost.TMP.Test.NoneOf;
-export import Boost.TMP.Test.Partition;
-export import Boost.TMP.Test.PopFront;
-// export import Boost.TMP.Test.Product;
-export import Boost.TMP.Test.PushBack;
-export import Boost.TMP.Test.PushFront;
-// export import Boost.TMP.Test.RangeMath; // TODO: Fix compile time.
-export import Boost.TMP.Test.RemoveIf;
-// export import Boost.TMP.Test.Repeat; // TODO: Not implemented yet.
-export import Boost.TMP.Test.RepeatSequence;
-export import Boost.TMP.Test.ReplaceIf;
-export import Boost.TMP.Test.Reverse;
-export import Boost.TMP.Test.Rotate;
-// export import Boost.TMP.Test.Set; // TODO: Fix compile time.
-export import Boost.TMP.Test.Size;
-export import Boost.TMP.Test.Sort;
-export import Boost.TMP.Test.Swap;
-export import Boost.TMP.Test.Take;
-export import Boost.TMP.Test.Tee;
-export import Boost.TMP.Test.Transform;
-// export import Boost.TMP.Test.Try;
-// export import Boost.TMP.Test.ZipWithIndex;
+export import Test.AllOf;
+export import Test.AnyOf;
+export import Test.Clamp;
+export import Test.Contains;
+export import Test.CountIf;
+export import Test.Drop;
+export import Test.Each;
+export import Test.Erase;
+// export import Test.Extrema; // TODO: 
+export import Test.Filter;
+export import Test.FindIf;
+// export import Test.Flatten;
+export import Test.FoldLeft;
+export import Test.FoldRight;
+export import Test.Index;
+export import Test.Insert;
+export import Test.Join;
+export import Test.Logic;
+export import Test.NoneOf;
+export import Test.Partition;
+export import Test.PopFront;
+// export import Test.Product;
+export import Test.PushBack;
+export import Test.PushFront;
+// export import Test.RangeMath; // TODO: Fix compile time.
+export import Test.RemoveIf;
+// export import Test.Repeat; // TODO: Not implemented yet.
+export import Test.RepeatSequence;
+export import Test.ReplaceIf;
+export import Test.Reverse;
+export import Test.Rotate;
+// export import Test.Set; // TODO: Fix compile time.
+export import Test.Size;
+export import Test.Sort;
+export import Test.Swap;
+export import Test.Take;
+export import Test.Tee;
+export import Test.Transform;
+// export import Test.Try;
+// export import Test.ZipWithIndex;

@@ -7,7 +7,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 
-export module Boost.TMP.Test.Repeat;
+export module Test.Repeat;
 
 import Boost.TMP;
 

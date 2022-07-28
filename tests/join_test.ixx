@@ -11,7 +11,7 @@ module;
 #include <utility>
 #endif // __GNUC__
 
-export module Boost.TMP.Test.Join;
+export module Test.Join;
 
 import Boost.TMP;
 

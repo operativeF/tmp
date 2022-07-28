@@ -1,0 +1,44 @@
+//  Copyright 2018 Odin Holmes.
+//            2021 Thomas Figueroa.
+//  Distributed under the Boost Software License, Version 1.0.
+//
+//  See accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt
+
+module;
+
+#ifdef __GNUC__
+#include <cstdint>
+#endif // __GNUC__
+
+export module Boost.TMP:Sequence.Zip;
+
+import :Algorithm.Transform;
+import :Base.Vocabulary;
+import :Detail.Dispatch;
+import :Sequence.Unpack;
+
+#if __clang__
+import std;
+#elif _MSC_VER
+import std;
+#endif
+
+namespace boost::tmp {
+	export template <typename F, typename C = listify_>
+	struct zip_ {};
+
+	template<typename F, typename C, typename T, typename U>
+	struct zip2;
+	template<typename F, typename C, typename...Ts, typename...Us>
+	struct zip2<F,C,list_<Ts...>,list_<Us...>>{
+		using type = typename dispatch<find_dispatch(sizeof...(Ts)),C>::template f<typename dispatch<2,F>::template f<Ts,Us>...>;
+	};
+	template <typename F, typename C>
+	struct dispatch<1, zip_<F, C>> : dispatch<1,unpack_<transform_<F,C>>> {};
+	template <typename F, typename C>
+	struct dispatch<2, zip_<F, C>> {
+		template<typename T, typename U>
+		using f = typename zip2<F,C,T,U>::type;
+	};
+} // namespace boost::tmp

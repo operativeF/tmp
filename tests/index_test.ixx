@@ -5,7 +5,7 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-export module Boost.TMP.Test.Index;
+export module Test.Index;
 
 import Boost.TMP;
 

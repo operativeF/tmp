@@ -6,11 +6,6 @@ include(ExternalProject)
 
 set(CMAKE_CXX_STANDARD 23)
 
-if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang" AND NOT MSVC)
-    set(PREBUILT_MODULE_PATH ${CMAKE_BINARY_DIR}/modules)
-    add_compile_options("-fmodules -stdlib=libc++ -fbuiltin-module-map -fimplicit-module-maps -fprebuilt-module-path=${PREBUILT_MODULE_PATH}")
-endif()
-
 set(CMAKE_EXPERIMENTAL_CXX_MODULE_CMAKE_API 3c375311-a3c9-4396-a187-3227ef642046)
 set(CMAKE_EXPERIMENTAL_CXX_MODULE_DYNDEP 1)
 

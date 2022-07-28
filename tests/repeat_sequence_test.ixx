@@ -10,7 +10,7 @@ module;
 #include <utility>
 #endif // __GNUC__
 
-export module Boost.TMP.Test.RepeatSequence;
+export module Test.RepeatSequence;
 
 import Boost.TMP;
 

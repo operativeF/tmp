@@ -12,7 +12,7 @@ module;
 #include <type_traits>
 #endif // __GNUC__
 
-export module Boost.TMP.Test.AllOf;
+export module Test.AllOf;
 
 import Boost.TMP;
 

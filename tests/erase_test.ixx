@@ -11,7 +11,7 @@ module;
 #include <cstdint>
 #endif // __GNUC__
 
-export module Boost.TMP.Test.Erase;
+export module Test.Erase;
 
 import Boost.TMP;
 
