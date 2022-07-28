@@ -6,19 +6,9 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-module;
-
-#ifdef __GNUC__
-#include <type_traits>
-#endif // __GNUC__
-
 export module Test.AllOf;
 
 import Boost.TMP;
-
-#if _MSC_VER
-import std;
-#endif
 
 using namespace boost::tmp;
 
