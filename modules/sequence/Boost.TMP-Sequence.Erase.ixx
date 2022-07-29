@@ -34,14 +34,14 @@ namespace boost::tmp {
 	template <std::size_t N, typename I, typename C>
 	struct dispatch<N, erase_<I, C>> {
 		template <typename... Ts>
-		using f = typename dispatch<
-				N,
-				rotate_<I, pop_front_<rotate_<sizet_<(sizeof...(Ts) - I::value - 1)>, C>>>>::
-				template f<Ts...>;
+		using f = dispatch<N,
+				   rotate_<I,
+				   	pop_front_<
+					 rotate_<sizet_<(sizeof...(Ts) - I::value - 1)>, C>>>>::template f<Ts...>;
 	};
 	template <typename I, typename C>
 	struct dispatch<0, erase_<I, C>> {
 		template <typename... Ts>
-		using f = typename dispatch<1, C>::template f<nothing_>;
+		using f = dispatch<1, C>::template f<nothing_>;
 	};
 } // namespace boost::tmp

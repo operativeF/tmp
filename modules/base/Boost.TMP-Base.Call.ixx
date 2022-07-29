@@ -32,20 +32,19 @@ namespace boost::tmp {
 	struct maybe_test_impl<true> {};
 
 	template <typename T>
-	using maybe_impl =
-			typename maybe_test_impl<std::is_same_v<T, nothing_>>::template f<T>;
+	using maybe_impl = maybe_test_impl<std::is_same_v<T, nothing_>>::template f<T>;
 
 	template <typename F, typename... Ts> // workaround for old clang
 	struct call_impl {
-		using type = typename dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>;
+		using type = dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>;
 	};
 
 	export template <typename F, typename... Ts>
-	using call_ = typename dispatch<find_dispatch(sizeof...(Ts)),
+	using call_ = dispatch<find_dispatch(sizeof...(Ts)),
 		                                    F>::template f<Ts...>;
 
 	export template <typename T, typename... Ts>
-	using call_t = typename dispatch<find_dispatch(sizeof...(Ts)),
+	using call_t = dispatch<find_dispatch(sizeof...(Ts)),
 		                                        T>::template f<Ts...>::type;
 
 	export template <typename T, typename... Ts>
@@ -58,14 +57,13 @@ namespace boost::tmp {
 	template <std::size_t N, typename C>
 	struct dispatch<N, call_f_<C>> {
 		template <typename F, typename... Ts>
-		using f = typename dispatch<1, C>::template f<typename dispatch<
+		using f = dispatch<1, C>::template f<typename dispatch<
 				find_dispatch(sizeof...(Ts)), F>::template f<Ts...>>;
 	};
 
 	export template <typename T, typename... Ts>
-	using maybe_ =
-		    maybe_impl<typename dispatch<find_dispatch(sizeof...(Ts)),
-		                                               T>::template f<Ts...>>;
+	using maybe_ = maybe_impl<typename dispatch<find_dispatch(sizeof...(Ts)),
+		                                        T>::template f<Ts...>>;
 
 	export template <typename T, typename... Ts>
 	using maybe_t =

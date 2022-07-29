@@ -26,7 +26,7 @@ namespace boost::tmp {
 	struct unpack_impl;
 	template <typename C, template <typename...> class Seq, typename... Ls>
 	struct unpack_impl<C, Seq<Ls...>> {
-		using type = typename dispatch<find_dispatch(sizeof...(Ls)), C>::template f<Ls...>;
+		using type = dispatch<find_dispatch(sizeof...(Ls)), C>::template f<Ls...>;
 	};
 
 	template <typename C>
@@ -37,6 +37,6 @@ namespace boost::tmp {
 	template <typename C>
 	struct dispatch<1, unpack_<C>> {
 		template <typename L>
-		using f = typename unpack_impl<C, L>::type;
+		using f = unpack_impl<C, L>::type;
 	};
 } // namespace boost::tmp

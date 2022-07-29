@@ -50,7 +50,7 @@ namespace boost::tmp {
 	template <typename P, typename C>
 	struct dispatch<1, is_<P, C>> {
 		template <typename T>
-		using f = typename dispatch<1, C>::template f<bool_<std::is_same_v<P, T>>>;
+		using f = dispatch<1, C>::template f<bool_<std::is_same_v<P, T>>>;
 	};
 
 	// NOTE: Internal compiler error occurs when no parentheses are used around the values.
@@ -58,36 +58,36 @@ namespace boost::tmp {
 	template <typename C>
 	struct dispatch<2, less_<C>> {
 		template <typename T, typename U>
-		using f = typename dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
+		using f = dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
 	};
 
 	template <typename U, typename C>
 	struct dispatch<1, less_<U, C>> {
 		template<typename T>
-		using f = typename dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
+		using f = dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
 	};
 
 	template <typename C>
 	struct dispatch<2, less_eq_<C>> {
 		template <typename T, typename U>
-		using f = typename dispatch<1, C>::template f<bool_<(T::value)<=(U::value)>>;
+		using f = dispatch<1, C>::template f<bool_<(T::value)<=(U::value)>>;
 	};
 
 	template <typename U, typename C>
 	struct dispatch<1, less_eq_<U, C>> {
 		template<typename T>
-		using f = typename dispatch<1, C>::template f<bool_<(U::value)<=(T::value)>>;
+		using f = dispatch<1, C>::template f<bool_<(U::value)<=(T::value)>>;
 	};
 
 	template <typename C>
 	struct dispatch<2, greater_<C>> {
 		template <typename T, typename U>
-		using f = typename dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
+		using f = dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
 	};
 
 	template <typename U, typename C>
 	struct dispatch<1, greater_<U, C>> {
 		template<typename T>
-		using f = typename dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
+		using f = dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
 	};
 } // namespace boost::tmp

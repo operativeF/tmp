@@ -81,7 +81,7 @@ namespace boost::tmp {
 					typename T25 = list_<>, typename T26 = list_<>, typename T27 = list_<>,
 					typename T28 = list_<>, typename T29 = list_<>, typename T30 = list_<>,
 					typename T31 = list_<>, typename... Ts>
-		using f = typename join_loop<(sizeof...(Ts) > 8)>::template f<
+		using f = join_loop<(sizeof...(Ts) > 8)>::template f<
 				joiner<C, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14,
 						T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28,
 						T29, T30, T31>::template f,
@@ -93,18 +93,18 @@ namespace boost::tmp {
 					typename T1 = list_<>, typename T2 = list_<>, typename T3 = list_<>,
 					typename T4 = list_<>, typename T5 = list_<>, typename T6 = list_<>,
 					typename T7 = list_<>, typename T8 = list_<>>
-		using f = typename joiner<C, T0, T1, T2, T3, T4, T5, T6, T7>::template f<>;
+		using f = joiner<C, T0, T1, T2, T3, T4, T5, T6, T7>::template f<>;
 	};
 	template <std::size_t N, template <typename...> class C>
 	struct dispatch<N, join_<lift_<C>>> {
 		template <typename... Ts>
-		using f = typename join_loop<(sizeof...(Ts) > 8)>::template f<C, Ts...>;
+		using f = join_loop<(sizeof...(Ts) > 8)>::template f<C, Ts...>;
 	};
 
 	template <std::size_t N, typename C>
 	struct dispatch<N, join_<C>> {
 		template <typename... Ts>
-		using f = typename join_loop<(
+		using f = join_loop<(
 				sizeof...(Ts) > 8)>::template f<dispatch_unknown<C>::template f, Ts...>;
 	};
 
@@ -158,7 +158,7 @@ namespace boost::tmp {
 					typename T25 = std::index_sequence<>, typename T26 = std::index_sequence<>, typename T27 = std::index_sequence<>,
 					typename T28 = std::index_sequence<>, typename T29 = std::index_sequence<>, typename T30 = std::index_sequence<>,
 					typename T31 = std::index_sequence<>, typename... Ts>
-		using f = typename seq_join_loop<(sizeof...(Ts) > 8)>::template f<
+		using f = seq_join_loop<(sizeof...(Ts) > 8)>::template f<
 				seq_joiner<C, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14,
 						T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28,
 						T29, T30, T31>::template f,
@@ -170,18 +170,17 @@ namespace boost::tmp {
 					typename T1 = std::index_sequence<>, typename T2 = std::index_sequence<>, typename T3 = std::index_sequence<>,
 					typename T4 = std::index_sequence<>, typename T5 = std::index_sequence<>, typename T6 = std::index_sequence<>,
 					typename T7 = std::index_sequence<>, typename T8 = std::index_sequence<>>
-		using f = typename seq_joiner<C, T0, T1, T2, T3, T4, T5, T6, T7>::template f<>;
+		using f = seq_joiner<C, T0, T1, T2, T3, T4, T5, T6, T7>::template f<>;
 	};
 	template <std::size_t N, template <typename...> class C>
 	struct dispatch<N, join_seq_<lift_<C>>> {
 		template <typename... Ts>
-		using f = typename seq_join_loop<(sizeof...(Ts) > 8)>::template f<C, Ts...>;
+		using f = seq_join_loop<(sizeof...(Ts) > 8)>::template f<C, Ts...>;
 	};
 
 	template <std::size_t N, typename C>
 	struct dispatch<N, join_seq_<C>> {
 		template <typename... Ts>
-		using f = typename seq_join_loop<(
-				sizeof...(Ts) > 8)>::template f<dispatch_unknown<C>::template f, Ts...>;
+		using f = seq_join_loop<(sizeof...(Ts) > 8)>::template f<dispatch_unknown<C>::template f, Ts...>;
 	};
 } // namespace boost::tmp

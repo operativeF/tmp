@@ -41,46 +41,46 @@ namespace boost::tmp {
 	template <typename C>
 	struct drop_impl<1, C> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts), C>::template f<Ts...>;
+		using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
 	};
 	template <typename C>
 	struct drop_impl<2, C> {
 		template <typename T0, typename T1, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts), C>::template f<Ts...>;
+		using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
 	};
 	template <typename C>
 	struct drop_impl<3, C> {
 		template <typename T0, typename T1, typename T2, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts), C>::template f<Ts...>;
+		using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
 	};
 	template <typename C>
 	struct drop_impl<4, C> {
 		template <typename T0, typename T1, typename T2, typename T3, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts), C>::template f<Ts...>;
+		using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
 	};
 	template <typename C>
 	struct drop_impl<5, C> {
 		template <typename T0, typename T1, typename T2, typename T3, typename T4,
 					typename... Ts>
-		using f = typename dispatch<sizeof...(Ts), C>::template f<Ts...>;
+		using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
 	};
 	template <typename C>
 	struct drop_impl<6, C> {
 		template <typename T0, typename T1, typename T2, typename T3, typename T4,
 					typename T5, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts), C>::template f<Ts...>;
+		using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
 	};
 	template <typename C>
 	struct drop_impl<7, C> {
 		template <typename T0, typename T1, typename T2, typename T3, typename T4,
 					typename T5, typename T6, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts), C>::template f<Ts...>;
+		using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
 	};
 	template <typename C>
 	struct drop_impl<8, C> {
 		template <typename T0, typename T1, typename T2, typename T3, typename T4,
 					typename T5, typename T6, typename T7, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts), C>::template f<Ts...>;
+		using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
 	};
 	template <typename C>
 	struct drop_impl<16, C> {
@@ -88,7 +88,7 @@ namespace boost::tmp {
 					typename T5, typename T6, typename T7, typename T8, typename T9,
 					typename T10, typename T11, typename T12, typename T13, typename T14,
 					typename T15, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts), C>::template f<Ts...>;
+		using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
 	};
 	template <typename C>
 	struct drop_impl<32, C> {
@@ -99,7 +99,7 @@ namespace boost::tmp {
 					typename T20, typename T21, typename T22, typename T23, typename T24,
 					typename T25, typename T26, typename T27, typename T28, typename T29,
 					typename T30, typename T31, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts), C>::template f<Ts...>;
+		using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
 	};
 	template <typename C>
 	struct drop_impl<64, C> {
@@ -116,7 +116,7 @@ namespace boost::tmp {
 					typename T50, typename T51, typename T52, typename T53, typename T54,
 					typename T55, typename T56, typename T57, typename T58, typename T59,
 					typename T60, typename T61, typename T62, typename T63, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts), C>::template f<Ts...>;
+		using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
 	};
 
 	template <std::size_t P, typename C, std::size_t Step = drop_select(P)>

@@ -82,7 +82,7 @@ namespace boost::tmp {
 	struct dispatch<9, fold_left_<lift_<F>, lift_<C>>> {
 		template <typename In, typename T0, typename T1, typename T2, typename T3,
 					typename T4, typename T5, typename T6, typename... Ts>
-		using f = typename dispatch<find_dispatch(sizeof...(Ts) + 1),
+		using f = dispatch<find_dispatch(sizeof...(Ts) + 1),
 									fold_left_<lift_<F>, lift_<C>>>::
 				template f<F<F<F<F<F<F<F<In, T0>, T1>, T2>, T3>, T4>, T5>, T6>, Ts...>;
 	};
@@ -92,7 +92,7 @@ namespace boost::tmp {
 					typename T4, typename T5, typename T6, typename T7, typename T8,
 					typename T9, typename T10, typename T11, typename T12, typename T13,
 					typename T14, typename... Ts>
-		using f = typename dispatch<find_dispatch(sizeof...(Ts) + 1),
+		using f = dispatch<find_dispatch(sizeof...(Ts) + 1),
 									fold_left_<lift_<F>, lift_<C>>>::
 				template f<
 						F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<In, T0>, T1>, T2>, T3>, T4>, T5>, T6>,
@@ -118,7 +118,7 @@ namespace boost::tmp {
 					typename T19, typename T20, typename T21, typename T22, typename T23,
 					typename T24, typename T25, typename T26, typename T27, typename T28,
 					typename T29, typename T30, typename... Ts>
-		using f = typename dispatch<find_dispatch(sizeof...(Ts) + 1),
+		using f = dispatch<find_dispatch(sizeof...(Ts) + 1),
 									fold_left_<lift_<F>, lift_<C>>>::
 				template f<
 						F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<In, T0>,
@@ -173,7 +173,7 @@ namespace boost::tmp {
 				typename T52, typename T53, typename T54, typename T55, typename T56,
 				typename T57, typename T58, typename T59, typename T60, typename T61,
 				typename T62, typename T63, typename... Ts>
-		using f = typename dispatch<find_dispatch(sizeof...(Ts) + 1),
+		using f = dispatch<find_dispatch(sizeof...(Ts) + 1),
 				fold_left_<lift_<F>, lift_<C>>>::
 		template f<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<In, T0>,
 				T1>,

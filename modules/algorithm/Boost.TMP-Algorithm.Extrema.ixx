@@ -36,14 +36,14 @@ namespace boost::tmp {
 	template <std::size_t N, template <typename...> class F, typename C>
 	struct dispatch<N, extrema_<lift_<F>, C>> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<find_dispatch(sizeof...(Ts)),
+		using f = dispatch<find_dispatch(sizeof...(Ts)),
 									extrema_<lift_<F>, C>>::template f<Ts...>;
 	};
 
 	template <template <typename...> class F, typename C>
 	struct dispatch<0, extrema_<lift_<F>, C>> {
 		template <typename...>
-		using f = typename dispatch<0, C>::template f<>;
+		using f = dispatch<0, C>::template f<>;
 	};
 
 	template <template <typename...> class F, typename C>

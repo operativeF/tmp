@@ -33,7 +33,7 @@ namespace boost::tmp {
 
 	template <typename C, typename... Ts>
 	struct remove_pairs_impl {
-		using type = typename dispatch<0, join_<C>>::template f<Ts...>;
+		using type = dispatch<0, join_<C>>::template f<Ts...>;
 	};
 
 	// template <typename C, typename T1, typename T, typename T2>
@@ -52,6 +52,6 @@ namespace boost::tmp {
 	template <std::size_t N, typename C>
 	struct dispatch<N, remove_pairs_<C>> {
 		template <typename... Ts>
-		using f = typename remove_pairs_impl<C, list_<Ts...>>::type;
+		using f = remove_pairs_impl<C, list_<Ts...>>::type;
 	};
 } // namespace boost::tmp

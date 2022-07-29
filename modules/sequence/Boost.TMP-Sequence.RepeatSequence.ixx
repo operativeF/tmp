@@ -36,62 +36,62 @@ namespace boost::tmp {
 	template <typename C>
 	struct repeat_seq_impl<0, C> {
 		template <typename...>
-		using f = typename dispatch<0, C>::template f<>;
+		using f = dispatch<0, C>::template f<>;
 	};
 
 	template <typename C>
 	struct repeat_seq_impl<1, C> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts) + 1, C>::template f<T, Ts...>;
+		using f = dispatch<sizeof...(Ts) + 1, C>::template f<T, Ts...>;
 	};
 
 	template <typename C>
 	struct repeat_seq_impl<2, C> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts) + 2, C>::template f<T, T, Ts...>;
+		using f = dispatch<sizeof...(Ts) + 2, C>::template f<T, T, Ts...>;
 	};
 
 	template <typename C>
 	struct repeat_seq_impl<3, C> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts) + 3, C>::template f<T, T, T, Ts...>;
+		using f = dispatch<sizeof...(Ts) + 3, C>::template f<T, T, T, Ts...>;
 	};
 	template <typename C>
 	struct repeat_seq_impl<4, C> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts) + 4, C>::template f<T, T, T, T, Ts...>;
+		using f = dispatch<sizeof...(Ts) + 4, C>::template f<T, T, T, T, Ts...>;
 	};
 	template <typename C>
 	struct repeat_seq_impl<5, C> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts) + 5, C>::template f<T, T, T, T, T, Ts...>;
+		using f = dispatch<sizeof...(Ts) + 5, C>::template f<T, T, T, T, T, Ts...>;
 	};
 	template <typename C>
 	struct repeat_seq_impl<6, C> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts) + 6, C>::template f<T, T, T, T, T, T, Ts...>;
+		using f = dispatch<sizeof...(Ts) + 6, C>::template f<T, T, T, T, T, T, Ts...>;
 	};
 	template <typename C>
 	struct repeat_seq_impl<7, C> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts) + 7, C>::template f<T, T, T, T, T, T, T, Ts...>;
+		using f = dispatch<sizeof...(Ts) + 7, C>::template f<T, T, T, T, T, T, T, Ts...>;
 	};
 	template <typename C>
 	struct repeat_seq_impl<8, C> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts) + 8, C>::template f<T, T, T, T, T, T, T, T, Ts...>;
+		using f = dispatch<sizeof...(Ts) + 8, C>::template f<T, T, T, T, T, T, T, T, Ts...>;
 	};
 	template <typename C>
 	struct repeat_seq_impl<16, C> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts) + 16, C>::template f<T, T, T, T, T, T, T, T,
+		using f = dispatch<sizeof...(Ts) + 16, C>::template f<T, T, T, T, T, T, T, T,
 														T, T, T, T, T, T, T, T, Ts...>;
 	};
 
 	template <typename C>
 	struct repeat_seq_impl<32, C> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts) + 32, C>::template f<T, T, T, T, T, T, T, T,
+		using f = dispatch<sizeof...(Ts) + 32, C>::template f<T, T, T, T, T, T, T, T,
 														T, T, T, T, T, T, T, T,
 														T, T, T, T, T, T, T, T,
 														T, T, T, T, T, T, T, T, Ts...>;
@@ -100,7 +100,7 @@ namespace boost::tmp {
 	template <typename C>
 	struct repeat_seq_impl<64, C> {
 		template <typename T, typename... Ts>
-		using f = typename dispatch<sizeof...(Ts) + 64, C>::template f<
+		using f = dispatch<sizeof...(Ts) + 64, C>::template f<
 				T, T, T, T, T, T, T, T,
 				T, T, T, T, T, T, T, T,
 				T, T, T, T, T, T, T, T,

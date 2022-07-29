@@ -27,7 +27,6 @@ namespace boost::tmp {
 	template <std::size_t N, typename T, typename C>
 	struct dispatch<N, push_back_<T, C>> {
 		template <typename... Ts>
-		using f = typename dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<Ts...,
-																						T>;
+		using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<Ts..., T>;
 	};
 } // namespace boost::tmp

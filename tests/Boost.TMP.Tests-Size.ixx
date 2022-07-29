@@ -14,6 +14,7 @@ namespace size_test {
 
 	export int run() {
 		sizet_<3>{} = call_<size_<>, int_<0>, int_<2>, int_<4>>{};
+		sizet_<0>{} = call_<size_<>>{};
 
 		return 0;
 	}

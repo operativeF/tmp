@@ -37,7 +37,7 @@ namespace boost::tmp {
 	template <std::size_t N, template <typename...> class F, typename C>
 	struct dispatch<N, try_<F, C>> {
 		template <typename... Ts>
-		using f = typename dispatch<1, C>::template f<typename decltype(
+		using f = dispatch<1, C>::template f<typename decltype(
 				try_f(lift_<F>{}, list_<Ts...>{}))::type>;
 	};
 } // namespace boost::tmp

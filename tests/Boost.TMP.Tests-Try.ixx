@@ -13,7 +13,7 @@ namespace try_test {
 	using namespace boost::tmp;
 
 	template <typename T>
-	using call_type = typename T::type;
+	using call_type = T::type;
 
 	struct has_type {
 		using type = int;

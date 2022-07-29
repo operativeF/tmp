@@ -15,11 +15,8 @@ namespace replace_if_test {
 	template <typename T>
 	using is_even = bool_<(T::value % 2 == 0)>;
 
-	using alist = list_<uint_<0>, uint_<1>>;
-	using blist = call_<unpack_<replace_if_<uint_<1>, lift_<is_even>>>, alist>;
-
 	export int run() {
-		list_<uint_<1>, uint_<1>>{} = blist{};
+		list_<uint_<1>, char_<'c'>, uint_<1>>{} = call_<replace_if_<char_<'c'>, lift_<is_even>>, uint_<1>, uint_<2>, uint_<1>>{};
 		return 0;
 	}
 } // namespace replace_if_test

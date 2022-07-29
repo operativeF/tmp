@@ -18,6 +18,6 @@ namespace boost::tmp {
 	template <typename C>
 	struct dispatch<2, swap_<C>> {
 		template <typename T, typename U>
-		using f = typename dispatch<2, C>::template f<U, T>;
+		using f = dispatch<2, C>::template f<U, T>;
 	};
 } // namespace boost::tmp

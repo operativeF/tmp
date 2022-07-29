@@ -24,15 +24,14 @@ namespace boost::tmp {
 
 	template <template <typename...> class F, typename C, typename... Ts, typename... Us>
 	struct pairing_unpacker<F, C, list_<Ts...>, list_<Us...>> {
-		using type =
-				typename dispatch<find_dispatch(sizeof...(Ts)),
+		using type = dispatch<find_dispatch(sizeof...(Ts)),
 									join_<C>>::template f<pairing_helper<F, Ts, Us>...>;
 	};
 
 	template <template <typename...> class F, typename C>
 	struct dispatch<2, pairing_<lift_<F>, C>> {
 		template <typename T, typename U>
-		using f = typename pairing_unpacker<F, C, T, U>::type;
+		using f = pairing_unpacker<F, C, T, U>::type;
 	};
 
 	template <typename F, typename C>

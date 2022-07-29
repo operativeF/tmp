@@ -30,10 +30,6 @@ export namespace boost::tmp
 										chunk_size - found_at_index;
 	}
 
-	// @TODO: Document this workaround more thoroughly.
-	template <typename T>
-	using id_ = T; // weird clang workaround
-
 	template <std::size_t S>
 	struct foldey {
 		template <typename F, std::size_t N, typename...>
@@ -47,19 +43,24 @@ export namespace boost::tmp
 	template <>
 	struct foldey<1001> {
 		template <typename F, std::size_t N, typename T0, typename... Ts>
-		using f = typename foldey<select_foldey(
-				1, sizeof...(Ts), F::template f<T0>::value)>::template f<F, N + 1, Ts...>;
+		using f = foldey<select_foldey(1, sizeof...(Ts), F::template f<T0>::value)>::template f<F, N + 1, Ts...>;
 	};
 	template <>
 	struct foldey<1008> {
 		template <typename F, std::size_t N, typename T0, typename T1, typename T2,
 					typename T3, typename T4, typename T5, typename T6, typename T7,
 					typename... Ts>
-		using f = typename foldey<select_foldey(
-				8, sizeof...(Ts),
-				id_<typename F::template f<T0>::template f<T1>::template f<T2>::template f<
-						T3>::template f<T4>::template f<T5>::template f<T6>::
-							template f<T7>>::value)>::template f<F, N + 8, Ts...>;
+		using f = foldey<select_foldey(8, sizeof...(Ts),
+				            F::template
+				             f<T0>::template
+				              f<T1>::template
+				               f<T2>::template
+				                f<T3>::template
+				            	 f<T4>::template
+				            	  f<T5>::template
+				            	   f<T6>::template
+				            	    f<T7>::value)
+				            >::template f<F, N + 8, Ts...>;
 	};
 
 	template <>

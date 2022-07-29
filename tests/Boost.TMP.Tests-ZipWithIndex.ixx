@@ -12,9 +12,6 @@ import Boost.TMP;
 namespace zip_with_index_test {
 	using namespace boost::tmp;
 
-	template <typename T>
-	using doubleify = list_<T, T>;
-
 	export int run() {
 		return 0;
 	}

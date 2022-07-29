@@ -34,15 +34,14 @@ namespace boost::tmp {
 
 	template <template <typename...> class F, typename C, typename... Ts, typename... Us>
 	struct product_unpacker<F, C, list_<Ts...>, list_<Us...>> {
-		using type =
-				typename dispatch<find_dispatch(sizeof...(Ts)),
+		using type = dispatch<find_dispatch(sizeof...(Ts)),
 									join_<C>>::template f<product_helper_<F, Ts, Us...>...>;
 	};
 
 	template <template <typename...> class F, typename C>
 	struct dispatch<2, product_<lift_<F>, C>> {
 		template <typename T, typename U>
-		using f = typename product_unpacker<F, C, T, U>::type;
+		using f = product_unpacker<F, C, T, U>::type;
 	};
 
 	template <typename F, typename C>

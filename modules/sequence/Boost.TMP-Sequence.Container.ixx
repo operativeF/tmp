@@ -19,16 +19,16 @@ namespace boost::tmp {
 
 	template <typename L, typename C>
 	struct container_impl {
-		using type = typename dispatch<1, C>::template f<nothing_>;
+		using type = dispatch<1, C>::template f<nothing_>;
 	};
 	template <template <typename...> class Seq, typename C, typename... Ls>
 	struct container_impl<Seq<Ls...>, C> {
-		using type = typename dispatch<1, C>::template f<lift_<Seq>>;
+		using type = dispatch<1, C>::template f<lift_<Seq>>;
 	};
 
 	template <typename C>
 	struct dispatch<1, container_<C>> {
 		template <typename L>
-		using f = typename container_impl<L, C>::type;
+		using f = container_impl<L, C>::type;
 	};
 } // namespace boost::tmp

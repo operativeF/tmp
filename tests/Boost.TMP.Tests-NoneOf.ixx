@@ -16,12 +16,9 @@ namespace none_of_test {
     template <typename T>
     using is_even = bool_<(T::value % 2 == 0)>;
 
-    using alist = list_<uint_<2>, uint_<100>, uint_<4>, uint_<500>>;
-    using blist = list_<uint_<1>, uint_<3>>;
-
     export int run() {
-        bool_<false>{} = call_<unpack_<none_of_<lift_<is_even>>>, alist>{};
-        bool_<true>{} = call_<unpack_<none_of_<lift_<is_even>>>, blist>{};
+        false_{} = call_<none_of_<lift_<is_even>>, int_<2>, int_<100>, int_<4>, int_<500>>{};
+        true_{}  = call_<none_of_<lift_<is_even>>, int_<1>, int_<3>>{};
         return 0;
     }
 } // namespace none_of_test

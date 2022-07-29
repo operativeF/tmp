@@ -16,7 +16,7 @@ namespace sort_test {
 	using less = bool_<(T::value < U::value)>;
 
 	template <typename T, typename U>
-	using push_ = typename T::template push<U, less>;
+	using push_ = T::template push<U, less>;
 
 	export int run() {
 		list_<sizet_<0>, sizet_<1>, sizet_<2>>{} =

@@ -40,6 +40,6 @@ export namespace boost::tmp {
 	template <typename C>
 	struct dispatch_unknown {
 		template <typename... Ts>
-		using f = typename dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
+		using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
 	};
 } // export namespace boost::tmp

@@ -15,10 +15,8 @@ namespace remove_if_test {
 	template <typename T>
 	using is_even = bool_<(T::value % 2 == 0)>;
 
-	using alist = list_<uint_<0>, uint_<1>, uint_<2>, uint_<4>>;
-
 	export int run() {
-		list_<uint_<1>>{} = call_<unpack_<remove_if_<lift_<is_even>>>, alist>{};
+		list_<int_<1>, int_<3>>{} = call_<remove_if_<lift_<is_even>>, int_<1>, int_<2>, int_<3>>{};
 		return 0;
 	}
 } // namespace remove_if_test

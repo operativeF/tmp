@@ -28,6 +28,6 @@ namespace boost::tmp {
 	template <std::size_t N, typename C>
 	struct dispatch<N, size_<C>> {
 		template <typename... Ls>
-		using f = typename dispatch<1, C>::template f<sizet_<sizeof...(Ls)>>;
+		using f = dispatch<1, C>::template f<sizet_<sizeof...(Ls)>>;
 	};
 } // namespace boost::tmp

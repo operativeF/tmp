@@ -36,18 +36,18 @@ namespace boost::tmp {
 	};
 
 	template <std::size_t N>
-	using make_index_for_zip = typename make_seq_impl<next_state(0, N)>::template f<N>;
+	using make_index_for_zip = make_seq_impl<next_state(0, N)>::template f<N>;
 
 	template <std::size_t N, typename F, typename C>
 	struct dispatch<N, zip_with_index_<F, C>> {
 		template <typename... Ts>
-		using f = typename indexer<make_index_for_zip<sizeof...(Ts)>>::template f<
+		using f = indexer<make_index_for_zip<sizeof...(Ts)>>::template f<
 				F, dispatch<find_dispatch(sizeof...(Ts)), C>::template f, Ts...>;
 	};
 	template <std::size_t N, typename F, template <typename...> class C>
 	struct dispatch<N, zip_with_index_<F, lift_<C>>> {
 		template <typename... Ts>
-		using f = typename indexer<make_index_for_zip<sizeof...(Ts)>>::template f<F, C,
+		using f = indexer<make_index_for_zip<sizeof...(Ts)>>::template f<F, C,
 																					Ts...>;
 	};
 } // namespace boost::tmp

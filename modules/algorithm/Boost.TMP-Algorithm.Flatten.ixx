@@ -27,7 +27,7 @@ namespace boost::tmp {
 
 	template <typename C, typename... Ts>
 	struct flatten_impl {
-		using type = typename dispatch<0, join_<C>>::template f<Ts...>;
+		using type = dispatch<0, join_<C>>::template f<Ts...>;
 	};
 
 	// Append to list function
@@ -44,6 +44,6 @@ namespace boost::tmp {
 	template <std::size_t N, typename C>
 	struct dispatch<N, flatten_<C>> {
 		template <typename... Ts>
-		using f = typename flatten_impl<C, list_<>, Ts...>::type;
+		using f = flatten_impl<C, list_<>, Ts...>::type;
 	};
 } // namespace boost::tmp

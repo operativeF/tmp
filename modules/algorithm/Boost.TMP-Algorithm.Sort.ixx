@@ -49,7 +49,7 @@ namespace boost::tmp {
 			using n = bnode<L, E, typename bun<R>::template f<F, T>>;
 			template <typename T, typename LL, typename LE, typename LR, typename E,
 						typename RL, typename RE, typename RR>
-			using nn = typename bpush<F<T, RE>::value, F>::template nn_0<T, LL, LE, LR, E,
+			using nn = bpush<F<T, RE>::value, F>::template nn_0<T, LL, LE, LR, E,
 																			RL, RE, RR>;
 			template <typename T, typename LL, typename LE, typename LR, typename E,
 						typename RL, typename RE, typename RR>
@@ -62,7 +62,7 @@ namespace boost::tmp {
 			template <typename T, typename E>
 			using l1 = blist<E, T>;
 			template <typename T, typename E0, typename E1>
-			using l2_0 = typename bpush<F<T, E1>::value, F>::template l2_1<T, E0, E1>;
+			using l2_0 = bpush<F<T, E1>::value, F>::template l2_1<T, E0, E1>;
 			template <typename T, typename E0, typename E1>
 			using l2_1 = bnode<blist<E0>, E1, blist<T>>;
 		};
@@ -72,7 +72,7 @@ namespace boost::tmp {
 			using n = bnode<typename bun<L>::template f<F, T>, E, R>;
 			template <typename T, typename LL, typename LE, typename LR, typename E,
 						typename RL, typename RE, typename RR>
-			using nn = typename bpush<F<T, LE>::value, F>::template nn_1<T, LL, LE, LR, E,
+			using nn = bpush<F<T, LE>::value, F>::template nn_1<T, LL, LE, LR, E,
 																			RL, RE, RR>;
 			template <typename T, typename LL, typename LE, typename LR, typename E,
 						typename RL, typename RE, typename RR>
@@ -98,12 +98,12 @@ namespace boost::tmp {
 		template <typename E>
 		struct bun<blist<E>> {
 			template <template <typename...> class F, typename T>
-			using f = typename bpush<F<T, E>::value, F>::template l1<T, E>;
+			using f = bpush<F<T, E>::value, F>::template l1<T, E>;
 		};
 		template <typename E0, typename E1>
 		struct bun<blist<E0, E1>> {
 			template <template <typename...> class F, typename T>
-			using f = typename bpush<F<T, E0>::value, F>::template l2_0<T, E0, E1>;
+			using f = bpush<F<T, E0>::value, F>::template l2_0<T, E0, E1>;
 		};
 
 		// Push a node. The node postion (either Left or Right) from the Edge
@@ -113,13 +113,13 @@ namespace boost::tmp {
 		template <typename L, typename E, typename R>
 		struct bun<bnode<L, E, R>> {
 			template <template <typename...> class F, typename T>
-			using f = typename bpush<F<T, E>::value, F>::template n<T, L, E, R>;
+			using f = bpush<F<T, E>::value, F>::template n<T, L, E, R>;
 		};
 		template <typename LL, typename LE, typename LR, typename E, typename RL,
 					typename RE, typename RR>
 		struct bun<bnode<bnode<LL, LE, LR>, E, bnode<RL, RE, RR>>> {
 			template <template <typename...> class F, typename T>
-			using f = typename bpush<F<T, E>::value, F>::template nn<T, LL, LE, LR, E, RL,
+			using f = bpush<F<T, E>::value, F>::template nn<T, LL, LE, LR, E, RL,
 																		RE, RR>;
 		};
 
@@ -127,7 +127,7 @@ namespace boost::tmp {
 					typename E, typename... Ts>
 		struct bun<bnode<bnode<bnode<LLL, LLE, LLR>, LE, LR>, E, blist<Ts...>>> {
 			template <template <typename...> class F, typename T>
-			using f = typename bpush<F<T, LE>::value, F>::template nn<T, LLL, LLE, LLR, LE,
+			using f = bpush<F<T, LE>::value, F>::template nn<T, LLL, LLE, LLR, LE,
 																		LR, E, blist<Ts...>>;
 		};
 
@@ -135,9 +135,8 @@ namespace boost::tmp {
 					typename RRE, typename RRR>
 		struct bun<bnode<blist<Ts...>, E, bnode<RL, RE, bnode<RRL, RRE, RRR>>>> {
 			template <template <typename...> class F, typename T>
-			using f =
-					typename bpush<F<T, RE>::value, F>::template nn<T, blist<Ts...>, E, RL,
-																	RE, RRL, RRE, RRR>;
+			using f = bpush<F<T, RE>::value, F>::template nn<T, blist<Ts...>, E, RL,
+															 RE, RRL, RRE, RRR>;
 		};
 
 		// Prune branch
@@ -163,8 +162,7 @@ namespace boost::tmp {
 		// Flatten single end node with Left, Edge, and Right
 		template <typename L, typename E, typename R>
 		struct bflat<bnode<L, E, R>> {
-			using type = typename bflat<
-					bnode<typename bflat<L>::type, E, typename bflat<R>::type>>::type;
+			using type = bflat<bnode<typename bflat<L>::type, E, typename bflat<R>::type>>::type;
 		};
 
 		// Flatten two nodes, Left and Right from Edge, and flatten their respective Left
@@ -173,8 +171,7 @@ namespace boost::tmp {
 		template <typename LL, typename LE, typename LR, typename E, typename RL,
 					typename RE, typename RR>
 		struct bflat<bnode<bnode<LL, LE, LR>, E, bnode<RL, RE, RR>>> {
-			using type =
-					typename join7<typename bflat<LL>::type, LE, typename bflat<LR>::type,
+			using type = join7<typename bflat<LL>::type, LE, typename bflat<LR>::type,
 									E, 
 									typename bflat<RL>::type, RE, typename bflat<RR>::type
 								>::type;
@@ -194,7 +191,7 @@ namespace boost::tmp {
 		};
 
 		template <typename T>
-		using collapse_t = typename btree::bflat<T>::type;
+		using collapse_t = btree::bflat<T>::type;
 	} // namespace btree
 
 	// Push elements to btree
@@ -203,18 +200,18 @@ namespace boost::tmp {
 	template <typename F>
 	struct dispatch<2, element_pusher<F>> {
 		template <typename T, typename U>
-		using f = typename btree::bun<T>::template f<dispatch<2, F>::template f, U>;
+		using f = btree::bun<T>::template f<dispatch<2, F>::template f, U>;
 	};
 	template <template <typename...> class F>
 	struct dispatch<2, element_pusher<lift_<F>>> {
 		template <typename T, typename U>
-		using f = typename btree::bun<T>::template f<F, U>;
+		using f = btree::bun<T>::template f<F, U>;
 	};
 
 	template <template <typename...> class F>
 	struct pusher {
 		template <typename T, typename U>
-		using f = typename btree::bun<T>::template f<F, U>;
+		using f = btree::bun<T>::template f<F, U>;
 	};
 
 	template <template <typename...> class F, typename C = identity_,

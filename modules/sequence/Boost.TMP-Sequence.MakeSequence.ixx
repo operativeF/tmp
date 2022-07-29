@@ -55,21 +55,20 @@ export namespace boost::tmp {
 	template <>
 	struct make_seq_impl<2> { // double
 		template <std::size_t End, std::size_t... Is>
-		using f = typename make_seq_impl<next_state(
-				2 * sizeof...(Is), End)>::template f<End, Is..., (Is + sizeof...(Is))...>;
+		using f = make_seq_impl<next_state(2 * sizeof...(Is), End)>::template 
+					f<End, Is..., (Is + sizeof...(Is))...>;
 	};
 	template <>
 	struct make_seq_impl<3> { // double +1
 		template <std::size_t End, std::size_t... Is>
-		using f =
-				typename make_seq_impl<next_state(2 * sizeof...(Is) + 1, End)>::template f<
+		using f = make_seq_impl<next_state(2 * sizeof...(Is) + 1, End)>::template f<
 						End, Is..., (Is + sizeof...(Is))..., (2 * sizeof...(Is))>;
 	};
 
 	template <typename F, typename C>
 	struct dispatch<1, make_sequence_<F, C>> {
 		template <typename N>
-		using f = typename dispatch<1, unpack_<transform_<F, C>>>::template f<
+		using f = dispatch<1, unpack_<transform_<F, C>>>::template f<
 				typename make_seq_impl<next_state(0, N::value)>::template f<N::value>>;
 	};
 } // namespace boost::tmp

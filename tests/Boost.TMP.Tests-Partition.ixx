@@ -13,13 +13,12 @@ import Boost.TMP;
 namespace partition_test {
 	using namespace boost::tmp;
 
-	using xs0 = list_<uint_<1>, uint_<2>, uint_<3>, uint_<4>, uint_<5>, uint_<6>, uint_<7>,
-						uint_<8>, uint_<9>, uint_<10>>;
-
 	template <typename T>
-	using more_than_5 = bool_<(T::value > 5)>;
+	using greater_than_two = bool_<(T::value > 2)>;
 
 	export int run() {
+		list_<list_<int_<1>, int_<2>>, list_<int_<3>, int_<4>>>{} =
+			call_<partition_<lift_<greater_than_two>>, int_<1>, int_<2>, int_<3>, int_<4>>{};
 		return 0;
 	}
 } // namespace partition_test

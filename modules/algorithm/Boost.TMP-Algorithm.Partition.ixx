@@ -31,5 +31,5 @@ namespace boost::tmp {
 	struct partition_ {};
 
 	template <std::size_t N, typename F, typename C>
-	struct dispatch<N, partition_<F, C>> : dispatch<N, tee_<filter_<F>, remove_if_<F>, C>> {};
+	struct dispatch<N, partition_<F, C>> : dispatch<N, tee_<remove_if_<F>, filter_<F>, C>> {};
 } // namespace boost::tmp
