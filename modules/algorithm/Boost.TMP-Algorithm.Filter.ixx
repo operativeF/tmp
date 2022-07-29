@@ -49,8 +49,7 @@ namespace boost::tmp {
 	template <template <typename...> class F, typename C>
 	struct filtery<3, F, C> { // all the way around, keep last
 		template <std::size_t N, typename T, typename... Ts>
-		using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<Ts...,
-																						T>;
+		using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<Ts..., T>;
 	};
 
 	template <std::size_t N, template <typename...> class F, typename C>

@@ -9,12 +9,10 @@
 export module Boost.TMP.Tests:NoneOf;
 
 import Boost.TMP;
+import :Helpers;
 
 namespace none_of_test {
     using namespace boost::tmp;
-
-    template <typename T>
-    using is_even = bool_<(T::value % 2 == 0)>;
 
     export int run() {
         false_{} = call_<none_of_<lift_<is_even>>, int_<2>, int_<100>, int_<4>, int_<500>>{};

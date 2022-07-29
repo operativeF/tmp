@@ -77,7 +77,7 @@ namespace boost::tmp {
 	template <template <typename...> class F, typename C>
 	struct dispatch<0, and_<lift_<F>, C>> {
 		template <typename... Ts>
-		using f = dispatch<1, C>::template f<bool_<false>>;
+		using f = dispatch<1, C>::template f<false_>;
 	};
 	template <std::size_t N, typename F, typename C>
 	struct dispatch<N, and_<F, C>> {
@@ -90,7 +90,7 @@ namespace boost::tmp {
 	template <typename F, typename C>
 	struct dispatch<0, and_<F, C>> {
 		template <typename... Ts>
-		using f = dispatch<1, C>::template f<bool_<false>>;
+		using f = dispatch<1, C>::template f<false_>;
 	};
 
 	template <std::size_t N, template <typename...> class F, typename C>
@@ -104,7 +104,7 @@ namespace boost::tmp {
 	template <template <typename...> class F, typename C>
 	struct dispatch<0, or_<lift_<F>, C>> {
 		template <typename... Ts>
-		using f = dispatch<1, C>::template f<bool_<false>>;
+		using f = dispatch<1, C>::template f<false_>;
 	};
 	template <std::size_t N, typename F, typename C>
 	struct dispatch<N, or_<F, C>> {
@@ -117,6 +117,6 @@ namespace boost::tmp {
 	template <typename F, typename C>
 	struct dispatch<0, or_<F, C>> {
 		template <typename... Ts>
-		using f = dispatch<1, C>::template f<bool_<false>>;
+		using f = dispatch<1, C>::template f<false_>;
 	};
 } // namespace boost::tmp

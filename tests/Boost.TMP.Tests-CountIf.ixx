@@ -8,13 +8,11 @@
 export module Boost.TMP.Tests:CountIf;
 
 import Boost.TMP;
+import :Helpers;
 
 namespace count_if_test {
 	using namespace boost::tmp;
-
-	template <typename T>
-	using is_even = bool_<(T::value % 2 == 0)>;
-
+	
 	export int run() {
 		sizet_<0>{} = call_<count_if_<lift_<is_even>>, int_<1>>{};
 		sizet_<1>{} = call_<count_if_<lift_<is_even>>, int_<2>>{};

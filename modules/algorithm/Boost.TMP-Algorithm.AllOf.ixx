@@ -27,6 +27,5 @@ namespace boost::tmp {
 	struct all_of_ {};
 		
 	template <std::size_t N, typename F, typename C>
-	struct dispatch<N, all_of_<F, C>>
-		: dispatch<N, and_<F, C>> {};
+	struct dispatch<N, all_of_<F, C>> : dispatch<N, and_<F, C>> {};
 } // namespace boost::tmp

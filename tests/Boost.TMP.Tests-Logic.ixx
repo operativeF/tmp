@@ -8,12 +8,10 @@
 export module Boost.TMP.Tests:Logic;
 
 import Boost.TMP;
+import :Helpers;
 
 namespace logic_test {
 	using namespace boost::tmp;
-
-	template <typename T>
-	using is_even = bool_<(T::value % 2 == 0)>;
 
 	export int run() {
 		false_{} = call_<and_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<1>, int_<1>,

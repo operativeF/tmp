@@ -8,12 +8,10 @@
 export module Boost.TMP.Tests:Filter;
 
 import Boost.TMP;
+import :Helpers;
 
 namespace filter_test {
 	using namespace boost::tmp;
-
-	template <typename N>
-	using is_even = bool_<N::value % 2 == 0>;
 
 	export int run() {
 		list_<int_<2>, int_<4>, int_<6>, int_<8>, int_<10>>{} =

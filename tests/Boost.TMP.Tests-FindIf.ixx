@@ -8,12 +8,10 @@
 export module Boost.TMP.Tests:FindIf;
 
 import Boost.TMP;
+import :Helpers;
 
 namespace find_if_test {
 	using namespace boost::tmp;
-
-	template <typename T>
-	using is_even = bool_<(T::value % 2 == 0)>;
 
 	template <int X>
 	struct equals_to {
