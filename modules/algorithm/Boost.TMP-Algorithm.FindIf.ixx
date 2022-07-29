@@ -45,13 +45,14 @@ namespace boost::tmp {
 		template <typename... Ts>
 		using f = dispatch<1, C>::template f<
 				   typename foldey<select_foldey_loop(sizeof...(Ts))>::template f<
-						typename county<false, std::numeric_limits<std::size_t>::max(), dispatch<1, F>::template f>, 0, Ts...>>;
+						typename county<false, std::numeric_limits<std::size_t>::max(),
+							typename dispatch<1, F>::template f>, 0, Ts...>>;
 	};
 
 	template <std::size_t N, template <typename...> class F, typename C>
 	struct dispatch<N, find_if_<lift_<F>, C>> {
 		template <typename... Ts>
 		using f = dispatch<1, C>::template f<typename foldey<select_foldey_loop(
-				sizeof...(Ts))>::template f<county<false, std::numeric_limits<std::size_t>::max(), F>, 0, Ts...>>;
+				sizeof...(Ts))>::template f<typename county<false, std::numeric_limits<std::size_t>::max(), F>, 0, Ts...>>;
 	};
 } // export namespace boost::tmp
