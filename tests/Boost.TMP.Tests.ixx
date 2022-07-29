@@ -7,6 +7,8 @@
 
 export module Boost.TMP.Tests;
 
+export import :Helpers;
+
 export import :AllOf;
 export import :AnyOf;
 export import :Clamp;
