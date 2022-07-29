@@ -8,9 +8,9 @@
 
 module;
 
-#ifdef __GNUC__
+#if defined(__GNUC__) || defined(__clang__)
 #include <cstdint>
-#endif // __GNUC__
+#endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP:Sequence.Set;
 
@@ -34,9 +34,7 @@ import :Sequence.PushFront;
 import :Sequence.Tee;
 import :Sequence.Unpack;
 
-#if __clang__
-import std;
-#elif _MSC_VER
+#if _MSC_VER
 import std;
 #endif
 

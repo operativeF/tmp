@@ -7,17 +7,15 @@
 
 module;
 
-#ifdef __GNUC__
+#if defined(__GNUC__) || defined(__clang__)
 #include <cstdint>
-#endif // __GNUC__
+#endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP:Base.Foldey;
 
 import :Base.Vocabulary;
 
-#if __clang__
-import std;
-#elif _MSC_VER
+#if _MSC_VER
 import std;
 #endif
 

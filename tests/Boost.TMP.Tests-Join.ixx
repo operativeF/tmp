@@ -7,9 +7,9 @@
 
 module;
 
-#ifdef __GNUC__
+#if defined(__GNUC__) || defined(__clang__)
 #include <utility>
-#endif // __GNUC__
+#endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP.Tests:Join;
 
