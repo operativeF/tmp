@@ -18,7 +18,7 @@ target_sources(tmp_test
         # Boost.TMP.Tests-Extrema.ixx
         Boost.TMP.Tests-Filter.ixx
         Boost.TMP.Tests-FindIf.ixx
-        # Boost.TMP.Tests-Flatten.ixx
+        Boost.TMP.Tests-Flatten.ixx
         Boost.TMP.Tests-FoldLeft.ixx
         Boost.TMP.Tests-FoldRight.ixx
         Boost.TMP.Tests-Index.ixx
@@ -28,7 +28,7 @@ target_sources(tmp_test
         Boost.TMP.Tests-NoneOf.ixx
         Boost.TMP.Tests-Partition.ixx
         Boost.TMP.Tests-PopFront.ixx
-        # Boost.TMP.Tests-Product.ixx
+        Boost.TMP.Tests-Product.ixx
         Boost.TMP.Tests-PushBack.ixx
         Boost.TMP.Tests-PushFront.ixx
         # Boost.TMP.Tests-RangeMath.ixx
@@ -45,6 +45,8 @@ target_sources(tmp_test
         Boost.TMP.Tests-Tee.ixx
         Boost.TMP.Tests-Transform.ixx
         Boost.TMP.Tests-Try.ixx
+        Boost.TMP.Tests-Zip.ixx
+        Boost.TMP.Tests-ZipWithIndex.ixx
         
         Boost.TMP.Tests-Helpers.ixx
         Boost.TMP.Tests.ixx

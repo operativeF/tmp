@@ -8,12 +8,10 @@
 export module Boost.TMP.Tests:FoldRight;
 
 import Boost.TMP;
+import :Helpers;
 
 namespace fold_right_test {
 	using namespace boost::tmp;
-
-	template <typename T, typename U>
-	using add = uint_<(T::value + U::value)>;
 
 	export int run() {
 		uint_<20>{} = call_<fold_right_<lift_<add>>, uint_<1>, uint_<10>, uint_<9>>{};

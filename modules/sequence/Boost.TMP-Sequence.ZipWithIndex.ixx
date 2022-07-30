@@ -14,8 +14,8 @@ module;
 export module Boost.TMP:Sequence.ZipWithIndex;
 
 import :Base.Lift;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.List;
+import :Base.Dispatch;
 import :Sequence.MakeSequence;
 
 #if _MSC_VER

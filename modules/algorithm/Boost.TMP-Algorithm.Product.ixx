@@ -8,8 +8,8 @@
 export module Boost.TMP:Algorithm.Product;
 
 import :Base.Lift;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.List;
+import :Base.Dispatch;
 import :Sequence.Join;
 
 namespace boost::tmp {

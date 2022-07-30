@@ -13,7 +13,7 @@ module;
 
 export module Boost.TMP:Sequence.Each;
 
-import :Detail.Dispatch;
+import :Base.Dispatch;
 
 #if _MSC_VER
 import std;

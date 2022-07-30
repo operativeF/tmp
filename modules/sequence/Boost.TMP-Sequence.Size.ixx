@@ -14,8 +14,8 @@ module;
 export module Boost.TMP:Sequence.Size;
 
 import :Base.Identity;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.Integral;
+import :Base.Dispatch;
 
 #if _MSC_VER
 import std;

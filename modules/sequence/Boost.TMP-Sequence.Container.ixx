@@ -9,8 +9,8 @@ export module Boost.TMP:Sequence.Container;
 
 import :Base.Identity;
 import :Base.Lift;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.Nothing;
+import :Base.Dispatch;
 
 namespace boost::tmp {
 	/// \brief

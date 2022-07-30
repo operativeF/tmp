@@ -16,7 +16,8 @@ export module Boost.TMP:Algorithm.FindIf;
 
 import :Base.Foldey;
 import :Base.Identity;
-import :Detail.Dispatch;
+import :Base.Lift;
+import :Base.Dispatch;
 
 #if _MSC_VER
 import std;

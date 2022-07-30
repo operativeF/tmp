@@ -13,8 +13,9 @@ module;
 
 export module Boost.TMP:Sequence.PopFront;
 
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.List;
+import :Base.Nothing;
+import :Base.Dispatch;
 
 #if _MSC_VER
 import std;

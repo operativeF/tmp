@@ -26,7 +26,7 @@ import :Base.If;
 import :Base.Lift;
 import :Base.ListOperations;
 import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.Dispatch;
 import :Sequence.Drop;
 import :Sequence.Index;
 import :Sequence.Join;

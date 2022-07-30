@@ -18,9 +18,9 @@ import :Base.Comparison;
 import :Base.Foldey;
 import :Base.Identity;
 import :Base.Lift;
-import :Base.Vocabulary;
+import :Base.Nothing;
 
-import :Detail.Dispatch;
+import :Base.Dispatch;
 
 #if _MSC_VER
 import std;

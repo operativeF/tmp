@@ -7,8 +7,8 @@
 
 export module Boost.TMP:Sequence.Unpack;
 
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.Nothing;
+import :Base.Dispatch;
 
 namespace boost::tmp {
 	/// \brief turns a list of types into a variadic pack of those types /

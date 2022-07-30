@@ -13,8 +13,10 @@ module;
 
 export module Boost.TMP:Sequence.Insert;
 
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.Integral;
+import :Base.List;
+import :Base.Nothing;
+import :Base.Dispatch;
 import :Sequence.PushFront;
 import :Sequence.Rotate;
 

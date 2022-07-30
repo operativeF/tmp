@@ -13,7 +13,8 @@ module;
 
 export module Boost.TMP:Base.Foldey;
 
-import :Base.Vocabulary;
+import :Base.Integral;
+import :Base.Nothing;
 
 #if _MSC_VER
 import std;

@@ -20,7 +20,7 @@ export import :Erase;
 // export import :Extrema; // TODO: 
 export import :Filter;
 export import :FindIf;
-// export import :Flatten;
+export import :Flatten;
 export import :FoldLeft;
 export import :FoldRight;
 export import :Index;
@@ -30,12 +30,11 @@ export import :Logic;
 export import :NoneOf;
 export import :Partition;
 export import :PopFront;
-// export import :Product;
+export import :Product;
 export import :PushBack;
 export import :PushFront;
 // export import :RangeMath; // TODO: Fix compile time.
 export import :RemoveIf;
-// export import :Repeat; // TODO: Not implemented yet.
 export import :RepeatSequence;
 export import :ReplaceIf;
 export import :Reverse;
@@ -48,4 +47,4 @@ export import :Take;
 export import :Tee;
 export import :Transform;
 export import :Try;
-// export import :ZipWithIndex;
+export import :ZipWithIndex;

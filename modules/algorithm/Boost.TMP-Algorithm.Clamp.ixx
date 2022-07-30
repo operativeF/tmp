@@ -16,7 +16,7 @@ export module Boost.TMP:Algorithm.Clamp;
 
 import :Algorithm.Filter;
 import :Base.Identity;
-import :Detail.Dispatch;
+import :Base.Dispatch;
 import :Sequence.Tee;
 
 #if _MSC_VER

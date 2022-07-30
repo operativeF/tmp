@@ -13,8 +13,8 @@ module;
 
 export module Boost.TMP:Algorithm.Flatten;
 
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.List;
+import :Base.Dispatch;
 import :Sequence.Join;
 
 #if _MSC_VER

@@ -16,7 +16,7 @@ export module Boost.TMP:Algorithm.NoneOf;
 
 import :Base.Identity;
 import :Base.Logic;
-import :Detail.Dispatch;
+import :Base.Dispatch;
 
 #if _MSC_VER
 import std;

@@ -21,7 +21,7 @@ import :Algorithm.Transform;
 import :Base.Identity;
 import :Base.Lift;
 import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.Dispatch;
 import :Sequence.Tee;
 import :Sequence.Unpack;
 

@@ -11,7 +11,7 @@ module;
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Detail.Dispatch;
+export module Boost.TMP:Base.Dispatch;
 
 #if _MSC_VER
 import std;

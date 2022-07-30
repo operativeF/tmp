@@ -8,7 +8,7 @@
 set(TMP_ALGO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/algorithm)
 set(TMP_DETAIL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/detail)
 set(TMP_SEQ_DIR ${CMAKE_CURRENT_SOURCE_DIR}/sequence)
-set(TMP_MAIN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/base)
+set(TMP_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/base)
 
 set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.AllOf.ixx
@@ -19,14 +19,14 @@ set(TMP_ALGO_IXX
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Extrema.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Filter.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FindIf.ixx
-    # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Flatten.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Flatten.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldLeft.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldRight.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Gather.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.NoneOf.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Pairing.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Partition.ixx
-    # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Product.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Product.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.RangeMath.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.RemoveIf.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.RemovePairs.ixx
@@ -37,21 +37,23 @@ set(TMP_ALGO_IXX
 )
 
 set(TMP_MAIN_IXX
-    ${TMP_MAIN_DIR}/Boost.TMP-Base.Always.ixx
-    ${TMP_MAIN_DIR}/Boost.TMP-Base.Call.ixx
-    ${TMP_MAIN_DIR}/Boost.TMP-Base.Comparison.ixx
-    ${TMP_MAIN_DIR}/Boost.TMP-Base.Foldey.ixx
-    ${TMP_MAIN_DIR}/Boost.TMP-Base.Identity.ixx
-    ${TMP_MAIN_DIR}/Boost.TMP-Base.If.ixx
-    ${TMP_MAIN_DIR}/Boost.TMP-Base.Lift.ixx
-    # ${TMP_MAIN_DIR}/Boost.TMP-Base.ListOperations.ixx
-    ${TMP_MAIN_DIR}/Boost.TMP-Base.Logic.ixx
-    ${TMP_MAIN_DIR}/Boost.TMP-Base.Try.ixx
-    ${TMP_MAIN_DIR}/Boost.TMP-Base.Vocabulary.ixx
-)
-
-set(TMP_DETAIL_IXX                                                                                                                                                     
-    ${TMP_DETAIL_DIR}/Boost.TMP-Detail.Dispatch.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Always.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Bool.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Byte.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Call.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Char.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Comparison.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Dispatch.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Foldey.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Identity.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.If.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Integral.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Lift.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.List.ixx
+    # ${TMP_BASE_DIR}/Boost.TMP-Base.ListOperations.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Logic.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Nothing.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Try.ixx
 )
 
 set(TMP_SEQ_IXX
@@ -97,5 +99,5 @@ target_sources(boost_tmp
 )
 
 if(MSVC)
-    target_compile_options(boost_tmp PRIVATE /reference std=C:/dev/STL/std.ifc)
+    target_compile_options(boost_tmp PRIVATE /reference std=C:/dev/STL/std.ifc /d1reportTime)
 endif()

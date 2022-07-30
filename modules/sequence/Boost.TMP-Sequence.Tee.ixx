@@ -15,7 +15,7 @@ export module Boost.TMP:Sequence.Tee;
 
 import :Base.Identity;
 import :Base.Logic;
-import :Detail.Dispatch;
+import :Base.Dispatch;
 import :Sequence.PushFront;
 import :Sequence.Rotate;
 

@@ -19,7 +19,7 @@ import :Base.Identity;
 import :Base.If;
 import :Base.Logic;
 import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.Dispatch;
 import :Sequence.Join;
 
 #if _MSC_VER

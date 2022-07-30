@@ -11,5 +11,8 @@ import Boost.TMP;
 
 using namespace boost::tmp;
 
+export template <typename T, typename U>
+using add = uint_<(T::value + U::value)>;
+
 export template <typename T>
 using is_even = bool_<(T::value % 2 == 0)>;

@@ -14,8 +14,8 @@ module;
 export module Boost.TMP:Sequence.Zip;
 
 import :Algorithm.Transform;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.List;
+import :Base.Dispatch;
 import :Sequence.Unpack;
 
 #if _MSC_VER

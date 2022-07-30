@@ -17,8 +17,8 @@ export module Boost.TMP:Algorithm.RemoveIf;
 import :Algorithm.Transform;
 import :Base.Always;
 import :Base.If;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.List;
+import :Base.Dispatch;
 import :Sequence.Join;
 
 #if _MSC_VER

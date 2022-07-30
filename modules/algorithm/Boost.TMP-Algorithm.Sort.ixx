@@ -17,8 +17,8 @@ import :Algorithm.FoldLeft;
 import :Base.Comparison;
 import :Base.Identity;
 import :Base.Lift;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.List;
+import :Base.Dispatch;
 import :Sequence.PushFront;
 import :Sequence.Unpack;
 

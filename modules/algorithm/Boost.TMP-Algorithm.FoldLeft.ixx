@@ -15,8 +15,9 @@ export module Boost.TMP:Algorithm.FoldLeft;
 
 import :Base.Identity;
 import :Base.Lift;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.List;
+import :Base.Nothing;
+import :Base.Dispatch;
 
 #if _MSC_VER
 import std;

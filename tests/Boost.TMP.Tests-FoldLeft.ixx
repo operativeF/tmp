@@ -8,12 +8,11 @@
 export module Boost.TMP.Tests:FoldLeft;
 
 import Boost.TMP;
+import :Helpers;
 
 namespace fold_left_test {
 	using namespace boost::tmp;
 
-	template <typename T, typename U>
-	using add = uint_<(T::value + U::value)>;
 	template <typename T, typename U>
 	using push = call_<join_<>, T, list_<U>>;
 

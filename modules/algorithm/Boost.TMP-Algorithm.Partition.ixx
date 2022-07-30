@@ -15,8 +15,8 @@ export module Boost.TMP:Algorithm.Partition;
 
 import :Algorithm.Filter;
 import :Algorithm.RemoveIf;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.List;
+import :Base.Dispatch;
 import :Sequence.Tee;
 
 #ifdef _MSC_VER

@@ -17,8 +17,8 @@ import :Algorithm.Transform;
 import :Base.Always;
 import :Base.Identity;
 import :Base.If;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.List;
+import :Base.Dispatch;
 import :Sequence.Join;
 import :Sequence.Size;
 

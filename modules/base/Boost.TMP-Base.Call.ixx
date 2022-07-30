@@ -15,8 +15,8 @@ module;
 export module Boost.TMP:Base.Call;
 
 import :Base.Identity;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.Nothing;
+import :Base.Dispatch;
 
 #if _MSC_VER
 import std;
@@ -31,6 +31,7 @@ namespace boost::tmp {
 	template <>
 	struct maybe_test_impl<true> {};
 
+	// TODO: Get rid of std::is_same_v here.
 	template <typename T>
 	using maybe_impl = maybe_test_impl<std::is_same_v<T, nothing_>>::template f<T>;
 

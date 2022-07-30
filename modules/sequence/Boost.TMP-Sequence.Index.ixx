@@ -14,8 +14,8 @@ module;
 export module Boost.TMP:Sequence.Index;
 
 import :Base.Identity;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.Integral;
+import :Base.Dispatch;
 import :Sequence.Drop;
 import :Sequence.Unpack;
 

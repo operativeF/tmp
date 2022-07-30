@@ -14,7 +14,7 @@ module;
 export module Boost.TMP:Base.Lift;
 
 import :Base.Identity;
-import :Detail.Dispatch;
+import :Base.Dispatch;
 
 #if _MSC_VER
 import std;

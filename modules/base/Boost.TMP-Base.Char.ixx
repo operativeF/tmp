@@ -5,16 +5,12 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-export module Boost.TMP:Base.Identity;
-
-import :Base.Dispatch;
+export module Boost.TMP:Base.Char;
 
 namespace boost::tmp {
-	export struct identity_ {};
-
-	template <>
-	struct dispatch<1, identity_> {
-		template <typename T>
-		using f = T;
+	export template<char B>
+	struct char_
+	{
+		static constexpr char value = B;
 	};
 } // namespace boost::tmp

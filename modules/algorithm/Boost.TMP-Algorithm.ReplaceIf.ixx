@@ -18,8 +18,8 @@ import :Algorithm.Transform;
 import :Base.Always;
 import :Base.Identity;
 import :Base.If;
-import :Base.Vocabulary;
-import :Detail.Dispatch;
+import :Base.List;
+import :Base.Dispatch;
 
 #ifdef _MSC_VER
 import std;
