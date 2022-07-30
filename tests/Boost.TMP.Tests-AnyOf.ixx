@@ -11,9 +11,9 @@ export module Boost.TMP.Tests:AnyOf;
 import Boost.TMP;
 
 namespace any_of_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	export int run() {
+    export int run() {
         return 0;
-	}
+    }
 } // namespace any_of_test

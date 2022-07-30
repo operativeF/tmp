@@ -10,10 +10,10 @@ export module Boost.TMP.Tests:Swap;
 import Boost.TMP;
 
 namespace swap_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	export int run() {
-		list_<int_<1>, int_<0>>{} = call_<swap_<>, int_<0>, int_<1>>{};
-		return 0;
-	}
+    export int run() {
+        list_<int_<1>, int_<0>>{} = call_<swap_<>, int_<0>, int_<1>>{};
+        return 0;
+    }
 } // namespace swap_test

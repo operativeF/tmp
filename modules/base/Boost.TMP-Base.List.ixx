@@ -10,8 +10,8 @@ export module Boost.TMP:Base.List;
 import :Base.Lift;
 
 namespace boost::tmp {
-	export template <typename... Ts>
-	struct list_ {};
+    export template <typename... Ts>
+    struct list_ {};
 
-	export using listify_ = lift_<list_>;
+    export using listify_ = lift_<list_>;
 } // namespace boost::tmp

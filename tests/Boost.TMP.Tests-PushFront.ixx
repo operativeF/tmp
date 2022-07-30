@@ -10,9 +10,9 @@ export module Boost.TMP.Tests:PushFront;
 import Boost.TMP;
 
 namespace push_front_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	export int run() {
-		return 0;
-	}
+    export int run() {
+        return 0;
+    }
 } // namespace push_front_test

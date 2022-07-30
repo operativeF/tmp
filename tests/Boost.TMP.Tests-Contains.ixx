@@ -10,11 +10,11 @@ export module Boost.TMP.Tests:Contains;
 import Boost.TMP;
 
 namespace contains_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	export int run() {
-		false_{} = call_<contains_<int_<0>>, int_<1>>{};
-		true_{}  = call_<contains_<int_<2>>, int_<0>, int_<1>, int_<2>>{};
-		return 0;
-	}
+    export int run() {
+        false_{} = call_<contains_<int_<0>>, int_<1>>{};
+        true_{}  = call_<contains_<int_<2>>, int_<0>, int_<1>, int_<2>>{};
+        return 0;
+    }
 } // namespace contains_test

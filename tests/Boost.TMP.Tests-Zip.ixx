@@ -9,9 +9,9 @@ export module Boost.TMP.Tests:Zip;
 import Boost.TMP;
 
 namespace zip_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	export int run() {
-		return 0;
-	}
+    export int run() {
+        return 0;
+    }
 } // namespace zip_with_index_test

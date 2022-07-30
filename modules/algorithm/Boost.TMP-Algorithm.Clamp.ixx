@@ -28,10 +28,10 @@ import std;
 // greater than H from a given VPP.
 // The VPP values must also satisfy being less than and greater than comparable.
 namespace boost::tmp {
-	export template <typename L, typename H, typename C = identity_>
-	struct clamp_ {};
+    export template <typename L, typename H, typename C = identity_>
+    struct clamp_ {};
 
-	template <std::size_t N, typename L, typename H, typename C>
-	struct dispatch<N, clamp_<L, H, C>>
-		: dispatch<N, tee_<filter_<less_<L>, filter_<greater_<H>>>, C>> {};
+    template <std::size_t N, typename L, typename H, typename C>
+    struct dispatch<N, clamp_<L, H, C>>
+        : dispatch<N, tee_<filter_<less_<L>, filter_<greater_<H>>>, C>> {};
 } // namespace boost::tmp

@@ -25,10 +25,9 @@ import std;
 // Given a predicate (F), return true_ / false_ if none
 // of the elements in a VPP satisfy the predicate F.
 namespace boost::tmp {
-	export template <typename F, typename C = identity_>
-	struct none_of_ {};
+    export template <typename F, typename C = identity_>
+    struct none_of_ {};
 
-	template <std::size_t N, typename F, typename C>
-	struct dispatch<N, none_of_<F, C>>
-		: dispatch<N, and_<F, not_<C>>> {};
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, none_of_<F, C>> : dispatch<N, and_<F, not_<C>>> {};
 } // namespace boost::tmp

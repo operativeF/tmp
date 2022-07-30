@@ -24,21 +24,21 @@ import std;
 #endif
 
 namespace boost::tmp {
-	export template <template <typename...> class F, typename C = identity_>
-	struct try_ {};
+    export template <template <typename...> class F, typename C = identity_>
+    struct try_ {};
 
-	template <typename T>
-	struct t_ {
-		using type = T;
-	};
-	template <template <typename...> class F, typename... Ts>
-	t_<F<Ts...>> try_f(lift_<F>, list_<Ts...>);
-	t_<nothing_> try_f(...);
+    template <typename T>
+    struct t_ {
+        using type = T;
+    };
+    template <template <typename...> class F, typename... Ts>
+    t_<F<Ts...>> try_f(lift_<F>, list_<Ts...>);
+    t_<nothing_> try_f(...);
 
-	template <std::size_t N, template <typename...> class F, typename C>
-	struct dispatch<N, try_<F, C>> {
-		template <typename... Ts>
-		using f = dispatch<1, C>::template f<typename decltype(
-				try_f(lift_<F>{}, list_<Ts...>{}))::type>;
-	};
+    template <std::size_t N, template <typename...> class F, typename C>
+    struct dispatch<N, try_<F, C>> {
+        template <typename... Ts>
+        using f = dispatch<1, C>::template f<typename decltype(
+                try_f(lift_<F>{}, list_<Ts...>{}))::type>;
+    };
 } // namespace boost::tmp

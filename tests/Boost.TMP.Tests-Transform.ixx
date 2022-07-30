@@ -10,9 +10,9 @@ export module Boost.TMP.Tests:Transform;
 import Boost.TMP;
 
 namespace transform_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	export int run() {
-		return 0;
-	}
+    export int run() {
+        return 0;
+    }
 } // namespace transform_test

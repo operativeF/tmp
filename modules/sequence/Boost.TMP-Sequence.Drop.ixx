@@ -23,9 +23,8 @@ import :Sequence.Rotate;
 import std;
 #endif
 
+// Drop (N) values from the front of the input VPP.
 namespace boost::tmp {
-    /// \brief Drop n values, starting from the front,
-    /// off the passed in list.
     export template <typename N = sizet_<0>, typename C = listify_>
     struct drop_ {};
 

@@ -13,22 +13,21 @@ import :Base.Nothing;
 import :Base.Dispatch;
 
 namespace boost::tmp {
-	/// \brief
-	export template <typename C = identity_>
-	struct container_ {};
+    export template <typename C = identity_>
+    struct container_ {};
 
-	template <typename L, typename C>
-	struct container_impl {
-		using type = dispatch<1, C>::template f<nothing_>;
-	};
-	template <template <typename...> class Seq, typename C, typename... Ls>
-	struct container_impl<Seq<Ls...>, C> {
-		using type = dispatch<1, C>::template f<lift_<Seq>>;
-	};
+    template <typename L, typename C>
+    struct container_impl {
+        using type = dispatch<1, C>::template f<nothing_>;
+    };
+    template <template <typename...> class Seq, typename C, typename... Ls>
+    struct container_impl<Seq<Ls...>, C> {
+        using type = dispatch<1, C>::template f<lift_<Seq>>;
+    };
 
-	template <typename C>
-	struct dispatch<1, container_<C>> {
-		template <typename L>
-		using f = container_impl<L, C>::type;
-	};
+    template <typename C>
+    struct dispatch<1, container_<C>> {
+        template <typename L>
+        using f = container_impl<L, C>::type;
+    };
 } // namespace boost::tmp

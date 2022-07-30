@@ -11,14 +11,14 @@ export module Boost.TMP.Tests:Partition;
 import Boost.TMP;
 
 namespace partition_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	template <typename T>
-	using greater_than_two = bool_<(T::value > 2)>;
+    template <typename T>
+    using greater_than_two = bool_<(T::value > 2)>;
 
-	export int run() {
-		list_<list_<int_<3>, int_<4>>, list_<int_<1>, int_<2>>>{} =
-			call_<partition_<lift_<greater_than_two>>, int_<1>, int_<2>, int_<3>, int_<4>>{};
-		return 0;
-	}
+    export int run() {
+        list_<list_<int_<3>, int_<4>>, list_<int_<1>, int_<2>>>{} =
+            call_<partition_<lift_<greater_than_two>>, int_<1>, int_<2>, int_<3>, int_<4>>{};
+        return 0;
+    }
 } // namespace partition_test

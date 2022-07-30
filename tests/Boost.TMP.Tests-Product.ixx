@@ -10,18 +10,18 @@ export module Boost.TMP.Tests:Product;
 import Boost.TMP;
 
 namespace product_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	using xl1 = list_<uint_<1>, uint_<2>, uint_<3>>;
-	using xr1 = list_<uint_<1>, uint_<2>, uint_<3>>;
+    using xl1 = list_<uint_<1>, uint_<2>, uint_<3>>;
+    using xr1 = list_<uint_<1>, uint_<2>, uint_<3>>;
 
-	using result1 = call_<product_<>, xl1, xr1>;
+    using result1 = call_<product_<>, xl1, xr1>;
 
-	export int run() {
-		list_<list_<uint_<1>, uint_<1>>, list_<uint_<1>, uint_<2>>, list_<uint_<1>, uint_<3>>,
-		      list_<uint_<2>, uint_<1>>, list_<uint_<2>, uint_<2>>, list_<uint_<2>, uint_<3>>,
-		      list_<uint_<3>, uint_<1>>, list_<uint_<3>, uint_<2>>, list_<uint_<3>, uint_<3>>>{} =
-		        result1{};
-		return 0;
-	}
+    export int run() {
+        list_<list_<uint_<1>, uint_<1>>, list_<uint_<1>, uint_<2>>, list_<uint_<1>, uint_<3>>,
+              list_<uint_<2>, uint_<1>>, list_<uint_<2>, uint_<2>>, list_<uint_<2>, uint_<3>>,
+              list_<uint_<3>, uint_<1>>, list_<uint_<3>, uint_<2>>, list_<uint_<3>, uint_<3>>>{} =
+                result1{};
+        return 0;
+    }
 } // namespace product_test

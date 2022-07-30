@@ -27,9 +27,10 @@ import std;
 // the elements where the predicate is true.
 // Maintains order of elements.
 namespace boost::tmp {
-	export template <typename F, typename C = listify_>
-	struct partition_ {};
+    export template <typename F, typename C = listify_>
+    struct partition_ {};
 
-	template <std::size_t N, typename F, typename C>
-	struct dispatch<N, partition_<F, C>> : dispatch<N, tee_<filter_<F>, remove_if_<F>, C>> {};
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, partition_<F, C>>
+              : dispatch<N, tee_<filter_<F>, remove_if_<F>, C>> {};
 } // namespace boost::tmp

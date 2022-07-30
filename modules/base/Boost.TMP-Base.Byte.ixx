@@ -18,9 +18,9 @@ import std;
 #endif
 
 namespace boost::tmp {
-	export template<std::byte B>
-	struct byte_
-	{
-		static constexpr std::byte value = B;
-	};
+    export template<std::byte B>
+    struct byte_
+    {
+        static constexpr std::byte value = B;
+    };
 } // namespace boost::tmp

@@ -9,11 +9,11 @@ export module Boost.TMP.Tests:RepeatSequence;
 import Boost.TMP;
 
 namespace repeat_sequence_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	using repeat_1_10x = call_<repeat_sequence_<sizet_<69>, lift_<into_sequence>>, sizet_<1>>;
+    using repeat_1_10x = call_<repeat_sequence_<sizet_<69>, lift_<into_sequence>>, sizet_<1>>;
 
-	export int run() {
-		return 0;
-	}
+    export int run() {
+        return 0;
+    }
 } // namespace repeat_sequence_test

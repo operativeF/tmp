@@ -9,7 +9,7 @@
 import Boost.TMP.Tests;
 
 int main() {
-	return any_of_test::run() ||
+    return any_of_test::run() ||
            all_of_test::run() ||
            clamp_test::run()  ||
            contains_test::run() ||
@@ -45,7 +45,6 @@ int main() {
            swap_test::run()   ||
            take_test::run()   ||
            tee_test::run()    ||
-           transform_test::run()
-           ;
+           transform_test::run();
 }
 

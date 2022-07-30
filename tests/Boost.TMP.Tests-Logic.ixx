@@ -11,19 +11,19 @@ import Boost.TMP;
 import :Helpers;
 
 namespace logic_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	export int run() {
-		false_{} = call_<and_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<1>, int_<1>,
-		                       int_<1>, int_<1>, int_<1>, int_<1>>{};
+    export int run() {
+        false_{} = call_<and_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<1>, int_<1>,
+                               int_<1>, int_<1>, int_<1>, int_<1>>{};
 
-		true_{} = call_<and_<lift_<is_even>>, int_<2>, int_<2>, int_<2>>{};
+        true_{} = call_<and_<lift_<is_even>>, int_<2>, int_<2>, int_<2>>{};
 
-		false_{} = call_<or_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<1>, int_<1>,
-		                       int_<1>, int_<1>, int_<1>, int_<1>>{};
+        false_{} = call_<or_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<1>, int_<1>,
+                               int_<1>, int_<1>, int_<1>, int_<1>>{};
 
-		true_{} = call_<or_<lift_<is_even>>, int_<2>, int_<2>, int_<2>>{};
+        true_{} = call_<or_<lift_<is_even>>, int_<2>, int_<2>, int_<2>>{};
 
-		return 0;
-	}
+        return 0;
+    }
 } // namespace logic_test

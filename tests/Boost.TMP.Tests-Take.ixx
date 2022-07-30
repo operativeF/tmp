@@ -10,11 +10,11 @@ export module Boost.TMP.Tests:Take;
 import Boost.TMP;
 
 namespace take_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	export int run() {
-		list_<int_<1>>{}          = call_<take_<uint_<1>>, int_<1>, int_<2>, int_<3>>{};
-		list_<int_<1>, int_<2>>{} = call_<take_<uint_<2>>, int_<1>, int_<2>, int_<3>>{};
-		return 0;
-	}
+    export int run() {
+        list_<int_<1>>{}          = call_<take_<uint_<1>>, int_<1>, int_<2>, int_<3>>{};
+        list_<int_<1>, int_<2>>{} = call_<take_<uint_<2>>, int_<1>, int_<2>, int_<3>>{};
+        return 0;
+    }
 } // namespace take_test

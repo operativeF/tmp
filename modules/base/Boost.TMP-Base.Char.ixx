@@ -8,9 +8,9 @@
 export module Boost.TMP:Base.Char;
 
 namespace boost::tmp {
-	export template<char B>
-	struct char_
-	{
-		static constexpr char value = B;
-	};
+    export template<char B>
+    struct char_
+    {
+        static constexpr char value = B;
+    };
 } // namespace boost::tmp

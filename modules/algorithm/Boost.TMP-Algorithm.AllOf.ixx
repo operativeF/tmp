@@ -25,9 +25,9 @@ import std;
 // Given a unary predicate, return true_ / false_ on whether all elements
 // in a VPP satisfy that predicate.
 namespace boost::tmp {
-	export template <typename F, typename C = identity_>
-	struct all_of_ {};
-		
-	template <std::size_t N, typename F, typename C>
-	struct dispatch<N, all_of_<F, C>> : dispatch<N, and_<F, C>> {};
+    export template <typename F, typename C = identity_>
+    struct all_of_ {};
+        
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, all_of_<F, C>> : dispatch<N, and_<F, C>> {};
 } // namespace boost::tmp

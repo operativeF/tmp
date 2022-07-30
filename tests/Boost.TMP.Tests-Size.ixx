@@ -10,12 +10,12 @@ export module Boost.TMP.Tests:Size;
 import Boost.TMP;
 
 namespace size_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	export int run() {
-		sizet_<3>{} = call_<size_<>, int_<0>, int_<2>, int_<4>>{};
-		sizet_<0>{} = call_<size_<>>{};
+    export int run() {
+        sizet_<3>{} = call_<size_<>, int_<0>, int_<2>, int_<4>>{};
+        sizet_<0>{} = call_<size_<>>{};
 
-		return 0;
-	}
+        return 0;
+    }
 } // namespace size_test

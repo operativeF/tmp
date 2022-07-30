@@ -21,12 +21,12 @@ import std;
 #endif
 
 namespace boost::tmp {
-	export template <typename T, typename C = identity_>
-	struct always_ {};
+    export template <typename T, typename C = identity_>
+    struct always_ {};
 
-	template <std::size_t N, typename T, typename C>
-	struct dispatch<N, always_<T, C>> {
-		template <typename...>
-		using f = dispatch<1, C>::template f<T>;
-	};
+    template <std::size_t N, typename T, typename C>
+    struct dispatch<N, always_<T, C>> {
+        template <typename...>
+        using f = dispatch<1, C>::template f<T>;
+    };
 } // namespace boost::tmp

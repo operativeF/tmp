@@ -12,12 +12,12 @@ import :Base.Dispatch;
 
 /// \brief Swaps two variadic parametic pack values. Must be only two values.
 namespace boost::tmp {
-	export template <typename C = listify_>
-	struct swap_ {};
+    export template <typename C = listify_>
+    struct swap_ {};
 
-	template <typename C>
-	struct dispatch<2, swap_<C>> {
-		template <typename T, typename U>
-		using f = dispatch<2, C>::template f<U, T>;
-	};
+    template <typename C>
+    struct dispatch<2, swap_<C>> {
+        template <typename T, typename U>
+        using f = dispatch<2, C>::template f<U, T>;
+    };
 } // namespace boost::tmp

@@ -10,11 +10,11 @@ export module Boost.TMP.Tests:Erase;
 import Boost.TMP;
 
 namespace erase_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	export int run() {
-		list_<int_<2>, int_<3>>{} = call_<erase_<sizet_<0>>, int_<1>, int_<2>, int_<3>>{};
+    export int run() {
+        list_<int_<2>, int_<3>>{} = call_<erase_<sizet_<0>>, int_<1>, int_<2>, int_<3>>{};
 
-		return 0;
-	}
+        return 0;
+    }
 } // namespace erase_test

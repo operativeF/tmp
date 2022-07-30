@@ -10,11 +10,11 @@ export module Boost.TMP:Base.Identity;
 import :Base.Dispatch;
 
 namespace boost::tmp {
-	export struct identity_ {};
+    export struct identity_ {};
 
-	template <>
-	struct dispatch<1, identity_> {
-		template <typename T>
-		using f = T;
-	};
+    template <>
+    struct dispatch<1, identity_> {
+        template <typename T>
+        using f = T;
+    };
 } // namespace boost::tmp

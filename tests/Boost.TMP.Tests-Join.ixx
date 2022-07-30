@@ -20,12 +20,12 @@ import std;
 #endif // _MSC_VER
 
 namespace join_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	using joined_sequences = call_<join_seq_<lift_<into_sequence>>, std::index_sequence<1, 2>, std::index_sequence<3, 4>>;
+    using joined_sequences = call_<join_seq_<lift_<into_sequence>>, std::index_sequence<1, 2>, std::index_sequence<3, 4>>;
 
-	export int run() {
-		joined_sequences{} = std::index_sequence<1, 2, 3, 4>{};
-		return 0;
-	}
+    export int run() {
+        joined_sequences{} = std::index_sequence<1, 2, 3, 4>{};
+        return 0;
+    }
 } // namespace join_test

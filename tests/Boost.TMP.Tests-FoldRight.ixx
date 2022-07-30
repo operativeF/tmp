@@ -11,10 +11,10 @@ import Boost.TMP;
 import :Helpers;
 
 namespace fold_right_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	export int run() {
-		uint_<20>{} = call_<fold_right_<lift_<add>>, uint_<1>, uint_<10>, uint_<9>>{};
-		return 0;
-	}
+    export int run() {
+        uint_<20>{} = call_<fold_right_<lift_<add>>, uint_<1>, uint_<10>, uint_<9>>{};
+        return 0;
+    }
 } // namespace fold_right_test

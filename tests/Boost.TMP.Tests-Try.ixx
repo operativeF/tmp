@@ -10,20 +10,20 @@ export module Boost.TMP.Tests:Try;
 import Boost.TMP;
 
 namespace try_test {
-	using namespace boost::tmp;
+    using namespace boost::tmp;
 
-	template <typename T>
-	using call_type = T::type;
+    template <typename T>
+    using call_type = T::type;
 
-	struct has_type {
-		using type = int;
-	};
-	
-	export int run() {
-		nothing_{}   = call_<try_<call_type>, int>{}; // should SFINAE, int has no ::type
-		list_<int>{} = list_<call_<try_<call_type>, has_type>>{}; // should not SFINAE
-		list_<int>{} = call_<try_<call_type, listify_>, has_type>{}; // test the continuation
+    struct has_type {
+        using type = int;
+    };
+    
+    export int run() {
+        nothing_{}   = call_<try_<call_type>, int>{}; // should SFINAE, int has no ::type
+        list_<int>{} = list_<call_<try_<call_type>, has_type>>{}; // should not SFINAE
+        list_<int>{} = call_<try_<call_type, listify_>, has_type>{}; // test the continuation
 
-		return 0;
-	}
+        return 0;
+    }
 } // namespace try_test
