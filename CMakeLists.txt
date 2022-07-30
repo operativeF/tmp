@@ -11,7 +11,7 @@ set(CMAKE_EXPERIMENTAL_CXX_MODULE_DYNDEP 1)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 	# Enable usage of updated __cplusplus macro
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5050 /utf-8 /GR- /D __WIN64__ /D UNICODE /D _UNICODE /Zc:__cplusplus /EHsc /arch:AVX2 /sdl-")	
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5050 /utf-8 /GR- /D __WIN64__ /D UNICODE /D _UNICODE /Zc:__cplusplus /EHsc")	
   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
   string(CONCAT CMAKE_EXPERIMENTAL_CXX_SCANDEP_SOURCE

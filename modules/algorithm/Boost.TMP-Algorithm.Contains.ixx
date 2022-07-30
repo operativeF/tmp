@@ -22,10 +22,12 @@ import :Base.Dispatch;
 import std;
 #endif
 
+// Given a type (V), return true_ / false_ on whether a given continuation
+// contains the type V.
 namespace boost::tmp {
-	export template <typename V, typename C = identity_>
+	export template <typename T, typename C = identity_>
 	struct contains_ {};
 
-	template <std::size_t N, typename V, typename C>
-	struct dispatch<N, contains_<V, C>> : dispatch<N, or_<is_<V>, C>> {};
+	template <std::size_t N, typename T, typename C>
+	struct dispatch<N, contains_<T, C>> : dispatch<N, or_<is_<T>, C>> {};
 } // namespace boost::tmp

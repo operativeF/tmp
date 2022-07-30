@@ -24,10 +24,8 @@ import :Sequence.Rotate;
 import std;
 #endif
 
-// \brief
-// Given a variadic parameter pack, remove the nth value in the pack.
-// Reduces the size of the list by 1 as a result.
-// FIXME: Add constraints so negative numbers aren't possible?
+// Given a VPP, remove the nth value in the pack.
+// Reduces the size of the list by 1.
 namespace boost::tmp {
 	export template <typename N = sizet_<0>, typename C = listify_>
 	struct erase_ {};

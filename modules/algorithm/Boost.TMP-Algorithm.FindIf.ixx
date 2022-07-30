@@ -30,7 +30,7 @@ namespace boost::tmp {
 
 	template <bool Found, std::size_t At, template <typename...> class F>
 	struct county {
-		static constexpr auto value = std::numeric_limits<std::size_t>::max();
+		static constexpr auto value = -1;
 		template <typename T>
 		using f = county<F<T>::value, (At + 1), F>;
 	};
@@ -46,13 +46,13 @@ namespace boost::tmp {
 		template <typename... Ts>
 		using f = typename dispatch<1, C>::template f<
 				typename foldey<select_foldey_loop(sizeof...(Ts))>::template f<
-						county<false, std::numeric_limits<std::size_t>::max(), dispatch<1, F>::template f>, 0, Ts...>>;
+						county<false, -1, dispatch<1, F>::template f>, 0, Ts...>>;
 	};
 
 	template <std::size_t N, template <typename...> class F, typename C>
 	struct dispatch<N, find_if_<lift_<F>, C>> {
 		template <typename... Ts>
 		using f = typename dispatch<1, C>::template f<typename foldey<select_foldey_loop(
-				sizeof...(Ts))>::template f<county<false, std::numeric_limits<std::size_t>::max(), F>, 0, Ts...>>;
+				sizeof...(Ts))>::template f<county<false, -1, F>, 0, Ts...>>;
 	};
 } // export namespace boost::tmp

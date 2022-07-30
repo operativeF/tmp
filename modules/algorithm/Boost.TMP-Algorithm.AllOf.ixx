@@ -22,6 +22,8 @@ import :Base.Dispatch;
 import std;
 #endif
 
+// Given a unary predicate, return true_ / false_ on whether all elements
+// in a VPP satisfy that predicate.
 namespace boost::tmp {
 	export template <typename F, typename C = identity_>
 	struct all_of_ {};

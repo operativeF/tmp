@@ -22,11 +22,12 @@ import :Base.Dispatch;
 import std;
 #endif
 
+// Given a predicate (F), return true_ / false_ if none
+// of the elements in a VPP satisfy the predicate F.
 namespace boost::tmp {
 	export template <typename F, typename C = identity_>
 	struct none_of_ {};
 
-	// @TODO: Make this shorting.
 	template <std::size_t N, typename F, typename C>
 	struct dispatch<N, none_of_<F, C>>
 		: dispatch<N, and_<F, not_<C>>> {};

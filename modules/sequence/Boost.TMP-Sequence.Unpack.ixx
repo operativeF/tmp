@@ -29,8 +29,9 @@ namespace boost::tmp {
 		using type = dispatch<find_dispatch(sizeof...(Ls)), C>::template f<Ls...>;
 	};
 
+	// in case of nothing_ input give a nothing_ output
 	template <typename C>
-	struct unpack_impl<C, nothing_> { // in case of nothing_ input give a nothing_ output
+	struct unpack_impl<C, nothing_> {
 		using type = nothing_;
 	};
 

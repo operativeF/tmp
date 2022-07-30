@@ -25,6 +25,7 @@ import std;
 #endif
 
 // FIXME: make_seq_impl used elsewhere.
+// TODO: Generalized to all integers.
 export namespace boost::tmp {
 	template <typename F = identity_, typename C = listify_>
 	struct make_sequence_ {};

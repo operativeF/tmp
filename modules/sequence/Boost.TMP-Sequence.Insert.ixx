@@ -30,7 +30,6 @@ import std;
 // to-be-inserted value. Also, as long as N < size of input list, it'll compile.
 // Attempting to insert a value in a position greater than the size of the list
 // will result in an error, as the value goes negative.
-// FIXME: Constraints on input values?
 namespace boost::tmp {
 	export template <typename N = sizet_<0>, typename V = nothing_, typename C = listify_>
 	struct insert_ {};

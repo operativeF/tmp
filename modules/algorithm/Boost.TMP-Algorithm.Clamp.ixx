@@ -23,6 +23,10 @@ import :Sequence.Tee;
 import std;
 #endif
 
+// Given a lower-bound type (L) and higher-bound type (H), and that both types
+// are less than and greater than comparable, remove all types less than L and all types
+// greater than H from a given VPP.
+// The VPP values must also satisfy being less than and greater than comparable.
 namespace boost::tmp {
 	export template <typename L, typename H, typename C = identity_>
 	struct clamp_ {};

@@ -52,16 +52,15 @@ export namespace boost::tmp
 					typename T3, typename T4, typename T5, typename T6, typename T7,
 					typename... Ts>
 		using f = foldey<select_foldey(8, sizeof...(Ts),
-				            F::template
-				             f<T0>::template
-				              f<T1>::template
-				               f<T2>::template
-				                f<T3>::template
-				            	 f<T4>::template
-				            	  f<T5>::template
-				            	   f<T6>::template
-				            	    f<T7>::value)
-				            >::template f<F, N + 8, Ts...>;
+				    F::template
+				      f<T0>::template
+				        f<T1>::template
+                          f<T2>::template
+				            f<T3>::template
+				              f<T4>::template
+				                f<T5>::template
+				            	  f<T6>::template
+				            	    f<T7>::value)>::template f<F, N + 8, Ts...>;
 	};
 
 	template <>

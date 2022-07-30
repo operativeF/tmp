@@ -47,7 +47,6 @@ namespace boost::tmp {
 	template <std::size_t N, typename F, template <typename...> class C>
 	struct dispatch<N, zip_with_index_<F, lift_<C>>> {
 		template <typename... Ts>
-		using f = indexer<make_index_for_zip<sizeof...(Ts)>>::template f<F, C,
-																					Ts...>;
+		using f = indexer<make_index_for_zip<sizeof...(Ts)>>::template f<F, C, Ts...>;
 	};
 } // namespace boost::tmp

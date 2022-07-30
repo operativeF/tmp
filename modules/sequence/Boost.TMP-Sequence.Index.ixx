@@ -94,26 +94,26 @@ namespace boost::tmp {
 	};
 	template <std::size_t N, typename C>
 	struct dispatch<N, index_<sizet_<4>, C>> {
-		template <typename T0, typename T1, typename T2, typename T3, typename T4,
-					typename... Ts>
+		template<typename T0, typename T1, typename T2, typename T3,
+		         typename T4, typename... Ts>
 		using f = dispatch<1, C>::template f<T4>;
 	};
 	template <std::size_t N, typename C>
 	struct dispatch<N, index_<sizet_<5>, C>> {
-		template <typename T0, typename T1, typename T2, typename T3, typename T4,
-					typename T5, typename... Ts>
+		template<typename T0, typename T1, typename T2, typename T3,
+		         typename T4, typename T5, typename... Ts>
 		using f = dispatch<1, C>::template f<T5>;
 	};
 	template <std::size_t N, typename C>
 	struct dispatch<N, index_<sizet_<6>, C>> {
-		template <typename T0, typename T1, typename T2, typename T3, typename T4,
-					typename T5, typename T6, typename... Ts>
+		template<typename T0, typename T1, typename T2, typename T3,
+		         typename T4, typename T5, typename T6, typename... Ts>
 		using f = dispatch<1, C>::template f<T6>;
 	};
 	template <std::size_t N, typename C>
 	struct dispatch<N, index_<sizet_<7>, C>> {
-		template <typename T0, typename T1, typename T2, typename T3, typename T4,
-					typename T5, typename T6, typename T7, typename... Ts>
+		template <typename T0, typename T1, typename T2, typename T3,
+		          typename T4, typename T5, typename T6, typename T7, typename... Ts>
 		using f = dispatch<1, C>::template f<T7>;
 	};
 } // export namespace boost::tmp
