@@ -39,6 +39,7 @@ export import :Base.Byte;
 export import :Base.Call;
 export import :Base.Char;
 export import :Base.Comparison;
+export import :Base.Dispatch;
 export import :Base.Foldey;
 export import :Base.Identity;
 export import :Base.If;
@@ -49,8 +50,6 @@ export import :Base.List;
 export import :Base.Logic;
 export import :Base.Nothing;
 export import :Base.Try;
-
-export import :Base.Dispatch;
 
 export import :Sequence.Container;
 export import :Sequence.Drop;
