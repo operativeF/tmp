@@ -60,7 +60,8 @@ export namespace boost::tmp
                               f<T4>::template
                                 f<T5>::template
                                   f<T6>::template
-                                    f<T7>::value)>::template f<F, N + 8, Ts...>;
+                                    f<T7>::value)>::template
+                                      f<F, N + 8, Ts...>;
     };
 
     template <>
