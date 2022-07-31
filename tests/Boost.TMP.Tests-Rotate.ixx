@@ -18,6 +18,8 @@ namespace rotate_test {
         // TODO: Allow rotations in opposite direction.
         // list_<int_<3>, int_<1>, int_<2>>{} = call_<rotate_<int_<-1>>, int_<1>, int_<2>, int_<3>>{};
 
+        // Rotating no input returns empty list
+        list_<>{} = call_<rotate_<int_<0>>>{};
         return 0;
     }
 } // namespace rotate_test

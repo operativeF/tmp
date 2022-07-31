@@ -15,6 +15,11 @@ namespace erase_test {
     export int run() {
         list_<int_<2>, int_<3>>{} = call_<erase_<sizet_<0>>, int_<1>, int_<2>, int_<3>>{};
 
+        // Erasing single element will always result in empty list.
+        list_<>{} = call_<erase_<sizet_<0>>, int_<0>>{};
+
+        // UNDER CONSIDERATION: Returns list_<nothing_> if no input is given.
+        list_<nothing_>{} = call_<erase_<sizet_<0>>>{};
         return 0;
     }
 } // namespace erase_test

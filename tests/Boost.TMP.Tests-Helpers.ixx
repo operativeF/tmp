@@ -16,3 +16,9 @@ using add = uint_<(T::value + U::value)>;
 
 export template <typename T>
 using is_even = bool_<(T::value % 2 == 0)>;
+
+template <typename T, typename U>
+using less = bool_<(T::value < U::value)>;
+
+export template <typename T, typename U>
+using pusher = call_<join_<>, T, list_<U>>;

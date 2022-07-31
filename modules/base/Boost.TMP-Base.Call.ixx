@@ -41,8 +41,7 @@ namespace boost::tmp {
     };
 
     export template <typename F, typename... Ts>
-    using call_ = dispatch<find_dispatch(sizeof...(Ts)),
-                                            F>::template f<Ts...>;
+    using call_ = dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>;
 
     export template <typename T, typename... Ts>
     using call_t = dispatch<find_dispatch(sizeof...(Ts)), T>::template

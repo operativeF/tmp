@@ -30,6 +30,9 @@ namespace boost::tmp {
         template <typename T, typename... Ts>
         using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
     };
+    // TODO: Should this be kept? This differs from the behavior of popping
+    // the front off of an empty list (which results in an empty list).
+    // This, however, will return a list_<nothing_>
     template <typename C>
     struct dispatch<0, pop_front_<C>> {
         template <typename... Ts>

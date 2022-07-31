@@ -13,19 +13,16 @@ import :Helpers;
 namespace fold_left_test {
     using namespace boost::tmp;
 
-    template <typename T, typename U>
-    using push = call_<join_<>, T, list_<U>>;
-
     export int run() {
-        list_<>{}                   = call_<fold_left_<lift_<push>>, list_<>>{};
-        list_<uint_<1>, uint_<2>>{} = call_<fold_left_<lift_<push>>, list_<>, uint_<1>, uint_<2>>{};
+        list_<>{}                   = call_<fold_left_<lift_<pusher>>, list_<>>{};
+        list_<uint_<1>, uint_<2>>{} = call_<fold_left_<lift_<pusher>>, list_<>, uint_<1>, uint_<2>>{};
         list_<uint_<1>, uint_<2>, uint_<3>>{} =
-                call_<fold_left_<lift_<push>>, list_<>, uint_<1>, uint_<2>, uint_<3>>{};
+                call_<fold_left_<lift_<pusher>>, list_<>, uint_<1>, uint_<2>, uint_<3>>{};
         list_<uint_<1>, uint_<2>, uint_<3>, uint_<4>>{} =
-                call_<fold_left_<lift_<push>>, list_<>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>{};
+                call_<fold_left_<lift_<pusher>>, list_<>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>{};
         list_<uint_<1>, uint_<1>, uint_<1>, uint_<1>, uint_<1>, uint_<1>, uint_<1>, uint_<1>,
               uint_<1>, uint_<1>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>{} =
-                call_<fold_left_<lift_<push>>, list_<>, uint_<1>, uint_<1>, uint_<1>, uint_<1>,
+                call_<fold_left_<lift_<pusher>>, list_<>, uint_<1>, uint_<1>, uint_<1>, uint_<1>,
                       uint_<1>, uint_<1>, uint_<1>, uint_<1>, uint_<1>, uint_<1>, uint_<1>,
                       uint_<2>, uint_<3>, uint_<4>>{};
         uint_<1>{}  = call_<fold_left_<lift_<add>>, uint_<1>>{};

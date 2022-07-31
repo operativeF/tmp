@@ -13,6 +13,8 @@ namespace push_front_test {
     using namespace boost::tmp;
 
     export int run() {
+        list_<int_<4>, int_<1>, int_<2>>{} = call_<push_front_<int_<4>>, int_<1>, int_<2>>{};
+        list_<int_<1>>{} = call_<push_front_<int_<1>>>{};
         return 0;
     }
 } // namespace push_front_test

@@ -13,6 +13,7 @@ namespace push_back_test {
     using namespace boost::tmp;
 
     export int run() {
+        list_<int_<1>, int_<2>, char_<'c'>>{} = call_<push_back_<char_<'c'>>, int_<1>, int_<2>>{};
         return 0;
     }
 } // namespace push_back_test

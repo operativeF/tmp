@@ -31,7 +31,7 @@ import std;
 // Attempting to insert a value in a position greater than the size of the list
 // will result in an error, as the value goes negative.
 namespace boost::tmp {
-    export template <typename N = sizet_<0>, typename V = nothing_, typename C = listify_>
+    export template <typename N, typename V, typename C = listify_>
     struct insert_ {};
 
     template <std::size_t N, typename I, typename V, typename C>

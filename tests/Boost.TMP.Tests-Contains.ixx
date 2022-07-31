@@ -15,6 +15,10 @@ namespace contains_test {
     export int run() {
         false_{} = call_<contains_<int_<0>>, int_<1>>{};
         true_{}  = call_<contains_<int_<2>>, int_<0>, int_<1>, int_<2>>{};
+
+        // No input to contains always returns false_
+        false_{} = call_<contains_<int_<1>>>{};
+
         return 0;
     }
 } // namespace contains_test
