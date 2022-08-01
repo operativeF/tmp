@@ -11,13 +11,10 @@ import Boost.TMP;
 
 namespace flatten_test {
     using namespace boost::tmp;
-
-    using alist = list_<list_<uint_<0>, uint_<1>>, uint_<2>, list_<uint_<3>>, uint_<4>>;
-
-    using result2 = call_<flatten_<>, alist>;
     
     export int run() {
-        list_<uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>{} = result2{};
+        list_<uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>{} =
+            call_<flatten_<>, list_<list_<uint_<0>, uint_<1>>, uint_<2>, list_<uint_<3>>, uint_<4>>>{};
         return 0;
     }
 } // namespace flatten_test

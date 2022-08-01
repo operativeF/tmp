@@ -17,7 +17,7 @@ namespace drop_test {
         list_<int_<1>, int_<2>>{} = call_<drop_<uint_<0>>, int_<1>, int_<2>>{};
 
         // Dropping off of no input returns empty list
-        // BUG: Dropping input off of no input fails.
+        // UNDER CONSIDERATION: Dropping input off of no input fails.
         // Should this return an empty list?
         // list_<>{} = call_<drop_<uint_<7>>>{};
         return 0;

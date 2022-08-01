@@ -20,7 +20,7 @@ namespace insert_test {
         // Insert char_<'c'> at position 2
         list_<int_<1>, int_<2>, char_<'c'>>{} = call_<insert_<int_<2>, char_<'c'>>, int_<1>, int_<2>>{};
 
-        // Insert char_<'c'> into no list (returns a list_<> with char_<'c'> in it)
+        // Insert char_<'c'> into no list (returns a list_ with char_<'c'> in it)
         list_<char_<'c'>>{} = call_<insert_<int_<0>, char_<'c'>>>{};
 
         return 0;

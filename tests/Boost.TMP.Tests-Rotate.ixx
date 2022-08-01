@@ -15,6 +15,7 @@ namespace rotate_test {
     export int run() {
         list_<int_<1>, int_<2>, int_<3>>{} = call_<rotate_<int_<0>>, int_<1>, int_<2>, int_<3>>{};
         list_<int_<2>, int_<3>, int_<1>>{} = call_<rotate_<int_<1>>, int_<1>, int_<2>, int_<3>>{};
+
         // TODO: Allow rotations in opposite direction.
         // list_<int_<3>, int_<1>, int_<2>>{} = call_<rotate_<int_<-1>>, int_<1>, int_<2>, int_<3>>{};
 
