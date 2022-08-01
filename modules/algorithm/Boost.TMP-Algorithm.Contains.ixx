@@ -22,7 +22,7 @@ import :Base.Dispatch;
 import std;
 #endif
 
-// Given a type (V), return true_ / false_ on whether a given continuation
+// Given a type (V), return true_ / false_ on whether a given VPP
 // contains the type V.
 namespace boost::tmp {
     export template <typename T, typename C = identity_>

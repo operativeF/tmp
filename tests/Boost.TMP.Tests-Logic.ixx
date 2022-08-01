@@ -14,13 +14,11 @@ namespace logic_test {
     using namespace boost::tmp;
 
     export int run() {
-        false_{} = call_<and_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<1>, int_<1>,
-                               int_<1>, int_<1>, int_<1>, int_<1>>{};
+        false_{} = call_<and_<lift_<is_even>>, int_<1>, int_<1>, int_<1>>{};
 
         true_{} = call_<and_<lift_<is_even>>, int_<2>, int_<2>, int_<2>>{};
 
-        false_{} = call_<or_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<1>, int_<1>,
-                               int_<1>, int_<1>, int_<1>, int_<1>>{};
+        false_{} = call_<or_<lift_<is_even>>, int_<1>, int_<1>, int_<1>>{};
 
         true_{} = call_<or_<lift_<is_even>>, int_<2>, int_<2>, int_<2>>{};
 

@@ -13,18 +13,7 @@ namespace reverse_test {
     using namespace boost::tmp;
 
     export int run() {
-        list_<sizet_<0>>{} = call_<make_sequence_<identity_, reverse_<>>, sizet_<1>>{};
-
-        list_<sizet_<1>, sizet_<0>>{} = call_<make_sequence_<identity_, reverse_<>>, sizet_<2>>{};
-
-        list_<sizet_<2>, sizet_<1>, sizet_<0>>{} =
-                call_<make_sequence_<identity_, reverse_<>>, sizet_<3>>{};
-
-        list_<sizet_<3>, sizet_<2>, sizet_<1>, sizet_<0>>{} =
-                call_<make_sequence_<identity_, reverse_<>>, sizet_<4>>{};
-
-        list_<sizet_<4>, sizet_<3>, sizet_<2>, sizet_<1>, sizet_<0>>{} =
-                call_<make_sequence_<identity_, reverse_<>>, sizet_<5>>{};
+        list_<int_<2>, int_<1>, int_<0>>{} = call_<reverse_<>, int_<0>, int_<1>, int_<2>>{};
 
         // Reversing empty input results in empty list
         list_<>{} = call_<reverse_<>>{};

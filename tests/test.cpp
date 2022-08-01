@@ -11,7 +11,7 @@ import Boost.TMP.Tests;
 int main() {
     return any_of_test::run() ||
            all_of_test::run() ||
-         //   clamp_test::run()  ||
+           clamp_test::run()  ||
            contains_test::run() ||
            count_if_test::run() ||
            drop_test::run() ||
@@ -20,7 +20,7 @@ int main() {
         //    extrema_test::run() ||
            filter_test::run() ||
            find_if_test::run() ||
-         //   flatten_test::run() ||
+           flatten_test::run() ||
            fold_left_test::run() ||
            fold_right_test::run() ||
            index_test::run() ||
