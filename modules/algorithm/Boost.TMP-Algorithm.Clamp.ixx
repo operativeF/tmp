@@ -14,10 +14,10 @@ module;
 
 export module Boost.TMP:Algorithm.Clamp;
 
-import :Algorithm.Filter;
+import :Algorithm.RemoveIf;
+import :Base.Comparison;
 import :Base.Identity;
 import :Base.Dispatch;
-import :Sequence.Tee;
 
 #if _MSC_VER
 import std;
@@ -33,5 +33,5 @@ namespace boost::tmp {
 
     template <std::size_t N, typename L, typename H, typename C>
     struct dispatch<N, clamp_<L, H, C>>
-        : dispatch<N, tee_<filter_<less_<L>, filter_<greater_<H>>>, C>> {};
+        : dispatch<N, remove_if_<range_lo_hi_<L, H, C>>> {};
 } // namespace boost::tmp

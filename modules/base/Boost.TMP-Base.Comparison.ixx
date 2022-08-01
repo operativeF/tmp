@@ -36,6 +36,9 @@ namespace boost::tmp {
     export template <typename V = nothing_, typename C = identity_>
     struct greater_ {};
 
+    export template <typename LV = nothing_, typename UV = nothing_, typename C = identity_>
+    struct range_lo_hi_ {};
+
     export template<typename V = nothing_, typename C = identity_>
     struct bounded_open {};
 
@@ -66,6 +69,12 @@ namespace boost::tmp {
     struct dispatch<1, less_<U, C>> {
         template<typename T>
         using f = dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
+    };
+
+    template <typename Lower, typename Upper, typename C>
+    struct dispatch<1, range_lo_hi_<Lower, Upper, C>> {
+        template<typename T>
+        using f = dispatch<1, C>::template f<bool_<!((Lower::value < T::value) && (T::value < Upper::value))>>;
     };
 
     template <typename C>
