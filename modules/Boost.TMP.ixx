@@ -48,7 +48,9 @@ export import :Base.Lift;
 export import :Base.List;
 // export import :Base.ListOperations;
 export import :Base.Logic;
+export import :Base.Maybe;
 export import :Base.Nothing;
+export import :Base.Result;
 export import :Base.Try;
 
 export import :Sequence.Container;

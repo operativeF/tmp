@@ -24,9 +24,6 @@ namespace boost::tmp {
     export template <template <typename...> class F, typename C = identity_>
     struct lift_ {};
 
-    export template <typename C = identity_>
-    struct result_ {};
-
     template <template <typename...> class F, typename C>
     struct dispatch<1, lift_<F, C>> {
         template <typename T>
@@ -51,10 +48,5 @@ namespace boost::tmp {
     struct dispatch<N, lift_<F, C>> {
         template <typename... Ts>
         using f = dispatch<1, C>::template f<F<Ts...>>;
-    };
-    template <typename C>
-    struct dispatch<1, result_<C>> {
-        template <typename T>
-        using f = dispatch<1, C>::template f<T::type>;
     };
 } // namespace boost::tmp

@@ -52,7 +52,9 @@ set(TMP_MAIN_IXX
     ${TMP_BASE_DIR}/Boost.TMP-Base.List.ixx
     # ${TMP_BASE_DIR}/Boost.TMP-Base.ListOperations.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Logic.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Maybe.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Nothing.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Result.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Try.ixx
 )
 
