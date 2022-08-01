@@ -16,7 +16,7 @@ namespace contains_test {
         false_{} = call_<contains_<int_<0>>, int_<1>>{};
         true_{}  = call_<contains_<int_<2>>, int_<0>, int_<1>, int_<2>>{};
 
-        // No input to contains always returns false_
+        // No input to contains_ always returns false_
         false_{} = call_<contains_<int_<1>>>{};
 
         return 0;

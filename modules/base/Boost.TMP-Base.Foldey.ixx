@@ -20,7 +20,7 @@ import :Base.Nothing;
 import std;
 #endif
 
-export namespace boost::tmp
+namespace boost::tmp
 {
     consteval std::size_t select_foldey_loop(std::size_t rest_size) {
         return static_cast<std::size_t>(rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008);
@@ -36,16 +36,19 @@ export namespace boost::tmp
         template <typename F, std::size_t N, typename...>
         using f = sizet_<N - S>;
     };
+
     template <>
     struct foldey<1000> {
         template <typename F, std::size_t N, typename... Ts>
         using f = nothing_;
     };
+    
     template <>
     struct foldey<1001> {
         template <typename F, std::size_t N, typename T0, typename... Ts>
         using f = foldey<select_foldey(1, sizeof...(Ts), F::template f<T0>::value)>::template f<F, N + 1, Ts...>;
     };
+    
     template <>
     struct foldey<1008> {
         template <typename F, std::size_t N, typename T0, typename T1, typename T2,
