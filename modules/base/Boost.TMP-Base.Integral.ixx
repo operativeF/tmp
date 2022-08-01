@@ -42,6 +42,12 @@ namespace boost::tmp {
         static constexpr std::uint32_t value = V;
     };
 
+    export template<std::uint64_t V>
+    struct uint64_
+    {
+        static constexpr std::uint64_t value = V;
+    };
+
     export template<std::int8_t V>
     struct int8_ {
         static constexpr std::int8_t value = V;
@@ -55,6 +61,12 @@ namespace boost::tmp {
     export template<std::int32_t V>
     struct int32_ {
         static constexpr std::int32_t value = V;
+    };
+
+    export template<std::int64_t V>
+    struct int64_
+    {
+        static constexpr std::int64_t value = V;
     };
 
     export template<std::size_t S>
