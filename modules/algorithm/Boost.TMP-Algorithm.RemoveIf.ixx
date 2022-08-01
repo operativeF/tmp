@@ -14,12 +14,11 @@ module;
 
 export module Boost.TMP:Algorithm.RemoveIf;
 
-import :Algorithm.Transform;
+import :Algorithm.Filter;
 import :Base.Always;
+import :Base.Bool;
 import :Base.If;
-import :Base.List;
 import :Base.Dispatch;
-import :Sequence.Join;
 
 #if _MSC_VER
 import std;
@@ -31,7 +30,7 @@ namespace boost::tmp {
     export template <typename F, typename C = listify_>
     struct remove_if_ {};
 
-    template <std::size_t N, typename F, typename C>
+    template<std::size_t N, typename F, typename C>
     struct dispatch<N, remove_if_<F, C>>
-              : dispatch<N, transform_<if_<F, always_<list_<>>, listify_>, join_<C>>> {};
+        : dispatch<N, filter_<if_<F, always_<false_>, always_<true_>>, C>> {};
 } // namespace boost::tmp
