@@ -59,7 +59,6 @@ set(TMP_MAIN_IXX
 )
 
 set(TMP_SEQ_IXX
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Container.ixx
     ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Drop.ixx
     ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Each.ixx
     ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Erase.ixx

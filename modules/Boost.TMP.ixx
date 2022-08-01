@@ -53,7 +53,6 @@ export import :Base.Nothing;
 export import :Base.Result;
 export import :Base.Try;
 
-export import :Sequence.Container;
 export import :Sequence.Drop;
 export import :Sequence.Each;
 export import :Sequence.Erase;
