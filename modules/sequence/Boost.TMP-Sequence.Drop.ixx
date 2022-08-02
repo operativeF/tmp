@@ -33,6 +33,8 @@ namespace boost::tmp {
     }
     template <std::size_t, typename C>
     struct drop_impl;
+
+    // TODO: Is this correct behavior for dropping nothing?
     template <typename C>
     struct drop_impl<0, C> {
         template <typename... Ts>

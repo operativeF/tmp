@@ -22,6 +22,7 @@ namespace boost::tmp {
     struct uint_ {
         static constexpr unsigned long long value = V;
     };
+
     export template <long long I>
     struct int_ {
         static constexpr long long value = I;
@@ -43,8 +44,7 @@ namespace boost::tmp {
     };
 
     export template<std::uint64_t V>
-    struct uint64_
-    {
+    struct uint64_ {
         static constexpr std::uint64_t value = V;
     };
 
@@ -64,14 +64,12 @@ namespace boost::tmp {
     };
 
     export template<std::int64_t V>
-    struct int64_
-    {
+    struct int64_ {
         static constexpr std::int64_t value = V;
     };
 
     export template<std::size_t S>
-    struct sizet_
-    {
+    struct sizet_ {
         static constexpr std::size_t value = S;
     };
 } // namespace boost::tmp

@@ -19,8 +19,7 @@ import std;
 
 namespace boost::tmp {
     export template<std::byte B>
-    struct byte_
-    {
+    struct byte_ {
         static constexpr std::byte value = B;
     };
 } // namespace boost::tmp
