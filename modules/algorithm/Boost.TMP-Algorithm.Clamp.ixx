@@ -16,8 +16,8 @@ export module Boost.TMP:Algorithm.Clamp;
 
 import :Algorithm.RemoveIf;
 import :Base.Comparison;
-import :Base.Identity;
 import :Base.Dispatch;
+import :Base.Identity;
 
 #if _MSC_VER
 import std;

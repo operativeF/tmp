@@ -13,9 +13,7 @@ import :Base.Dispatch;
 import :Sequence.Join;
 
 namespace boost::tmp {
-    // \brief
-    // Given two lists, generates the Cartesian product of said lists (n x m tuples generated).
-    // \example
+    //  Given two lists, generates the Cartesian product of said lists (n x m tuples generated).
     // 	using xl0 = list_<x<1>, x<2>, ..., x<n>>;
     //	using xr0 = list_<x<1>, x<2>, ..., x<m>>;
     //

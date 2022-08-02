@@ -22,11 +22,6 @@ import std;
 #endif
 
 namespace boost::tmp {
-    template <typename F, typename... Ts> // workaround for old clang
-    struct call_impl {
-        using type = dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>;
-    };
-
     export template <typename F, typename... Ts>
     using call_ = dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>;
 

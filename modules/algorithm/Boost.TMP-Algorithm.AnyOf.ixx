@@ -35,6 +35,6 @@ namespace boost::tmp {
 
     template <std::size_t N, typename F, typename C>
     struct dispatch<N, any_of_<F, C>>
-        : dispatch<N, find_if_<F, if_<is_<nothing_>, always_<false_, C>, always_<true_, C>>>> {
+        : dispatch<N, or_<F, C>> {
     };
 } // namespace boost::tmp
