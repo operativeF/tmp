@@ -46,3 +46,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 add_subdirectory(modules)
 add_subdirectory(tests)
+
+set(ENABLE_BENCHMARKING OFF)
+
+if(ENABLE_BENCHMARKING)
+  add_subdirectory(benchmark)
+endif()
