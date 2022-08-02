@@ -1,6 +1,12 @@
 # Prerequisites
 *.d
 
+# Built module files
+*.ifc
+*.ifcast
+*.dd
+*.ddi
+
 # Compiled Object files
 *.slo
 *.lo
