@@ -15,9 +15,7 @@ export module Boost.TMP:Base.Dispatch;
 
 #if _MSC_VER
 import std;
-#elif __clang__
-import std;
-#endif
+#endif // _MSC_VER
 
 namespace boost::tmp {
     export consteval std::size_t find_dispatch(std::size_t n) {

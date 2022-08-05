@@ -12,6 +12,7 @@ int main() {
     return any_of_test::run() ||
            all_of_test::run() ||
            clamp_test::run()  ||
+           comparison_test::run() ||
            contains_test::run() ||
            count_if_test::run() ||
            drop_test::run() ||
@@ -27,6 +28,7 @@ int main() {
            insert_test::run() ||
            join_test::run() ||
            logic_test::run() ||
+           map_test::run() ||
            none_of_test::run() ||
            partition_test::run() ||
            pop_front_test::run() ||
@@ -45,7 +47,8 @@ int main() {
            swap_test::run()   ||
            take_test::run()   ||
            tee_test::run()    ||
-           transform_test::run()
+           transform_test::run() ||
+           zip_with_index_test::run()
            ;
 }
 

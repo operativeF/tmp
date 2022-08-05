@@ -10,6 +10,7 @@ target_sources(tmp_test
         Boost.TMP.Tests-AllOf.ixx
         Boost.TMP.Tests-AnyOf.ixx
         Boost.TMP.Tests-Clamp.ixx
+        Boost.TMP.Tests-Comparison.ixx
         Boost.TMP.Tests-Contains.ixx
         Boost.TMP.Tests-CountIf.ixx
         Boost.TMP.Tests-Drop.ixx
@@ -25,6 +26,7 @@ target_sources(tmp_test
         Boost.TMP.Tests-Insert.ixx
         Boost.TMP.Tests-Join.ixx
         Boost.TMP.Tests-Logic.ixx
+        Boost.TMP.Tests-Map.ixx
         Boost.TMP.Tests-NoneOf.ixx
         Boost.TMP.Tests-Partition.ixx
         Boost.TMP.Tests-PopFront.ixx
