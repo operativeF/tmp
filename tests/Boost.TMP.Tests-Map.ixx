@@ -37,12 +37,18 @@ namespace map_test {
 
     export int run() {
         // Map by element value
-        list_<map_element_<char_<'a'>, sizet_<0>, sizet_<0>>, map_element_<char_<'b'>, sizet_<1>, sizet_<1>>>{} =
-            call_<map_<lift_<less_than>>, char_<'a'>, char_<'b'>>{};
+        using ab_map = call_<map_<lift_<less_than>>, char_<'a'>, char_<'b'>>;
+        MapType<map_element_<char_<'a'>, sizet_<0>, sizet_<0>>, map_element_<char_<'b'>, sizet_<1>, sizet_<1>>>{} =
+            ab_map{};
+        
+        char_<'a'>{} = ab_map::get_type_from_input_pos<sizet_<0>>{};
 
         // Map by type size; greatest size to least
-        list_<map_element_<three_ints<1, 3, 5>, sizet_<1>, sizet_<0>>, map_element_<two_ints<1, 2>, sizet_<2>, sizet_<1>>, map_element_<int_<1>, sizet_<0>, sizet_<2>>>{} =
-            call_<map_<lift_<greater_than_t>>, int_<1>, three_ints<1, 3, 5>, two_ints<1, 2>>{};
+        using adv_map = call_<map_<lift_<greater_than_t>>, int_<1>, three_ints<1, 3, 5>, two_ints<1, 2>>;
+        MapType<map_element_<three_ints<1, 3, 5>, sizet_<1>, sizet_<0>>, map_element_<two_ints<1, 2>, sizet_<2>, sizet_<1>>, map_element_<int_<1>, sizet_<0>, sizet_<2>>>{} = adv_map{};
+
+        two_ints<1, 2>{} = adv_map::get_type_from_input_pos<sizet_<2>>{};
+        sizet_<1>{}      = adv_map::get_memory_pos<sizet_<2>>{};
 
         return 0;
     }

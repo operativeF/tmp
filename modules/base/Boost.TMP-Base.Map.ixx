@@ -7,18 +7,38 @@
 
 export module Boost.TMP:Base.Map;
 
+import :Algorithm.FindIf;
 import :Algorithm.Sort;
+import :Base.Call;
 import :Base.Dispatch;
 import :Base.Lift;
-import :Base.List;
-import :Sequence.Unpack;
+import :Sequence.Index;
 import :Sequence.ZipWithIndex;
 
+#if _MSC_VER
 import std;
+#endif // _MSC_VER
 
 namespace boost::tmp {
 
-export template <typename CompareF, typename C = listify_>
+export template<typename... Elements>
+struct MapType {
+    template<typename InputPos>
+    struct matches_input_pos {
+        template<typename T>
+        using f = bool_<(InputPos::value == T::value)>;
+    };
+
+    template<typename InputPos>
+    using get_memory_pos = call_<find_if_<lift_<matches_input_pos<InputPos>::template f>>, typename Elements::init_pos...>;
+
+    template<typename InputPos>
+    using get_type_from_input_pos = call_<index_<get_memory_pos<InputPos>>, typename Elements::value...>;
+};
+
+export using mapify_ = lift_<MapType>;
+
+export template <typename CompareF, typename C = mapify_>
 struct map_ {};
 
 export template<typename V, typename InitialPos, typename SortedPos>
