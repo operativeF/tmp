@@ -16,6 +16,7 @@ export module Boost.TMP:Base.Comparison;
 
 import :Base.Bool;
 import :Base.Identity;
+import :Base.Lift;
 import :Base.Nothing;
 import :Base.Dispatch;
 
@@ -29,6 +30,9 @@ namespace boost::tmp {
 
     export template <typename V = nothing_, typename C = identity_>
     struct less_ {};
+
+    export template <typename F, typename C = identity_>
+    struct less_f_ {};
 
     export template <typename V = nothing_, typename C = identity_>
     struct less_eq_ {};
@@ -69,6 +73,12 @@ namespace boost::tmp {
     struct dispatch<1, less_<U, C>> {
         template<typename T>
         using f = dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
+    };
+
+    template <template<typename...> typename F, typename C>
+    struct dispatch<2, less_f_<lift_<F>, C>> {
+        template<typename T, typename U>
+        using f = dispatch<1, C>::template f<bool_<(F<T>::value < F<U>::value)>>;
     };
 
     template <typename Lower, typename Upper, typename C>
