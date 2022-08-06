@@ -5,11 +5,19 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+module;
+
+#if defined(__GNUC__) || defined(__clang__)
+#include <type_traits>
+#endif // defined(__GNUC__ ) || defined(__clang__)
+
 export module Boost.TMP.Tests:Comparison;
 
 import Boost.TMP;
 
+#if _MSC_VER
 import std;
+#endif // _MSC_VER
 
 namespace comparison_test {
     using namespace boost::tmp;

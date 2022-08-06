@@ -7,7 +7,6 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
-#include <cstdint>
 #include <type_traits>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
