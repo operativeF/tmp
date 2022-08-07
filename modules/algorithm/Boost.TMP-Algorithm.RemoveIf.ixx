@@ -23,6 +23,8 @@ import :Base.If;
 import :Base.Integral;
 import :Base.List;
 
+import :TestHelpers;
+
 #if _MSC_VER
 import std;
 #endif
@@ -42,13 +44,9 @@ namespace boost::tmp {
 namespace boost::tmp::test {
     using namespace boost::tmp;
 
-    // TODO: Put in helper partition.
-    template <typename T>
-    using is_even = bool_<(T::value % 2 == 0)>;
-
     template<typename T> requires(std::same_as<T, list_<int_<1>, int_<3>>>)
     struct OnlyOddNumbersLeft;
 
-    using test_one = OnlyOddNumbersLeft<call_<remove_if_<lift_<is_even>>, int_<1>, int_<2>, int_<3>>>;
+    using test_one = OnlyOddNumbersLeft<call_<remove_if_<lift_<utils::is_even>>, int_<1>, int_<2>, int_<3>>>;
 } // namespace boost::tmp::test
 

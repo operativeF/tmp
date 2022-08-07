@@ -8,15 +8,20 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP:Sequence.Zip;
 
 import :Algorithm.Transform;
+import :Base.Call;
+import :Base.Integral;
+import :Base.Lift;
 import :Base.List;
 import :Base.Dispatch;
 import :Sequence.Unpack;
+import :TestHelpers;
 
 #if _MSC_VER
 import std;
@@ -60,6 +65,12 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace zip_test {
+    using namespace boost::tmp;
 
-} // namespace boost::tmp::test
+    template<typename T> requires(std::same_as<T, list_<uint_<3>, uint_<7>>>)
+    struct AddPairsTogetherWithZip;
+
+    // Performs an addition of pairs of elements component wise i.e. (x0 + x1), (y0 + y1)
+    using test_one = AddPairsTogetherWithZip<call_<zip_<lift_<utils::add>>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;
+} // namespace zip_test

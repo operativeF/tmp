@@ -5,10 +5,18 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+module;
+
+#if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
+#endif
+
 export module Boost.TMP:Sequence.Swap;
 
-import :Base.List;
+import :Base.Call;
 import :Base.Dispatch;
+import :Base.Integral;
+import :Base.List;
 
 /// \brief Swaps two variadic parametic pack values. Must be only two values.
 namespace boost::tmp {
@@ -23,6 +31,11 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace swap_test {
+    using namespace boost::tmp;
 
-} // namespace boost::tmp::test
+    template<typename T> requires(std::same_as<T, list_<int_<1>, int_<0>>>)
+    struct ListOneZero;
+
+    using test_one = ListOneZero<call_<swap_<>, int_<0>, int_<1>>>;
+} // namespace swap_test

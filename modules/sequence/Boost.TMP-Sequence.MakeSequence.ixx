@@ -8,16 +8,19 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP:Sequence.MakeSequence;
 
 import :Algorithm.Transform;
+import :Base.Call;
+import :Base.Dispatch;
 import :Base.Identity;
 import :Base.Integral;
+import :Base.Lift;
 import :Base.List;
-import :Base.Dispatch;
 import :Sequence.Unpack;
 
 #if _MSC_VER
@@ -26,8 +29,8 @@ import std;
 
 // FIXME: make_seq_impl used elsewhere.
 // TODO: Generalized to all integers.
-export namespace boost::tmp {
-    template <typename F = identity_, typename C = listify_>
+namespace boost::tmp {
+    export template <typename F = identity_, typename C = listify_>
     struct make_sequence_ {};
     
     consteval std::size_t next_number(std::size_t current, std::size_t end) {
@@ -42,7 +45,7 @@ export namespace boost::tmp {
                                         (2 + (next_number(current, end) - 2 * current));
     }
 
-    template <std::size_t State>
+    export template <std::size_t State>
     struct make_seq_impl;
     template <>
     struct make_seq_impl<0> { // done
@@ -90,3 +93,26 @@ export namespace boost::tmp {
 
     // };
 } // namespace boost::tmp
+
+// TESTING:
+namespace make_sequence_test {
+    using namespace boost::tmp;
+
+    template<typename T>
+    using and_one = sizet_<T::value + 1>;
+
+    template<typename T>
+    struct always_one {
+        template<typename N>
+        using f = sizet_<T::value>;
+    };
+
+    template<typename T> requires(std::same_as<T, list_<sizet_<0>, sizet_<1>, sizet_<2>>>)
+    struct ListZeroOneTwo;
+
+    template<typename T> requires(std::same_as<T, list_<sizet_<1>, sizet_<2>, sizet_<3>>>)
+    struct ListOneTwoThree;
+
+    using test_one = ListZeroOneTwo<call_<make_sequence_<>, sizet_<3>>>;
+    using test_two = ListOneTwoThree<call_<make_sequence_<lift_<and_one>>, sizet_<3>>>;
+} // namespace make_sequence_test

@@ -75,3 +75,5 @@ export import :Sequence.Tee;
 export import :Sequence.Unpack;
 export import :Sequence.ZipWithIndex;
 export import :Sequence.Zip;
+
+export import :TestHelpers;

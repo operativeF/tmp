@@ -16,11 +16,13 @@ export module Boost.TMP:Algorithm.Filter;
 
 import :Base.Bool;
 import :Base.Call;
+import :Base.Dispatch;
 import :Base.Identity;
 import :Base.Integral;
 import :Base.Lift;
 import :Base.List;
-import :Base.Dispatch;
+
+import :TestHelpers;
 
 #if _MSC_VER
 import std;
@@ -86,14 +88,11 @@ namespace boost::tmp {
 // TESTING:
 namespace filter_test {
     using namespace boost::tmp;
-    // TODO: Put in helper partition.
-    template <typename T>
-    using is_even = bool_<(T::value % 2 == 0)>;
-
+    
     template<typename T> requires(std::same_as<T, list_<int_<2>, int_<4>, int_<6>, int_<8>, int_<10>>>)
     struct FilterOutOddNumbers;
 
-    using test_one = FilterOutOddNumbers<call_<filter_<lift_<is_even>>,
+    using test_one = FilterOutOddNumbers<call_<filter_<lift_<utils::is_even>>,
                 int_<1>, int_<2>, int_<3>, int_<4>, int_<5>,
                 int_<6>, int_<7>, int_<8>, int_<9>, int_<10>>>;
 

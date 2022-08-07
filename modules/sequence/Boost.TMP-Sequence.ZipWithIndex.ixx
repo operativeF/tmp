@@ -14,9 +14,12 @@ module;
 
 export module Boost.TMP:Sequence.ZipWithIndex;
 
+import :Base.Call;
+import :Base.Char;
+import :Base.Dispatch;
+import :Base.Integral;
 import :Base.Lift;
 import :Base.List;
-import :Base.Dispatch;
 import :Sequence.MakeSequence;
 
 #if _MSC_VER
@@ -53,6 +56,12 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace zip_with_index_test {
+    using namespace boost::tmp;
 
-} // namespace boost::tmp::test
+    template<typename T> requires(std::same_as<T, list_<list_<sizet_<0>, char_<'a'>>,
+                                                        list_<sizet_<1>, char_<'b'>>,
+                                                        list_<sizet_<2>, char_<'c'>>>>)
+    struct ZipABCWith123;
+    using test_one = ZipABCWith123<call_<zip_with_index_<>, char_<'a'>, char_<'b'>, char_<'c'>>>;
+} // namespace zip_with_index_test

@@ -14,6 +14,8 @@ module;
 
 export module Boost.TMP:Sequence.Reverse;
 
+import :Base.Call;
+import :Base.Integral;
 import :Base.Lift;
 import :Base.List;
 import :Base.Dispatch;
@@ -193,5 +195,22 @@ namespace boost::tmp {
 
 // TESTING:
 namespace reverse_test {
+    using namespace boost::tmp;
 
+    template<typename T> requires(std::same_as<T, list_<int_<2>, int_<1>, int_<0>>>)
+    struct ListTwoOneZero;
+
+    template<typename T> requires(std::same_as<T, list_<>>)
+    struct EmptyListReturnsEmptyList;
+
+    template<typename T> requires(std::same_as<T, list_<int_<1>>>)
+    struct SingleElementReturnsListOfSingleElement;
+
+    using test_one = ListTwoOneZero<call_<reverse_<>, int_<0>, int_<1>, int_<2>>>;
+
+    // Reversing empty input results in empty list
+    using test_two = EmptyListReturnsEmptyList<call_<reverse_<>>>;
+
+    // Reversing single input results in single input list
+    using test_three = SingleElementReturnsListOfSingleElement<call_<reverse_<>, int_<1>>>;
 } // namespace reverse_test

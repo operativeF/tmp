@@ -8,13 +8,16 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP:Algorithm.Flatten;
 
-import :Base.List;
+import :Base.Call;
 import :Base.Dispatch;
+import :Base.Integral;
+import :Base.List;
 import :Sequence.Join;
 
 #if _MSC_VER
@@ -50,5 +53,10 @@ namespace boost::tmp {
 
 // TESTING:
 namespace boost::tmp::test {
+    using namespace boost::tmp;
 
+    template<typename T> requires(std::same_as<T, list_<uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>>)
+    struct SingleFlattenedList;
+
+    using test_one = SingleFlattenedList<call_<flatten_<>, list_<list_<uint_<0>, uint_<1>>, uint_<2>, list_<uint_<3>>, uint_<4>>>>;
 } // namespace boost::tmp::test

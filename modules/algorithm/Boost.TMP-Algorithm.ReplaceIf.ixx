@@ -20,12 +20,14 @@ import :Base.Always;
 import :Base.Bool;
 import :Base.Call;
 import :Base.Char;
+import :Base.Dispatch;
 import :Base.Identity;
 import :Base.Integral;
 import :Base.If;
 import :Base.Lift;
 import :Base.List;
-import :Base.Dispatch;
+
+import :TestHelpers;
 
 #ifdef _MSC_VER
 import std;
@@ -46,18 +48,14 @@ namespace boost::tmp {
 namespace replace_if_test {
     using namespace boost::tmp;
 
-    // TODO: Put in helper partition.
-    template <typename T>
-    using is_even = bool_<(T::value % 2 == 0)>;
-
     template<typename T> requires(std::same_as<T, list_<uint_<1>, char_<'c'>, uint_<1>>>)
     struct ReplaceTwoWithC;
 
     template<typename T> requires(std::same_as<T, list_<>>)
     struct EmptyPackReturnsAnEmptyList;
 
-    using test_one = ReplaceTwoWithC<call_<replace_if_<char_<'c'>, lift_<is_even>>, uint_<1>, uint_<2>, uint_<1>>>;
+    using test_one = ReplaceTwoWithC<call_<replace_if_<char_<'c'>, lift_<utils::is_even>>, uint_<1>, uint_<2>, uint_<1>>>;
 
-    using test_two = EmptyPackReturnsAnEmptyList<call_<replace_if_<char_<'c'>, lift_<is_even>>>>;
+    using test_two = EmptyPackReturnsAnEmptyList<call_<replace_if_<char_<'c'>, lift_<utils::is_even>>>>;
 
 } // namespace boost::tmp::test

@@ -150,5 +150,4 @@ namespace drop_test {
     // UNDER CONSIDERATION: Dropping input off of no input fails.
     // Should this return an empty list?
     // list_<>{} = call_<drop_<uint_<7>>>{};
-
 } // namespace drop_test

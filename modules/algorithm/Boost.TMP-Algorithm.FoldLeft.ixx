@@ -14,11 +14,16 @@ module;
 
 export module Boost.TMP:Algorithm.FoldLeft;
 
+import :Base.Call;
+import :Base.Dispatch;
 import :Base.Identity;
+import :Base.Integral;
 import :Base.Lift;
 import :Base.List;
 import :Base.Nothing;
-import :Base.Dispatch;
+import :Sequence.Join;
+
+import :TestHelpers;
 
 #if _MSC_VER
 import std;
@@ -267,6 +272,19 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace fold_left_test {
+    using namespace boost::tmp;
 
-} // namespace boost::tmp::test
+    template<typename T> requires(std::same_as<T, list_<>>)
+    struct FoldLeftIntoEmptyList;
+
+    template<typename T> requires(std::same_as<T, list_<uint_<1>, uint_<2>>>)
+    struct FoldLeftValuesIntoList;
+
+    // Returns an empty list.
+    using test_one = FoldLeftIntoEmptyList<call_<fold_left_<lift_<utils::pusher>>, list_<>>>;
+
+    // Returns list of folded over values uint_<1> and uint_<2>.
+    using test_two = FoldLeftValuesIntoList<call_<fold_left_<lift_<utils::pusher>>, list_<>, uint_<1>, uint_<2>>>;
+
+} // namespace fold_left_test

@@ -111,3 +111,16 @@ namespace boost::tmp {
         using f = dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
     };
 } // namespace boost::tmp
+
+namespace comparison_test {
+    using namespace boost::tmp;
+
+    // template<int A, int B>
+    // struct two_ints {
+    //     int a{A};
+    //     int b{B};
+    // };
+
+    // false_{} = call_<less_f_<lift_<std::alignment_of>>, two_ints<1, 2>, char_<'c'>>{};
+    // true_{}  = call_<less_f_<lift_<std::alignment_of>>, char_<'c'>,     two_ints<1, 2>>{};
+} // namespace comparison_test

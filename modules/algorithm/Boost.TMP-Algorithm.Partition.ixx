@@ -8,6 +8,7 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
@@ -18,6 +19,8 @@ import :Algorithm.RemoveIf;
 import :Base.List;
 import :Base.Dispatch;
 import :Sequence.Tee;
+
+import :TestHelpers;
 
 #ifdef _MSC_VER
 import std;
@@ -36,6 +39,11 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace partition_test {
+    using namespace boost::tmp;
 
+    template<typename T> requires(std::same_as<T, list_<list_<int_<3>, int_<4>>, list_<int_<1>, int_<2>>>>)
+    struct SplitIntoTwoListWithGreaterThanTwo;
+
+    using test_one = SplitIntoTwoListWithGreaterThanTwo<call_<partition_<lift_<utils::greater_than_two>>, int_<1>, int_<2>, int_<3>, int_<4>>>;
 } // namespace boost::tmp::test

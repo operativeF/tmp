@@ -21,6 +21,8 @@ import :Base.Identity;
 import :Base.Integral;
 import :Base.Logic;
 
+import :TestHelpers;
+
 #if _MSC_VER
 import std;
 #endif
@@ -39,10 +41,6 @@ namespace boost::tmp {
 namespace none_of_test {
     using namespace boost::tmp;
 
-    // TODO: Put in helper partition.
-    template <typename T>
-    using is_even = bool_<(T::value % 2 == 0)>;
-
     template<typename T> requires(std::same_as<T, false_>)
     struct NoneOfTheNumbersAreOdd;
 
@@ -50,8 +48,8 @@ namespace none_of_test {
     struct NoneOfTheNumbersAreEven;
 
     // Conversely, all of the numbers are even.
-    using test_one = NoneOfTheNumbersAreOdd<call_<none_of_<lift_<is_even>>, int_<2>, int_<100>, int_<4>, int_<500>>>;
+    using test_one = NoneOfTheNumbersAreOdd<call_<none_of_<lift_<utils::is_even>>, int_<2>, int_<100>, int_<4>, int_<500>>>;
 
     // Conversely, all of the numbers are odd.
-    using test_two = NoneOfTheNumbersAreEven<call_<none_of_<lift_<is_even>>, int_<1>, int_<3>>>;
+    using test_two = NoneOfTheNumbersAreEven<call_<none_of_<lift_<utils::is_even>>, int_<1>, int_<3>>>;
 } // namespace none_of_test

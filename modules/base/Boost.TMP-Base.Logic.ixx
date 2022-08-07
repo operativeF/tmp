@@ -15,12 +15,13 @@ export module Boost.TMP:Base.Logic;
 
 import :Base.Call;
 import :Base.Comparison;
+import :Base.Dispatch;
 import :Base.Foldey;
 import :Base.Identity;
 import :Base.Lift;
 import :Base.Nothing;
 
-import :Base.Dispatch;
+import :TestHelpers;
 
 #if _MSC_VER
 import std;
@@ -120,3 +121,28 @@ namespace boost::tmp {
         using f = dispatch<1, C>::template f<false_>;
     };
 } // namespace boost::tmp
+
+namespace logic_test {
+    using namespace boost::tmp;
+
+    template<typename T> requires(std::same_as<T, false_>)
+    struct AllNumbersOdd;
+
+    template<typename T> requires(std::same_as<T, true_>)
+    struct AllNumbersEven;
+
+    template<typename T> requires(std::same_as<T, true_>)
+    struct OneNumberEven;
+
+    template<typename T> requires(std::same_as<T, true_>)
+    struct OneNumberOdd;
+
+    using test_one = AllNumbersOdd<call_<and_<lift_<utils::is_even>>, int_<1>, int_<1>, int_<1>>>;
+
+    using test_two = AllNumbersEven<call_<and_<lift_<utils::is_even>>, int_<2>, int_<2>, int_<2>>>;
+
+    using test_three = OneNumberEven<call_<or_<lift_<utils::is_even>>, int_<1>, int_<2>, int_<1>>>;
+
+    using test_four = OneNumberOdd<call_<or_<lift_<utils::is_even>>, int_<2>, int_<1>, int_<2>>>;
+
+} // namespace logic_test

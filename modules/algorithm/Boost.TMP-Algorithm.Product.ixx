@@ -55,6 +55,18 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace product_test {
+    using namespace boost::tmp;
 
-} // namespace boost::tmp::test
+    // TODO: Implement product_test
+
+    // using xl1 = list_<uint_<1>, uint_<2>, uint_<3>>;
+    // using xr1 = list_<uint_<1>, uint_<2>, uint_<3>>;
+
+    // using result1 = call_<product_<>, xl1, xr1>;
+
+    // list_<list_<uint_<1>, uint_<1>>, list_<uint_<1>, uint_<2>>, list_<uint_<1>, uint_<3>>,
+    //         list_<uint_<2>, uint_<1>>, list_<uint_<2>, uint_<2>>, list_<uint_<2>, uint_<3>>,
+    //         list_<uint_<3>, uint_<1>>, list_<uint_<3>, uint_<2>>, list_<uint_<3>, uint_<3>>>{} =
+    //         result1{};
+} // namespace product_test

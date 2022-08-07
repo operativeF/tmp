@@ -21,6 +21,7 @@ import :Base.List;
 import :Base.Dispatch;
 import :Sequence.PushFront;
 import :Sequence.Unpack;
+import :TestHelpers;
 
 #if _MSC_VER
 import std;
@@ -231,6 +232,11 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace sort_test {
+    using namespace boost::tmp;
 
-} // namespace boost::tmp::test
+    template<typename T> requires(std::same_as<T, list_<sizet_<0>, sizet_<1>, sizet_<2>>>)
+    struct ListZeroOneTwo;
+
+    using test_one = ListZeroOneTwo<call_<sort_<lift_<utils::less>>, sizet_<1>, sizet_<0>, sizet_<2>>>;
+} // namespace sort_test

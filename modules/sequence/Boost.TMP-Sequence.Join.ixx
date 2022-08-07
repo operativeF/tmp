@@ -193,6 +193,11 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace join_test {
+    using namespace boost::tmp;
+    
+    // TODO: Implement join_test
+    // using joined_sequences = call_<join_seq_<lift_<into_sequence>>, std::index_sequence<1, 2>, std::index_sequence<3, 4>>;
 
-} // namespace boost::tmp::test
+    // joined_sequences{} = std::index_sequence<1, 2, 3, 4>{};
+} // namespace join_test
