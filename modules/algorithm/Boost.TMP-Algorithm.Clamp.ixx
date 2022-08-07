@@ -47,4 +47,4 @@ namespace clamp_test {
     struct ListWithOnlyFour;
 
     using test_one = ListWithOnlyFour<call_<clamp_<uint_<3>, uint_<10>>, uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>>;
-} // namespace boost::tmp::test
+} // namespace clamp_test

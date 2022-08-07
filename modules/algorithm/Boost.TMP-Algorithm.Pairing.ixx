@@ -40,6 +40,6 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace pairing_test {
 
-} // namespace boost::tmp::test
+} // namespace pairing_test

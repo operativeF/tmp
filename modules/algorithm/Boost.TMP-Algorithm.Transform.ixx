@@ -42,6 +42,6 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace transform_test {
 
-} // namespace boost::tmp::test
+} // namespace transform_test

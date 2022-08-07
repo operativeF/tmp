@@ -40,6 +40,6 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace any_of_test {
 
-} // namespace boost::tmp::test
+} // namespace any_of_test

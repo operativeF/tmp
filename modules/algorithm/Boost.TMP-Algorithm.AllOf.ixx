@@ -33,7 +33,7 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace all_of_test {
 
 
-} // namespace boost::tmp::test
+} // namespace all_of_test

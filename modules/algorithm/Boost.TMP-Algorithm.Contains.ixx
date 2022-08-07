@@ -52,4 +52,4 @@ namespace contains_test {
 
     using test_three = DoesNotContainType<call_<contains_<int_<1>>>>;
     
-} // namespace boost::tmp::test
+} // namespace contains_test

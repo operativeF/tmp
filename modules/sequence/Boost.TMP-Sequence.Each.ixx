@@ -53,6 +53,6 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace each_test {
 
-} // namespace boost::tmp::test
+} // namespace each_test

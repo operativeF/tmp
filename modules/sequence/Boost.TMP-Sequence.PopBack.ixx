@@ -40,6 +40,6 @@ export namespace boost::tmp {
 } // export namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace pop_back_test {
 
-} // namespace boost::tmp::test
+} // namespace pop_back_test

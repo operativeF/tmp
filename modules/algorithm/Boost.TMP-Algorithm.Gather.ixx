@@ -33,6 +33,6 @@ export namespace boost::tmp {
 } // export namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace gather_test {
 
-} // namespace boost::tmp::test
+} // namespace gather_test

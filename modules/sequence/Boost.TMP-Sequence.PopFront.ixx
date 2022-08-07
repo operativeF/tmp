@@ -62,4 +62,4 @@ namespace pop_front_test {
     // UNDER CONSIDERATION: Removal / modification of behavior of
     // pop_front_ on no input. Currently returns a list_<nothing_>
     using test_three = EmptyPackReturnsListWithNothingType<call_<pop_front_<>>>;
-} // namespace boost::tmp::test
+} // namespace pop_front_test

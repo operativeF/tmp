@@ -62,4 +62,4 @@ namespace count_if_test {
     
     // Empty input pack returns 0
     using test_three = NoEvenNumbers<call_<count_if_<lift_<utils::is_even>>>>;
-} // namespace boost::tmp::test
+} // namespace count_if_test

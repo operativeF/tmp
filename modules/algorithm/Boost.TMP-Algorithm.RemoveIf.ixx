@@ -41,12 +41,12 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace remove_if_test {
     using namespace boost::tmp;
 
     template<typename T> requires(std::same_as<T, list_<int_<1>, int_<3>>>)
     struct OnlyOddNumbersLeft;
 
     using test_one = OnlyOddNumbersLeft<call_<remove_if_<lift_<utils::is_even>>, int_<1>, int_<2>, int_<3>>>;
-} // namespace boost::tmp::test
+} // namespace remove_if_test
 

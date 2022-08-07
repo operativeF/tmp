@@ -46,4 +46,4 @@ namespace partition_test {
     struct SplitIntoTwoListWithGreaterThanTwo;
 
     using test_one = SplitIntoTwoListWithGreaterThanTwo<call_<partition_<lift_<utils::greater_than_two>>, int_<1>, int_<2>, int_<3>, int_<4>>>;
-} // namespace boost::tmp::test
+} // namespace partition_test
