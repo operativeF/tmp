@@ -48,7 +48,9 @@ namespace boost::tmp {
 
 // TESTING:
 
-namespace boost::tmp::test {
+namespace erase_test {
+    using namespace boost::tmp;
+    
     template<typename T> requires(std::same_as<T, list_<int_<2>, int_<3>>>)
     struct EraseFirstElement;
 
@@ -60,10 +62,10 @@ namespace boost::tmp::test {
     template<typename T> requires(std::same_as<T, list_<nothing_>>)
     struct EmptyPackReturnsNothingType;
 
-    EraseFirstElement<call_<erase_<sizet_<0>>, int_<1>, int_<2>, int_<3>>>;
+    using test_one   = EraseFirstElement<call_<erase_<sizet_<0>>, int_<1>, int_<2>, int_<3>>>;
 
-    EraseSingleElement<call_<erase_<sizet_<0>>, int_<0>>>;
+    using test_two   = EraseSingleElement<call_<erase_<sizet_<0>>, int_<0>>>;
 
-    EmptyPackReturnsNothingType<call_<erase_<sizet_<0>>>>;
+    using test_three = EmptyPackReturnsNothingType<call_<erase_<sizet_<0>>>>;
 
-} // namespace boost::tmp::test
+} // namespace erase_test

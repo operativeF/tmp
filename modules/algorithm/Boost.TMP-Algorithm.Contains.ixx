@@ -37,17 +37,19 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace contains_test {
+    using namespace boost::tmp;
+
     template<typename T> requires(std::same_as<T, false_>)
     struct DoesNotContainType;
 
     template<typename T> requires(std::same_as<T, true_>)
     struct ContainsType;
 
-    DoesNotContainType<call_<contains_<int_<0>>, int_<1>>>;
+    using test_one   = DoesNotContainType<call_<contains_<int_<0>>, int_<1>>>;
 
-    ContainsType<call_<contains_<int_<2>>, int_<0>, int_<1>, int_<2>>>;
+    using test_two   = ContainsType<call_<contains_<int_<2>>, int_<0>, int_<1>, int_<2>>>;
 
-    DoesNotContainType<call_<contains_<int_<1>>>>;
+    using test_three = DoesNotContainType<call_<contains_<int_<1>>>>;
     
 } // namespace boost::tmp::test

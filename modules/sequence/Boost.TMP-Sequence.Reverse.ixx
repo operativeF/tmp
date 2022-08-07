@@ -192,6 +192,6 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace reverse_test {
 
-} // namespace boost::tmp::test
+} // namespace reverse_test

@@ -36,10 +36,12 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace push_back_test {
+    using namespace boost::tmp;
+
     template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, char_<'c'>>>)
-    struct PushBack_C;
+    struct PushBack_C {};
 
-    PushBack_C<call_<push_back_<char_<'c'>>, int_<1>, int_<2>>>;
+    using test_one = PushBack_C<call_<push_back_<char_<'c'>>, int_<1>, int_<2>>>;
 
-} // namespace boost::tmp::test
+} // namespace push_back_test

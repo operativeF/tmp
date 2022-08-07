@@ -43,7 +43,9 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace replace_if_test {
+    using namespace boost::tmp;
+
     // TODO: Put in helper partition.
     template <typename T>
     using is_even = bool_<(T::value % 2 == 0)>;
@@ -54,8 +56,8 @@ namespace boost::tmp::test {
     template<typename T> requires(std::same_as<T, list_<>>)
     struct EmptyPackReturnsAnEmptyList;
 
-    ReplaceTwoWithC<call_<replace_if_<char_<'c'>, lift_<is_even>>, uint_<1>, uint_<2>, uint_<1>>>;
+    using test_one = ReplaceTwoWithC<call_<replace_if_<char_<'c'>, lift_<is_even>>, uint_<1>, uint_<2>, uint_<1>>>;
 
-    EmptyPackReturnsAnEmptyList<call_<replace_if_<char_<'c'>, lift_<is_even>>>>;
+    using test_two = EmptyPackReturnsAnEmptyList<call_<replace_if_<char_<'c'>, lift_<is_even>>>>;
 
 } // namespace boost::tmp::test

@@ -45,7 +45,9 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace count_if_test {
+    using namespace boost::tmp;
+
     // TODO: Put in helper partition.
     template <typename T>
     using is_even = bool_<(T::value % 2 == 0)>;
@@ -56,10 +58,10 @@ namespace boost::tmp::test {
     template<typename T> requires(std::same_as<T, sizet_<3>>)
     struct HasThreeEvenNumbers;
 
-    NoEvenNumbers<call_<count_if_<lift_<is_even>>, int_<1>, int_<3>>>;
+    using test_one  = NoEvenNumbers<call_<count_if_<lift_<is_even>>, int_<1>, int_<3>>>;
 
-    HasThreeEvenNumbers<call_<count_if_<lift_<is_even>>, int_<0>, int_<2>, int_<4>>>;
+    using test_two  = HasThreeEvenNumbers<call_<count_if_<lift_<is_even>>, int_<0>, int_<2>, int_<4>>>;
     
     // Empty input pack returns 0
-    NoEvenNumbers<call_<count_if_<lift_<is_even>>>>;
+    using test_three = NoEvenNumbers<call_<count_if_<lift_<is_even>>>>;
 } // namespace boost::tmp::test

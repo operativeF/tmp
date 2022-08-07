@@ -40,9 +40,11 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace clamp_test {
+    using namespace boost::tmp;
+    
     template<typename T> requires(std::same_as<T, list_<uint_<4>>>)
     struct ListWithOnlyFour;
 
-    ListWithOnlyFour<call_<clamp_<uint_<3>, uint_<10>>, uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>>;
+    using test_one = ListWithOnlyFour<call_<clamp_<uint_<3>, uint_<10>>, uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>>;
 } // namespace boost::tmp::test

@@ -153,7 +153,9 @@ namespace boost::tmp {
     struct dispatch<N, rotate_<P, C>> : make_rotate<P::value, C> {};
 } // namespace boost::tmp
 
-namespace boost::tmp::test {
+namespace rotate_test {
+    using namespace boost::tmp;
+    
     template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, int_<3>>>)
     struct ZeroRotation;
 
@@ -163,13 +165,13 @@ namespace boost::tmp::test {
     template<typename T> requires(std::same_as<T, list_<>>)
     struct RotateEmptyList;
 
-    ZeroRotation<call_<rotate_<int_<0>>, int_<1>, int_<2>, int_<3>>>;
+    using test_one   = ZeroRotation<call_<rotate_<int_<0>>, int_<1>, int_<2>, int_<3>>>;
 
-    DoOneRotation<call_<rotate_<int_<1>>, int_<1>, int_<2>, int_<3>>>;
+    using test_two   = DoOneRotation<call_<rotate_<int_<1>>, int_<1>, int_<2>, int_<3>>>;
 
-    RotateEmptyList<call_<rotate_<int_<0>>>>;
+    using test_three = RotateEmptyList<call_<rotate_<int_<0>>>>;
 
     // TODO: Allow rotations in opposite direction.
     // list_<int_<3>, int_<1>, int_<2>>{} = call_<rotate_<int_<-1>>, int_<1>, int_<2>, int_<3>>{};
 
-} // namespace boost::tmp::test
+} // namespace rotate_test
