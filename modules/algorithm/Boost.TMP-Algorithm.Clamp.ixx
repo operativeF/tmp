@@ -9,15 +9,18 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP:Algorithm.Clamp;
 
 import :Algorithm.RemoveIf;
+import :Base.Call;
 import :Base.Comparison;
 import :Base.Dispatch;
 import :Base.Identity;
+import :Base.Integral;
 
 #if _MSC_VER
 import std;
@@ -35,3 +38,11 @@ namespace boost::tmp {
     struct dispatch<N, clamp_<L, H, C>>
         : dispatch<N, remove_if_<range_lo_hi_<L, H, C>>> {};
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+    template<typename T> requires(std::same_as<T, list_<uint_<4>>>)
+    struct ListWithOnlyFour;
+
+    ListWithOnlyFour<call_<clamp_<uint_<3>, uint_<10>>, uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>>;
+} // namespace boost::tmp::test

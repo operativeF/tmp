@@ -8,11 +8,13 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP:Sequence.Size;
 
+import :Base.Call;
 import :Base.Identity;
 import :Base.Integral;
 import :Base.Dispatch;
@@ -31,3 +33,18 @@ namespace boost::tmp {
         using f = dispatch<1, C>::template f<sizet_<sizeof...(Ls)>>;
     };
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+    template<typename T> requires(std::same_as<T, sizet_<3>>)
+    struct ThreeElementsInPack;
+
+    template<typename T> requires(std::same_as<T, sizet_<0>>)
+    struct EmptyPackIsZero;
+
+    ThreeElementsInPack<call_<size_<>, int_<0>, int_<2>, int_<4>>>;
+
+    // No input list is zero size.
+    EmptyPackIsZero<call_<size_<>>>;
+
+} // namespace boost::tmp::test

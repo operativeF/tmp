@@ -9,6 +9,7 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
@@ -16,8 +17,13 @@ export module Boost.TMP:Algorithm.ReplaceIf;
 
 import :Algorithm.Transform;
 import :Base.Always;
+import :Base.Bool;
+import :Base.Call;
+import :Base.Char;
 import :Base.Identity;
+import :Base.Integral;
 import :Base.If;
+import :Base.Lift;
 import :Base.List;
 import :Base.Dispatch;
 
@@ -35,3 +41,21 @@ namespace boost::tmp {
     struct dispatch<N, replace_if_<Input, F, C>>
               : dispatch<N, transform_<if_<F, always_<Input>, identity_>, C>> {};
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+    // TODO: Put in helper partition.
+    template <typename T>
+    using is_even = bool_<(T::value % 2 == 0)>;
+
+    template<typename T> requires(std::same_as<T, list_<uint_<1>, char_<'c'>, uint_<1>>>)
+    struct ReplaceTwoWithC;
+
+    template<typename T> requires(std::same_as<T, list_<>>)
+    struct EmptyPackReturnsAnEmptyList;
+
+    ReplaceTwoWithC<call_<replace_if_<char_<'c'>, lift_<is_even>>, uint_<1>, uint_<2>, uint_<1>>>;
+
+    EmptyPackReturnsAnEmptyList<call_<replace_if_<char_<'c'>, lift_<is_even>>>>;
+
+} // namespace boost::tmp::test

@@ -73,4 +73,20 @@ export namespace boost::tmp {
         using f = dispatch<1, unpack_<transform_<F, C>>>::template f<
                 typename make_seq_impl<next_state(0, N::value)>::template f<N::value>>;
     };
+
+    // TODO: Benchmark alternate implemenation.
+    // template<typename... Vs>
+    // struct index_impl;
+
+    // template<std::size_t... Vs>
+    // struct index_impl<std::index_sequence<Vs...>> {
+    //     using f = list_<sizet_<Vs>...>;
+    // };
+
+    // template <typename F, typename C>
+    // struct dispatch<1, make_sequence_<F, C>> {
+    //     template <typename N>
+    //     using f = dispatch<1, unpack_<transform_<F, C>>>::template f<typename index_impl<std::make_index_sequence<N::value>>::template f>;
+
+    // };
 } // namespace boost::tmp

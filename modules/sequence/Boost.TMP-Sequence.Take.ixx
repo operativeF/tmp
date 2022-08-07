@@ -34,3 +34,8 @@ namespace boost::tmp {
                      rotate_<P, drop_<sizet_<(sizeof...(Ts) - P::value)>, C>>>::template f<Ts...>;
     };
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

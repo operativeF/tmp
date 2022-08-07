@@ -9,13 +9,11 @@ target_sources(tmp_test
         FILE_SET boost_tmp_test_modules TYPE CXX_MODULES FILES
         Boost.TMP.Tests-AllOf.ixx
         Boost.TMP.Tests-AnyOf.ixx
-        Boost.TMP.Tests-Clamp.ixx
         Boost.TMP.Tests-Comparison.ixx
         Boost.TMP.Tests-Contains.ixx
         Boost.TMP.Tests-CountIf.ixx
         Boost.TMP.Tests-Drop.ixx
         Boost.TMP.Tests-Each.ixx
-        Boost.TMP.Tests-Erase.ixx
         # Boost.TMP.Tests-Extrema.ixx
         Boost.TMP.Tests-Filter.ixx
         Boost.TMP.Tests-FindIf.ixx

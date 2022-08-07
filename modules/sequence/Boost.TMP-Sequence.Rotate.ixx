@@ -8,11 +8,13 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP:Sequence.Rotate;
 
+import :Base.Call;
 import :Base.Integral;
 import :Base.List;
 import :Base.Dispatch;
@@ -150,3 +152,24 @@ namespace boost::tmp {
     template <std::size_t N, typename P, typename C>
     struct dispatch<N, rotate_<P, C>> : make_rotate<P::value, C> {};
 } // namespace boost::tmp
+
+namespace boost::tmp::test {
+    template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, int_<3>>>)
+    struct ZeroRotation;
+
+    template<typename T> requires(std::same_as<T, list_<int_<2>, int_<3>, int_<1>>>)
+    struct DoOneRotation;
+
+    template<typename T> requires(std::same_as<T, list_<>>)
+    struct RotateEmptyList;
+
+    ZeroRotation<call_<rotate_<int_<0>>, int_<1>, int_<2>, int_<3>>>;
+
+    DoOneRotation<call_<rotate_<int_<1>>, int_<1>, int_<2>, int_<3>>>;
+
+    RotateEmptyList<call_<rotate_<int_<0>>>>;
+
+    // TODO: Allow rotations in opposite direction.
+    // list_<int_<3>, int_<1>, int_<2>>{} = call_<rotate_<int_<-1>>, int_<1>, int_<2>, int_<3>>{};
+
+} // namespace boost::tmp::test

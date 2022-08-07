@@ -13,6 +13,8 @@ module;
 
 export module Boost.TMP:Sequence.Insert;
 
+import :Base.Call;
+import :Base.Char;
 import :Base.Integral;
 import :Base.List;
 import :Base.Nothing;
@@ -46,3 +48,27 @@ namespace boost::tmp {
         using f = dispatch<1, C>::template f<V>;
     };
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+    // Insert char_<'c'> at position 1
+    template<typename T> requires(std::same_as<T, list_<int_<1>, char_<'c'>, int_<2>>>)
+    struct Insert_C_AtPositionOne;
+
+    // Insert char_<'c'> at position 0
+    template<typename T> requires(std::same_as<T, list_<char_<'c'>, int_<1>, int_<2>>>)
+    struct Insert_C_AtPositionZero;
+
+    // Insert char_<'c'> at position 2
+    template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, char_<'c'>>>)
+    struct Insert_C_AtPositionTwo;
+
+    // Insert char_<'c'> into no list (returns a list_ with char_<'c'> in it)
+    template<typename T> requires(std::same_as<T, list_<char_<'c'>>>)
+    struct EmptyPackInsertionReturnsSingleElementList;
+
+    Insert_C_AtPositionZero<call_<insert_<int_<0>, char_<'c'>>, int_<1>, int_<2>>>;
+    Insert_C_AtPositionOne<call_<insert_<int_<1>, char_<'c'>>, int_<1>, int_<2>>>;
+    Insert_C_AtPositionTwo<call_<insert_<int_<2>, char_<'c'>>, int_<1>, int_<2>>>;
+    EmptyPackInsertionReturnsSingleElementList<call_<insert_<int_<0>, char_<'c'>>>>;
+} // namespace boost::tmp::test

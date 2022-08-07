@@ -31,3 +31,8 @@ export namespace boost::tmp {
     template <std::size_t N, typename F, typename C>
     struct dispatch<N, gather_<F, C>>{};
 } // export namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

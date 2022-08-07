@@ -22,27 +22,10 @@ namespace make_sequence_test {
         using f = sizet_<T::value>;
     };
 
-    template<typename T>
-    using div_3 = sizet_<T::value / 3>;
-
-    template<typename Denom>
-    struct div_n {
-        template<typename Numer>
-        using f = sizet_<Numer::value / Denom::value>;
-    };
-
-    template<typename IndexTo>
-    using repeating_index_seq = call_<make_sequence_<lift_<div_n<IndexTo>::template f>>, sizet_<(IndexTo::value * IndexTo::value)>>;
-
     export int run() {
         list_<sizet_<0>, sizet_<1>, sizet_<2>>{} = call_<make_sequence_<>, sizet_<3>>{};
         list_<sizet_<1>, sizet_<2>, sizet_<3>>{} = call_<make_sequence_<lift_<and_one>>, sizet_<3>>{};
-        list_<sizet_<1>, sizet_<1>, sizet_<1>>{} = call_<make_sequence_<lift_<always_one<sizet_<1>>::template f>>, sizet_<3>>{};
-        list_<sizet_<0>, sizet_<0>, sizet_<0>, sizet_<1>, sizet_<1>, sizet_<1>>{} = call_<make_sequence_<lift_<div_3>>, sizet_<6>>{};
-
-        list_<sizet_<0>, sizet_<0>, sizet_<0>, sizet_<1>, sizet_<1>, sizet_<1>, sizet_<2>, sizet_<2>, sizet_<2>>{} =
-            call_<lift_<repeating_index_seq>, sizet_<3>>{};
-
+ 
         return 0;
     }
 } // namespace make_sequence_test

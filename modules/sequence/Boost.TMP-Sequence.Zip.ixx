@@ -58,3 +58,8 @@ namespace boost::tmp {
         using f = zip3<F, C, T, U, V>::f;
     };
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

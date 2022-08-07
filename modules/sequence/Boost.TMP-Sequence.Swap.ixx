@@ -21,3 +21,8 @@ namespace boost::tmp {
         using f = dispatch<2, C>::template f<U, T>;
     };
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

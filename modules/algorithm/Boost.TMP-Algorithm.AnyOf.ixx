@@ -38,3 +38,8 @@ namespace boost::tmp {
         : dispatch<N, or_<F, C>> {
     };
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

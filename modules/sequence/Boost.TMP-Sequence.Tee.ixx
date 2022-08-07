@@ -219,3 +219,8 @@ namespace boost::tmp {
                     rotate_<sizet_<sizeof...(Fs)>, push_front_<sizet_<N>, lift_<tee_impl>>>>::
                     template f<F0, F1, Fs...> {};
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

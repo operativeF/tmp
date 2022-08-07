@@ -229,3 +229,8 @@ namespace boost::tmp {
         : dispatch<N, make_binary_tree<dispatch<2, F>::template f, collapse_unpack<C>,
                                         btree::blist<>>> {};
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

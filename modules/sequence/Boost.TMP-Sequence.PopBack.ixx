@@ -38,3 +38,8 @@ export namespace boost::tmp {
 		using f = typename dispatch<1, C>::template f<nothing_>;
 	};
 } // export namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

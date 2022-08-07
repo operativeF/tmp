@@ -46,13 +46,8 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 add_subdirectory(modules)
 
-option(ENABLE_TESTING "Enable testing." OFF)
 option(ENABLE_BENCHMARKING "Enable benchmarking" OFF)
 
 if(ENABLE_BENCHMARKING)
   add_subdirectory(benchmark)
-endif()
-
-if(ENABLE_TESTING)
-  add_subdirectory(tests)
 endif()

@@ -30,3 +30,8 @@ namespace boost::tmp {
         using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<T, Ts...>;
     };
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

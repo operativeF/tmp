@@ -8,14 +8,17 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP:Sequence.Erase;
 
+import :Base.Call;
+import :Base.Dispatch;
 import :Base.Integral;
 import :Base.List;
-import :Base.Dispatch;
+import :Base.Nothing;
 import :Sequence.Drop;
 import :Sequence.PopFront;
 import :Sequence.Rotate;
@@ -42,3 +45,25 @@ namespace boost::tmp {
         using f = dispatch<1, C>::template f<nothing_>;
     };
 } // namespace boost::tmp
+
+// TESTING:
+
+namespace boost::tmp::test {
+    template<typename T> requires(std::same_as<T, list_<int_<2>, int_<3>>>)
+    struct EraseFirstElement;
+
+    // Erasing single element will always result in empty list.
+    template<typename T> requires(std::same_as<T, list_<>>)
+    struct EraseSingleElement;
+
+    // UNDER RECONSIDERATION: Returns list_<nothing_> if no input is given.
+    template<typename T> requires(std::same_as<T, list_<nothing_>>)
+    struct EmptyPackReturnsNothingType;
+
+    EraseFirstElement<call_<erase_<sizet_<0>>, int_<1>, int_<2>, int_<3>>>;
+
+    EraseSingleElement<call_<erase_<sizet_<0>>, int_<0>>>;
+
+    EmptyPackReturnsNothingType<call_<erase_<sizet_<0>>>>;
+
+} // namespace boost::tmp::test

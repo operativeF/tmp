@@ -121,3 +121,8 @@ namespace boost::tmp {
     template <std::size_t N, typename P, typename C>
     struct dispatch<N, repeat_sequence_<P, C>> : make_repeat<P::value, C> {};
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

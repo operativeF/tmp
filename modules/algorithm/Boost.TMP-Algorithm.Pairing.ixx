@@ -38,3 +38,8 @@ namespace boost::tmp {
     struct dispatch<2, pairing_<F, C>>
             : dispatch<2, pairing_<lift_<dispatch<2, F>::template f>, C>> {};
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

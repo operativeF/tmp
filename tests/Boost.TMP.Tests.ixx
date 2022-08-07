@@ -11,13 +11,11 @@ export import :Helpers;
 
 export import :AllOf;
 export import :AnyOf;
-export import :Clamp;
 export import :Comparison;
 export import :Contains;
 export import :CountIf;
 export import :Drop;
 export import :Each;
-export import :Erase;
 // export import :Extrema; // TODO: 
 export import :Filter;
 export import :FindIf;

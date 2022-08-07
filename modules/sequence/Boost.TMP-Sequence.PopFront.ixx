@@ -39,3 +39,8 @@ namespace boost::tmp {
         using f = dispatch<1, C>::template f<nothing_>;
     };
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

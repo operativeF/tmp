@@ -34,3 +34,8 @@ namespace boost::tmp {
     struct dispatch<N, partition_<F, C>>
               : dispatch<N, tee_<filter_<F>, remove_if_<F>, C>> {};
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

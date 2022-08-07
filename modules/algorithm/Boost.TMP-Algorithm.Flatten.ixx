@@ -47,3 +47,8 @@ namespace boost::tmp {
         using f = flatten_impl<C, list_<>, Ts...>::type;
     };
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

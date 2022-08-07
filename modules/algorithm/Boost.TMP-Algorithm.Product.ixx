@@ -5,6 +5,13 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
+module;
+
+#if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
+#include <cstdint>
+#endif // defined(__GNUC__ ) || defined(__clang__)
+
 export module Boost.TMP:Algorithm.Product;
 
 import :Base.Lift;
@@ -46,3 +53,8 @@ namespace boost::tmp {
     struct dispatch<2, product_<F, C>>
             : dispatch<2, product_<lift_<dispatch<2, F>::template f>, C>> {};
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+
+} // namespace boost::tmp::test

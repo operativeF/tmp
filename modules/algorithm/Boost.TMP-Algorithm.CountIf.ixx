@@ -8,6 +8,7 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
@@ -15,8 +16,11 @@ export module Boost.TMP:Algorithm.CountIf;
 
 import :Algorithm.Transform;
 import :Base.Always;
+import :Base.Bool;
+import :Base.Call;
 import :Base.Dispatch;
 import :Base.Identity;
+import :Base.Integral;
 import :Base.If;
 import :Base.List;
 import :Sequence.Join;
@@ -39,3 +43,23 @@ namespace boost::tmp {
         : dispatch<N, transform_<if_<F, always_<list_<void>>, always_<list_<>>>,
                                     join_<size_<C>>>> {};
 } // namespace boost::tmp
+
+// TESTING:
+namespace boost::tmp::test {
+    // TODO: Put in helper partition.
+    template <typename T>
+    using is_even = bool_<(T::value % 2 == 0)>;
+
+    template<typename T> requires(std::same_as<T, sizet_<0>>)
+    struct NoEvenNumbers;
+
+    template<typename T> requires(std::same_as<T, sizet_<3>>)
+    struct HasThreeEvenNumbers;
+
+    NoEvenNumbers<call_<count_if_<lift_<is_even>>, int_<1>, int_<3>>>;
+
+    HasThreeEvenNumbers<call_<count_if_<lift_<is_even>>, int_<0>, int_<2>, int_<4>>>;
+    
+    // Empty input pack returns 0
+    NoEvenNumbers<call_<count_if_<lift_<is_even>>>>;
+} // namespace boost::tmp::test
