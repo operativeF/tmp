@@ -8,6 +8,7 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
