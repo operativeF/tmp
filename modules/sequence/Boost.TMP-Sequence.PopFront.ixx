@@ -8,14 +8,17 @@
 module;
 
 #if defined(__GNUC__) || defined(__clang__)
+#include <concepts>
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP:Sequence.PopFront;
 
+import :Base.Call;
+import :Base.Dispatch;
+import :Base.Integral;
 import :Base.List;
 import :Base.Nothing;
-import :Base.Dispatch;
 
 #if _MSC_VER
 import std;
@@ -41,6 +44,22 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace pop_front_test {
+    using namespace boost::tmp;
 
+    template<typename T> requires(std::same_as<T, list_<>>)
+    struct NoElementsLeft;
+
+    template<typename T> requires(std::same_as<T, list_<nothing_>>)
+    struct EmptyPackReturnsListWithNothingType;
+
+    // Pop front off of single element list to return an empty list.
+    using test_one = NoElementsLeft<call_<pop_front_<>, list_<int_<1>>>>;
+
+    // Pop front off of empty list_ to return an empty list_
+    using test_two = NoElementsLeft<call_<pop_front_<>, list_<>>>;
+
+    // UNDER CONSIDERATION: Removal / modification of behavior of
+    // pop_front_ on no input. Currently returns a list_<nothing_>
+    using test_three = EmptyPackReturnsListWithNothingType<call_<pop_front_<>>>;
 } // namespace boost::tmp::test

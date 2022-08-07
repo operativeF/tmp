@@ -14,6 +14,8 @@ module;
 
 export module Boost.TMP:Sequence.Index;
 
+import :Base.Call;
+import :Base.Char;
 import :Base.Identity;
 import :Base.Integral;
 import :Base.Dispatch;
@@ -120,6 +122,24 @@ namespace boost::tmp {
 } // export namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace index_test {
+    using namespace boost::tmp;
 
-} // namespace boost::tmp::test
+    template<typename T> requires(std::same_as<T, int_<3>>)
+    struct ElementAtIndexTwoIsThree;
+
+    template<typename T> requires(std::same_as<T, int_<1>>)
+    struct UnpackedElementAtIndexZeroIsOne;
+
+    template<typename T> requires(std::same_as<T, int_<1>>)
+    struct ElementAtFrontIsOne;
+
+    // Get index 2 of pack (int_<3>)
+    using test_one = ElementAtIndexTwoIsThree<call_<index_<uint_<2>>, int_<1>, char_<'c'>, int_<3>, int_<4>>>;
+
+    // Unpack simple_list, then take index 0
+    using test_two = UnpackedElementAtIndexZeroIsOne<call_<ui0_<>, list_<int_<1>, int_<2>, int_<3>>>>;
+    
+    // Get first element of pack
+    using test_three = ElementAtFrontIsOne<call_<front_<>, int_<1>, int_<2>, int_<3>>>;
+} // namespace index_test

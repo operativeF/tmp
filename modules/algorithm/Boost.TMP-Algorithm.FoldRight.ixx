@@ -14,7 +14,9 @@ module;
 
 export module Boost.TMP:Algorithm.FoldRight;
 
+import :Base.Call;
 import :Base.Identity;
+import :Base.Integral;
 import :Base.Lift;
 import :Base.Nothing;
 import :Base.Dispatch;
@@ -108,6 +110,15 @@ namespace boost::tmp {
 } // namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace fold_right_test {
+    using namespace boost::tmp;
 
-} // namespace boost::tmp::test
+    // TODO: Add to helper partition.
+    template <typename T, typename U>
+    using add = uint_<(T::value + U::value)>;
+
+    template<typename T> requires(std::same_as<T, uint_<20>>)
+    struct AddsUpToTwenty;
+
+    using test_one = AddsUpToTwenty<call_<fold_right_<lift_<add>>, uint_<1>, uint_<10>, uint_<9>>>;
+} // namespace fold_right_test

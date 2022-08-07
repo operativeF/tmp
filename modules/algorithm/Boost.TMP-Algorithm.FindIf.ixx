@@ -15,10 +15,14 @@ module;
 
 export module Boost.TMP:Algorithm.FindIf;
 
+import :Base.Bool;
+import :Base.Call;
+import :Base.Dispatch;
 import :Base.Foldey;
 import :Base.Identity;
+import :Base.Integral;
 import :Base.Lift;
-import :Base.Dispatch;
+import :Base.Nothing;
 
 #if _MSC_VER
 import std;
@@ -62,6 +66,21 @@ namespace boost::tmp {
 } // export namespace boost::tmp
 
 // TESTING:
-namespace boost::tmp::test {
+namespace find_if_test {
+    using namespace boost::tmp;
 
-} // namespace boost::tmp::test
+    // TODO: Put in helper partition.
+    template <typename T>
+    using is_even = bool_<(T::value % 2 == 0)>;
+
+    template<typename T> requires(std::same_as<T, sizet_<3>>)
+    struct EvenNumberAtPositionThree;
+
+    template<typename T> requires(std::same_as<T, nothing_>)
+    struct ReturnNothingForNoValueFound;
+
+    using test_one = EvenNumberAtPositionThree<call_<find_if_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<2>>>;
+    
+    // find_if_ returns nothing_ when there is no value found that satisfies the predicate.
+    using test_two = ReturnNothingForNoValueFound<call_<find_if_<lift_<is_even>>, int_<1>>>;
+} // namespace find_if_test
