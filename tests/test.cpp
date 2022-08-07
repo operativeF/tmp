@@ -28,6 +28,7 @@ int main() {
            insert_test::run() ||
            join_test::run() ||
            logic_test::run() ||
+           make_sequence_test::run() ||
            map_test::run() ||
            none_of_test::run() ||
            partition_test::run() ||

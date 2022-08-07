@@ -28,6 +28,7 @@ export import :Index;
 export import :Insert;
 export import :Join;
 export import :Logic;
+export import :MakeSequence;
 export import :Map;
 export import :NoneOf;
 export import :Partition;

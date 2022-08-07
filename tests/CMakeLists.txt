@@ -26,6 +26,7 @@ target_sources(tmp_test
         Boost.TMP.Tests-Insert.ixx
         Boost.TMP.Tests-Join.ixx
         Boost.TMP.Tests-Logic.ixx
+        Boost.TMP.Tests-MakeSequence.ixx
         Boost.TMP.Tests-Map.ixx
         Boost.TMP.Tests-NoneOf.ixx
         Boost.TMP.Tests-Partition.ixx
