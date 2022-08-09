@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Sequence.Reverse;
 
-import :Base.Call;
 import :Base.Types;
 
 #if _MSC_VER

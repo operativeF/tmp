@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Base.Logic;
 
-import :Base.Call;
 import :Base.Comparison;
 import :Base.Foldey;
 import :Base.Types;

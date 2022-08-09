@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Algorithm.Gather;
 
-import :Base.Call;
 import :Base.Types;
 import :Sequence.Join;
 

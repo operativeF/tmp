@@ -12,7 +12,6 @@ import :Algorithm.Contains;
 import :Algorithm.FindIf;
 import :Algorithm.FoldLeft;
 import :Algorithm.Sort;
-import :Base.Call;
 import :Base.Comparison;
 import :Base.If;
 import :Base.Logic;

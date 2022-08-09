@@ -16,7 +16,6 @@ module;
 export module Boost.TMP:Algorithm.Clamp;
 
 import :Algorithm.RemoveIf;
-import :Base.Call;
 import :Base.Comparison;
 import :Base.Types;
 

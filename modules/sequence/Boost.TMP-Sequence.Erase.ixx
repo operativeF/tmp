@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Sequence.Erase;
 
-import :Base.Call;
 import :Base.Types;
 import :Sequence.Drop;
 import :Sequence.PopFront;

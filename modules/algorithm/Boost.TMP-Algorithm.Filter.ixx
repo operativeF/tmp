@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Algorithm.Filter;
 
-import :Base.Call;
 import :Base.Types;
 
 import :TestHelpers;

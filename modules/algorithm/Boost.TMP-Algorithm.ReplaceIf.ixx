@@ -16,7 +16,6 @@ module;
 export module Boost.TMP:Algorithm.ReplaceIf;
 
 import :Algorithm.Transform;
-import :Base.Call;
 import :Base.If;
 import :Base.Types;
 

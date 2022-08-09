@@ -13,7 +13,6 @@ module;
 
 export module Boost.TMP:Sequence.Swap;
 
-import :Base.Call;
 import :Base.Types;
 
 /// \brief Swaps two variadic parametic pack values. Must be only two values.

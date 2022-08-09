@@ -16,7 +16,6 @@ module;
 export module Boost.TMP:Algorithm.Extrema;
 
 import :Algorithm.FoldLeft;
-import :Base.Call;
 import :Base.Types;
 
 #if _MSC_VER

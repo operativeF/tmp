@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Sequence.ZipWithIndex;
 
-import :Base.Call;
 import :Base.Types;
 import :Sequence.MakeSequence;
 

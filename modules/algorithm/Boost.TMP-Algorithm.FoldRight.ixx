@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Algorithm.FoldRight;
 
-import :Base.Call;
 import :Base.Types;
 
 import :TestHelpers;

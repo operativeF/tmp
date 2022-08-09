@@ -15,7 +15,6 @@ module;
 
 export module Boost.TMP:Algorithm.NoneOf;
 
-import :Base.Call;
 import :Base.Logic;
 import :Base.Types;
 

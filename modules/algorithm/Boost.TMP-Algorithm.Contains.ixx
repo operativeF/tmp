@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Algorithm.Contains;
 
-import :Base.Call;
 import :Base.Comparison;
 import :Base.Logic;
 import :Base.Types;

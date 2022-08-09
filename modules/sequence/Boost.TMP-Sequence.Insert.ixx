@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Sequence.Insert;
 
-import :Base.Call;
 import :Base.Types;
 import :Sequence.PushFront;
 import :Sequence.Rotate;

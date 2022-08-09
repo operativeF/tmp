@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Sequence.Index;
 
-import :Base.Call;
 import :Base.Types;
 import :Sequence.Drop;
 import :Sequence.Unpack;

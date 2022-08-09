@@ -15,7 +15,6 @@ module;
 export module Boost.TMP:Sequence.MakeSequence;
 
 import :Algorithm.Transform;
-import :Base.Call;
 import :Base.Types;
 import :Sequence.Unpack;
 

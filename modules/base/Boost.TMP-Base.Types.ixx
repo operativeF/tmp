@@ -10,6 +10,7 @@ module;
 #if defined(__GNUC__) || defined(__clang__)
 #include <cstddef>
 #include <cstdint>
+#include <type_traits>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP:Base.Types;
@@ -19,8 +20,7 @@ import std;
 #endif // _MSC_VER
 
 namespace boost::tmp {
-
-    // The dispatch type finds the appropriate metaclosure to call and forms
+    // The dispatch type finds the appropriate metaclosure to incvoke and forms
     // the basis of the library.
     template <std::size_t N, typename T>
     struct dispatch;
@@ -105,7 +105,7 @@ namespace boost::tmp {
     // Nothing type
     export struct nothing_ {};
 
-    // Lift type - Used for applying a function to a continuation argument (parameter pack).
+    // Lift metaclosure - Used for lifting a type into a function.
     export template <template <typename...> class F, typename C = identity_>
     struct lift_ {};
 
@@ -141,7 +141,7 @@ namespace boost::tmp {
 
     export using listify_ = lift_<list_>;
 
-    // The always type returns type / shovels into the continuation C.
+    // The always_ metaclosure returns type / shovels into the continuation C.
     export template <typename T, typename C = identity_>
     struct always_ {};
 
@@ -150,4 +150,63 @@ namespace boost::tmp {
         template <typename...>
         using f = dispatch<1, C>::template f<T>;
     };
+
+    // The same as always_, but refers to the type inside
+    // of the input type T.
+    export template <typename C = identity_>
+    struct result_ {};
+
+    template <typename C>
+    struct dispatch<1, result_<C>> {
+        template <typename T>
+        using f = dispatch<1, C>::template f<T::type>;
+    };
+
+    // call_ is a foundational metaclosure that immediately evaluates the input metaclosure(s).
+    export template <typename F, typename... Ts>
+    using call_ = dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>;
+
+    export template <typename T, typename... Ts>
+    using call_t = dispatch<find_dispatch(sizeof...(Ts)), T>::template
+                      f<Ts...>::type;
+
+    export template <typename T, typename... Ts>
+    constexpr auto call_v = dispatch<find_dispatch(sizeof...(Ts)), T>::template
+                               f<Ts...>::value;
+
+    export template <typename C = identity_>
+    struct call_f_ {};
+
+    template <std::size_t N, typename C>
+    struct dispatch<N, call_f_<C>> {
+        template <typename F, typename... Ts>
+        using f = dispatch<1, C>::template f<
+                     typename dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>>;
+    };
+
+    // maybe_ metaclosure
+    template <bool B>
+    struct maybe_test_impl {
+        template <typename T>
+        using f = T;
+    };
+
+    template <>
+    struct maybe_test_impl<true> {};
+
+    // TODO: Get rid of std::is_same_v here.
+    template <typename T>
+    using maybe_impl = maybe_test_impl<std::is_same_v<T, nothing_>>::template f<T>;
+
+    export template <typename T, typename... Ts>
+    using maybe_ = maybe_impl<typename dispatch<find_dispatch(sizeof...(Ts)), T>::template
+                      f<Ts...>>;
+
+    export template <typename T, typename... Ts>
+    using maybe_t = maybe_impl<typename dispatch<find_dispatch(sizeof...(Ts)), T>::template
+                       f<Ts...>::type>;
+
+    export template <typename T, typename... Ts>
+    constexpr auto maybe_v = maybe_impl<typename dispatch<find_dispatch(sizeof...(Ts)), T>::template
+                                f<Ts...>>::value;
 } // namespace boost::tmp

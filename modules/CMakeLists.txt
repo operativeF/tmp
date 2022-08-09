@@ -42,15 +42,12 @@ set(TMP_ALGO_IXX
 )
 
 set(TMP_MAIN_IXX
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Call.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Comparison.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Foldey.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.If.ixx
     # ${TMP_BASE_DIR}/Boost.TMP-Base.ListOperations.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Logic.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Map.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Maybe.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Result.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Types.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Try.ixx
 )

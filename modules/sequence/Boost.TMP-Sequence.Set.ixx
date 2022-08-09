@@ -20,7 +20,6 @@ import :Algorithm.FoldLeft;
 import :Algorithm.Product;
 import :Algorithm.RemovePairs;
 import :Algorithm.Sort;
-import :Base.Call;
 import :Base.Comparison;
 import :Base.If;
 import :Base.ListOperations;
