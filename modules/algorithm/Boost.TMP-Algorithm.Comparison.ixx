@@ -39,18 +39,6 @@ namespace boost::tmp {
     export template <typename LV = nothing_, typename UV = nothing_, typename C = identity_>
     struct range_lo_hi_ {};
 
-    export template<typename V = nothing_, typename C = identity_>
-    struct bounded_open {};
-
-    export template<typename V = nothing_, typename C = identity_>
-    struct bounded_closed {};
-
-    export template<typename V = nothing_, typename C = identity_>
-    struct bounded_clopen_lo {};
-
-    export template<typename V = nothing_, typename C = identity_>
-    struct bounded_clopen_hi {};
-
     template <typename P, typename C>
     struct dispatch<1, is_<P, C>> {
         template <typename T>
