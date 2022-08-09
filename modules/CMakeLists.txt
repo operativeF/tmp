@@ -28,7 +28,6 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldLeft.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldRight.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.NoneOf.ixx
-    # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Pairing.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Partition.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Product.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.RangeMath.ixx
