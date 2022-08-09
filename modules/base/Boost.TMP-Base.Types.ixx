@@ -170,10 +170,6 @@ namespace boost::tmp {
     using call_t = dispatch<find_dispatch(sizeof...(Ts)), T>::template
                       f<Ts...>::type;
 
-    export template <typename T, typename... Ts>
-    constexpr auto call_v = dispatch<find_dispatch(sizeof...(Ts)), T>::template
-                               f<Ts...>::value;
-
     export template <typename C = identity_>
     struct call_f_ {};
 
@@ -205,8 +201,4 @@ namespace boost::tmp {
     export template <typename T, typename... Ts>
     using maybe_t = maybe_impl<typename dispatch<find_dispatch(sizeof...(Ts)), T>::template
                        f<Ts...>::type>;
-
-    export template <typename T, typename... Ts>
-    constexpr auto maybe_v = maybe_impl<typename dispatch<find_dispatch(sizeof...(Ts)), T>::template
-                                f<Ts...>>::value;
 } // namespace boost::tmp
