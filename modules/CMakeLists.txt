@@ -16,11 +16,7 @@ set(TMP_UTILS_IXX
 )
 
 set(TMP_ALGO_IXX
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.AllOf.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.AnyOf.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Clamp.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Comparison.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Contains.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.CountIf.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Extrema.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Filter.ixx
@@ -29,7 +25,6 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldLeft.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldRight.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Logic.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.NoneOf.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Partition.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Product.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.RangeMath.ixx

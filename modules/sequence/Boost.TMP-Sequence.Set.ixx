@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Sequence.Set;
 
-import :Algorithm.Comparison;
 import :Algorithm.Flatten;
 import :Algorithm.Filter;
 import :Algorithm.FoldLeft;

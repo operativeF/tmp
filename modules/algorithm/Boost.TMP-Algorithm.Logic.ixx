@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Algorithm.Logic;
 
-import :Algorithm.Comparison;
 import :Base.Foldey;
 import :Base.Types;
 
@@ -37,6 +36,56 @@ namespace boost::tmp {
     // Given a predicate P, if true, return T, and if false, return F.
     export template <typename P, typename T, typename F = always_<nothing_>>
     struct if_ {};
+
+    export template <typename P, typename C = identity_>
+    struct is_ {};
+
+    template <typename P, typename C>
+    struct dispatch<1, is_<P, C>> {
+        template <typename T>
+        using f = dispatch<1, C>::template f<bool_<std::is_same_v<P, T>>>;
+    };
+    
+    export template <typename V = nothing_, typename C = identity_>
+    struct less_ {};
+
+    export template <typename F, typename C = identity_>
+    struct less_f_ {};
+
+    export template <typename V = nothing_, typename C = identity_>
+    struct less_eq_ {};
+
+    export template <typename V = nothing_, typename C = identity_>
+    struct greater_ {};
+
+    export template <typename LV = nothing_, typename UV = nothing_, typename C = identity_>
+    struct range_lo_hi_ {};
+
+    // Given a unary predicate, return true_ / false_ on whether all elements
+    // in a VPP satisfy that predicate.
+    export template <typename F, typename C = identity_>
+    struct all_of_ {};
+
+    // Given a unary predicate, return true_ / false_ on whether any elements
+    // in a VPP satisfy that predicate.
+    export template <typename F = identity_, typename C = identity_>
+    struct any_of_ {};
+
+    // Given a predicate (F), return true_ / false_ if none
+    // of the elements in a VPP satisfy the predicate F.
+    export template <typename F, typename C = identity_>
+    struct none_of_ {};
+
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, none_of_<F, C>> : dispatch<N, and_<F, not_<C>>> {};
+
+    // Given a type (V), return true_ / false_ on whether a given VPP
+    // contains the type V.
+    export template <typename T, typename C = identity_>
+    struct contains_ {};
+
+    template <std::size_t N, typename T, typename C>
+    struct dispatch<N, contains_<T, C>> : dispatch<N, or_<is_<T>, C>> {};
 
     template <typename C>
     struct dispatch<1, not_<C>> {
@@ -122,7 +171,7 @@ namespace boost::tmp {
         using f = dispatch<1, C>::template f<false_>;
     };
 
-        template <bool B>
+    template <bool B>
     struct if_impl;
 
     template <>
@@ -179,6 +228,62 @@ namespace boost::tmp {
         template <typename U>
         using f = if_impl<P<U>::value>::template f<list_<U>, list_<>>;
     };
+
+    // NOTE: Internal compiler error occurs when no parentheses are used around the values.
+    // Error is C1001; compiler file msc1.cpp, line 1596
+    template <typename C>
+    struct dispatch<2, less_<C>> {
+        template <typename T, typename U>
+        using f = dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
+    };
+
+    template <typename U, typename C>
+    struct dispatch<1, less_<U, C>> {
+        template<typename T>
+        using f = dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
+    };
+
+    template <template<typename...> typename F, typename C>
+    struct dispatch<2, less_f_<lift_<F>, C>> {
+        template<typename T, typename U>
+        using f = dispatch<1, C>::template f<bool_<(F<T>::value < F<U>::value)>>;
+    };
+
+    template <typename Lower, typename Upper, typename C>
+    struct dispatch<1, range_lo_hi_<Lower, Upper, C>> {
+        template<typename T>
+        using f = dispatch<1, C>::template f<bool_<!((Lower::value < T::value) && (T::value < Upper::value))>>;
+    };
+
+    template <typename C>
+    struct dispatch<2, less_eq_<C>> {
+        template <typename T, typename U>
+        using f = dispatch<1, C>::template f<bool_<(T::value)<=(U::value)>>;
+    };
+
+    template <typename U, typename C>
+    struct dispatch<1, less_eq_<U, C>> {
+        template<typename T>
+        using f = dispatch<1, C>::template f<bool_<(U::value)<=(T::value)>>;
+    };
+
+    template <typename C>
+    struct dispatch<2, greater_<C>> {
+        template <typename T, typename U>
+        using f = dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
+    };
+
+    template <typename U, typename C>
+    struct dispatch<1, greater_<U, C>> {
+        template<typename T>
+        using f = dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
+    };
+
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, all_of_<F, C>> : dispatch<N, and_<F, C>> {};
+
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, any_of_<F, C>> : dispatch<N, or_<F, C>> {};
 } // namespace boost::tmp
 
 namespace logic_test {
@@ -205,3 +310,52 @@ namespace logic_test {
     using test_four = OneNumberOdd<call_<or_<lift_<utils::is_even>>, int_<2>, int_<1>, int_<2>>>;
 
 } // namespace logic_test
+
+// TODO: Move into logic_test
+namespace contains_test {
+    using namespace boost::tmp;
+
+    template<typename T> requires(std::same_as<T, false_>)
+    struct DoesNotContainType;
+
+    template<typename T> requires(std::same_as<T, true_>)
+    struct ContainsType;
+
+    using test_one   = DoesNotContainType<call_<contains_<int_<0>>, int_<1>>>;
+
+    using test_two   = ContainsType<call_<contains_<int_<2>>, int_<0>, int_<1>, int_<2>>>;
+
+    using test_three = DoesNotContainType<call_<contains_<int_<1>>>>;
+    
+} // namespace contains_test
+
+// TODO: Move into logic_test
+namespace comparison_test {
+    using namespace boost::tmp;
+
+    // template<int A, int B>
+    // struct two_ints {
+    //     int a{A};
+    //     int b{B};
+    // };
+
+    // false_{} = call_<less_f_<lift_<std::alignment_of>>, two_ints<1, 2>, char_<'c'>>{};
+    // true_{}  = call_<less_f_<lift_<std::alignment_of>>, char_<'c'>,     two_ints<1, 2>>{};
+} // namespace comparison_test
+
+// TODO: Move into logic_test
+namespace none_of_test {
+    using namespace boost::tmp;
+
+    template<typename T> requires(std::same_as<T, false_>)
+    struct NoneOfTheNumbersAreOdd;
+
+    template<typename T> requires(std::same_as<T, true_>)
+    struct NoneOfTheNumbersAreEven;
+
+    // Conversely, all of the numbers are even.
+    using test_one = NoneOfTheNumbersAreOdd<call_<none_of_<lift_<utils::is_even>>, int_<2>, int_<100>, int_<4>, int_<500>>>;
+
+    // Conversely, all of the numbers are odd.
+    using test_two = NoneOfTheNumbersAreEven<call_<none_of_<lift_<utils::is_even>>, int_<1>, int_<3>>>;
+} // namespace none_of_test

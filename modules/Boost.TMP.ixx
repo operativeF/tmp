@@ -8,11 +8,7 @@
 
 export module Boost.TMP;
 
-export import :Algorithm.AllOf;
-export import :Algorithm.AnyOf;
 export import :Algorithm.Clamp;
-export import :Algorithm.Comparison;
-export import :Algorithm.Contains;
 export import :Algorithm.CountIf;
 // export import :Algorithm.Extrema;
 export import :Algorithm.Filter;
@@ -21,7 +17,6 @@ export import :Algorithm.Flatten;
 export import :Algorithm.FoldLeft;
 export import :Algorithm.FoldRight;
 export import :Algorithm.Logic;
-export import :Algorithm.NoneOf;
 export import :Algorithm.Partition;
 export import :Algorithm.Product;
 // export import :Algorithm.RangeMath;

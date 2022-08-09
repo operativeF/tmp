@@ -8,7 +8,6 @@
 
 export module Boost.TMP:Base.ListOperations;
 
-import :Algorithm.Comparison;
 import :Algorithm.Contains;
 import :Algorithm.FindIf;
 import :Algorithm.FoldLeft;
