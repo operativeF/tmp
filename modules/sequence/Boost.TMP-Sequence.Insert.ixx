@@ -15,7 +15,7 @@ module;
 export module Boost.TMP:Sequence.Insert;
 
 import :Base.Types;
-import :Sequence.PushFront;
+import :Sequence.PushPop;
 import :Sequence.Rotate;
 
 #if _MSC_VER

@@ -26,7 +26,7 @@ import :Base.Types;
 import :Sequence.Drop;
 import :Sequence.Index;
 import :Sequence.Join;
-import :Sequence.PushFront;
+import :Sequence.PushPop;
 import :Sequence.Tee;
 import :Sequence.Unpack;
 

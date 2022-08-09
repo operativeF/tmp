@@ -16,7 +16,7 @@ import :Algorithm.Sort;
 import :Base.Types;
 import :Sequence.Erase;
 import :Sequence.Index;
-import :Sequence.PushFront;
+import :Sequence.PushPop;
 import :Sequence.Size;
 import :Sequence.Unpack;
 

@@ -16,7 +16,7 @@ export module Boost.TMP:Sequence.Erase;
 
 import :Base.Types;
 import :Sequence.Drop;
-import :Sequence.PopFront;
+import :Sequence.PushPop;
 import :Sequence.Rotate;
 
 #if _MSC_VER

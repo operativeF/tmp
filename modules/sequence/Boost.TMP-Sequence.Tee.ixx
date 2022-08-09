@@ -14,7 +14,7 @@ module;
 export module Boost.TMP:Sequence.Tee;
 
 import :Algorithm.Logic;
-import :Sequence.PushFront;
+import :Sequence.PushPop;
 import :Sequence.Rotate;
 
 #if _MSC_VER
