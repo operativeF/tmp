@@ -24,6 +24,7 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Flatten.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldLeft.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldRight.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Foldey.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Logic.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Partition.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Product.ixx
@@ -37,7 +38,6 @@ set(TMP_ALGO_IXX
 )
 
 set(TMP_MAIN_IXX
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Foldey.ixx
     # ${TMP_BASE_DIR}/Boost.TMP-Base.ListOperations.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Map.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Types.ixx

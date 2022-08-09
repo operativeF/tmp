@@ -15,7 +15,7 @@ module;
 
 export module Boost.TMP:Algorithm.FindIf;
 
-import :Base.Foldey;
+import :Algorithm.Foldey;
 import :Base.Types;
 
 import :TestHelpers;

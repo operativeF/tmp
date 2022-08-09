@@ -14,7 +14,7 @@ module;
 
 export module Boost.TMP:Algorithm.Logic;
 
-import :Base.Foldey;
+import :Algorithm.Foldey;
 import :Base.Types;
 
 import :TestHelpers;

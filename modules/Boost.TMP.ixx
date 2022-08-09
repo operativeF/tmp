@@ -16,6 +16,7 @@ export import :Algorithm.FindIf;
 export import :Algorithm.Flatten;
 export import :Algorithm.FoldLeft;
 export import :Algorithm.FoldRight;
+export import :Algorithm.Foldey;
 export import :Algorithm.Logic;
 export import :Algorithm.Partition;
 export import :Algorithm.Product;
@@ -27,7 +28,6 @@ export import :Algorithm.Sort;
 // export import :Algorithm.SymmetricDiff;
 export import :Algorithm.Transform;
 
-export import :Base.Foldey;
 // export import :Base.ListOperations;
 export import :Base.Map;
 export import :Base.Types;
