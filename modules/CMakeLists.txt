@@ -27,7 +27,6 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Flatten.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldLeft.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldRight.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Gather.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.NoneOf.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Pairing.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Partition.ixx

@@ -19,7 +19,6 @@ export import :Algorithm.FindIf;
 export import :Algorithm.Flatten;
 export import :Algorithm.FoldLeft;
 export import :Algorithm.FoldRight;
-export import :Algorithm.Gather;
 export import :Algorithm.NoneOf;
 // export import :Algorithm.Pairing;
 export import :Algorithm.Partition;
