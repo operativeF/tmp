@@ -11,7 +11,7 @@ module;
 #include <concepts>
 #endif
 
-export module Boost.TMP:Sequence.Swap;
+export module Boost.TMP:Algorithm.Swap;
 
 import :Base.Types;
 

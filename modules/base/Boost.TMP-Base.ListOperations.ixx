@@ -14,11 +14,11 @@ import :Algorithm.FunctionIf;
 import :Algorithm.Logic;
 import :Algorithm.Sort;
 import :Base.Types;
-import :Sequence.Erase;
-import :Sequence.Index;
-import :Sequence.PushPop;
-import :Sequence.Size;
-import :Sequence.Unpack;
+import :Algorithm.Erase;
+import :Algorithm.Index;
+import :Algorithm.PushPop;
+import :Algorithm.Size;
+import :Algorithm.Unpack;
 
 namespace boost::tmp {
     export template <typename T>

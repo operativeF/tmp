@@ -16,9 +16,9 @@ export module Boost.TMP:Algorithm.Sort;
 
 import :Algorithm.FoldLeft;
 import :Algorithm.Logic;
+import :Algorithm.PushPop;
+import :Algorithm.Unpack;
 import :Base.Types;
-import :Sequence.PushPop;
-import :Sequence.Unpack;
 import :TestHelpers;
 
 #if _MSC_VER

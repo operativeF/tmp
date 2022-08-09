@@ -14,8 +14,8 @@ module;
 
 export module Boost.TMP:Algorithm.Product;
 
+import :Algorithm.Join;
 import :Base.Types;
-import :Sequence.Join;
 
 namespace boost::tmp {
 //  product_ : Given two lists, generates the Cartesian product of said lists (n x m tuples generated).

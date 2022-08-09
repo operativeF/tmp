@@ -12,12 +12,12 @@ module;
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Sequence.Zip;
+export module Boost.TMP:Algorithm.Zip;
 
+import :Algorithm.MakeSequence;
 import :Algorithm.Transform;
+import :Algorithm.Unpack;
 import :Base.Types;
-import :Sequence.MakeSequence;
-import :Sequence.Unpack;
 import :TestHelpers;
 
 #if _MSC_VER

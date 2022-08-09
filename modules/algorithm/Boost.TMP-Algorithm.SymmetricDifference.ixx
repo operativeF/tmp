@@ -6,8 +6,8 @@
 
 export module Boost.TMP:Algorithm.SymmetricDiff;
 
+import :Algorithm.Join;
 import :Base.Types;
-import :Sequence.Join;
 
 namespace boost::tmp {
 // Returns a single list where common elements from both are removed.

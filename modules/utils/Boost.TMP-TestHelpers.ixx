@@ -8,7 +8,7 @@
 export module Boost.TMP:TestHelpers;
 
 import :Base.Types;
-import :Sequence.Join;
+import :Algorithm.Join;
 
 namespace boost::tmp::utils {
     using namespace boost::tmp;

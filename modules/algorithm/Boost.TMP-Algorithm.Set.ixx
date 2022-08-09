@@ -12,23 +12,22 @@ module;
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Sequence.Set;
+export module Boost.TMP:Algorithm.Set;
 
-import :Algorithm.Flatten;
+import :Algorithm.Drop;
 import :Algorithm.Filter;
+import :Algorithm.Flatten;
 import :Algorithm.FoldLeft;
+import :Algorithm.Index;
+import :Algorithm.Join;
 import :Algorithm.Logic;
 import :Algorithm.Product;
-import :Algorithm.RemovePairs;
+import :Algorithm.PushPop;
 import :Algorithm.Sort;
+import :Algorithm.Tee;
+import :Algorithm.Unpack;
 import :Base.ListOperations;
 import :Base.Types;
-import :Sequence.Drop;
-import :Sequence.Index;
-import :Sequence.Join;
-import :Sequence.PushPop;
-import :Sequence.Tee;
-import :Sequence.Unpack;
 
 #if _MSC_VER
 import std;

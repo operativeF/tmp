@@ -12,7 +12,7 @@ module;
 #include <utility>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Sequence.Join;
+export module Boost.TMP:Algorithm.Join;
 
 import :Base.Types;
 

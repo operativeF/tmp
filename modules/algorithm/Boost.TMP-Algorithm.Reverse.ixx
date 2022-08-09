@@ -12,7 +12,7 @@ module;
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Sequence.Reverse;
+export module Boost.TMP:Algorithm.Reverse;
 
 import :Base.Types;
 

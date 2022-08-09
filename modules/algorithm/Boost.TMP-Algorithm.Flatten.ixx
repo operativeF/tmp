@@ -14,8 +14,8 @@ module;
 
 export module Boost.TMP:Algorithm.Flatten;
 
+import :Algorithm.Join;
 import :Base.Types;
-import :Sequence.Join;
 
 #if _MSC_VER
 import std;

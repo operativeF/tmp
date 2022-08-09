@@ -14,8 +14,8 @@ module;
 
 export module Boost.TMP:Algorithm.FoldLeft;
 
+import :Algorithm.Join;
 import :Base.Types;
-import :Sequence.Join;
 
 import :TestHelpers;
 

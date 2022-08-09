@@ -11,11 +11,11 @@ module;
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Sequence.Tee;
+export module Boost.TMP:Algorithm.Tee;
 
 import :Algorithm.Logic;
-import :Sequence.PushPop;
-import :Sequence.Rotate;
+import :Algorithm.PushPop;
+import :Algorithm.Rotate;
 
 #if _MSC_VER
 import std;

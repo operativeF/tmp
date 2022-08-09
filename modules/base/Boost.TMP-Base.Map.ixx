@@ -15,8 +15,8 @@ export module Boost.TMP:Base.Map;
 import :Algorithm.FunctionIf;
 import :Algorithm.Sort;
 import :Base.Types;
-import :Sequence.Index;
-import :Sequence.Zip;
+import :Algorithm.Index;
+import :Algorithm.Zip;
 
 #if _MSC_VER
 import std;

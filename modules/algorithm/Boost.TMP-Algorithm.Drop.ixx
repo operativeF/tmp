@@ -12,10 +12,10 @@ module;
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Sequence.Drop;
+export module Boost.TMP:Algorithm.Drop;
 
+import :Algorithm.Rotate;
 import :Base.Types;
-import :Sequence.Rotate;
 
 #if _MSC_VER
 import std;

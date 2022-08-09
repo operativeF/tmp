@@ -9,40 +9,39 @@
 export module Boost.TMP;
 
 export import :Algorithm.Clamp;
+export import :Algorithm.Drop;
+export import :Algorithm.Each;
+export import :Algorithm.Erase;
 export import :Algorithm.Filter;
 export import :Algorithm.Flatten;
 export import :Algorithm.FoldLeft;
 export import :Algorithm.FoldRight;
 export import :Algorithm.Foldey;
 export import :Algorithm.FunctionIf;
+export import :Algorithm.Index;
+export import :Algorithm.Insert;
+export import :Algorithm.Join;
 export import :Algorithm.Logic;
+export import :Algorithm.MakeSequence;
 export import :Algorithm.Partition;
 export import :Algorithm.Product;
+export import :Algorithm.PushPop;
+export import :Algorithm.Reverse;
+export import :Algorithm.Rotate;
+// export import :Algorithm.Set;
+export import :Algorithm.Size;
 export import :Algorithm.Sort;
+export import :Algorithm.Swap;
 // export import :Algorithm.SymmetricDiff;
+export import :Algorithm.Take;
+export import :Algorithm.Tee;
 export import :Algorithm.Transform;
+export import :Algorithm.Unpack;
+export import :Algorithm.Zip;
 
 // export import :Base.ListOperations;
 export import :Base.Map;
 export import :Base.Types;
 export import :Base.Try;
-
-export import :Sequence.Drop;
-export import :Sequence.Each;
-export import :Sequence.Erase;
-export import :Sequence.Index;
-export import :Sequence.Insert;
-export import :Sequence.Join;
-export import :Sequence.MakeSequence;
-export import :Sequence.PushPop;
-export import :Sequence.Reverse;
-export import :Sequence.Rotate;
-// export import :Sequence.Set;
-export import :Sequence.Size;
-export import :Sequence.Swap;
-export import :Sequence.Take;
-export import :Sequence.Tee;
-export import :Sequence.Unpack;
-export import :Sequence.Zip;
 
 export import :TestHelpers;

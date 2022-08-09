@@ -12,7 +12,7 @@ module;
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Sequence.Each;
+export module Boost.TMP:Algorithm.Each;
 
 import :Base.Types;
 

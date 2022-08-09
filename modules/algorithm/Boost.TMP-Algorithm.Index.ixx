@@ -12,11 +12,11 @@ module;
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Sequence.Index;
+export module Boost.TMP:Algorithm.Index;
 
+import :Algorithm.Drop;
+import :Algorithm.Unpack;
 import :Base.Types;
-import :Sequence.Drop;
-import :Sequence.Unpack;
 
 #if _MSC_VER
 import std;

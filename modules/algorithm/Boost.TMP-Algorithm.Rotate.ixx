@@ -12,7 +12,7 @@ module;
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Sequence.Rotate;
+export module Boost.TMP:Algorithm.Rotate;
 
 import :Base.Types;
 

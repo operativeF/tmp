@@ -17,11 +17,11 @@ module;
 export module Boost.TMP:Algorithm.FunctionIf;
 
 import :Algorithm.Filter;
+import :Algorithm.Join;
 import :Algorithm.Logic;
+import :Algorithm.Size;
 import :Algorithm.Transform;
 import :Base.Types;
-import :Sequence.Join;
-import :Sequence.Size;
 
 import :TestHelpers;
 

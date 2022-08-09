@@ -7,7 +7,6 @@
 
 set(TMP_ALGO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/algorithm)
 set(TMP_DETAIL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/detail)
-set(TMP_SEQ_DIR ${CMAKE_CURRENT_SOURCE_DIR}/sequence)
 set(TMP_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/base)
 set(TMP_UTILS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/utils)
 
@@ -17,18 +16,35 @@ set(TMP_UTILS_IXX
 
 set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Clamp.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Drop.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Each.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Erase.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Filter.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Flatten.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldLeft.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldRight.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Foldey.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FunctionIf.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Index.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Insert.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Join.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Logic.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.MakeSequence.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Partition.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Product.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.PushPop.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Reverse.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Rotate.ixx
+    # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Set.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Size.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Sort.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Swap.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.SymmetricDifference.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Take.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Tee.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Transform.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Unpack.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Zip.ixx
 )
 
 set(TMP_MAIN_IXX
@@ -36,26 +52,6 @@ set(TMP_MAIN_IXX
     ${TMP_BASE_DIR}/Boost.TMP-Base.Map.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Types.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Try.ixx
-)
-
-set(TMP_SEQ_IXX
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Drop.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Each.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Erase.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Index.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Insert.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Join.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.MakeSequence.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.PushPop.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Reverse.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Rotate.ixx
-    # ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Set.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Size.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Swap.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Take.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Tee.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Unpack.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Zip.ixx
 )
 
 set(TMP_BASE_IXX
@@ -70,7 +66,6 @@ target_sources(boost_tmp
         ${TMP_ALGO_IXX}
         ${TMP_MAIN_IXX}
         ${TMP_DETAIL_IXX}
-        ${TMP_SEQ_IXX}
         ${TMP_BASE_IXX}
         ${TMP_UTILS_IXX}
 )
