@@ -25,14 +25,15 @@ import :TestHelpers;
 import std;
 #endif
 
-/// \brief Given a predicate F, check the variadic parameter pack passed in
-/// and remove the value if the predicate holds true.
 namespace boost::tmp {
-    export template <typename F, typename C = listify_>
-    struct remove_if_ {};
+// remove_if_ : Given a predicate F, check the variadic parameter pack passed in
+// and remove the value if the predicate holds true.
+export template <typename F, typename C = listify_>
+struct remove_if_ {};
 
-    template<std::size_t N, typename F, typename C>
-    struct dispatch<N, remove_if_<F, C>>
+// remove_if_ : implementation
+template<std::size_t N, typename F, typename C>
+struct dispatch<N, remove_if_<F, C>>
         : dispatch<N, filter_<if_<F, always_<false_>, always_<true_>>, C>> {};
 } // namespace boost::tmp
 

@@ -29,20 +29,20 @@ import std;
 // Attempting to insert a value in a position greater than the size of the list
 // will result in an error, as the value goes negative.
 namespace boost::tmp {
-    export template <typename N, typename V, typename C = listify_>
-    struct insert_ {};
+export template <typename N, typename V, typename C = listify_>
+struct insert_ {};
 
-    template <std::size_t N, typename I, typename V, typename C>
-    struct dispatch<N, insert_<I, V, C>> {
-        template <typename... Ts>
-        using f = dispatch<N, rotate_<I, push_front_<V, rotate_<sizet_<(sizeof...(Ts) - I::value + 1)>,
-                                                        C>>>>::template f<Ts...>;
-    };
-    template <typename I, typename V, typename C>
-    struct dispatch<0, insert_<I, V, C>> {
-        template <typename... Ts>
-        using f = dispatch<1, C>::template f<V>;
-    };
+template <std::size_t N, typename I, typename V, typename C>
+struct dispatch<N, insert_<I, V, C>> {
+    template <typename... Ts>
+    using f = dispatch<N, rotate_<I, push_front_<V, rotate_<sizet_<(sizeof...(Ts) - I::value + 1)>,
+                                                    C>>>>::template f<Ts...>;
+};
+template <typename I, typename V, typename C>
+struct dispatch<0, insert_<I, V, C>> {
+    template <typename... Ts>
+    using f = dispatch<1, C>::template f<V>;
+};
 } // namespace boost::tmp
 
 // TESTING:

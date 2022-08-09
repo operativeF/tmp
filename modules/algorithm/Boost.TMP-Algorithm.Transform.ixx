@@ -21,21 +21,22 @@ import std;
 #endif
 
 namespace boost::tmp {
-    export template <typename F = identity_, typename C = listify_>
-    struct transform_ {};
-    
-    template <std::size_t N, typename F, typename C>
-    struct dispatch<N, transform_<F, C>> {
-        template <typename... Ts>
-        using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template f<
-                     typename dispatch<1, F>::template f<Ts>...>;
-    };
+// transform_ : 
+export template <typename F = identity_, typename C = listify_>
+struct transform_ {};
 
-    template <std::size_t N, template <typename...> class F, typename FC, typename C>
-    struct dispatch<N, transform_<lift_<F, FC>, C>> {
-        template <typename... Ts>
-        using f = dispatch<(N + (N > sizeof...(Ts))), C>::template f<F<Ts>...>;
-    };
+// transform_ : implementation
+template <std::size_t N, typename F, typename C>
+struct dispatch<N, transform_<F, C>> {
+    template <typename... Ts>
+    using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template f<
+                    typename dispatch<1, F>::template f<Ts>...>;
+};
+template <std::size_t N, template <typename...> class F, typename FC, typename C>
+struct dispatch<N, transform_<lift_<F, FC>, C>> {
+    template <typename... Ts>
+    using f = dispatch<(N + (N > sizeof...(Ts))), C>::template f<F<Ts>...>;
+};
 } // namespace boost::tmp
 
 // TESTING:

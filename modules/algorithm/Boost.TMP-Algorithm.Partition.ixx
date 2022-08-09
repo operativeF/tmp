@@ -25,15 +25,16 @@ import :TestHelpers;
 import std;
 #endif // _MSC_VER
 
-// Given a unary predicate, separate a VPP into a list of two lists, with the first list being
-// the elements where the predicate is true.
-// Maintains order of elements.
 namespace boost::tmp {
-    export template <typename F, typename C = listify_>
-    struct partition_ {};
+// partition_ : Given a unary predicate, separate a VPP into a list of two lists,
+// with the first list being the elements where the predicate is true.
+// Maintains order of elements.
+export template <typename F, typename C = listify_>
+struct partition_ {};
 
-    template <std::size_t N, typename F, typename C>
-    struct dispatch<N, partition_<F, C>> : dispatch<N, tee_<filter_<F>, remove_if_<F>, C>> {};
+// partition_ : implementation
+template <std::size_t N, typename F, typename C>
+struct dispatch<N, partition_<F, C>> : dispatch<N, tee_<filter_<F>, remove_if_<F>, C>> {};
 } // namespace boost::tmp
 
 // TESTING:

@@ -27,37 +27,37 @@ import std;
 // rotate or other large dispatching functions.
 
 namespace boost::tmp {
-    export template <typename F, typename C = listify_>
-    struct zip_ {};
+// zip_ :
+export template <typename F, typename C = listify_>
+struct zip_ {};
 
-    template<typename F, typename C, typename T, typename U>
-    struct zip2;
-    template<typename F, typename C, typename...Ts, typename...Us>
-    struct zip2<F, C, list_<Ts...>, list_<Us...>> {
-        using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template
-            f<typename dispatch<2, F>::template f<Ts, Us>...>;
-    };
-
-    template<typename F, typename C, typename T, typename U, typename V>
-    struct zip3;
-    template<typename F, typename C, typename... Ts, typename... Us, typename... Vs>
-    struct zip3<F, C, list_<Ts...>, list_<Us...>, list_<Vs...>> {
-        using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template
-            f<typename dispatch<3, F>::template f<Ts, Us, Vs>...>;
-    };
-
-    template <typename F, typename C>
-    struct dispatch<1, zip_<F, C>> : dispatch<1, unpack_<transform_<F, C>>> {};
-    template <typename F, typename C>
-    struct dispatch<2, zip_<F, C>> {
-        template<typename T, typename U>
-        using f = zip2<F, C, T, U>::f;
-    };
-    template<typename F, typename C>
-    struct dispatch<3, zip_<F, C>> {
-        template<typename T, typename U, typename V>
-        using f = zip3<F, C, T, U, V>::f;
-    };
+// zip_ : implementation
+template<typename F, typename C, typename T, typename U>
+struct zip2;
+template<typename F, typename C, typename...Ts, typename...Us>
+struct zip2<F, C, list_<Ts...>, list_<Us...>> {
+    using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template
+        f<typename dispatch<2, F>::template f<Ts, Us>...>;
+};
+template<typename F, typename C, typename T, typename U, typename V>
+struct zip3;
+template<typename F, typename C, typename... Ts, typename... Us, typename... Vs>
+struct zip3<F, C, list_<Ts...>, list_<Us...>, list_<Vs...>> {
+    using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template
+        f<typename dispatch<3, F>::template f<Ts, Us, Vs>...>;
+};
+template <typename F, typename C>
+struct dispatch<1, zip_<F, C>> : dispatch<1, unpack_<transform_<F, C>>> {};
+template <typename F, typename C>
+struct dispatch<2, zip_<F, C>> {
+    template<typename T, typename U>
+    using f = zip2<F, C, T, U>::f;
+};
+template<typename F, typename C>
+struct dispatch<3, zip_<F, C>> {
+    template<typename T, typename U, typename V>
+    using f = zip3<F, C, T, U, V>::f;
+};
 } // namespace boost::tmp
 
 // TESTING:

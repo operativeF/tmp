@@ -21,14 +21,16 @@ import std;
 #endif
 
 namespace boost::tmp {
-    export template <typename T, typename C = listify_>
-    struct push_front_ {};
-    
-    template <std::size_t N, typename T, typename C>
-    struct dispatch<N, push_front_<T, C>> {
-        template <typename... Ts>
-        using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<T, Ts...>;
-    };
+// push_front_ :
+export template <typename T, typename C = listify_>
+struct push_front_ {};
+
+// push_front_ : implementation
+template <std::size_t N, typename T, typename C>
+struct dispatch<N, push_front_<T, C>> {
+    template <typename... Ts>
+    using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<T, Ts...>;
+};
 } // namespace boost::tmp
 
 // TESTING:

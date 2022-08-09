@@ -25,15 +25,16 @@ import :TestHelpers;
 import std;
 #endif // _MSC_VER
 
-/// \brief Given a variadic parameter pack, replace every value that fulfills
-/// the predicate F with the value Input.
 namespace boost::tmp {
-    export template <typename Input, typename F, typename C = listify_>
-    struct replace_if_ {};
+// replace_if_ : Given a variadic parameter pack, replace every value that fulfills
+// the predicate F with the value Input.
+export template <typename Input, typename F, typename C = listify_>
+struct replace_if_ {};
 
-    template <std::size_t N, typename Input, typename F, typename C>
-    struct dispatch<N, replace_if_<Input, F, C>>
-              : dispatch<N, transform_<if_<F, always_<Input>, identity_>, C>> {};
+// replace_if_ : implementation
+template <std::size_t N, typename Input, typename F, typename C>
+struct dispatch<N, replace_if_<Input, F, C>>
+        : dispatch<N, transform_<if_<F, always_<Input>, identity_>, C>> {};
 } // namespace boost::tmp
 
 // TESTING:
@@ -49,5 +50,4 @@ namespace replace_if_test {
     using test_one = ReplaceTwoWithC<call_<replace_if_<char_<'c'>, lift_<utils::is_even>>, uint_<1>, uint_<2>, uint_<1>>>;
 
     using test_two = EmptyPackReturnsAnEmptyList<call_<replace_if_<char_<'c'>, lift_<utils::is_even>>>>;
-
 } // namespace replace_if_test

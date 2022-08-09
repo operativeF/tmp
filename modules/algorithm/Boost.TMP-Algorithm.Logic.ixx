@@ -24,265 +24,278 @@ import std;
 #endif
 
 namespace boost::tmp {
-    // is_ : 
-    export template <typename P, typename C = identity_>
-    struct is_ {};
-    // is_ implementation
-    template <typename P, typename C>
-    struct dispatch<1, is_<P, C>> {
-        template <typename T>
-        using f = dispatch<1, C>::template f<bool_<std::is_same_v<P, T>>>;
-    };
-    
-    // not_ : 
-    export template <typename C = identity_>
-    struct not_ {};
-    // not_ : implementation
-    template <typename C>
-    struct dispatch<1, not_<C>> {
-        template <typename T>
-        using f = dispatch<1, C>::template f<bool_<(!T::value)>>;
-    };
+// is_ : 
+export template <typename P, typename C = identity_>
+struct is_ {};
 
-    // or_ : 
-    export template <typename F = identity_, typename C = identity_>
-    struct or_ {};
-    // or_ : implementation
-    template <bool Short, template <typename...> class F>
-    struct ory {
-        template <typename T>
-        using f                    = ory<F<T>::value, F>;
-        static constexpr std::size_t value = -1;
-    };
-    template <template <typename...> class F>
-    struct ory<true, F> {
-        template <typename T>
-        using f                    = ory;
-        static constexpr std::size_t value = 1;
-    };
-    template <std::size_t N, template <typename...> class F, typename C>
-    struct dispatch<N, or_<lift_<F>, C>> {
-        template <typename... Ts>
-        using f = dispatch<1, C>::template f<
-                call_<is_<nothing_, not_<identity_>>,
-                        typename foldey<(select_foldey_loop(
-                                sizeof...(Ts)))>::template f<ory<false, F>, 0, Ts...>>>;
-    };
-    template <template <typename...> class F, typename C>
-    struct dispatch<0, or_<lift_<F>, C>> {
-        template <typename... Ts>
-        using f = dispatch<1, C>::template f<false_>;
-    };
-    template <std::size_t N, typename F, typename C>
-    struct dispatch<N, or_<F, C>> {
-        template <typename... Ts>
-        using f = dispatch<1, C>::template f<
-                call_<is_<nothing_, not_<identity_>>,
-                        typename foldey<(select_foldey_loop(sizeof...(Ts)))>::template f<
-                                ory<false, dispatch<1, F>::template f>, 0, Ts...>>>;
-    };
-    template <typename F, typename C>
-    struct dispatch<0, or_<F, C>> {
-        template <typename... Ts>
-        using f = dispatch<1, C>::template f<false_>;
-    };
+// is_ implementation
+template <typename P, typename C>
+struct dispatch<1, is_<P, C>> {
+    template <typename T>
+    using f = dispatch<1, C>::template f<bool_<std::is_same_v<P, T>>>;
+};
 
-    // and_ : 
-    export template <typename F = identity_, typename C = identity_>
-    struct and_ {};
-    // and_ : implementation
-    template <bool Short, template <typename...> class F>
-    struct andy {
-        template <typename T>
-        using f                    = andy<(!F<T>::value), F>;
-        static constexpr std::size_t value = -1;
-    };
-    template <template <typename...> class F>
-    struct andy<true, F> {
-        template <typename T>
-        using f                    = andy;
-        static constexpr std::size_t value = 1;
-    };
-    template <std::size_t N, template <typename...> class F, typename C>
-    struct dispatch<N, and_<lift_<F>, C>> {
-        template <typename... Ts>
-        using f = dispatch<1, C>::template f<
-                call_<is_<nothing_>, typename foldey<(select_foldey_loop(sizeof...(
-                                                Ts)))>::template f<andy<false, F>, 0, Ts...>>>;
-    };
-    template <template <typename...> class F, typename C>
-    struct dispatch<0, and_<lift_<F>, C>> {
-        template <typename... Ts>
-        using f = dispatch<1, C>::template f<false_>;
-    };
-    template <std::size_t N, typename F, typename C>
-    struct dispatch<N, and_<F, C>> {
-        template <typename... Ts>
-        using f = dispatch<1, C>::template f<
-                call_<is_<nothing_>,
-                        typename foldey<(select_foldey_loop(sizeof...(Ts)))>::template f<
-                                andy<false, dispatch<1, F>::template f>, 0, Ts...>>>;
-    };
-    template <typename F, typename C>
-    struct dispatch<0, and_<F, C>> {
-        template <typename... Ts>
-        using f = dispatch<1, C>::template f<false_>;
-    };
+// not_ : 
+export template <typename C = identity_>
+struct not_ {};
 
-    // if_ : Given a predicate P, if true, return T, and if false, return F.
-    export template <typename P, typename T, typename F = always_<nothing_>>
-    struct if_ {};
-    // if_ implementation
-    template <bool B>
-    struct if_impl;
-    template <>
-    struct if_impl<true> {
-        template <typename T, typename U>
-        using f = T;
-    };
-    template <>
-    struct if_impl<false> {
-        template <typename T, typename U>
-        using f = U;
-    };
-    template <typename P, typename T, typename F>
-    struct dispatch<1, if_<P, T, F>> {
-        template <typename T0>
-        using f = dispatch<1, typename if_impl<dispatch<1, P>::template
-                      f<T0>::value>::template
-                          f<T, F>>::template
-                              f<T0>;
-    };
-    template <template <typename...> class P, typename T, typename F>
-    struct dispatch<1, if_<lift_<P>, T, F>> {
-        template <typename T0>
-        using f = dispatch<1, typename if_impl<P<T0>::value>::template
-                      f<T, F>>::template
-                          f<T0>;
-    };
-    template <std::size_t N, typename P, typename T, typename F>
-    struct dispatch<N, if_<P, T, F>> {
-        template <typename... Ts>
-        using f = dispatch<find_dispatch(sizeof...(Ts)),
-                      typename if_impl<dispatch<find_dispatch(sizeof...(Ts)), P>::template
-                          f<Ts...>::value>::template f<T, F>>::template f<Ts...>;
-    };
-    template <std::size_t N, template <typename...> class P, typename T, typename F>
-    struct dispatch<N, if_<lift_<P>, T, F>> {
-        template <typename... Ts>
-        using f = dispatch<find_dispatch(sizeof...(Ts)),
-                      typename if_impl<P<Ts...>::value>::template
-                          f<T, F>>::template f<Ts...>;
-    };
-    template <template <typename...> class P, typename T, typename F>
-    struct dispatch<2, if_<lift_<P>, T, F>> {
-        template <typename T0, typename T1>
-        using f = dispatch<2, typename if_impl<P<T0,T1>::value>::template
-                      f<T, F>>::template f<T0, T1>;
-    };
-    template <template <typename...> class P>
-    struct dispatch<1, if_<lift_<P>, listify_, always_<list_<>>>> {
-        template <typename U>
-        using f = if_impl<P<U>::value>::template f<list_<U>, list_<>>;
-    };
+// not_ : implementation
+template <typename C>
+struct dispatch<1, not_<C>> {
+    template <typename T>
+    using f = dispatch<1, C>::template f<bool_<(!T::value)>>;
+};
 
-    // less_ : 
-    export template <typename V = nothing_, typename C = identity_>
-    struct less_ {};
-    // less_ : implementation
-    template <typename C>
-    struct dispatch<2, less_<C>> {
-        template <typename T, typename U>
-        using f = dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
-    };
-    template <typename U, typename C>
-    struct dispatch<1, less_<U, C>> {
-        template<typename T>
-        using f = dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
-    };
+// or_ : 
+export template <typename F = identity_, typename C = identity_>
+struct or_ {};
 
-    // less_f_ : 
-    export template <typename F, typename C = identity_>
-    struct less_f_ {};
-    // less_f_ : implementation
-    template <template<typename...> typename F, typename C>
-    struct dispatch<2, less_f_<lift_<F>, C>> {
-        template<typename T, typename U>
-        using f = dispatch<1, C>::template f<bool_<(F<T>::value < F<U>::value)>>;
-    };
+// or_ : implementation
+template <bool Short, template <typename...> class F>
+struct ory {
+    template <typename T>
+    using f                    = ory<F<T>::value, F>;
+    static constexpr std::size_t value = -1;
+};
+template <template <typename...> class F>
+struct ory<true, F> {
+    template <typename T>
+    using f                    = ory;
+    static constexpr std::size_t value = 1;
+};
+template <std::size_t N, template <typename...> class F, typename C>
+struct dispatch<N, or_<lift_<F>, C>> {
+    template <typename... Ts>
+    using f = dispatch<1, C>::template f<
+            call_<is_<nothing_, not_<identity_>>,
+                    typename foldey<(select_foldey_loop(
+                            sizeof...(Ts)))>::template f<ory<false, F>, 0, Ts...>>>;
+};
+template <template <typename...> class F, typename C>
+struct dispatch<0, or_<lift_<F>, C>> {
+    template <typename... Ts>
+    using f = dispatch<1, C>::template f<false_>;
+};
+template <std::size_t N, typename F, typename C>
+struct dispatch<N, or_<F, C>> {
+    template <typename... Ts>
+    using f = dispatch<1, C>::template f<
+            call_<is_<nothing_, not_<identity_>>,
+                    typename foldey<(select_foldey_loop(sizeof...(Ts)))>::template f<
+                            ory<false, dispatch<1, F>::template f>, 0, Ts...>>>;
+};
+template <typename F, typename C>
+struct dispatch<0, or_<F, C>> {
+    template <typename... Ts>
+    using f = dispatch<1, C>::template f<false_>;
+};
 
-    // less_eq_ : 
-    export template <typename V = nothing_, typename C = identity_>
-    struct less_eq_ {};
-    // less_eq_ : implementation
-    template <typename C>
-    struct dispatch<2, less_eq_<C>> {
-        template <typename T, typename U>
-        using f = dispatch<1, C>::template f<bool_<(T::value)<=(U::value)>>;
-    };
-    template <typename U, typename C>
-    struct dispatch<1, less_eq_<U, C>> {
-        template<typename T>
-        using f = dispatch<1, C>::template f<bool_<(U::value)<=(T::value)>>;
-    };
+// and_ : 
+export template <typename F = identity_, typename C = identity_>
+struct and_ {};
 
-    // greater_ : 
-    export template <typename V = nothing_, typename C = identity_>
-    struct greater_ {};
-    // greater_ : implementation
-    template <typename C>
-    struct dispatch<2, greater_<C>> {
-        template <typename T, typename U>
-        using f = dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
-    };
-    template <typename U, typename C>
-    struct dispatch<1, greater_<U, C>> {
-        template<typename T>
-        using f = dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
-    };
+// and_ : implementation
+template <bool Short, template <typename...> class F>
+struct andy {
+    template <typename T>
+    using f                    = andy<(!F<T>::value), F>;
+    static constexpr std::size_t value = -1;
+};
+template <template <typename...> class F>
+struct andy<true, F> {
+    template <typename T>
+    using f                    = andy;
+    static constexpr std::size_t value = 1;
+};
+template <std::size_t N, template <typename...> class F, typename C>
+struct dispatch<N, and_<lift_<F>, C>> {
+    template <typename... Ts>
+    using f = dispatch<1, C>::template f<
+            call_<is_<nothing_>, typename foldey<(select_foldey_loop(sizeof...(
+                                            Ts)))>::template f<andy<false, F>, 0, Ts...>>>;
+};
+template <template <typename...> class F, typename C>
+struct dispatch<0, and_<lift_<F>, C>> {
+    template <typename... Ts>
+    using f = dispatch<1, C>::template f<false_>;
+};
+template <std::size_t N, typename F, typename C>
+struct dispatch<N, and_<F, C>> {
+    template <typename... Ts>
+    using f = dispatch<1, C>::template f<
+            call_<is_<nothing_>,
+                    typename foldey<(select_foldey_loop(sizeof...(Ts)))>::template f<
+                            andy<false, dispatch<1, F>::template f>, 0, Ts...>>>;
+};
+template <typename F, typename C>
+struct dispatch<0, and_<F, C>> {
+    template <typename... Ts>
+    using f = dispatch<1, C>::template f<false_>;
+};
 
-    // range_lo_hi_ : 
-    export template <typename LV = nothing_, typename UV = nothing_, typename C = identity_>
-    struct range_lo_hi_ {};
-    // range_lo_hi_ : implementation
-    template <typename Lower, typename Upper, typename C>
-    struct dispatch<1, range_lo_hi_<Lower, Upper, C>> {
-        template<typename T>
-        using f = dispatch<1, C>::template f<bool_<!((Lower::value < T::value) && (T::value < Upper::value))>>;
-    };
+// if_ : Given a predicate P, if true, return T, and if false, return F.
+export template <typename P, typename T, typename F = always_<nothing_>>
+struct if_ {};
 
-    // all_of_ : Given a unary predicate, return true_ / false_ on whether all elements
-    // in a VPP satisfy that predicate.
-    export template <typename F, typename C = identity_>
-    struct all_of_ {};
-    // all_of_ : implementation
-    template <std::size_t N, typename F, typename C>
-    struct dispatch<N, all_of_<F, C>> : dispatch<N, and_<F, C>> {};
+// if_ implementation
+template <bool B>
+struct if_impl;
+template <>
+struct if_impl<true> {
+    template <typename T, typename U>
+    using f = T;
+};
+template <>
+struct if_impl<false> {
+    template <typename T, typename U>
+    using f = U;
+};
+template <typename P, typename T, typename F>
+struct dispatch<1, if_<P, T, F>> {
+    template <typename T0>
+    using f = dispatch<1, typename if_impl<dispatch<1, P>::template
+                    f<T0>::value>::template
+                        f<T, F>>::template
+                            f<T0>;
+};
+template <template <typename...> class P, typename T, typename F>
+struct dispatch<1, if_<lift_<P>, T, F>> {
+    template <typename T0>
+    using f = dispatch<1, typename if_impl<P<T0>::value>::template
+                    f<T, F>>::template
+                        f<T0>;
+};
+template <std::size_t N, typename P, typename T, typename F>
+struct dispatch<N, if_<P, T, F>> {
+    template <typename... Ts>
+    using f = dispatch<find_dispatch(sizeof...(Ts)),
+                    typename if_impl<dispatch<find_dispatch(sizeof...(Ts)), P>::template
+                        f<Ts...>::value>::template f<T, F>>::template f<Ts...>;
+};
+template <std::size_t N, template <typename...> class P, typename T, typename F>
+struct dispatch<N, if_<lift_<P>, T, F>> {
+    template <typename... Ts>
+    using f = dispatch<find_dispatch(sizeof...(Ts)),
+                    typename if_impl<P<Ts...>::value>::template
+                        f<T, F>>::template f<Ts...>;
+};
+template <template <typename...> class P, typename T, typename F>
+struct dispatch<2, if_<lift_<P>, T, F>> {
+    template <typename T0, typename T1>
+    using f = dispatch<2, typename if_impl<P<T0,T1>::value>::template
+                    f<T, F>>::template f<T0, T1>;
+};
+template <template <typename...> class P>
+struct dispatch<1, if_<lift_<P>, listify_, always_<list_<>>>> {
+    template <typename U>
+    using f = if_impl<P<U>::value>::template f<list_<U>, list_<>>;
+};
 
-    // any_of_ : Given a unary predicate, return true_ / false_ on whether any elements
-    // in a VPP satisfy that predicate.
-    export template <typename F = identity_, typename C = identity_>
-    struct any_of_ {};
-    // any_of_ : implementation
-    template <std::size_t N, typename F, typename C>
-    struct dispatch<N, any_of_<F, C>> : dispatch<N, or_<F, C>> {};
+// less_ : 
+export template <typename V = nothing_, typename C = identity_>
+struct less_ {};
 
-    // none_of_ : Given a predicate (F), return true_ / false_ if none
-    // of the elements in a VPP satisfy the predicate F.
-    export template <typename F, typename C = identity_>
-    struct none_of_ {};
-    // none_of_ : implementation
-    template <std::size_t N, typename F, typename C>
-    struct dispatch<N, none_of_<F, C>> : dispatch<N, and_<F, not_<C>>> {};
+// less_ : implementation
+template <typename C>
+struct dispatch<2, less_<C>> {
+    template <typename T, typename U>
+    using f = dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
+};
+template <typename U, typename C>
+struct dispatch<1, less_<U, C>> {
+    template<typename T>
+    using f = dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
+};
 
-    // contains_ : Given a type (V), return true_ / false_ on whether a given VPP
-    // contains the type V.
-    export template <typename T, typename C = identity_>
-    struct contains_ {};
-    // contains_ : implementation
-    template <std::size_t N, typename T, typename C>
-    struct dispatch<N, contains_<T, C>> : dispatch<N, or_<is_<T>, C>> {};
+// less_f_ : 
+export template <typename F, typename C = identity_>
+struct less_f_ {};
 
+// less_f_ : implementation
+template <template<typename...> typename F, typename C>
+struct dispatch<2, less_f_<lift_<F>, C>> {
+    template<typename T, typename U>
+    using f = dispatch<1, C>::template f<bool_<(F<T>::value < F<U>::value)>>;
+};
+
+// less_eq_ : 
+export template <typename V = nothing_, typename C = identity_>
+struct less_eq_ {};
+
+// less_eq_ : implementation
+template <typename C>
+struct dispatch<2, less_eq_<C>> {
+    template <typename T, typename U>
+    using f = dispatch<1, C>::template f<bool_<(T::value)<=(U::value)>>;
+};
+template <typename U, typename C>
+struct dispatch<1, less_eq_<U, C>> {
+    template<typename T>
+    using f = dispatch<1, C>::template f<bool_<(U::value)<=(T::value)>>;
+};
+
+// greater_ : 
+export template <typename V = nothing_, typename C = identity_>
+struct greater_ {};
+
+// greater_ : implementation
+template <typename C>
+struct dispatch<2, greater_<C>> {
+    template <typename T, typename U>
+    using f = dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
+};
+template <typename U, typename C>
+struct dispatch<1, greater_<U, C>> {
+    template<typename T>
+    using f = dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
+};
+
+// range_lo_hi_ : 
+export template <typename LV = nothing_, typename UV = nothing_, typename C = identity_>
+struct range_lo_hi_ {};
+
+// range_lo_hi_ : implementation
+template <typename Lower, typename Upper, typename C>
+struct dispatch<1, range_lo_hi_<Lower, Upper, C>> {
+    template<typename T>
+    using f = dispatch<1, C>::template f<bool_<!((Lower::value < T::value) && (T::value < Upper::value))>>;
+};
+
+// all_of_ : Given a unary predicate, return true_ / false_ on whether all elements
+// in a VPP satisfy that predicate.
+export template <typename F, typename C = identity_>
+struct all_of_ {};
+
+// all_of_ : implementation
+template <std::size_t N, typename F, typename C>
+struct dispatch<N, all_of_<F, C>> : dispatch<N, and_<F, C>> {};
+
+// any_of_ : Given a unary predicate, return true_ / false_ on whether any elements
+// in a VPP satisfy that predicate.
+export template <typename F = identity_, typename C = identity_>
+struct any_of_ {};
+
+// any_of_ : implementation
+template <std::size_t N, typename F, typename C>
+struct dispatch<N, any_of_<F, C>> : dispatch<N, or_<F, C>> {};
+
+// none_of_ : Given a predicate (F), return true_ / false_ if none
+// of the elements in a VPP satisfy the predicate F.
+export template <typename F, typename C = identity_>
+struct none_of_ {};
+
+// none_of_ : implementation
+template <std::size_t N, typename F, typename C>
+struct dispatch<N, none_of_<F, C>> : dispatch<N, and_<F, not_<C>>> {};
+
+// contains_ : Given a type (V), return true_ / false_ on whether a given VPP
+// contains the type V.
+export template <typename T, typename C = identity_>
+struct contains_ {};
+
+// contains_ : implementation
+template <std::size_t N, typename T, typename C>
+struct dispatch<N, contains_<T, C>> : dispatch<N, or_<is_<T>, C>> {};
 } // namespace boost::tmp
 
 namespace logic_test {

@@ -23,25 +23,26 @@ import :Base.Types;
 import std;
 #endif
 
-// Given a lower-bound type (L) and higher-bound type (H), and that both types
+namespace boost::tmp {
+// clamp_ : Given a lower-bound type (L) and higher-bound type (H), and that both types
 // are less than and greater than comparable, remove all types less than L and all types
 // greater than H from a given VPP.
 // The VPP values must also satisfy being less than and greater than comparable.
-namespace boost::tmp {
-    export template <typename L, typename H, typename C = identity_>
-    struct clamp_ {};
+export template <typename L, typename H, typename C = identity_>
+struct clamp_ {};
 
-    template <std::size_t N, typename L, typename H, typename C>
-    struct dispatch<N, clamp_<L, H, C>>
-        : dispatch<N, remove_if_<range_lo_hi_<L, H, C>>> {};
+// clamp_ : implementation
+template <std::size_t N, typename L, typename H, typename C>
+struct dispatch<N, clamp_<L, H, C>>
+    : dispatch<N, remove_if_<range_lo_hi_<L, H, C>>> {};
 } // namespace boost::tmp
 
 // TESTING:
 namespace clamp_test {
-    using namespace boost::tmp;
-    
-    template<typename T> requires(std::same_as<T, list_<uint_<4>>>)
-    struct ListWithOnlyFour;
+using namespace boost::tmp;
 
-    using test_one = ListWithOnlyFour<call_<clamp_<uint_<3>, uint_<10>>, uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>>;
+template<typename T> requires(std::same_as<T, list_<uint_<4>>>)
+struct ListWithOnlyFour;
+
+using test_one = ListWithOnlyFour<call_<clamp_<uint_<3>, uint_<10>>, uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>>;
 } // namespace clamp_test

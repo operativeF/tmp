@@ -20,20 +20,20 @@ import std;
 #endif
 
 namespace boost::tmp {
-    export template <typename C = listify_>
-    struct pop_back_ {};
+export template <typename C = listify_>
+struct pop_back_ {};
 
-	template <std::size_t N, typename C>
-	struct dispatch<N, pop_back_<C>> {
-		template <typename T, typename... Ts>
-		using f = typename dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
-	};
+template <std::size_t N, typename C>
+struct dispatch<N, pop_back_<C>> {
+	template <typename T, typename... Ts>
+	using f = typename dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
+};
 
-	template <typename C>
-	struct dispatch<0, pop_back_<C>> {
-		template <typename... Ts>
-		using f = typename dispatch<1, C>::template f<nothing_>;
-	};
+template <typename C>
+struct dispatch<0, pop_back_<C>> {
+	template <typename... Ts>
+	using f = typename dispatch<1, C>::template f<nothing_>;
+};
 } // namespace boost::tmp
 
 // TESTING:
