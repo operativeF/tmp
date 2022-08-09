@@ -13,18 +13,18 @@ import :Algorithm.Join;
 namespace boost::tmp::utils {
     using namespace boost::tmp;
 
-    export template <typename T, typename U>
+    template <typename T, typename U>
     using add = uint_<(T::value + U::value)>;
 
-    export template <typename T>
+    template <typename T>
     using is_even = bool_<(T::value % 2 == 0)>;
 
-    export template <typename T>
+    template <typename T>
     using greater_than_two = bool_<(T::value > 2)>;
 
-    export template <typename T, typename U>
+    template <typename T, typename U>
     using less = bool_<(T::value < U::value)>;
 
-    export template <typename T, typename U>
+    template <typename T, typename U>
     using pusher = call_<join_<>, T, list_<U>>;
 } // namespace boost::tmp::utils

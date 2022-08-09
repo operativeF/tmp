@@ -85,13 +85,13 @@ struct dispatch<N, fold_right_<lift_<F>, lift_<C>>> {
     using f = C<F<F<F<F<F<F<F<F<F<typename dispatch<find_dispatch(sizeof...(Ts)),
                                         fold_right_<lift_<F>, identity_>>::template f<Ts...>,
                                 T8>,
-                                T7>,
+                              T7>,
                             T6>,
-                            T5>,
+                          T5>,
                         T4>,
-                        T3>,
+                      T3>,
                     T2>,
-                    T1>,
+                  T1>,
                 T0>>;
 };
 template <std::size_t N, typename F, typename C>

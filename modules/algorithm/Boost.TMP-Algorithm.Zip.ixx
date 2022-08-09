@@ -45,7 +45,7 @@ struct zip3;
 template<typename F, typename C, typename... Ts, typename... Us, typename... Vs>
 struct zip3<F, C, list_<Ts...>, list_<Us...>, list_<Vs...>> {
     using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template
-        f<typename dispatch<3, F>::template f<Ts, Us, Vs>...>;
+        f<dispatch<3, F>::template f<Ts, Us, Vs>...>;
 };
 template <typename F, typename C>
 struct dispatch<1, zip_<F, C>> : dispatch<1, unpack_<transform_<F, C>>> {};

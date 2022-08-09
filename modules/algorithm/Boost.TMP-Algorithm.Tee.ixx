@@ -52,21 +52,21 @@ template <typename C, typename... Fs>
 struct tee_impl<sizet_<1>, identity_, C, Fs...> {
     template <typename T0>
     using f = dispatch<find_dispatch(sizeof...(Fs) + 1), C>::template f<
-                typename dispatch<1, Fs>::template f<T0>..., T0>;
+                dispatch<1, Fs>::template f<T0>..., T0>;
 };
 template <typename L, typename C, typename... Fs>
 struct tee_impl<sizet_<2>, L, C, Fs...> {
     template <typename T0, typename T1>
     using f = dispatch<find_dispatch(sizeof...(Fs) + 1), C>::template
-                    f<typename dispatch<2, Fs>::template f<T0, T1>...,
-                    typename dispatch<2, L>::template f<T0, T1>>;
+                    f<dispatch<2, Fs>::template f<T0, T1>...,
+                      dispatch<2, L>::template f<T0, T1>>;
 };
 // specialization for case where last closure is a forward
 template <typename C, typename... Fs>
 struct tee_impl<sizet_<2>, identity_, C, Fs...> {
     template <typename T0, typename T1>
     using f = dispatch<find_dispatch(sizeof...(Fs) + 2), C>::template f<
-                typename dispatch<2, Fs>::template f<T0, T1>..., T0, T1>;
+                dispatch<2, Fs>::template f<T0, T1>..., T0, T1>;
 };
 
 // in case the continuation is an and_
