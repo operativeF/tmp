@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Algorithm.Filter;
 
-import :Base.Bool;
 import :Base.Call;
 import :Base.Dispatch;
 import :Base.Identity;

@@ -17,8 +17,10 @@ export module Boost.TMP:Algorithm.Extrema;
 
 import :Algorithm.FoldLeft;
 import :Base.Call;
-import :Base.Identity;
 import :Base.Dispatch;
+import :Base.Identity;
+import :Base.Lift;
+import :Base.List;
 
 #if _MSC_VER
 import std;

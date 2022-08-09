@@ -8,7 +8,6 @@
 export module Boost.TMP:Algorithm.Pairing;
 
 import :Base.Lift;
-import :Base.Vocabulary;
 import :Base.Dispatch;
 import :Sequence.Join;
 

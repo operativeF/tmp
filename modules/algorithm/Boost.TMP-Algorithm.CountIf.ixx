@@ -16,12 +16,12 @@ export module Boost.TMP:Algorithm.CountIf;
 
 import :Algorithm.Transform;
 import :Base.Always;
-import :Base.Bool;
 import :Base.Call;
 import :Base.Dispatch;
 import :Base.Identity;
 import :Base.Integral;
 import :Base.If;
+import :Base.Lift;
 import :Base.List;
 import :Sequence.Join;
 import :Sequence.Size;
