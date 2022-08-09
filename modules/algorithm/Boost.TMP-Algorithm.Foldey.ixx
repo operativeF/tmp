@@ -62,4 +62,4 @@ struct foldey<1008> {
 };
 template <>
 struct foldey<1000000> {};
-} // namespace boost::tmp
+} // export namespace boost::tmp

@@ -187,7 +187,7 @@ template <std::size_t N, typename C>
 struct dispatch<N, call_f_<C>> {
     template <typename F, typename... Ts>
     using f = dispatch<1, C>::template f<
-                    dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>>;
+                    typename dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>>;
 };
 
 // maybe_ metaclosure

@@ -61,7 +61,7 @@ struct county<true, At, F> {
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, find_if_<F, C>> {
     template <typename... Ts>
-    using f = dispatch<1, C>::template f<
+    using f = typename dispatch<1, C>::template f<
                     typename foldey<select_foldey_loop(sizeof...(Ts))>::template f<
                     county<false,
                             std::numeric_limits<std::size_t>::max(),
@@ -70,7 +70,7 @@ struct dispatch<N, find_if_<F, C>> {
 template <std::size_t N, template <typename...> class F, typename C>
 struct dispatch<N, find_if_<lift_<F>, C>> {
         template <typename... Ts>
-        using f = dispatch<1, C>::template f<typename foldey<select_foldey_loop(
+        using f = typename dispatch<1, C>::template f<typename foldey<select_foldey_loop(
                      sizeof...(Ts))>::template f<county<false,
                                                         std::numeric_limits<std::size_t>::max(),
                                                         F>, 0, Ts...>>;
