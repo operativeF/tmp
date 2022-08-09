@@ -18,7 +18,7 @@ export module Boost.TMP:Base.Types;
 import std;
 #endif // _MSC_VER
 
-export namespace boost::tmp {
+namespace boost::tmp {
 
     // The dispatch type finds the appropriate metaclosure to call and forms
     // the basis of the library.
