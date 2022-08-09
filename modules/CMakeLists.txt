@@ -43,7 +43,6 @@ set(TMP_ALGO_IXX
 
 set(TMP_MAIN_IXX
     ${TMP_BASE_DIR}/Boost.TMP-Base.Foldey.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.If.ixx
     # ${TMP_BASE_DIR}/Boost.TMP-Base.ListOperations.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Map.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Types.ixx

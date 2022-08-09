@@ -14,7 +14,6 @@ import :Algorithm.FindIf;
 import :Algorithm.FoldLeft;
 import :Algorithm.Logic;
 import :Algorithm.Sort;
-import :Base.If;
 import :Base.Types;
 import :Sequence.Erase;
 import :Sequence.Index;

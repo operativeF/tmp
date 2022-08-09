@@ -16,7 +16,7 @@ module;
 export module Boost.TMP:Algorithm.RemoveIf;
 
 import :Algorithm.Filter;
-import :Base.If;
+import :Algorithm.Logic;
 import :Base.Types;
 
 import :TestHelpers;

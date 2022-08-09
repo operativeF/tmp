@@ -33,7 +33,6 @@ export import :Algorithm.Sort;
 export import :Algorithm.Transform;
 
 export import :Base.Foldey;
-export import :Base.If;
 // export import :Base.ListOperations;
 export import :Base.Map;
 export import :Base.Types;
