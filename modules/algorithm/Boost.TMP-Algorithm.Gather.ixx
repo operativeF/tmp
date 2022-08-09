@@ -23,14 +23,14 @@ import :Sequence.Join;
 import std;
 #endif
 
-export namespace boost::tmp {
+namespace boost::tmp {
     // Sorts, and then groups items into a list of lists of the same type.
-    template<typename F, typename C = listify_>
+    export template<typename F, typename C = listify_>
     struct gather_;
 
     template <std::size_t N, typename F, typename C>
     struct dispatch<N, gather_<F, C>>{};
-} // export namespace boost::tmp
+} // namespace boost::tmp
 
 // TESTING:
 namespace gather_test {

@@ -22,8 +22,8 @@ import :Base.Nothing;
 import std;
 #endif
 
-export namespace boost::tmp {
-    template <typename C = listify_>
+namespace boost::tmp {
+    export template <typename C = listify_>
     struct pop_back_ {};
 
 	template <std::size_t N, typename C>
@@ -37,7 +37,7 @@ export namespace boost::tmp {
 		template <typename... Ts>
 		using f = typename dispatch<1, C>::template f<nothing_>;
 	};
-} // export namespace boost::tmp
+} // namespace boost::tmp
 
 // TESTING:
 namespace pop_back_test {

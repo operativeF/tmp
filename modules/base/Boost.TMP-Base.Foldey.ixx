@@ -22,7 +22,7 @@ import std;
 
 namespace boost::tmp
 {
-    consteval std::size_t select_foldey_loop(std::size_t rest_size) {
+    export consteval std::size_t select_foldey_loop(std::size_t rest_size) {
         return static_cast<std::size_t>(rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008);
     }
     
@@ -31,7 +31,7 @@ namespace boost::tmp
                                         chunk_size - found_at_index;
     }
 
-    template <std::size_t S>
+    export template <std::size_t S>
     struct foldey {
         template <typename F, std::size_t N, typename...>
         using f = sizet_<N - S>;

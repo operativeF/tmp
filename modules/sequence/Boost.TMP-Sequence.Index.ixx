@@ -119,7 +119,7 @@ namespace boost::tmp {
                   typename T4, typename T5, typename T6, typename T7, typename... Ts>
         using f = dispatch<1, C>::template f<T7>;
     };
-} // export namespace boost::tmp
+} // namespace boost::tmp
 
 // TESTING:
 namespace index_test {

@@ -65,7 +65,7 @@ namespace boost::tmp {
                                                         std::numeric_limits<std::size_t>::max(),
                                                         F>, 0, Ts...>>;
     };
-} // export namespace boost::tmp
+} // namespace boost::tmp
 
 // TESTING:
 namespace find_if_test {
