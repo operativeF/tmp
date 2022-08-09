@@ -220,26 +220,26 @@ struct dispatch<N, tee_<F0, F1, Fs...>>
 
 // TESTING:
 namespace tee_test {
-    using namespace boost::tmp;
+using namespace boost::tmp;
 
-    // TODO: Narrow tests down.
-    // list_<list_<>>{}          = call_<tee_<listify_, listify_>>{};
-    // list_<list_<int>>{}       = call_<tee_<listify_, listify_>, int>{};
-    // list_<list_<int, bool>>{} = call_<tee_<listify_, listify_>, int, bool>{};
-    
-    // true_{}  = call_<tee_<is_<int>, and_<>>, int>{};
-    // false_{} = call_<tee_<is_<int>, is_<int>, and_<>>, char>{};
-    // false_{} = call_<tee_<is_<int>, is_<int>, is_<int>, and_<>>, char>{};
-    // false_{} = call_<tee_<is_<int>, identity_, and_<>>,
-    //                     char>{}; // short circuiting should save from hard error
-    // false_{} = call_<tee_<is_<int>, identity_, is_<int>, and_<>>,
-    //                     char>{}; // short circuiting should save from hard error
+// TODO: Narrow tests down.
+// list_<list_<>>{}          = call_<tee_<listify_, listify_>>{};
+// list_<list_<int>>{}       = call_<tee_<listify_, listify_>, int>{};
+// list_<list_<int, bool>>{} = call_<tee_<listify_, listify_>, int, bool>{};
 
-    // true_{}  = call_<tee_<is_<int>, or_<>>, int>{};
-    // false_{} = call_<tee_<is_<int>, is_<int>, or_<>>, char>{};
-    // false_{} = call_<tee_<is_<int>, is_<int>, is_<int>, or_<>>, char>{};
-    // true_{}  = call_<tee_<is_<int>, identity_, or_<>>,
-    //                 int>{}; // short circuiting should save from hard error
-    // true_{}  = call_<tee_<is_<int>, identity_, is_<int>, or_<>>,
-    //                 int>{}; // short circuiting should save from hard error
+// true_{}  = call_<tee_<is_<int>, and_<>>, int>{};
+// false_{} = call_<tee_<is_<int>, is_<int>, and_<>>, char>{};
+// false_{} = call_<tee_<is_<int>, is_<int>, is_<int>, and_<>>, char>{};
+// false_{} = call_<tee_<is_<int>, identity_, and_<>>,
+//                     char>{}; // short circuiting should save from hard error
+// false_{} = call_<tee_<is_<int>, identity_, is_<int>, and_<>>,
+//                     char>{}; // short circuiting should save from hard error
+
+// true_{}  = call_<tee_<is_<int>, or_<>>, int>{};
+// false_{} = call_<tee_<is_<int>, is_<int>, or_<>>, char>{};
+// false_{} = call_<tee_<is_<int>, is_<int>, is_<int>, or_<>>, char>{};
+// true_{}  = call_<tee_<is_<int>, identity_, or_<>>,
+//                 int>{}; // short circuiting should save from hard error
+// true_{}  = call_<tee_<is_<int>, identity_, is_<int>, or_<>>,
+//                 int>{}; // short circuiting should save from hard error
 } // namespace tee_test

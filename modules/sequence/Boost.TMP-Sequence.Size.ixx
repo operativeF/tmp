@@ -35,17 +35,16 @@ struct dispatch<N, size_<C>> {
 
 // TESTING:
 namespace size_test {
-    using namespace boost::tmp;
+using namespace boost::tmp;
 
-    template<typename T> requires(std::same_as<T, sizet_<3>>)
-    struct ThreeElementsInPack;
+template<typename T> requires(std::same_as<T, sizet_<3>>)
+struct ThreeElementsInPack;
 
-    template<typename T> requires(std::same_as<T, sizet_<0>>)
-    struct EmptyPackIsZero;
+template<typename T> requires(std::same_as<T, sizet_<0>>)
+struct EmptyPackIsZero;
 
-    using test_one = ThreeElementsInPack<call_<size_<>, int_<0>, int_<2>, int_<4>>>;
+using test_one = ThreeElementsInPack<call_<size_<>, int_<0>, int_<2>, int_<4>>>;
 
-    // No input list is zero size.
-    using test_two = EmptyPackIsZero<call_<size_<>>>;
-
+// No input list is zero size.
+using test_two = EmptyPackIsZero<call_<size_<>>>;
 } // namespace size_test

@@ -108,10 +108,10 @@ struct dispatch<N, fold_right_<F, lift_<C>>>
 
 // TESTING:
 namespace fold_right_test {
-    using namespace boost::tmp;
+using namespace boost::tmp;
 
-    template<typename T> requires(std::same_as<T, uint_<20>>)
-    struct AddsUpToTwenty;
+template<typename T> requires(std::same_as<T, uint_<20>>)
+struct AddsUpToTwenty;
 
-    using test_one = AddsUpToTwenty<call_<fold_right_<lift_<utils::add>>, uint_<1>, uint_<10>, uint_<9>>>;
+using test_one = AddsUpToTwenty<call_<fold_right_<lift_<utils::add>>, uint_<1>, uint_<10>, uint_<9>>>;
 } // namespace fold_right_test

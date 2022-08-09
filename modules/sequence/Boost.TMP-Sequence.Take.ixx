@@ -38,18 +38,18 @@ struct dispatch<N, take_<P, C>> {
 
 // TESTING:
 namespace take_test {
-    using namespace boost::tmp;
+using namespace boost::tmp;
 
-    template<typename T> requires(std::same_as<T, list_<int_<1>>>)
-    struct TakeFirstElement_One;
+template<typename T> requires(std::same_as<T, list_<int_<1>>>)
+struct TakeFirstElement_One;
 
-    template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>>>)
-    struct TakeFirstTwoElements_OneTwo;
+template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>>>)
+struct TakeFirstTwoElements_OneTwo;
 
-    using test_one = TakeFirstElement_One<call_<take_<uint_<1>>, int_<1>, int_<2>, int_<3>>>;
-    using test_two = TakeFirstTwoElements_OneTwo<call_<take_<uint_<2>>, int_<1>, int_<2>, int_<3>>>;
+using test_one = TakeFirstElement_One<call_<take_<uint_<1>>, int_<1>, int_<2>, int_<3>>>;
+using test_two = TakeFirstTwoElements_OneTwo<call_<take_<uint_<2>>, int_<1>, int_<2>, int_<3>>>;
 
-    // UNDER CONSIDERATION: Taking more than the list results in compilation failure.
-    // UNDER CONSIDERATION: Taking from an empty input results in compilation failure.
-    // list_<>{} = call_<take_<uint_<4>>>{};
+// UNDER CONSIDERATION: Taking more than the list results in compilation failure.
+// UNDER CONSIDERATION: Taking from an empty input results in compilation failure.
+// list_<>{} = call_<take_<uint_<4>>>{};
 } // namespace take_test

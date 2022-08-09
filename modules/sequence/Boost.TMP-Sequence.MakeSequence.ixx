@@ -87,23 +87,23 @@ struct dispatch<1, make_sequence_<F, C>> {
 
 // TESTING:
 namespace make_sequence_test {
-    using namespace boost::tmp;
+using namespace boost::tmp;
 
-    template<typename T>
-    using and_one = sizet_<T::value + 1>;
+template<typename T>
+using and_one = sizet_<T::value + 1>;
 
-    template<typename T>
-    struct always_one {
-        template<typename N>
-        using f = sizet_<T::value>;
-    };
+template<typename T>
+struct always_one {
+    template<typename N>
+    using f = sizet_<T::value>;
+};
 
-    template<typename T> requires(std::same_as<T, list_<sizet_<0>, sizet_<1>, sizet_<2>>>)
-    struct ListZeroOneTwo;
+template<typename T> requires(std::same_as<T, list_<sizet_<0>, sizet_<1>, sizet_<2>>>)
+struct ListZeroOneTwo;
 
-    template<typename T> requires(std::same_as<T, list_<sizet_<1>, sizet_<2>, sizet_<3>>>)
-    struct ListOneTwoThree;
+template<typename T> requires(std::same_as<T, list_<sizet_<1>, sizet_<2>, sizet_<3>>>)
+struct ListOneTwoThree;
 
-    using test_one = ListZeroOneTwo<call_<make_sequence_<>, sizet_<3>>>;
-    using test_two = ListOneTwoThree<call_<make_sequence_<lift_<and_one>>, sizet_<3>>>;
+using test_one = ListZeroOneTwo<call_<make_sequence_<>, sizet_<3>>>;
+using test_two = ListOneTwoThree<call_<make_sequence_<lift_<and_one>>, sizet_<3>>>;
 } // namespace make_sequence_test

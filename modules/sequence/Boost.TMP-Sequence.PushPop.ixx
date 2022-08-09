@@ -78,48 +78,48 @@ struct dispatch<0, pop_back_<C>> {
 
 // TESTING:
 namespace push_back_test {
-    using namespace boost::tmp;
+using namespace boost::tmp;
 
-    template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, char_<'c'>>>)
-    struct PushBack_C {};
+template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, char_<'c'>>>)
+struct PushBack_C {};
 
-    using test_one = PushBack_C<call_<push_back_<char_<'c'>>, int_<1>, int_<2>>>;
+using test_one = PushBack_C<call_<push_back_<char_<'c'>>, int_<1>, int_<2>>>;
 } // namespace push_back_test
 
 // TESTING:
 namespace pop_front_test {
-    using namespace boost::tmp;
+using namespace boost::tmp;
 
-    template<typename T> requires(std::same_as<T, list_<>>)
-    struct NoElementsLeft;
+template<typename T> requires(std::same_as<T, list_<>>)
+struct NoElementsLeft;
 
-    template<typename T> requires(std::same_as<T, list_<nothing_>>)
-    struct EmptyPackReturnsListWithNothingType;
+template<typename T> requires(std::same_as<T, list_<nothing_>>)
+struct EmptyPackReturnsListWithNothingType;
 
-    // Pop front off of single element list to return an empty list.
-    using test_one = NoElementsLeft<call_<pop_front_<>, list_<int_<1>>>>;
+// Pop front off of single element list to return an empty list.
+using test_one = NoElementsLeft<call_<pop_front_<>, list_<int_<1>>>>;
 
-    // Pop front off of empty list_ to return an empty list_
-    using test_two = NoElementsLeft<call_<pop_front_<>, list_<>>>;
+// Pop front off of empty list_ to return an empty list_
+using test_two = NoElementsLeft<call_<pop_front_<>, list_<>>>;
 
-    // UNDER CONSIDERATION: Removal / modification of behavior of
-    // pop_front_ on no input. Currently returns a list_<nothing_>
-    using test_three = EmptyPackReturnsListWithNothingType<call_<pop_front_<>>>;
+// UNDER CONSIDERATION: Removal / modification of behavior of
+// pop_front_ on no input. Currently returns a list_<nothing_>
+using test_three = EmptyPackReturnsListWithNothingType<call_<pop_front_<>>>;
 } // namespace pop_front_test
 
 // TESTING:
 namespace push_front_test {
-    using namespace boost::tmp;
+using namespace boost::tmp;
 
-    template<typename T> requires(std::same_as<T, list_<int_<4>, int_<1>, int_<2>>>)
-    struct PushFourToFront;
+template<typename T> requires(std::same_as<T, list_<int_<4>, int_<1>, int_<2>>>)
+struct PushFourToFront;
 
-    template<typename T> requires(std::same_as<T, list_<int_<1>>>)
-    struct PushOneToEmptyPack;
+template<typename T> requires(std::same_as<T, list_<int_<1>>>)
+struct PushOneToEmptyPack;
 
-    using test_one = PushFourToFront<call_<push_front_<int_<4>>, int_<1>, int_<2>>>;
+using test_one = PushFourToFront<call_<push_front_<int_<4>>, int_<1>, int_<2>>>;
 
-    using test_two = PushOneToEmptyPack<call_<push_front_<int_<1>>>>;
+using test_two = PushOneToEmptyPack<call_<push_front_<int_<1>>>>;
 } // namespace push_front_test
 
 // TESTING:

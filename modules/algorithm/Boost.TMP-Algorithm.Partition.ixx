@@ -39,10 +39,10 @@ struct dispatch<N, partition_<F, C>> : dispatch<N, tee_<filter_<F>, remove_if_<F
 
 // TESTING:
 namespace partition_test {
-    using namespace boost::tmp;
+using namespace boost::tmp;
 
-    template<typename T> requires(std::same_as<T, list_<list_<int_<3>, int_<4>>, list_<int_<1>, int_<2>>>>)
-    struct SplitIntoTwoListWithGreaterThanTwo;
+template<typename T> requires(std::same_as<T, list_<list_<int_<3>, int_<4>>, list_<int_<1>, int_<2>>>>)
+struct SplitIntoTwoListWithGreaterThanTwo;
 
-    using test_one = SplitIntoTwoListWithGreaterThanTwo<call_<partition_<lift_<utils::greater_than_two>>, int_<1>, int_<2>, int_<3>, int_<4>>>;
+using test_one = SplitIntoTwoListWithGreaterThanTwo<call_<partition_<lift_<utils::greater_than_two>>, int_<1>, int_<2>, int_<3>, int_<4>>>;
 } // namespace partition_test

@@ -47,25 +47,25 @@ struct dispatch<0, insert_<I, V, C>> {
 
 // TESTING:
 namespace insert_test {
-    using namespace boost::tmp;
-    // Insert char_<'c'> at position 1
-    template<typename T> requires(std::same_as<T, list_<int_<1>, char_<'c'>, int_<2>>>)
-    struct Insert_C_AtPositionOne;
+using namespace boost::tmp;
+// Insert char_<'c'> at position 1
+template<typename T> requires(std::same_as<T, list_<int_<1>, char_<'c'>, int_<2>>>)
+struct Insert_C_AtPositionOne;
 
-    // Insert char_<'c'> at position 0
-    template<typename T> requires(std::same_as<T, list_<char_<'c'>, int_<1>, int_<2>>>)
-    struct Insert_C_AtPositionZero;
+// Insert char_<'c'> at position 0
+template<typename T> requires(std::same_as<T, list_<char_<'c'>, int_<1>, int_<2>>>)
+struct Insert_C_AtPositionZero;
 
-    // Insert char_<'c'> at position 2
-    template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, char_<'c'>>>)
-    struct Insert_C_AtPositionTwo;
+// Insert char_<'c'> at position 2
+template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, char_<'c'>>>)
+struct Insert_C_AtPositionTwo;
 
-    // Insert char_<'c'> into no list (returns a list_ with char_<'c'> in it)
-    template<typename T> requires(std::same_as<T, list_<char_<'c'>>>)
-    struct EmptyPackInsertionReturnsSingleElementList;
+// Insert char_<'c'> into no list (returns a list_ with char_<'c'> in it)
+template<typename T> requires(std::same_as<T, list_<char_<'c'>>>)
+struct EmptyPackInsertionReturnsSingleElementList;
 
-    using test_one   = Insert_C_AtPositionZero<call_<insert_<int_<0>, char_<'c'>>, int_<1>, int_<2>>>;
-    using test_two   = Insert_C_AtPositionOne<call_<insert_<int_<1>, char_<'c'>>, int_<1>, int_<2>>>;
-    using test_three = Insert_C_AtPositionTwo<call_<insert_<int_<2>, char_<'c'>>, int_<1>, int_<2>>>;
-    using test_four  = EmptyPackInsertionReturnsSingleElementList<call_<insert_<int_<0>, char_<'c'>>>>;
+using test_one   = Insert_C_AtPositionZero<call_<insert_<int_<0>, char_<'c'>>, int_<1>, int_<2>>>;
+using test_two   = Insert_C_AtPositionOne<call_<insert_<int_<1>, char_<'c'>>, int_<1>, int_<2>>>;
+using test_three = Insert_C_AtPositionTwo<call_<insert_<int_<2>, char_<'c'>>, int_<1>, int_<2>>>;
+using test_four  = EmptyPackInsertionReturnsSingleElementList<call_<insert_<int_<0>, char_<'c'>>>>;
 } // namespace insert_test

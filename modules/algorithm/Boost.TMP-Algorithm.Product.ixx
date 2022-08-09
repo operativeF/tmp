@@ -50,17 +50,17 @@ struct dispatch<2, product_<F, C>> : dispatch<2, product_<lift_<dispatch<2, F>::
 
 // TESTING:
 namespace product_test {
-    using namespace boost::tmp;
+using namespace boost::tmp;
 
-    // TODO: Implement product_test
+// TODO: Implement product_test
 
-    // using xl1 = list_<uint_<1>, uint_<2>, uint_<3>>;
-    // using xr1 = list_<uint_<1>, uint_<2>, uint_<3>>;
+// using xl1 = list_<uint_<1>, uint_<2>, uint_<3>>;
+// using xr1 = list_<uint_<1>, uint_<2>, uint_<3>>;
 
-    // using result1 = call_<product_<>, xl1, xr1>;
+// using result1 = call_<product_<>, xl1, xr1>;
 
-    // list_<list_<uint_<1>, uint_<1>>, list_<uint_<1>, uint_<2>>, list_<uint_<1>, uint_<3>>,
-    //         list_<uint_<2>, uint_<1>>, list_<uint_<2>, uint_<2>>, list_<uint_<2>, uint_<3>>,
-    //         list_<uint_<3>, uint_<1>>, list_<uint_<3>, uint_<2>>, list_<uint_<3>, uint_<3>>>{} =
-    //         result1{};
+// list_<list_<uint_<1>, uint_<1>>, list_<uint_<1>, uint_<2>>, list_<uint_<1>, uint_<3>>,
+//         list_<uint_<2>, uint_<1>>, list_<uint_<2>, uint_<2>>, list_<uint_<2>, uint_<3>>,
+//         list_<uint_<3>, uint_<1>>, list_<uint_<3>, uint_<2>>, list_<uint_<3>, uint_<3>>>{} =
+//         result1{};
 } // namespace product_test

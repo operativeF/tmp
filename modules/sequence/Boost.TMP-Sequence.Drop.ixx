@@ -129,20 +129,20 @@ struct dispatch<N, drop_<P, C>> : make_drop<P::value, C> {};
 
 // TESTING:
 namespace drop_test {
-    using namespace boost::tmp;
+using namespace boost::tmp;
 
-    template<typename T> requires(std::same_as<T, list_<int_<1>>>)
-    struct DropOneOffOfList;
+template<typename T> requires(std::same_as<T, list_<int_<1>>>)
+struct DropOneOffOfList;
 
-    template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>>>)
-    struct DropZeroReturnsInputList;
+template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>>>)
+struct DropZeroReturnsInputList;
 
-    using test_one = DropOneOffOfList<call_<drop_<uint_<1>>, int_<0>, int_<1>>>;
+using test_one = DropOneOffOfList<call_<drop_<uint_<1>>, int_<0>, int_<1>>>;
 
-    using test_two = DropZeroReturnsInputList<call_<drop_<uint_<0>>, int_<1>, int_<2>>>;
+using test_two = DropZeroReturnsInputList<call_<drop_<uint_<0>>, int_<1>, int_<2>>>;
 
-    // Dropping off of no input returns empty list
-    // UNDER CONSIDERATION: Dropping input off of no input fails.
-    // Should this return an empty list?
-    // list_<>{} = call_<drop_<uint_<7>>>{};
+// Dropping off of no input returns empty list
+// UNDER CONSIDERATION: Dropping input off of no input fails.
+// Should this return an empty list?
+// list_<>{} = call_<drop_<uint_<7>>>{};
 } // namespace drop_test

@@ -62,11 +62,11 @@ struct dispatch<3, zip_<F, C>> {
 
 // TESTING:
 namespace zip_test {
-    using namespace boost::tmp;
+using namespace boost::tmp;
 
-    template<typename T> requires(std::same_as<T, list_<uint_<3>, uint_<7>>>)
-    struct AddPairsTogetherWithZip;
+template<typename T> requires(std::same_as<T, list_<uint_<3>, uint_<7>>>)
+struct AddPairsTogetherWithZip;
 
-    // Performs an addition of pairs of elements component wise i.e. (x0 + x1), (y0 + y1)
-    using test_one = AddPairsTogetherWithZip<call_<zip_<lift_<utils::add>>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;
+// Performs an addition of pairs of elements component wise i.e. (x0 + x1), (y0 + y1)
+using test_one = AddPairsTogetherWithZip<call_<zip_<lift_<utils::add>>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;
 } // namespace zip_test

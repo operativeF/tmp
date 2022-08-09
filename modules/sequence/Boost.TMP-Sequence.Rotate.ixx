@@ -153,24 +153,23 @@ struct dispatch<N, rotate_<P, C>> : make_rotate<P::value, C> {};
 } // namespace boost::tmp
 
 namespace rotate_test {
-    using namespace boost::tmp;
-    
-    template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, int_<3>>>)
-    struct ZeroRotation;
+using namespace boost::tmp;
 
-    template<typename T> requires(std::same_as<T, list_<int_<2>, int_<3>, int_<1>>>)
-    struct DoOneRotation;
+template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, int_<3>>>)
+struct ZeroRotation;
 
-    template<typename T> requires(std::same_as<T, list_<>>)
-    struct RotateEmptyList;
+template<typename T> requires(std::same_as<T, list_<int_<2>, int_<3>, int_<1>>>)
+struct DoOneRotation;
 
-    using test_one   = ZeroRotation<call_<rotate_<int_<0>>, int_<1>, int_<2>, int_<3>>>;
+template<typename T> requires(std::same_as<T, list_<>>)
+struct RotateEmptyList;
 
-    using test_two   = DoOneRotation<call_<rotate_<int_<1>>, int_<1>, int_<2>, int_<3>>>;
+using test_one   = ZeroRotation<call_<rotate_<int_<0>>, int_<1>, int_<2>, int_<3>>>;
 
-    using test_three = RotateEmptyList<call_<rotate_<int_<0>>>>;
+using test_two   = DoOneRotation<call_<rotate_<int_<1>>, int_<1>, int_<2>, int_<3>>>;
 
-    // TODO: Allow rotations in opposite direction.
-    // list_<int_<3>, int_<1>, int_<2>>{} = call_<rotate_<int_<-1>>, int_<1>, int_<2>, int_<3>>{};
+using test_three = RotateEmptyList<call_<rotate_<int_<0>>>>;
 
+// TODO: Allow rotations in opposite direction.
+// list_<int_<3>, int_<1>, int_<2>>{} = call_<rotate_<int_<-1>>, int_<1>, int_<2>, int_<3>>{};
 } // namespace rotate_test
