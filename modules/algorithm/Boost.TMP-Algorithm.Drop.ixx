@@ -27,9 +27,6 @@ export template <typename N = sizet_<0>, typename C = listify_>
 struct drop_ {};
 
 // drop_ : implementation
-consteval std::size_t drop_select(std::size_t N) {
-    return N <= 8 ? N : N < 16 ? 8 : N < 32 ? 16 : N < 64 ? 32 : 64;
-}
 template <std::size_t, typename C>
 struct drop_impl;
 // TODO: Is this correct behavior for dropping nothing?
@@ -118,7 +115,7 @@ struct drop_impl<64, C> {
                 typename T60, typename T61, typename T62, typename T63, typename... Ts>
     using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
 };
-template <std::size_t P, typename C, std::size_t Step = drop_select(P)>
+template <std::size_t P, typename C, std::size_t Step = step_selector(P)>
 struct make_drop : drop_impl<Step, drop_<sizet_<(P - Step)>, C>> { /* not done */
 };
 template <std::size_t P, typename C>

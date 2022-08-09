@@ -89,9 +89,6 @@ export template<typename N = sizet_<0>, typename C = listify_>
 struct repeat_sequence_{};
 
 // repeat_sequence_ : implementation
-consteval std::size_t repeat_select(std::size_t N) {
-    return N <= 8 ? N : N < 16 ? 8 : N < 32 ? 16 : N < 64 ? 32 : 64;
-}
 template <std::size_t, typename C>
 struct repeat_seq_impl;
 template <typename C>
@@ -166,7 +163,7 @@ struct repeat_seq_impl<64, C> {
             T, T, T, T, T, T, T, T,
             T, T, T, T, T, T, T, T, Ts...>;
 };
-template <std::size_t P, typename C, std::size_t Step = repeat_select(P)>
+template <std::size_t P, typename C, std::size_t Step = step_selector(P)>
 struct make_repeat : repeat_seq_impl<Step, repeat_sequence_<sizet_<(P - Step) + 1>, C>> {};
 template <std::size_t P, typename C>
 struct make_repeat<P, C, P> : repeat_seq_impl<P, C> {};

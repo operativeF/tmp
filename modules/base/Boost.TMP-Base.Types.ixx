@@ -46,6 +46,10 @@ struct dispatch_unknown {
     using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
 };
 
+consteval std::size_t step_selector(std::size_t N) {
+    return N <= 8 ? N : N < 16 ? 8 : N < 32 ? 16 : N < 64 ? 32 : 64;
+}
+
 // Boolean type wrapper
 export template<bool B>
 struct bool_ { static constexpr bool value = B; };

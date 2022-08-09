@@ -26,9 +26,6 @@ export template <typename N = sizet_<0>, typename C = listify_>
 struct rotate_ {};
 
 // rotate_ : implementation
-consteval std::size_t rotate_select(std::size_t N) {
-    return N <= 8 ? N : N < 16 ? 8 : N < 32 ? 16 : N < 64 ? 32 : 64;
-}
 template <std::size_t, typename C>
 struct rotate_impl;
 template <typename C>
@@ -141,9 +138,9 @@ struct dispatch<0, rotate_<P, C>> {
     template <typename...>
     using f = dispatch<0, C>::template f<>;
 };
-template <std::size_t P, typename C, std::size_t Step = rotate_select(P)>
+template <std::size_t P, typename C, std::size_t Step = step_selector(P)>
 struct make_rotate
-    : rotate_impl<rotate_select(Step), rotate_<sizet_<(P - Step)>, C>> { /* not done */
+    : rotate_impl<step_selector(Step), rotate_<sizet_<(P - Step)>, C>> { /* not done */
 };
 template <std::size_t P, typename C>
 struct make_rotate<P, C, P> : rotate_impl<P, C> {};
