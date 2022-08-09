@@ -17,21 +17,18 @@ set(TMP_UTILS_IXX
 
 set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Clamp.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.CountIf.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Extrema.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Filter.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FindIf.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Flatten.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldLeft.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldRight.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Foldey.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FunctionIf.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Logic.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Partition.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Product.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.RangeMath.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.RemoveIf.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.RemovePairs.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.ReplaceIf.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Sort.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.SymmetricDifference.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Transform.ixx

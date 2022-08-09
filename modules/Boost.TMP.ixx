@@ -9,21 +9,18 @@
 export module Boost.TMP;
 
 export import :Algorithm.Clamp;
-export import :Algorithm.CountIf;
 // export import :Algorithm.Extrema;
 export import :Algorithm.Filter;
-export import :Algorithm.FindIf;
 export import :Algorithm.Flatten;
 export import :Algorithm.FoldLeft;
 export import :Algorithm.FoldRight;
 export import :Algorithm.Foldey;
+export import :Algorithm.FunctionIf;
 export import :Algorithm.Logic;
 export import :Algorithm.Partition;
 export import :Algorithm.Product;
 // export import :Algorithm.RangeMath;
-export import :Algorithm.RemoveIf;
 // export import :Algorithm.RemovePairs;
-export import :Algorithm.ReplaceIf;
 export import :Algorithm.Sort;
 // export import :Algorithm.SymmetricDiff;
 export import :Algorithm.Transform;

@@ -15,8 +15,8 @@ module;
 
 export module Boost.TMP:Algorithm.Clamp;
 
+import :Algorithm.FunctionIf;
 import :Algorithm.Logic;
-import :Algorithm.RemoveIf;
 import :Base.Types;
 
 #if _MSC_VER

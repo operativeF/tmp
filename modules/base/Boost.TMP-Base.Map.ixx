@@ -12,7 +12,7 @@ module;
 
 export module Boost.TMP:Base.Map;
 
-import :Algorithm.FindIf;
+import :Algorithm.FunctionIf;
 import :Algorithm.Sort;
 import :Base.Types;
 import :Sequence.Index;

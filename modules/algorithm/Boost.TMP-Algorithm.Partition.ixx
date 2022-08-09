@@ -15,7 +15,7 @@ module;
 export module Boost.TMP:Algorithm.Partition;
 
 import :Algorithm.Filter;
-import :Algorithm.RemoveIf;
+import :Algorithm.FunctionIf;
 import :Base.Types;
 import :Sequence.Tee;
 
