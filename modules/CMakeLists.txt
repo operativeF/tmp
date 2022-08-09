@@ -27,7 +27,6 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Partition.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Product.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.RangeMath.ixx
-    # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.RemovePairs.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Sort.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.SymmetricDifference.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Transform.ixx

@@ -19,7 +19,6 @@ export import :Algorithm.Logic;
 export import :Algorithm.Partition;
 export import :Algorithm.Product;
 // export import :Algorithm.RangeMath;
-// export import :Algorithm.RemovePairs;
 export import :Algorithm.Sort;
 // export import :Algorithm.SymmetricDiff;
 export import :Algorithm.Transform;
