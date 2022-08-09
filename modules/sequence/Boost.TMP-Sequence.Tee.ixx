@@ -13,7 +13,7 @@ module;
 
 export module Boost.TMP:Sequence.Tee;
 
-import :Base.Logic;
+import :Algorithm.Logic;
 import :Sequence.PushFront;
 import :Sequence.Rotate;
 

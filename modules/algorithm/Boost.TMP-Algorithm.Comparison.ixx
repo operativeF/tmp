@@ -12,7 +12,7 @@ module;
 #include <type_traits>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Base.Comparison;
+export module Boost.TMP:Algorithm.Comparison;
 
 import :Base.Types;
 

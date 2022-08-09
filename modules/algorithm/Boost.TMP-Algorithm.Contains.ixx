@@ -14,8 +14,8 @@ module;
 
 export module Boost.TMP:Algorithm.Contains;
 
-import :Base.Comparison;
-import :Base.Logic;
+import :Algorithm.Comparison;
+import :Algorithm.Logic;
 import :Base.Types;
 
 #if _MSC_VER

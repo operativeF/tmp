@@ -14,13 +14,13 @@ module;
 
 export module Boost.TMP:Sequence.Set;
 
+import :Algorithm.Comparison;
 import :Algorithm.Flatten;
 import :Algorithm.Filter;
 import :Algorithm.FoldLeft;
 import :Algorithm.Product;
 import :Algorithm.RemovePairs;
 import :Algorithm.Sort;
-import :Base.Comparison;
 import :Base.If;
 import :Base.ListOperations;
 import :Base.Types;

@@ -8,13 +8,13 @@
 
 export module Boost.TMP:Base.ListOperations;
 
+import :Algorithm.Comparison;
 import :Algorithm.Contains;
 import :Algorithm.FindIf;
 import :Algorithm.FoldLeft;
+import :Algorithm.Logic;
 import :Algorithm.Sort;
-import :Base.Comparison;
 import :Base.If;
-import :Base.Logic;
 import :Base.Types;
 import :Sequence.Erase;
 import :Sequence.Index;

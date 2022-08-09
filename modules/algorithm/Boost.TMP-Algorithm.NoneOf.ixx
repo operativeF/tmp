@@ -15,7 +15,7 @@ module;
 
 export module Boost.TMP:Algorithm.NoneOf;
 
-import :Base.Logic;
+import :Algorithm.Logic;
 import :Base.Types;
 
 import :TestHelpers;

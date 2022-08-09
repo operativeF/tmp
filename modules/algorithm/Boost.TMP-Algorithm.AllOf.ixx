@@ -15,7 +15,7 @@ module;
 
 export module Boost.TMP:Algorithm.AllOf;
 
-import :Base.Logic;
+import :Algorithm.Logic;
 import :Base.Types;
 
 #if _MSC_VER

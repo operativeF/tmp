@@ -14,9 +14,9 @@ module;
 
 export module Boost.TMP:Algorithm.RemovePairs;
 
-import :Base.Comparison;
+import :Algorithm.Comparison;
+import :Algorithm.Logic;
 import :Base.If;
-import :Base.Logic;
 import :Base.Types;
 import :Sequence.Join;
 

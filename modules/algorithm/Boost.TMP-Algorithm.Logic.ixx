@@ -12,9 +12,9 @@ module;
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Base.Logic;
+export module Boost.TMP:Algorithm.Logic;
 
-import :Base.Comparison;
+import :Algorithm.Comparison;
 import :Base.Foldey;
 import :Base.Types;
 

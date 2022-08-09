@@ -19,6 +19,7 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.AllOf.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.AnyOf.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Clamp.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Comparison.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Contains.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.CountIf.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Extrema.ixx
@@ -27,6 +28,7 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Flatten.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldLeft.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldRight.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Logic.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.NoneOf.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Partition.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Product.ixx
@@ -40,11 +42,9 @@ set(TMP_ALGO_IXX
 )
 
 set(TMP_MAIN_IXX
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Comparison.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Foldey.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.If.ixx
     # ${TMP_BASE_DIR}/Boost.TMP-Base.ListOperations.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Logic.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Map.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Types.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Try.ixx
