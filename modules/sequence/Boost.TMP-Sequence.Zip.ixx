@@ -16,6 +16,7 @@ export module Boost.TMP:Sequence.Zip;
 
 import :Algorithm.Transform;
 import :Base.Types;
+import :Sequence.MakeSequence;
 import :Sequence.Unpack;
 import :TestHelpers;
 
@@ -58,6 +59,32 @@ struct dispatch<3, zip_<F, C>> {
     template<typename T, typename U, typename V>
     using f = zip3<F, C, T, U, V>::f;
 };
+
+// zip_with_index_ :
+export template <typename F = listify_, typename C = listify_>
+struct zip_with_index_ {};
+
+// zip_with_index_ : implementation
+template <typename L>
+struct indexer;
+template <typename... Is>
+struct indexer<list_<Is...>> {
+    template <typename F, template<typename...> class C, typename... Ts>
+    using f = C<typename dispatch<2, F>::template f<Is, Ts>...>;
+};
+template <std::size_t N>
+using make_index_for_zip = make_seq_impl<next_state(0, N)>::template f<N>;
+template <std::size_t N, typename F, typename C>
+struct dispatch<N, zip_with_index_<F, C>> {
+    template <typename... Ts>
+    using f = indexer<make_index_for_zip<sizeof...(Ts)>>::template f<
+            F, dispatch<find_dispatch(sizeof...(Ts)), C>::template f, Ts...>;
+};
+template <std::size_t N, typename F, template <typename...> class C>
+struct dispatch<N, zip_with_index_<F, lift_<C>>> {
+    template <typename... Ts>
+    using f = indexer<make_index_for_zip<sizeof...(Ts)>>::template f<F, C, Ts...>;
+};
 } // namespace boost::tmp
 
 // TESTING:
@@ -70,3 +97,14 @@ struct AddPairsTogetherWithZip;
 // Performs an addition of pairs of elements component wise i.e. (x0 + x1), (y0 + y1)
 using test_one = AddPairsTogetherWithZip<call_<zip_<lift_<utils::add>>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;
 } // namespace zip_test
+
+// TESTING:
+namespace zip_with_index_test {
+using namespace boost::tmp;
+
+template<typename T> requires(std::same_as<T, list_<list_<sizet_<0>, char_<'a'>>,
+                                                    list_<sizet_<1>, char_<'b'>>,
+                                                    list_<sizet_<2>, char_<'c'>>>>)
+struct ZipABCWith123;
+using test_one = ZipABCWith123<call_<zip_with_index_<>, char_<'a'>, char_<'b'>, char_<'c'>>>;
+} // namespace zip_with_index_test

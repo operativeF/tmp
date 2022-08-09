@@ -17,7 +17,6 @@ set(TMP_UTILS_IXX
 
 set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Clamp.ixx
-    # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Extrema.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Filter.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Flatten.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldLeft.ixx
@@ -58,7 +57,6 @@ set(TMP_SEQ_IXX
     ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Take.ixx
     ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Tee.ixx
     ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Unpack.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.ZipWithIndex.ixx
     ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Zip.ixx
 )
 

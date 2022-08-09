@@ -16,7 +16,7 @@ import :Algorithm.FunctionIf;
 import :Algorithm.Sort;
 import :Base.Types;
 import :Sequence.Index;
-import :Sequence.ZipWithIndex;
+import :Sequence.Zip;
 
 #if _MSC_VER
 import std;

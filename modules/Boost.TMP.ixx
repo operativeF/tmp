@@ -9,7 +9,6 @@
 export module Boost.TMP;
 
 export import :Algorithm.Clamp;
-// export import :Algorithm.Extrema;
 export import :Algorithm.Filter;
 export import :Algorithm.Flatten;
 export import :Algorithm.FoldLeft;
@@ -46,7 +45,6 @@ export import :Sequence.Swap;
 export import :Sequence.Take;
 export import :Sequence.Tee;
 export import :Sequence.Unpack;
-export import :Sequence.ZipWithIndex;
 export import :Sequence.Zip;
 
 export import :TestHelpers;
