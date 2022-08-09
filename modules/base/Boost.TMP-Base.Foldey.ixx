@@ -13,8 +13,7 @@ module;
 
 export module Boost.TMP:Base.Foldey;
 
-import :Base.Integral;
-import :Base.Nothing;
+import :Base.Types;
 
 #if _MSC_VER
 import std;
@@ -22,7 +21,7 @@ import std;
 
 namespace boost::tmp
 {
-    export consteval std::size_t select_foldey_loop(std::size_t rest_size) {
+    consteval std::size_t select_foldey_loop(std::size_t rest_size) {
         return static_cast<std::size_t>(rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008);
     }
     

@@ -14,9 +14,8 @@ module;
 
 export module Boost.TMP:Algorithm.AnyOf;
 
-import :Base.Dispatch;
-import :Base.Identity;
 import :Base.Logic;
+import :Base.Types;
 
 #if _MSC_VER
 import std;

@@ -42,25 +42,16 @@ set(TMP_ALGO_IXX
 )
 
 set(TMP_MAIN_IXX
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Always.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Bool.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Byte.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Call.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Char.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Comparison.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Dispatch.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Foldey.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Identity.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.If.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Integral.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Lift.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.List.ixx
     # ${TMP_BASE_DIR}/Boost.TMP-Base.ListOperations.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Logic.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Map.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Maybe.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Nothing.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Result.ixx
+    ${TMP_BASE_DIR}/Boost.TMP-Base.Types.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Try.ixx
 )
 

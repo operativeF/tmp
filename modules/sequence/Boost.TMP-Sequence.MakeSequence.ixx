@@ -16,11 +16,7 @@ export module Boost.TMP:Sequence.MakeSequence;
 
 import :Algorithm.Transform;
 import :Base.Call;
-import :Base.Dispatch;
-import :Base.Identity;
-import :Base.Integral;
-import :Base.Lift;
-import :Base.List;
+import :Base.Types;
 import :Sequence.Unpack;
 
 #if _MSC_VER

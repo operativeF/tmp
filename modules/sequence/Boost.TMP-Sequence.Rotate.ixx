@@ -15,9 +15,7 @@ module;
 export module Boost.TMP:Sequence.Rotate;
 
 import :Base.Call;
-import :Base.Integral;
-import :Base.List;
-import :Base.Dispatch;
+import :Base.Types;
 
 #if _MSC_VER
 import std;

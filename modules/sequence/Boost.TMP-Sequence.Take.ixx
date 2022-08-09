@@ -15,9 +15,7 @@ module;
 export module Boost.TMP:Sequence.Take;
 
 import :Base.Call;
-import :Base.Dispatch;
-import :Base.Integral;
-import :Base.List;
+import :Base.Types;
 import :Sequence.Drop;
 import :Sequence.Rotate;
 

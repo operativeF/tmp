@@ -15,12 +15,7 @@ module;
 export module Boost.TMP:Algorithm.FoldLeft;
 
 import :Base.Call;
-import :Base.Dispatch;
-import :Base.Identity;
-import :Base.Integral;
-import :Base.Lift;
-import :Base.List;
-import :Base.Nothing;
+import :Base.Types;
 import :Sequence.Join;
 
 import :TestHelpers;

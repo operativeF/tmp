@@ -13,11 +13,7 @@ module;
 
 export module Boost.TMP:Base.Try;
 
-import :Base.Identity;
-import :Base.Lift;
-import :Base.List;
-import :Base.Nothing;
-import :Base.Dispatch;
+import :Base.Types;
 
 #if _MSC_VER
 import std;

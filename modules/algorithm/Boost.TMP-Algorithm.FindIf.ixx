@@ -16,12 +16,8 @@ module;
 export module Boost.TMP:Algorithm.FindIf;
 
 import :Base.Call;
-import :Base.Dispatch;
 import :Base.Foldey;
-import :Base.Identity;
-import :Base.Integral;
-import :Base.Lift;
-import :Base.Nothing;
+import :Base.Types;
 
 import :TestHelpers;
 

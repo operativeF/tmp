@@ -13,10 +13,7 @@ module;
 
 export module Boost.TMP:Sequence.PopBack;
 
-
-import :Base.Dispatch;
-import :Base.List;
-import :Base.Nothing;
+import :Base.Types;
 
 #if _MSC_VER
 import std;

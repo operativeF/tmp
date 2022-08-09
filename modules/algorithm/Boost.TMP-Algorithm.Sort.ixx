@@ -16,10 +16,7 @@ export module Boost.TMP:Algorithm.Sort;
 
 import :Algorithm.FoldLeft;
 import :Base.Comparison;
-import :Base.Identity;
-import :Base.Lift;
-import :Base.List;
-import :Base.Dispatch;
+import :Base.Types;
 import :Sequence.PushFront;
 import :Sequence.Unpack;
 import :TestHelpers;

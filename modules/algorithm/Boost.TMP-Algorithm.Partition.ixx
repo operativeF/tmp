@@ -17,10 +17,7 @@ export module Boost.TMP:Algorithm.Partition;
 import :Algorithm.Filter;
 import :Algorithm.RemoveIf;
 import :Base.Call;
-import :Base.Dispatch;
-import :Base.Integral;
-import :Base.Lift;
-import :Base.List;
+import :Base.Types;
 import :Sequence.Tee;
 
 import :TestHelpers;

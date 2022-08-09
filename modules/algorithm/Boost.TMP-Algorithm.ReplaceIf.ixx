@@ -16,16 +16,9 @@ module;
 export module Boost.TMP:Algorithm.ReplaceIf;
 
 import :Algorithm.Transform;
-import :Base.Always;
-import :Base.Bool;
 import :Base.Call;
-import :Base.Char;
-import :Base.Dispatch;
-import :Base.Identity;
-import :Base.Integral;
 import :Base.If;
-import :Base.Lift;
-import :Base.List;
+import :Base.Types;
 
 import :TestHelpers;
 

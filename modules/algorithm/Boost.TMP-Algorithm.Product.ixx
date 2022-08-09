@@ -14,9 +14,7 @@ module;
 
 export module Boost.TMP:Algorithm.Product;
 
-import :Base.Lift;
-import :Base.List;
-import :Base.Dispatch;
+import :Base.Types;
 import :Sequence.Join;
 
 namespace boost::tmp {

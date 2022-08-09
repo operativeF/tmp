@@ -15,8 +15,6 @@ export module Boost.TMP:Base.Map;
 import :Algorithm.FindIf;
 import :Algorithm.Sort;
 import :Base.Call;
-import :Base.Dispatch;
-import :Base.Lift;
 import :Sequence.Index;
 import :Sequence.ZipWithIndex;
 

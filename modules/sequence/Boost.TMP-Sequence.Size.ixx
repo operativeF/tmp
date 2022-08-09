@@ -15,9 +15,7 @@ module;
 export module Boost.TMP:Sequence.Size;
 
 import :Base.Call;
-import :Base.Identity;
-import :Base.Integral;
-import :Base.Dispatch;
+import :Base.Types;
 
 #if _MSC_VER
 import std;

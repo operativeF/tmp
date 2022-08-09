@@ -14,8 +14,7 @@ module;
 
 export module Boost.TMP:Base.Call;
 
-import :Base.Identity;
-import :Base.Dispatch;
+import :Base.Types;
 
 #if _MSC_VER
 import std;

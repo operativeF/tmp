@@ -15,10 +15,7 @@ module;
 export module Boost.TMP:Sequence.PushBack;
 
 import :Base.Call;
-import :Base.Char;
-import :Base.Integral;
-import :Base.List;
-import :Base.Dispatch;
+import :Base.Types;
 
 #if _MSC_VER
 import std;

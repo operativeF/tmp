@@ -16,12 +16,9 @@ export module Boost.TMP:Algorithm.RemovePairs;
 
 import :Base.Call;
 import :Base.Comparison;
-import :Base.Identity;
 import :Base.If;
-import :Base.List;
 import :Base.Logic;
-import :Base.Vocabulary;
-import :Base.Dispatch;
+import :Base.Types;
 import :Sequence.Join;
 
 #if _MSC_VER

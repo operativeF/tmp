@@ -16,10 +16,7 @@ export module Boost.TMP:Sequence.Zip;
 
 import :Algorithm.Transform;
 import :Base.Call;
-import :Base.Integral;
-import :Base.Lift;
-import :Base.List;
-import :Base.Dispatch;
+import :Base.Types;
 import :Sequence.Unpack;
 import :TestHelpers;
 

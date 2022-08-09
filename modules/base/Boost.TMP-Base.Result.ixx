@@ -7,8 +7,7 @@
 
 export module Boost.TMP:Base.Result;
 
-import :Base.Identity;
-import :Base.Dispatch;
+import :Base.Types;
 
 namespace boost::tmp {
     export template <typename C = identity_>

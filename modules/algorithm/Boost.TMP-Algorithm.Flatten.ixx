@@ -15,9 +15,7 @@ module;
 export module Boost.TMP:Algorithm.Flatten;
 
 import :Base.Call;
-import :Base.Dispatch;
-import :Base.Integral;
-import :Base.List;
+import :Base.Types;
 import :Sequence.Join;
 
 #if _MSC_VER

@@ -14,13 +14,10 @@ module;
 
 export module Boost.TMP:Algorithm.Contains;
 
-import :Base.Bool;
 import :Base.Call;
 import :Base.Comparison;
-import :Base.Dispatch;
-import :Base.Identity;
-import :Base.Integral;
 import :Base.Logic;
+import :Base.Types;
 
 #if _MSC_VER
 import std;

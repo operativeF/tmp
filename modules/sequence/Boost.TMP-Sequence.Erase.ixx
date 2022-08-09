@@ -15,10 +15,7 @@ module;
 export module Boost.TMP:Sequence.Erase;
 
 import :Base.Call;
-import :Base.Dispatch;
-import :Base.Integral;
-import :Base.List;
-import :Base.Nothing;
+import :Base.Types;
 import :Sequence.Drop;
 import :Sequence.PopFront;
 import :Sequence.Rotate;

@@ -15,11 +15,7 @@ module;
 export module Boost.TMP:Sequence.Insert;
 
 import :Base.Call;
-import :Base.Char;
-import :Base.Integral;
-import :Base.List;
-import :Base.Nothing;
-import :Base.Dispatch;
+import :Base.Types;
 import :Sequence.PushFront;
 import :Sequence.Rotate;
 

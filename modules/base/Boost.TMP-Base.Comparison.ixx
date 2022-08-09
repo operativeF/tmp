@@ -14,11 +14,7 @@ module;
 
 export module Boost.TMP:Base.Comparison;
 
-import :Base.Bool;
-import :Base.Identity;
-import :Base.Lift;
-import :Base.Nothing;
-import :Base.Dispatch;
+import :Base.Types;
 
 #if _MSC_VER
 import std;

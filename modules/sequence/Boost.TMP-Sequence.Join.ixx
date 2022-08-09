@@ -14,10 +14,7 @@ module;
 
 export module Boost.TMP:Sequence.Join;
 
-import :Base.Integral;
-import :Base.Lift;
-import :Base.List;
-import :Base.Dispatch;
+import :Base.Types;
 
 #if _MSC_VER
 import std;

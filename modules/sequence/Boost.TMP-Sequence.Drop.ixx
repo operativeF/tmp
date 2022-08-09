@@ -15,9 +15,7 @@ module;
 export module Boost.TMP:Sequence.Drop;
 
 import :Base.Call;
-import :Base.Integral;
-import :Base.List;
-import :Base.Dispatch;
+import :Base.Types;
 import :Sequence.Rotate;
 
 #if _MSC_VER

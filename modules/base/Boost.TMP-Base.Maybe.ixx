@@ -13,8 +13,7 @@ module;
 
 export module Boost.TMP:Base.Maybe;
 
-import :Base.Nothing;
-import :Base.Dispatch;
+import :Base.Types;
 
 #if _MSC_VER
 import std;

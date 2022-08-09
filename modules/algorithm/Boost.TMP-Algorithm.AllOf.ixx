@@ -15,9 +15,8 @@ module;
 
 export module Boost.TMP:Algorithm.AllOf;
 
-import :Base.Identity;
 import :Base.Logic;
-import :Base.Dispatch;
+import :Base.Types;
 
 #if _MSC_VER
 import std;

@@ -7,8 +7,7 @@
 
 export module Boost.TMP:Algorithm.Pairing;
 
-import :Base.Lift;
-import :Base.Dispatch;
+import :Base.Types;
 import :Sequence.Join;
 
 namespace boost::tmp {

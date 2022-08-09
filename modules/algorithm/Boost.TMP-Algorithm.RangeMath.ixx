@@ -19,10 +19,7 @@ import :Algorithm.FoldLeft;
 import :Algorithm.FoldRight;
 import :Algorithm.Sort;
 import :Algorithm.Transform;
-import :Base.Identity;
-import :Base.Lift;
-import :Base.Vocabulary;
-import :Base.Dispatch;
+import :Base.Types;
 import :Sequence.Tee;
 import :Sequence.Unpack;
 

@@ -14,9 +14,7 @@ module;
 export module Boost.TMP:Sequence.Swap;
 
 import :Base.Call;
-import :Base.Dispatch;
-import :Base.Integral;
-import :Base.List;
+import :Base.Types;
 
 /// \brief Swaps two variadic parametic pack values. Must be only two values.
 namespace boost::tmp {

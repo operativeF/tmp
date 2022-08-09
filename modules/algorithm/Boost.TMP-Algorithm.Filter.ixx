@@ -15,11 +15,7 @@ module;
 export module Boost.TMP:Algorithm.Filter;
 
 import :Base.Call;
-import :Base.Dispatch;
-import :Base.Identity;
-import :Base.Integral;
-import :Base.Lift;
-import :Base.List;
+import :Base.Types;
 
 import :TestHelpers;
 

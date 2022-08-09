@@ -32,25 +32,16 @@ export import :Algorithm.Sort;
 // export import :Algorithm.SymmetricDiff;
 export import :Algorithm.Transform;
 
-export import :Base.Always;
-export import :Base.Bool;
-export import :Base.Byte;
 export import :Base.Call;
-export import :Base.Char;
 export import :Base.Comparison;
-export import :Base.Dispatch;
 export import :Base.Foldey;
-export import :Base.Identity;
 export import :Base.If;
-export import :Base.Integral;
-export import :Base.Lift;
-export import :Base.List;
 // export import :Base.ListOperations;
 export import :Base.Logic;
 export import :Base.Map;
 export import :Base.Maybe;
-export import :Base.Nothing;
 export import :Base.Result;
+export import :Base.Types;
 export import :Base.Try;
 
 export import :Sequence.Drop;
