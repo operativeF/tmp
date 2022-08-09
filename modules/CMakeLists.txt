@@ -50,7 +50,6 @@ set(TMP_SEQ_IXX
     ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Join.ixx
     ${TMP_SEQ_DIR}/Boost.TMP-Sequence.MakeSequence.ixx
     ${TMP_SEQ_DIR}/Boost.TMP-Sequence.PushPop.ixx
-    ${TMP_SEQ_DIR}/Boost.TMP-Sequence.RepeatSequence.ixx
     ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Reverse.ixx
     ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Rotate.ixx
     # ${TMP_SEQ_DIR}/Boost.TMP-Sequence.Set.ixx

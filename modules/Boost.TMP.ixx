@@ -38,7 +38,6 @@ export import :Sequence.Insert;
 export import :Sequence.Join;
 export import :Sequence.MakeSequence;
 export import :Sequence.PushPop;
-export import :Sequence.RepeatSequence;
 export import :Sequence.Reverse;
 export import :Sequence.Rotate;
 // export import :Sequence.Set;
