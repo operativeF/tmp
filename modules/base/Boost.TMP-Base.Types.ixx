@@ -20,11 +20,11 @@ import std;
 #endif // _MSC_VER
 
 namespace boost::tmp {
-    // The dispatch type finds the appropriate metaclosure to incvoke and forms
+    // dispatch : The type finds the appropriate metaclosure to incvoke and forms
     // the basis of the library.
     template <std::size_t N, typename T>
     struct dispatch;
-
+    // find_dispatch : 
     consteval std::size_t find_dispatch(std::size_t n) {
         return n <= 8 ? n :
                         n < 16 ?
@@ -37,25 +37,25 @@ namespace boost::tmp {
                         32 :
                         n < 64 ? 33 : n == 64 ? 64 : n < 128 ? 65 : n == 128 ? 128 : 129;
     }
-
+    // dispatch_unknown : 
     template <typename C>
     struct dispatch_unknown {
         template <typename... Ts>
         using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
     };
 
-    // Boolean types / aliases
+    // Boolean type wrapper
     export template<bool B>
     struct bool_ { static constexpr bool value = B; };
-
+    // bool_ type aliases
     export using true_  = bool_<true>;
     export using false_ = bool_<false>;
 
-    // byte type
+    // std::byte type wrapper
     export template<std::byte B>
     struct byte_ { static constexpr std::byte value = B; };
 
-    // char types
+    // Char type wrappers
     export template<char C>
     struct char_ { static constexpr char value = C; };
     export template<wchar_t C>
@@ -69,16 +69,16 @@ namespace boost::tmp {
     export template<char32_t C>
     struct char32_ { static constexpr char32_t value = C; };
 
-    // Identity type
+    // identity_ :
     export struct identity_ {};
-
+    // identity_ : implementation
     template <>
     struct dispatch<1, identity_> {
         template <typename T>
         using f = T;
     };
 
-    // Integral types
+    // Unsigned and signed integral type wrappers
     export template<unsigned long long V>
     struct uint_ { static constexpr unsigned long long value = V; };
     export template<long long I>
@@ -102,13 +102,13 @@ namespace boost::tmp {
     export template<std::int64_t V>
     struct int64_ { static constexpr std::int64_t value = V; };
 
-    // Nothing type
+    // nothing_ : 
     export struct nothing_ {};
 
-    // Lift metaclosure - Used for lifting a type into a function.
+    // lift_ : Used for lifting a type into a function.
     export template <template <typename...> class F, typename C = identity_>
     struct lift_ {};
-
+    // lift_ : implementation
     template <template <typename...> class F, typename C>
     struct dispatch<1, lift_<F, C>> {
         template <typename T>
@@ -135,16 +135,16 @@ namespace boost::tmp {
         using f = dispatch<1, C>::template f<F<Ts...>>;
     };
 
-    // List types / aliases
+    // list_ :
     export template <typename... Ts>
     struct list_ {};
-
+    // listify_ : 
     export using listify_ = lift_<list_>;
 
-    // The always_ metaclosure returns type / shovels into the continuation C.
+    // always_ : metaclosure returns type / shovels into the continuation C.
     export template <typename T, typename C = identity_>
     struct always_ {};
-
+    // always_ : implementation
     template <std::size_t N, typename T, typename C>
     struct dispatch<N, always_<T, C>> {
         template <typename...>
@@ -155,24 +155,23 @@ namespace boost::tmp {
     // of the input type T.
     export template <typename C = identity_>
     struct result_ {};
-
+    // result_ : implementation
     template <typename C>
     struct dispatch<1, result_<C>> {
         template <typename T>
         using f = dispatch<1, C>::template f<T::type>;
     };
 
-    // call_ is a foundational metaclosure that immediately evaluates the input metaclosure(s).
+    // call_ : a foundational metaclosure that immediately evaluates the input metaclosure(s).
     export template <typename F, typename... Ts>
     using call_ = dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>;
-
     export template <typename T, typename... Ts>
     using call_t = dispatch<find_dispatch(sizeof...(Ts)), T>::template
                       f<Ts...>::type;
-
+    // call_f_ : 
     export template <typename C = identity_>
     struct call_f_ {};
-
+    // call_f_ : implementation
     template <std::size_t N, typename C>
     struct dispatch<N, call_f_<C>> {
         template <typename F, typename... Ts>
@@ -186,18 +185,13 @@ namespace boost::tmp {
         template <typename T>
         using f = T;
     };
-
     template <>
     struct maybe_test_impl<true> {};
-
-    // TODO: Get rid of std::is_same_v here.
-    template <typename T>
+    template <typename T> // TODO: Get rid of std::is_same_v here.
     using maybe_impl = maybe_test_impl<std::is_same_v<T, nothing_>>::template f<T>;
-
     export template <typename T, typename... Ts>
     using maybe_ = maybe_impl<typename dispatch<find_dispatch(sizeof...(Ts)), T>::template
                       f<Ts...>>;
-
     export template <typename T, typename... Ts>
     using maybe_t = maybe_impl<typename dispatch<find_dispatch(sizeof...(Ts)), T>::template
                        f<Ts...>::type>;
