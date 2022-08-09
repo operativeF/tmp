@@ -11,6 +11,7 @@ module;
 #if defined(__GNUC__) || defined(__clang__)
 #include <concepts>
 #include <cstdint>
+#include <limits>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
 export module Boost.TMP:Algorithm.FunctionIf;
