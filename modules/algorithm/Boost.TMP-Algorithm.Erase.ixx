@@ -50,7 +50,7 @@ using namespace boost::tmp;
 template<typename T> requires(std::same_as<T, list_<int_<2>, int_<3>>>)
 struct EraseFirstElement;
 
-// Erasing single element will always result in empty list.
+// Erasing an element from a list with a single element will always result in empty list.
 template<typename T> requires(std::same_as<T, list_<>>)
 struct EraseSingleElement;
 
