@@ -298,68 +298,52 @@ struct dispatch<N, contains_<T, C>> : dispatch<N, or_<is_<T>, C>> {};
 } // namespace boost::tmp
 
 namespace logic_test {
-    using namespace boost::tmp;
-
-    template<typename T> requires(std::same_as<T, false_>)
-    struct AllNumbersOdd;
-
-    template<typename T> requires(std::same_as<T, true_>)
-    struct AllNumbersEven;
-
-    template<typename T> requires(std::same_as<T, true_>)
-    struct OneNumberEven;
-
-    template<typename T> requires(std::same_as<T, true_>)
-    struct OneNumberOdd;
-
-    template<typename T>
-    using is_even = bool_<(T::value % 2 == 0)>;
-
-    using test_one = AllNumbersOdd<call_<and_<lift_<is_even>>, int_<1>, int_<1>, int_<1>>>;
-
-    using test_two = AllNumbersEven<call_<and_<lift_<is_even>>, int_<2>, int_<2>, int_<2>>>;
-
-    using test_three = OneNumberEven<call_<or_<lift_<is_even>>, int_<1>, int_<2>, int_<1>>>;
-
-    using test_four = OneNumberOdd<call_<or_<lift_<is_even>>, int_<2>, int_<1>, int_<2>>>;
-
-} // namespace logic_test
-
-// TODO: Move into logic_test
-namespace contains_test {
-    using namespace boost::tmp;
-
-    template<typename T> requires(std::same_as<T, false_>)
-    struct DoesNotContainType;
-
-    template<typename T> requires(std::same_as<T, true_>)
-    struct ContainsType;
-
-    using test_one   = DoesNotContainType<call_<contains_<int_<0>>, int_<1>>>;
-
-    using test_two   = ContainsType<call_<contains_<int_<2>>, int_<0>, int_<1>, int_<2>>>;
-
-    using test_three = DoesNotContainType<call_<contains_<int_<1>>>>;
-    
-} // namespace contains_test
-
-// TODO: Move into logic_test
-namespace comparison_test {
-    using namespace boost::tmp;
-
-    // template<int A, int B>
-    // struct two_ints {
-    //     int a{A};
-    //     int b{B};
-    // };
-
-    // false_{} = call_<less_f_<lift_<std::alignment_of>>, two_ints<1, 2>, char_<'c'>>{};
-    // true_{}  = call_<less_f_<lift_<std::alignment_of>>, char_<'c'>,     two_ints<1, 2>>{};
-} // namespace comparison_test
-
-// TODO: Move into logic_test
-namespace none_of_test {
 using namespace boost::tmp;
+
+template<typename T> requires(std::same_as<T, false_>)
+struct AllNumbersOdd;
+
+template<typename T> requires(std::same_as<T, true_>)
+struct AllNumbersEven;
+
+template<typename T> requires(std::same_as<T, true_>)
+struct OneNumberEven;
+
+template<typename T> requires(std::same_as<T, true_>)
+struct OneNumberOdd;
+
+template<typename T>
+using is_even = bool_<(T::value % 2 == 0)>;
+
+using and_test_1 = AllNumbersOdd<call_<and_<lift_<is_even>>, int_<1>, int_<1>, int_<1>>>;
+
+using and_test_2 = AllNumbersEven<call_<and_<lift_<is_even>>, int_<2>, int_<2>, int_<2>>>;
+
+using or_test_1 = OneNumberEven<call_<or_<lift_<is_even>>, int_<1>, int_<2>, int_<1>>>;
+
+using or_test_2 = OneNumberOdd<call_<or_<lift_<is_even>>, int_<2>, int_<1>, int_<2>>>;
+
+// Contains tests
+template<typename T> requires(std::same_as<T, false_>)
+struct DoesNotContainType;
+
+template<typename T> requires(std::same_as<T, true_>)
+struct ContainsType;
+
+using contains_test_1   = DoesNotContainType<call_<contains_<int_<0>>, int_<1>>>;
+
+using contains_test_2   = ContainsType<call_<contains_<int_<2>>, int_<0>, int_<1>, int_<2>>>;
+
+using contains_test_3   = DoesNotContainType<call_<contains_<int_<1>>>>;
+
+// template<int A, int B>
+// struct two_ints {
+//     int a{A};
+//     int b{B};
+// };
+
+// false_{} = call_<less_f_<lift_<std::alignment_of>>, two_ints<1, 2>, char_<'c'>>{};
+// true_{}  = call_<less_f_<lift_<std::alignment_of>>, char_<'c'>,     two_ints<1, 2>>{};
 
 template<typename T> requires(std::same_as<T, false_>)
 struct NoneOfTheNumbersAreOdd;
@@ -367,12 +351,9 @@ struct NoneOfTheNumbersAreOdd;
 template<typename T> requires(std::same_as<T, true_>)
 struct NoneOfTheNumbersAreEven;
 
-template<typename T>
-using is_even = bool_<(T::value % 2 == 0)>;
-
 // Conversely, all of the numbers are even.
-using test_one = NoneOfTheNumbersAreOdd<call_<none_of_<lift_<is_even>>, int_<2>, int_<100>, int_<4>, int_<500>>>;
+using none_of_test_1 = NoneOfTheNumbersAreOdd<call_<none_of_<lift_<is_even>>, int_<2>, int_<100>, int_<4>, int_<500>>>;
 
 // Conversely, all of the numbers are odd.
-using test_two = NoneOfTheNumbersAreEven<call_<none_of_<lift_<is_even>>, int_<1>, int_<3>>>;
-} // namespace none_of_test
+using none_of_test_2 = NoneOfTheNumbersAreEven<call_<none_of_<lift_<is_even>>, int_<1>, int_<3>>>;
+} // namespace logic_test
