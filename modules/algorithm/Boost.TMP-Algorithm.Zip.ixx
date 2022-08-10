@@ -18,7 +18,6 @@ import :Algorithm.MakeSequence;
 import :Algorithm.Transform;
 import :Algorithm.Unpack;
 import :Base.Types;
-import :TestHelpers;
 
 #if _MSC_VER
 import std;
@@ -91,11 +90,14 @@ struct dispatch<N, zip_with_index_<F, lift_<C>>> {
 namespace zip_test {
 using namespace boost::tmp;
 
-template<typename T> requires(std::same_as<T, list_<uint_<3>, uint_<7>>>)
+template<typename T> requires(std::same_as<T, list_<int_<3>, int_<7>>>)
 struct AddPairsTogetherWithZip;
 
+template<typename T, typename U>
+using add = int_<T::value + U::value>;
+
 // Performs an addition of pairs of elements component wise i.e. (x0 + x1), (y0 + y1)
-using test_one = AddPairsTogetherWithZip<call_<zip_<lift_<utils::add>>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;
+using test_one = AddPairsTogetherWithZip<call_<zip_<lift_<add>>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;
 } // namespace zip_test
 
 // TESTING:

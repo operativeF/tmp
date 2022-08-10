@@ -6,13 +6,7 @@
 
 
 set(TMP_ALGO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/algorithm)
-set(TMP_DETAIL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/detail)
 set(TMP_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/base)
-set(TMP_UTILS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/utils)
-
-set(TMP_UTILS_IXX
-    ${TMP_UTILS_DIR}/Boost.TMP-TestHelpers.ixx
-)
 
 set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Clamp.ixx
@@ -65,9 +59,7 @@ target_sources(boost_tmp
         FILE_SET boost_tmp_modules TYPE CXX_MODULES FILES
         ${TMP_ALGO_IXX}
         ${TMP_MAIN_IXX}
-        ${TMP_DETAIL_IXX}
         ${TMP_BASE_IXX}
-        ${TMP_UTILS_IXX}
 )
 
 if(MSVC)

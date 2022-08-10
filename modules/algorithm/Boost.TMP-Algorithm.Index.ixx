@@ -130,6 +130,9 @@ struct UnpackedElementAtIndexZeroIsOne;
 template<typename T> requires(std::same_as<T, int_<1>>)
 struct ElementAtFrontIsOne;
 
+template<typename T> requires(std::same_as<T, int_<1>>)
+struct EighthElement;
+
 // Get index 2 of pack (int_<3>)
 using test_one = ElementAtIndexTwoIsThree<call_<index_<uint_<2>>, int_<1>, char_<'c'>, int_<3>, int_<4>>>;
 

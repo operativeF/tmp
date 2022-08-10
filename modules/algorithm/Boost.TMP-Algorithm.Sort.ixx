@@ -19,7 +19,6 @@ import :Algorithm.Logic;
 import :Algorithm.PushPop;
 import :Algorithm.Unpack;
 import :Base.Types;
-import :TestHelpers;
 
 #if _MSC_VER
 import std;
@@ -233,5 +232,8 @@ using namespace boost::tmp;
 template<typename T> requires(std::same_as<T, list_<sizet_<0>, sizet_<1>, sizet_<2>>>)
 struct ListZeroOneTwo;
 
-using test_one = ListZeroOneTwo<call_<sort_<lift_<utils::less>>, sizet_<1>, sizet_<0>, sizet_<2>>>;
+template <typename T, typename U>
+using less = bool_<(T::value < U::value)>;
+
+using test_one = ListZeroOneTwo<call_<sort_<lift_<less>>, sizet_<1>, sizet_<0>, sizet_<2>>>;
 } // namespace sort_test

@@ -19,8 +19,6 @@ import :Algorithm.FunctionIf;
 import :Algorithm.Tee;
 import :Base.Types;
 
-import :TestHelpers;
-
 #ifdef _MSC_VER
 import std;
 #endif // _MSC_VER
@@ -44,5 +42,8 @@ using namespace boost::tmp;
 template<typename T> requires(std::same_as<T, list_<list_<int_<3>, int_<4>>, list_<int_<1>, int_<2>>>>)
 struct SplitIntoTwoListWithGreaterThanTwo;
 
-using test_one = SplitIntoTwoListWithGreaterThanTwo<call_<partition_<lift_<utils::greater_than_two>>, int_<1>, int_<2>, int_<3>, int_<4>>>;
+template <typename T>
+using greater_than_two = bool_<(T::value > 2)>;
+
+using test_one = SplitIntoTwoListWithGreaterThanTwo<call_<partition_<lift_<greater_than_two>>, int_<1>, int_<2>, int_<3>, int_<4>>>;
 } // namespace partition_test

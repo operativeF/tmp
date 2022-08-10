@@ -23,8 +23,6 @@ import :Algorithm.Size;
 import :Algorithm.Transform;
 import :Base.Types;
 
-import :TestHelpers;
-
 #if _MSC_VER
 import std;
 #endif
@@ -104,7 +102,11 @@ using namespace boost::tmp;
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<3>>>)
 struct OnlyOddNumbersLeft;
 
-using test_one = OnlyOddNumbersLeft<call_<remove_if_<lift_<utils::is_even>>, int_<1>, int_<2>, int_<3>>>;
+template<typename T>
+using is_even = bool_<(T::value % 2 == 0)>;
+
+
+using test_one = OnlyOddNumbersLeft<call_<remove_if_<lift_<is_even>>, int_<1>, int_<2>, int_<3>>>;
 } // namespace remove_if_test
 
 // TESTING:
@@ -117,12 +119,15 @@ struct NoEvenNumbers;
 template<typename T> requires(std::same_as<T, sizet_<3>>)
 struct HasThreeEvenNumbers;
 
-using test_one  = NoEvenNumbers<call_<count_if_<lift_<utils::is_even>>, int_<1>, int_<3>>>;
+template<typename T>
+using is_even = bool_<(T::value % 2 == 0)>;
 
-using test_two  = HasThreeEvenNumbers<call_<count_if_<lift_<utils::is_even>>, int_<0>, int_<2>, int_<4>>>;
+using test_one  = NoEvenNumbers<call_<count_if_<lift_<is_even>>, int_<1>, int_<3>>>;
+
+using test_two  = HasThreeEvenNumbers<call_<count_if_<lift_<is_even>>, int_<0>, int_<2>, int_<4>>>;
 
 // Empty input pack returns 0
-using test_three = NoEvenNumbers<call_<count_if_<lift_<utils::is_even>>>>;
+using test_three = NoEvenNumbers<call_<count_if_<lift_<is_even>>>>;
 } // namespace count_if_test
 
 // TESTING:
@@ -135,9 +140,12 @@ struct ReplaceTwoWithC;
 template<typename T> requires(std::same_as<T, list_<>>)
 struct EmptyPackReturnsAnEmptyList;
 
-using test_one = ReplaceTwoWithC<call_<replace_if_<char_<'c'>, lift_<utils::is_even>>, uint_<1>, uint_<2>, uint_<1>>>;
+template<typename T>
+using is_even = bool_<(T::value % 2 == 0)>;
 
-using test_two = EmptyPackReturnsAnEmptyList<call_<replace_if_<char_<'c'>, lift_<utils::is_even>>>>;
+using test_one = ReplaceTwoWithC<call_<replace_if_<char_<'c'>, lift_<is_even>>, uint_<1>, uint_<2>, uint_<1>>>;
+
+using test_two = EmptyPackReturnsAnEmptyList<call_<replace_if_<char_<'c'>, lift_<is_even>>>>;
 } // namespace replace_if_test
 
 // TESTING:
@@ -150,8 +158,11 @@ struct EvenNumberAtPositionThree;
 template<typename T> requires(std::same_as<T, nothing_>)
 struct ReturnNothingForNoValueFound;
 
-using test_one = EvenNumberAtPositionThree<call_<find_if_<lift_<utils::is_even>>, int_<1>, int_<1>, int_<1>, int_<2>>>;
+template<typename T>
+using is_even = bool_<(T::value % 2 == 0)>;
+
+using test_one = EvenNumberAtPositionThree<call_<find_if_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<2>>>;
 
 // find_if_ returns nothing_ when there is no value found that satisfies the predicate.
-using test_two = ReturnNothingForNoValueFound<call_<find_if_<lift_<utils::is_even>>, int_<1>>>;
+using test_two = ReturnNothingForNoValueFound<call_<find_if_<lift_<is_even>>, int_<1>>>;
 } // namespace find_if_test

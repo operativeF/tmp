@@ -16,8 +16,6 @@ export module Boost.TMP:Algorithm.FoldRight;
 
 import :Base.Types;
 
-import :TestHelpers;
-
 #if _MSC_VER
 import std;
 #endif
@@ -113,5 +111,8 @@ using namespace boost::tmp;
 template<typename T> requires(std::same_as<T, uint_<20>>)
 struct AddsUpToTwenty;
 
-using test_one = AddsUpToTwenty<call_<fold_right_<lift_<utils::add>>, uint_<1>, uint_<10>, uint_<9>>>;
+template <typename T, typename U>
+using add = uint_<(T::value + U::value)>;
+
+using test_one = AddsUpToTwenty<call_<fold_right_<lift_<add>>, uint_<1>, uint_<10>, uint_<9>>>;
 } // namespace fold_right_test
