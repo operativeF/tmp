@@ -351,9 +351,7 @@ struct NoneOfTheNumbersAreOdd;
 template<typename T> requires(std::same_as<T, true_>)
 struct NoneOfTheNumbersAreEven;
 
-// Conversely, all of the numbers are even.
 using none_of_test_1 = NoneOfTheNumbersAreOdd<call_<none_of_<lift_<is_even>>, int_<2>, int_<100>, int_<4>, int_<500>>>;
 
-// Conversely, all of the numbers are odd.
 using none_of_test_2 = NoneOfTheNumbersAreEven<call_<none_of_<lift_<is_even>>, int_<1>, int_<3>>>;
 } // namespace logic_test
