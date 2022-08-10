@@ -60,22 +60,21 @@ struct dispatch<N, push_front_<T, C>> {
     using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<T, Ts...>;
 };
 
-// TODO: Implement this.
 // pop_back_ :
-// export template <typename C = listify_>
-// struct pop_back_ {};
-
+export template <typename C = listify_>
+struct pop_back_ {};
 // // pop_back_ : implementation
-// template <std::size_t N, typename C>
-// struct dispatch<N, pop_back_<C>> {
-// 	template <typename T, typename... Ts>
-// 	using f = typename dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
-// };
-// template <typename C>
-// struct dispatch<0, pop_back_<C>> {
-// 	template <typename... Ts>
-// 	using f = typename dispatch<1, C>::template f<nothing_>;
-// };
+template<std::size_t N, typename C>
+struct dispatch<N, pop_back_<C>> {
+    template <typename... Ts>
+    using f = dispatch<find_dispatch(sizeof...(Ts)), rotate_<sizet_<sizeof...(Ts) - 1>, pop_front_<
+                    rotate_<sizet_<(sizeof...(Ts) - 1)>, C>>>>::template f<Ts...>;
+};
+template <typename C>
+struct dispatch<0, pop_back_<C>> {
+    template <typename... Ts>
+    using f = dispatch<1, C>::template f<nothing_>;
+};
 
 } // namespace boost::tmp
 
@@ -115,5 +114,21 @@ struct PushOneToEmptyPack;
 using push_front_test_1 = PushFourToFront<call_<push_front_<int_<4>>, int_<1>, int_<2>>>;
 
 using push_front_test_2 = PushOneToEmptyPack<call_<push_front_<int_<1>>>>;
+
+// pop_back_ tests
+template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>>>)
+struct Pop_int_3_OffOfBack;
+
+template<typename T> requires(std::same_as<T, list_<>>)
+struct PopBackEmptyList;
+
+template<typename T> requires(std::same_as<T, list_<nothing_>>)
+struct PopBackEmptyPack;
+
+using pop_back_test_1 = Pop_int_3_OffOfBack<call_<pop_back_<>, int_<1>, int_<2>, int_<3>>>;
+
+using pop_back_test_2 = PopBackEmptyList<call_<pop_back_<>, list_<>>>;
+
+using pop_back_test_3 = PopBackEmptyPack<call_<pop_back_<>>>;
 
 } // namespace push_pop_tests
