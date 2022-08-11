@@ -11,6 +11,7 @@ set(TMP_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/base)
 set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Clamp.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Drop.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.DropWhile.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Each.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Erase.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Filter.ixx

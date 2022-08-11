@@ -202,12 +202,12 @@ using test_one = EvenNumberAtPositionThree<call_<find_if_<lift_<is_even>>, int_<
 using test_two = ReturnNothingForNoValueFound<call_<find_if_<lift_<is_even>>, int_<1>>>;
 
 template<typename T> requires(std::same_as<T, sizet_<2>>)
-struct OddNumberAtPositionOne;
+struct OddNumberAtPositionTwo;
 
 template<typename T> requires(std::same_as<T, nothing_>)
 struct ReturnNothingForNoValueFound;
 
-using find_if_not_test_1 = OddNumberAtPositionOne<call_<find_if_not_<lift_<is_even>>, int_<2>, int_<4>, int_<1>, int_<2>>>;
+using find_if_not_test_1 = OddNumberAtPositionTwo<call_<find_if_not_<lift_<is_even>>, int_<2>, int_<4>, int_<1>, int_<2>>>;
 
 // find_if_ returns nothing_ when there is no value found that satisfies the predicate.
 using find_if_not_test_2 = ReturnNothingForNoValueFound<call_<find_if_not_<lift_<is_even>>, int_<2>>>;
