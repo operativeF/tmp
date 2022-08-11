@@ -74,6 +74,41 @@ struct dispatch<N, find_if_<lift_<F>, C>> {
                                                         F>, 0, Ts...>>;
 };
 
+// find_if_not_ : 
+export template <typename F, typename C = identity_>
+struct find_if_not_ {};
+
+// find_if_not_ : implementation
+template <bool Found, std::size_t At, template <typename...> class F>
+struct county_not {
+    static constexpr auto value{std::numeric_limits<std::size_t>::max()};
+    template <typename T>
+    using f = county_not<F<T>::value, (At + 1), F>;
+};
+template <std::size_t At, template <typename...> class F>
+struct county_not<false, At, F> {
+    template <typename T>
+    using f                    = county_not;
+    static constexpr std::size_t value = At;
+};
+template <std::size_t N, typename F, typename C>
+struct dispatch<N, find_if_not_<F, C>> {
+    template <typename... Ts>
+    using f = typename dispatch<1, C>::template f<
+                    typename foldey<select_foldey_loop(sizeof...(Ts))>::template f<
+                    county_not<true,
+                            std::numeric_limits<std::size_t>::max(),
+                            dispatch<1, F>::template f>, 0, Ts...>>;
+};
+template <std::size_t N, template <typename...> class F, typename C>
+struct dispatch<N, find_if_not_<lift_<F>, C>> {
+        template <typename... Ts>
+        using f = typename dispatch<1, C>::template f<typename foldey<select_foldey_loop(
+                     sizeof...(Ts))>::template f<county_not<true,
+                                                        std::numeric_limits<std::size_t>::max(),
+                                                        F>, 0, Ts...>>;
+};
+
 // remove_if_ : Given a predicate F, check the variadic parameter pack passed in
 // and remove the value if the predicate holds true.
 export template <typename F, typename C = listify_>
@@ -165,4 +200,16 @@ using test_one = EvenNumberAtPositionThree<call_<find_if_<lift_<is_even>>, int_<
 
 // find_if_ returns nothing_ when there is no value found that satisfies the predicate.
 using test_two = ReturnNothingForNoValueFound<call_<find_if_<lift_<is_even>>, int_<1>>>;
+
+template<typename T> requires(std::same_as<T, sizet_<2>>)
+struct OddNumberAtPositionOne;
+
+template<typename T> requires(std::same_as<T, nothing_>)
+struct ReturnNothingForNoValueFound;
+
+using find_if_not_test_1 = OddNumberAtPositionOne<call_<find_if_not_<lift_<is_even>>, int_<2>, int_<4>, int_<1>, int_<2>>>;
+
+// find_if_ returns nothing_ when there is no value found that satisfies the predicate.
+using find_if_not_test_2 = ReturnNothingForNoValueFound<call_<find_if_not_<lift_<is_even>>, int_<2>>>;
+
 } // namespace find_if_test
