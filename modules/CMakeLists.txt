@@ -24,6 +24,7 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Join.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Logic.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.MakeSequence.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.NthValues.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Partition.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Product.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.PushPop.ixx

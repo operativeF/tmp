@@ -23,6 +23,7 @@ export import :Algorithm.Insert;
 export import :Algorithm.Join;
 export import :Algorithm.Logic;
 export import :Algorithm.MakeSequence;
+export import :Algorithm.NthValues;
 export import :Algorithm.Partition;
 export import :Algorithm.Product;
 export import :Algorithm.PushPop;
