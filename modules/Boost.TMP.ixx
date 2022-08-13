@@ -9,6 +9,7 @@
 export module Boost.TMP;
 
 export import :Algorithm.Clamp;
+export import :Algorithm.Counted;
 export import :Algorithm.Drop;
 export import :Algorithm.DropWhile;
 export import :Algorithm.Each;
