@@ -39,6 +39,7 @@ export import :Algorithm.Swap;
 export import :Algorithm.Take;
 export import :Algorithm.Tee;
 export import :Algorithm.Transform;
+export import :Algorithm.Unique;
 export import :Algorithm.Unpack;
 export import :Algorithm.Zip;
 
