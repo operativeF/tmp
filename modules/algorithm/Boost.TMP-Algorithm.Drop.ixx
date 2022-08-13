@@ -124,7 +124,7 @@ struct make_drop<P, C, P> : drop_impl<P, C> {};
 template <std::size_t N, typename P, typename C>
 struct dispatch<N, drop_<P, C>> : make_drop<P::value, C> {};
 
-template<typename N = sizet_<0>, typename C = listify_>
+export template<typename N = sizet_<0>, typename C = listify_>
 struct drop_last_ {};
 
 template<std::size_t N, typename DropN, typename C>
