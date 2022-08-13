@@ -22,6 +22,13 @@ import std;
 
 namespace boost::tmp {
 // size_ :
+// Input params: Parameter pack
+// Closure params: C - Continuation; default identity_
+// Functional description:
+// input  - T0, T1, ..., TN (Ts...)
+// apply  - (get number of elements in parameter pack)
+// result - sizet_<sizeof...(Ts)>
+// Empty return type: sizet_<0>
 export template <typename C = identity_>
 struct size_ {};
 

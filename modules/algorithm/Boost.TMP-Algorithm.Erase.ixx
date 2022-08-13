@@ -26,6 +26,14 @@ import std;
 namespace boost::tmp {
 // erase_ : Given a VPP, remove the nth value in the pack.
 // Reduces the size of the list by 1.
+// Input params: Parameter pack
+// Closure params: N - Positive integer type of index of element to remove
+//                 C - Continuation; default listify_
+// Functional description:
+// input  -  T0, T1, ..., T(M - 1), TM, T(M + 1), ..., TN
+// apply  -  (erase element at index M)
+// result -  T0, T1, ..., T(M - 1), T(M + 1), ..., TN
+// Empty return type: list_<>
 export template <typename N = sizet_<0>, typename C = listify_>
 struct erase_ {};
 

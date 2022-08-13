@@ -25,6 +25,13 @@ import std;
 namespace boost::tmp {
 
 // keys_ :
+// Input params: Parameter pack
+// Closure params: C - Continuation; default listify_
+// Functional description:
+// input  - T0<t00, t01, ...>, T1<t10, t11, ...>, ..., TN<tN0, tN1, ...>
+// apply  - (get 1st element from each element)
+// result - list_<t00, t10, ..., tN0>
+// Empty return type: list_<>
 export template<typename C = listify_>
 struct keys_ {};
 
@@ -33,6 +40,13 @@ template <std::size_t N, typename C>
 struct dispatch<N, keys_<C>> : dispatch<N, transform_<ui0_<>, C>> {};
 
 // values_ :
+// Input params: Parameter pack
+// Closure params: C - Continuation; default listify_
+// Functional description:
+// input  -  T0<t00, t01, ...>, T1<t10, t11, ...>, ..., TN<tN0, tN1, ...>
+// apply  -  (get 2nd element from each element)
+// result -  list_<t01, t11, ..., tN1>
+// Empty return type: list_<>
 export template<typename C = listify_>
 struct values_ {};
 
@@ -41,6 +55,14 @@ template <std::size_t N, typename C>
 struct dispatch<N, values_<C>> : dispatch<N, transform_<ui1_<>, C>> {};
 
 // nth_values_ :
+// Input params: Parameter pack
+// Closure params: I - Positive integer type of the index to take from each element in pack.
+//                 C - Continuation; default listify_
+// Functional description:
+// input  -  T0<t00, t01, ..., T0I, ...>, T1<t10, t11, ..., T1I, ...>, ..., TN<tN0, tN1, ..., TNI, ...>
+// apply  -  (get Ith element from each element)
+// result -  list_<T0I, T1I, ..., TNI>
+// Empty return type: list_<>
 export template<typename I, typename C = listify_>
 struct nth_values_ {};
 

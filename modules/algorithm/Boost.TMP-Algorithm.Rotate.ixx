@@ -22,6 +22,14 @@ import std;
 
 namespace boost::tmp {
 // rotate_ :
+// Input params: Parameter pack
+// Closure params: N - Positive (for now) integer type
+//                 C - Continuation; default listify_
+// Functional description:
+// input  - T0, T1, ..., TN
+// apply  - (M rotations)
+// result - T(M), T(M + 1), ..., T0, T1, ..., TN, ..., T(M - 1)
+// Empty return type: list_<>
 export template <typename N = sizet_<0>, typename C = listify_>
 struct rotate_ {};
 

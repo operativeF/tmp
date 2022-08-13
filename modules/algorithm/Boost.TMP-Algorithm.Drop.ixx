@@ -24,6 +24,14 @@ import std;
 
 namespace boost::tmp {
 // drop_ : Remove (N) values from the front of the input VPP.
+// Input params: Parameter pack
+// Closure params: N - Positive integer type
+//                 C - Continuation; default listify_
+// Functional description:
+// input  - T0, T1, ..., T(M), T(M + 1), ..., TN
+// apply  - (drop M values)
+// result - T(M), T(M + 1), ..., TN
+// Empty return type: list_<>
 export template <typename N = sizet_<0>, typename C = listify_>
 struct drop_ {};
 

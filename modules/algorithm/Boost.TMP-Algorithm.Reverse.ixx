@@ -22,6 +22,13 @@ import std;
 
 namespace boost::tmp {
 // reverse_ :
+// Input params: Parameter pack
+// Closure params: C - Continuation; default listify_
+// Functional description:
+// input  -  T0, T1, ..., TN
+// apply  - (reverse element order of parameter pack)
+// result -  TN, ..., T1, T0
+// Empty return type: list_<>
 export template <typename C = listify_>
 struct reverse_ {};
 

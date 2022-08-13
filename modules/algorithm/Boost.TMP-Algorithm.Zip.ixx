@@ -28,6 +28,14 @@ import std;
 
 namespace boost::tmp {
 // zip_ :
+// Input params: Parameter pack
+// Closure params: F - Metaclosure that accepts input parameter types in parameter pack.
+//                 C - Continuation; default listify_
+// Functional description:
+// input  - T0, T1, ..., TN
+// apply  - (invoke F on each element)
+// result - list_<F<T0>, F<T1>, ..., F<TN>>
+// Empty / default return type: list_<>
 export template <typename F, typename C = listify_>
 struct zip_ {};
 
