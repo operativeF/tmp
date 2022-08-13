@@ -20,7 +20,7 @@ import :Base.Types;
 
 #if _MSC_VER
 import std;
-#endif
+#endif // _MSC_VER
 
 namespace boost::tmp {
 

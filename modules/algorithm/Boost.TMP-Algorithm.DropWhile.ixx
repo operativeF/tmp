@@ -19,8 +19,10 @@ import :Algorithm.Tee;
 import :Algorithm.Unpack;
 import :Base.Types;
 
-// FIXME: Off by one from find_if_. Needs to decrement or needs to have
-// a find find_if_before_ or something.
+#if _MSC_VER
+import std;
+#endif // _MSC_VER
+
 namespace boost::tmp {
 
 // drop_list_ :
