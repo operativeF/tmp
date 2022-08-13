@@ -140,15 +140,15 @@ template <typename C>
 struct repeat_seq_impl<16, C> {
     template <typename T, typename... Ts>
     using f = dispatch<sizeof...(Ts) + 16, C>::template f<T, T, T, T, T, T, T, T,
-                                                            T, T, T, T, T, T, T, T, Ts...>;
+                                                          T, T, T, T, T, T, T, T, Ts...>;
 };
 template <typename C>
 struct repeat_seq_impl<32, C> {
     template <typename T, typename... Ts>
     using f = dispatch<sizeof...(Ts) + 32, C>::template f<T, T, T, T, T, T, T, T,
-                                                            T, T, T, T, T, T, T, T,
-                                                            T, T, T, T, T, T, T, T,
-                                                            T, T, T, T, T, T, T, T, Ts...>;
+                                                          T, T, T, T, T, T, T, T,
+                                                          T, T, T, T, T, T, T, T,
+                                                          T, T, T, T, T, T, T, T, Ts...>;
 };
 template <typename C>
 struct repeat_seq_impl<64, C> {

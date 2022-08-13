@@ -61,35 +61,35 @@ struct dispatch<5, fold_right_<lift_<F>, lift_<C>>> {
 template <template <typename...> class F, template <typename...> class C>
 struct dispatch<6, fold_right_<lift_<F>, lift_<C>>> {
     template <typename T0, typename T1, typename T2, typename T3, typename T4,
-                typename In>
+              typename In>
     using f = C<F<F<F<F<F<In, T4>, T3>, T2>, T1>, T0>>;
 };
 template <template <typename...> class F, template <typename...> class C>
 struct dispatch<7, fold_right_<lift_<F>, lift_<C>>> {
     template <typename T0, typename T1, typename T2, typename T3, typename T4,
-                typename T5, typename In>
+              typename T5, typename In>
     using f = C<F<F<F<F<F<F<In, T5>, T4>, T3>, T2>, T1>, T0>>;
 };
 template <template <typename...> class F, template <typename...> class C>
 struct dispatch<8, fold_right_<lift_<F>, lift_<C>>> {
     template <typename T0, typename T1, typename T2, typename T3, typename T4,
-                typename T5, typename T6, typename In>
+              typename T5, typename T6, typename In>
     using f = C<F<F<F<F<F<F<F<In, T6>, T5>, T4>, T3>, T2>, T1>, T0>>;
 };
 template <std::size_t N, template <typename...> class F, template <typename...> class C>
 struct dispatch<N, fold_right_<lift_<F>, lift_<C>>> {
     template <typename T0, typename T1, typename T2, typename T3, typename T4,
-                typename T5, typename T6, typename T7, typename T8, typename... Ts>
+              typename T5, typename T6, typename T7, typename T8, typename... Ts>
     using f = C<F<F<F<F<F<F<F<F<F<typename dispatch<find_dispatch(sizeof...(Ts)),
                                         fold_right_<lift_<F>, identity_>>::template f<Ts...>,
                                 T8>,
-                                T7>,
+                              T7>,
                             T6>,
-                            T5>,
+                          T5>,
                         T4>,
-                        T3>,
+                      T3>,
                     T2>,
-                    T1>,
+                  T1>,
                 T0>>;
 };
 template <std::size_t N, typename F, typename C>
