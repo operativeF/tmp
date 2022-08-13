@@ -23,9 +23,13 @@ namespace boost::tmp {
 consteval std::size_t select_foldey_loop(std::size_t rest_size) {
     return static_cast<std::size_t>(rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008);
 }
-consteval std::size_t select_foldey(std::size_t chunk_size, std::size_t rest_size, std::size_t found_at_index) {
-    return found_at_index == -1 ? select_foldey_loop(rest_size) :
-                                    chunk_size - found_at_index;
+
+// FIXME: Workaround employed after value isn't found when invoking F::template f<T0>::value
+// in foldey<1001>. The value of the type is found after referring to it here, not in foldey<1001>.
+template<typename WorkAroundT>
+consteval std::size_t select_foldey(std::size_t chunk_size, std::size_t rest_size) {
+    return WorkAroundT::value == std::numeric_limits<std::size_t>::max() ? select_foldey_loop(rest_size) :
+                                    chunk_size - WorkAroundT::value;
 }
 
 template <std::size_t S>
@@ -38,10 +42,11 @@ struct foldey<1000> {
     template <typename F, std::size_t N, typename... Ts>
     using f = nothing_;
 };
+// FIXME: Workaround for extracting value in F::template f<T0>. Pass type into now templated select_foldey.
 template <>
 struct foldey<1001> {
-    template <typename F, std::size_t N, typename T0, typename... Ts>
-    using f = foldey<select_foldey(1, sizeof...(Ts), F::template f<T0>::value)>::template f<F, N + 1, Ts...>;
+    template <typename F, std::size_t N, typename T0, typename... Ts> 
+    using f = foldey<select_foldey<typename F::template f<T0>>(1, sizeof...(Ts))>::template f<F, N + 1, Ts...>;
 };
 template <>
 struct foldey<1008> {
