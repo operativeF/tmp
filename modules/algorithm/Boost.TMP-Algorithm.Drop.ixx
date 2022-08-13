@@ -14,6 +14,7 @@ module;
 
 export module Boost.TMP:Algorithm.Drop;
 
+import :Algorithm.Reverse;
 import :Algorithm.Rotate;
 import :Base.Types;
 
@@ -122,6 +123,13 @@ template <std::size_t P, typename C>
 struct make_drop<P, C, P> : drop_impl<P, C> {};
 template <std::size_t N, typename P, typename C>
 struct dispatch<N, drop_<P, C>> : make_drop<P::value, C> {};
+
+template<typename N = sizet_<0>, typename C = listify_>
+struct drop_last_ {};
+
+template<std::size_t N, typename DropN, typename C>
+struct dispatch<N, drop_last_<DropN, C>> : dispatch<N, reverse_<drop_<DropN, reverse_<C>>>> {};
+
 } // namespace boost::tmp
 
 // TESTING:
@@ -142,4 +150,10 @@ using test_two = DropZeroReturnsInputList<call_<drop_<uint_<0>>, int_<1>, int_<2
 // UNDER CONSIDERATION: Dropping input off of no input fails.
 // Should this return an empty list?
 // list_<>{} = call_<drop_<uint_<7>>>{};
+
+template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>>>)
+struct DropThreeOffEnd;
+
+using drop_last_test_1 = DropThreeOffEnd<call_<drop_last_<int_<3>>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>;
+
 } // namespace drop_test
