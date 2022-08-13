@@ -59,7 +59,8 @@ struct dispatch<3, zip_<F, C>> {
     using f = zip3<F, C, T, U, V>::f;
 };
 
-// zip_with_index_ :
+// zip_with_index_ : Enumerates over a parameter pack, indexing each
+// element starting at 0.
 export template <typename F = listify_, typename C = listify_>
 struct zip_with_index_ {};
 
