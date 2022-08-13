@@ -12,7 +12,6 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Clamp.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Counted.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Drop.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.DropWhile.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Each.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Erase.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Filter.ixx
@@ -39,6 +38,7 @@ set(TMP_ALGO_IXX
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.SymmetricDifference.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Take.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Tee.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Trim.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Transform.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Unique.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Unpack.ixx
