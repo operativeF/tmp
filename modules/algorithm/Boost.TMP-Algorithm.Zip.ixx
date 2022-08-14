@@ -93,6 +93,7 @@ struct dispatch<N, zip_with_index_<F, lift_<C>>> {
     template <typename... Ts>
     using f = indexer<make_index_for_zip<sizeof...(Ts)>>::template f<F, C, Ts...>;
 };
+
 } // namespace boost::tmp
 
 // TESTING:
@@ -105,8 +106,15 @@ struct AddPairsTogetherWithZip;
 template<typename T, typename U>
 using add = int_<T::value + U::value>;
 
-// Performs an addition of pairs of elements component wise i.e. (x0 + x1), (y0 + y1)
-using test_one = AddPairsTogetherWithZip<call_<zip_<lift_<add>>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;
+template<typename T> requires(std::same_as<T, list_<list_<int_<1>, int_<2>>, list_<int_<3>, int_<4>>>>)
+struct ZipPairsIntoList;
+
+// Performs an addition of pairs of elements component wise i.e. (x0 + x1), (y0 + y1), ...
+using zip_test_1 = AddPairsTogetherWithZip<call_<zip_<lift_<add>>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;
+
+// Pairs elements in each list together i.e. (x0, y0), (x1, y1), ...
+using zip_test_2 = ZipPairsIntoList<call_<zip_<listify_>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;
+
 } // namespace zip_test
 
 // TESTING:
