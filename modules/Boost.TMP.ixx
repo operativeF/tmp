@@ -32,6 +32,7 @@ export import :Algorithm.Reverse;
 export import :Algorithm.Rotate;
 // export import :Algorithm.Set;
 export import :Algorithm.Size;
+export import :Algorithm.Slice;
 export import :Algorithm.Split;
 export import :Algorithm.Sort;
 export import :Algorithm.Swap;
