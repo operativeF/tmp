@@ -14,7 +14,9 @@ module;
 
 export module Boost.TMP:Algorithm.Stride;
 
-import :Algorithm.FunctionIf;
+import :Algorithm.Index;
+import :Algorithm.MakeSequence;
+import :Algorithm.Tee;
 import :Base.Types;
 
 namespace boost::tmp {
@@ -32,33 +34,63 @@ namespace boost::tmp {
 template<typename S = sizet_<0>, typename C = listify_>
 struct stride_ {};
 
+// TODO: Move this to MakeSequence module.
+template <std::size_t N>
+using make_index_for_stride = make_seq_impl<next_state(0, N)>::template f<N>;
+
 // stride_ : implementation
-template<typename StrideLength>
-struct stride_helper {
-    template<typename I>
-    using f = bool_<(I::value % StrideLength::value != 0)>;
+template<typename S, typename C = listify_, typename L = listify_>
+struct tee_drops_ {};
+template<std::size_t N, typename S, typename C, typename... Ts>
+struct dispatch<N, tee_drops_<S, list_<Ts...>, C>> {
+    template<typename... Us>
+    using f = dispatch<sizeof...(Us) / S::value + 1, tee_<index_<sizet_<Ts::value * S::value>>..., C>>::template f<Us...>;
+    // using f = tee_<index_<sizet_<(Ts::value * S::value)>>..., C>;
 };
-// FIXME: Add specialization for stride_<sizet_<0>>
+template<typename S, typename C, typename... Ts>
+struct dispatch<0, tee_drops_<S, list_<Ts...>, C>> {
+    template<typename... Us>
+    using f = dispatch<0, tee_<i0_<>, C>>::template f<Us...>;
+    // using f = tee_<index_<sizet_<(Ts::value * S::value)>>..., C>;
+};
+
+consteval std::size_t stride_div(std::size_t input_size, std::size_t stride_length) {
+    return (input_size % stride_length) < 1
+        ? input_size / stride_length
+        : input_size / stride_length + 1;
+}
+
 template<std::size_t N, typename S, typename C>
-struct dispatch<N, stride_<S, C>> : dispatch<N, remove_if_<lift_<stride_helper<S>::template f>, C>> {};
+struct dispatch<N, stride_<S, C>> {
+    template<typename... Ts>
+    using f = dispatch<N, tee_drops_<S, make_index_for_stride<stride_div(sizeof...(Ts), S::value)>, C>>::template f<Ts...>;
+};
+
+template<typename S, typename C>
+struct dispatch<0, stride_<S, C>> {
+    template<typename... Ts>
+    using f = dispatch<0, tee_drops_<S, list_<sizet_<0>>, C>>::template f<>;
+};
 
 } // namespace boost::tmp
 
 namespace stride_test {
 using namespace boost::tmp;
 
-// template<typename T> requires(std::same_as<T, list_<int_<0>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>)
-// struct EveryZerothElement;
+template<typename T> requires(std::same_as<T, list_<int_<0>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>)
+struct EveryZerothElement;
 
 template<typename T> requires(std::same_as<T, list_<int_<0>, int_<2>, int_<4>>>)
 struct EverySecondElement;
 
-template<typename T> requires(std::same_as<T, list_<int_<0>, int_<3>, int_<6>>>)
+template<typename T> requires(std::same_as<T, list_<char_<'a'>, char_<'d'>, char_<'g'>>>)
 struct EveryThirdElement;
 
-using stride_test_1 = EverySecondElement<call_<stride_<sizet_<2>>, int_<0>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>;
+using stride_test_2 = EveryThirdElement<call_<stride_<sizet_<3>>, char_<'a'>, char_<'b'>, char_<'c'>, char_<'d'>, char_<'e'>, char_<'f'>, char_<'g'>>>;
 
-using stride_test_2 = EveryThirdElement<call_<stride_<sizet_<3>>, int_<0>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>, int_<6>>>;
+int b(){
+    list_<char_<'a'>, char_<'c'>>{} = call_<stride_<sizet_<2>>, char_<'a'>, char_<'b'>, char_<'c'>, char_<'d'>>{};
+    return 0;
+}
 
 } // namespace stride_test
-
