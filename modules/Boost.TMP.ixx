@@ -8,6 +8,7 @@
 
 export module Boost.TMP;
 
+export import :Algorithm.Chunk;
 export import :Algorithm.Clamp;
 export import :Algorithm.Counted;
 export import :Algorithm.Drop;

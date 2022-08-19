@@ -9,6 +9,7 @@ set(TMP_ALGO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/algorithm)
 set(TMP_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/base)
 
 set(TMP_ALGO_IXX
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Chunk.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Clamp.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Counted.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Drop.ixx
