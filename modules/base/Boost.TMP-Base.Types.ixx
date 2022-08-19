@@ -20,7 +20,7 @@ import std;
 #endif // _MSC_VER
 
 namespace boost::tmp {
-// dispatch : The type finds the appropriate metaclosure to incvoke and forms
+// dispatch : The type finds the appropriate metaclosure to invoke and forms
 // the basis of the library.
 template <std::size_t N, typename T>
 struct dispatch;
