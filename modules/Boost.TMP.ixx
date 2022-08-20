@@ -37,6 +37,7 @@ export import :Algorithm.Slice;
 export import :Algorithm.Slide;
 export import :Algorithm.Split;
 export import :Algorithm.Sort;
+export import :Algorithm.StartEnd;
 export import :Algorithm.Stride;
 export import :Algorithm.Swap;
 // export import :Algorithm.SymmetricDiff;

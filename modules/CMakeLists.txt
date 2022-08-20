@@ -38,6 +38,7 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Slide.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Split.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Sort.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.StartEnd.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Stride.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Swap.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.SymmetricDifference.ixx
