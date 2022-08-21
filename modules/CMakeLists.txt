@@ -17,8 +17,7 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Erase.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Filter.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Flatten.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldLeft.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FoldRight.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Fold.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Foldey.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FunctionIf.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Index.ixx

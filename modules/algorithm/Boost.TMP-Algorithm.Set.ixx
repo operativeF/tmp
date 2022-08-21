@@ -17,7 +17,7 @@ export module Boost.TMP:Algorithm.Set;
 import :Algorithm.Drop;
 import :Algorithm.Filter;
 import :Algorithm.Flatten;
-import :Algorithm.FoldLeft;
+import :Algorithm.Fold;
 import :Algorithm.Index;
 import :Algorithm.Join;
 import :Algorithm.Logic;

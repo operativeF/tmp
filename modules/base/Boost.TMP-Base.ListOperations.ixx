@@ -9,7 +9,7 @@
 export module Boost.TMP:Base.ListOperations;
 
 import :Algorithm.Contains;
-import :Algorithm.FoldLeft;
+import :Algorithm.Fold;
 import :Algorithm.FunctionIf;
 import :Algorithm.Logic;
 import :Algorithm.Sort;

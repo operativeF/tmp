@@ -21,6 +21,7 @@ import std;
 #endif
 
 namespace boost::tmp {
+
 // rotate_ :
 // Input params: Parameter pack
 // Closure params: N - Positive (for now) integer type
@@ -152,9 +153,9 @@ struct make_rotate
 };
 template <std::size_t P, typename C>
 struct make_rotate<P, C, P> : rotate_impl<P, C> {};
-
 template <std::size_t N, typename P, typename C>
 struct dispatch<N, rotate_<P, C>> : make_rotate<P::value, C> {};
+
 } // namespace boost::tmp
 
 namespace rotate_test {

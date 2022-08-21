@@ -14,7 +14,7 @@ module;
 
 export module Boost.TMP:Algorithm.Sort;
 
-import :Algorithm.FoldLeft;
+import :Algorithm.Fold;
 import :Algorithm.Logic;
 import :Algorithm.PushPop;
 import :Algorithm.Unpack;

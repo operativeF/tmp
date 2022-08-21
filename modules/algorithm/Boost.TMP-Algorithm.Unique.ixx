@@ -15,7 +15,7 @@ export module Boost.TMP:Algorithm.Unique;
 
 import :Algorithm.Drop;
 import :Algorithm.Flatten;
-import :Algorithm.FoldLeft;
+import :Algorithm.Fold;
 import :Algorithm.Index;
 import :Algorithm.Logic;
 import :Algorithm.PushPop;
