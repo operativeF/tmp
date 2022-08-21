@@ -14,9 +14,9 @@ module;
 
 export module Boost.TMP:Algorithm.Chunk;
 
-import :Algorithm.Counted;
 import :Algorithm.MakeSequence;
 import :Algorithm.Tee;
+import :Algorithm.Window;
 import :Base.Types;
 
 namespace boost::tmp {
@@ -59,7 +59,7 @@ template<std::size_t N, typename S, typename C, typename... Ts>
 struct dispatch<N, chunk_impl<S, list_<Ts...>, C>> {
     template<typename... Us>
     using f = dispatch<sizeof...(Us),
-        tee_<counted_<sizet_<(Ts::value * S::value)>,
+        tee_<window_<sizet_<(Ts::value * S::value)>,
                       sizet_<chunking_size(Ts::value, S::value, sizeof...(Us))>>..., C>>::template f<Us...>;
 };
 template<std::size_t N, typename S, typename C>

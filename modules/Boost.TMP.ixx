@@ -10,7 +10,6 @@ export module Boost.TMP;
 
 export import :Algorithm.Chunk;
 export import :Algorithm.Clamp;
-export import :Algorithm.Counted;
 export import :Algorithm.Drop;
 export import :Algorithm.Each;
 export import :Algorithm.Erase;
@@ -46,6 +45,7 @@ export import :Algorithm.Transform;
 export import :Algorithm.Trim;
 export import :Algorithm.Unique;
 export import :Algorithm.Unpack;
+export import :Algorithm.Window;
 export import :Algorithm.Zip;
 
 // export import :Base.ListOperations;

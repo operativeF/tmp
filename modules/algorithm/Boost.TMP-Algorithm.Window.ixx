@@ -11,7 +11,7 @@ module;
 #include <cstdint>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
-export module Boost.TMP:Algorithm.Counted;
+export module Boost.TMP:Algorithm.Window;
 
 import :Algorithm.Drop;
 import :Algorithm.Take;
@@ -23,26 +23,26 @@ import std;
 
 namespace boost::tmp {
 
-// counted_ :
+// window_ :
 export template<typename StartIndex, typename Count, typename C = listify_>
-struct counted_ {};
+struct window_ {};
 
-// counted_ : implemenation
+// window_ : implemenation
 template<std::size_t N, typename StartIndex, typename Count, typename C>
-struct dispatch<N, counted_<StartIndex, Count, C>> {
+struct dispatch<N, window_<StartIndex, Count, C>> {
     template<typename... Ts>
     using f = dispatch<sizeof...(Ts), drop_<StartIndex, take_<Count, C>>>::template f<Ts...>;
 };
 
 } // namespace boost::tmp
 
-namespace counted_test {
+namespace window_test {
 
 using namespace boost::tmp;
 
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, int_<3>>>)
 struct GetTheMiddle123;
 
-using counted_test_1 = GetTheMiddle123<call_<counted_<int_<1>, int_<3>>, int_<0>, int_<1>, int_<2>, int_<3>, int_<5>, int_<7>>>;
+using window_test_1 = GetTheMiddle123<call_<window_<int_<1>, int_<3>>, int_<0>, int_<1>, int_<2>, int_<3>, int_<5>, int_<7>>>;
 
-} // namespace counted_test
+} // namespace window_test

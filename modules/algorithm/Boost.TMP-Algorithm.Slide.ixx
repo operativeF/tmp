@@ -14,9 +14,9 @@ module;
 
 export module Boost.TMP:Algorithm.Slide;
 
-import :Algorithm.Counted;
 import :Algorithm.MakeSequence;
 import :Algorithm.Tee;
+import :Algorithm.Window;
 import :Base.Types;
 
 // TODO: Add incrementing by a number other than 1.
@@ -47,7 +47,7 @@ struct slide_impl {};
 template<std::size_t N, typename W, typename C, typename... Ts>
 struct dispatch<N, slide_impl<W, list_<Ts...>, C>> {
     template<typename... Us>
-    using f = dispatch<sizeof...(Us), tee_<counted_<Ts, W>..., C>>::template f<Us...>;
+    using f = dispatch<sizeof...(Us), tee_<window_<Ts, W>..., C>>::template f<Us...>;
 };
 template<std::size_t N, typename W, typename C>
 struct dispatch<N, slide_<W, C>> {
