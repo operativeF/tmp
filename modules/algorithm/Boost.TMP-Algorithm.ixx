@@ -33,7 +33,7 @@ namespace boost::tmp {
 // Empty return type: list_<>
 export template <typename N = sizet_<0>, typename C = listify_>
 struct rotate_ {};
-inline namespace rotate_implementation {
+inline namespace detail {
 template <std::size_t, typename C>
 struct rotate_impl;
 template <typename C>
@@ -188,7 +188,7 @@ struct reverse_impl {
         find_dispatch(sizeof...(Ts) + sizeof...(Us)), C>::template f<Ts..., Us...>;
 };
 } // namespace
-inline namespace reverse_implementation {
+inline namespace detail {
 template <typename C>
 struct dispatch<0, reverse_<C>> {
     template <typename...>
@@ -374,7 +374,7 @@ namespace {
 template <typename C, typename L>
 struct unpack_impl;
 } // namespace
-inline namespace unpack_implementation {
+inline namespace detail {
 template <typename C, template <typename...> class Seq, typename... Ls>
 struct unpack_impl<C, Seq<Ls...>> {
     using type = dispatch<find_dispatch(sizeof...(Ls)), C>::template f<Ls...>;
@@ -395,11 +395,10 @@ inline namespace unpack_test {
 
 } // inline namespace unpack_test
 
-inline namespace transform {
 // transform_ : 
 export template <typename F = identity_, typename C = listify_>
 struct transform_ {};
-inline namespace transform_implementation {
+inline namespace detail {
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, transform_<F, C>> {
     template <typename... Ts>
@@ -415,7 +414,6 @@ struct dispatch<N, transform_<lift_<F, FC>, C>> {
 inline namespace transform_test {
 
 } // inline namespace transform_test
-} // inline namespace transform
 
 // make_sequence_ :
 export template <typename F = identity_, typename C = listify_>
@@ -456,7 +454,7 @@ struct make_seq_impl<3> { // double +1
                     End, Is..., (Is + sizeof...(Is))..., (2 * sizeof...(Is))>;
 };
 } // namespace
-inline namespace make_sequence_implementation {
+inline namespace detail {
 template <typename F, typename C>
 struct dispatch<1, make_sequence_<F, C>> {
     template <typename N>
@@ -498,7 +496,7 @@ struct ListOneTwoThree;
 // repeat_sequence_ :
 export template<typename N = sizet_<0>, typename C = listify_>
 struct repeat_sequence_{};
-inline namespace repeat_sequence_implementation {
+inline namespace detail {
 template <std::size_t, typename C>
 struct repeat_seq_impl;
 template <typename C>
@@ -597,7 +595,7 @@ inline namespace repeat_sequence_test {
 // Empty return type: list_<>
 export template <typename N = sizet_<0>, typename C = listify_>
 struct drop_ {};
-inline namespace drop_implementation {
+inline namespace detail {
 template <std::size_t, typename C>
 struct drop_impl;
 // TODO: Is this correct behavior for dropping nothing?
@@ -709,7 +707,7 @@ using drop_test_2 = DropZeroReturnsInputList<call_<drop_<uint_<0>>, int_<1>, int
 // take_ :
 export template <typename N = sizet_<0>, typename C = listify_>
 struct take_ {};
-inline namespace take_implementation {
+inline namespace detail {
 template <std::size_t N, typename P, typename C>
 struct dispatch<N, take_<P, C>> {
     template <typename... Ts>
@@ -736,7 +734,7 @@ using take_test_2 = TakeFirstTwoElements_OneTwo<call_<take_<uint_<2>>, int_<1>, 
 // counted_ :
 export template<typename StartIndex, typename Count, typename C = listify_>
 struct counted_ {};
-inline namespace counted_implementation {
+inline namespace detail {
 template<std::size_t N, typename StartIndex, typename Count, typename C>
 struct dispatch<N, counted_<StartIndex, Count, C>> {
     template<typename... Ts>
@@ -753,7 +751,7 @@ using counted_test_1 = GetTheMiddle123<call_<counted_<int_<1>, int_<3>>, int_<0>
 // is_ : 
 export template <typename P, typename C = identity_>
 struct is_ {};
-inline namespace is_implementation {
+inline namespace detail {
 template <typename P, typename C>
 struct dispatch<1, is_<P, C>> {
     template <typename T>
@@ -764,7 +762,7 @@ struct dispatch<1, is_<P, C>> {
 // not_ : 
 export template <typename C = identity_>
 struct not_ {};
-inline namespace not_implementation {
+inline namespace detail {
 template <typename C>
 struct dispatch<1, not_<C>> {
     template <typename T>
@@ -773,7 +771,7 @@ struct dispatch<1, not_<C>> {
 } // inline namespace not_implementation
 
 // foldey : implementation only
-inline namespace foldey_implementation {
+inline namespace detail {
 consteval std::size_t select_foldey_loop(std::size_t rest_size) {
     return static_cast<std::size_t>(rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008);
 }
@@ -833,7 +831,7 @@ struct ory {
     static constexpr std::size_t value = -1;
 };
 } // namespace
-inline namespace or_implementation {
+inline namespace detail {
 template <template <typename...> class F>
 struct ory<true, F> {
     template <typename T>
@@ -879,7 +877,7 @@ struct andy {
     static constexpr std::size_t value = -1;
 };
 } // namespace
-inline namespace and_implementation {
+inline namespace detail {
 template <template <typename...> class F>
 struct andy<true, F> {
     template <typename T>
@@ -930,7 +928,7 @@ struct if_impl<false> {
     using f = U;
 };
 } // namespace
-inline namespace if_implementation {
+inline namespace detail {
 template <typename P, typename T, typename F>
 struct dispatch<1, if_<P, T, F>> {
     template <typename T0>
@@ -976,7 +974,7 @@ struct dispatch<1, if_<lift_<P>, listify_, always_<list_<>>>> {
 // less_ : 
 export template <typename V = nothing_, typename C = identity_>
 struct less_ {};
-inline namespace less_implementation {
+inline namespace detail {
 template <typename C>
 struct dispatch<2, less_<C>> {
     template <typename T, typename U>
@@ -992,7 +990,7 @@ struct dispatch<1, less_<U, C>> {
 // less_f_ : 
 export template <typename F, typename C = identity_>
 struct less_f_ {};
-inline namespace less_f_implementation {
+inline namespace detail {
 template <template<typename...> typename F, typename C>
 struct dispatch<2, less_f_<lift_<F>, C>> {
     template<typename T, typename U>
@@ -1003,7 +1001,7 @@ struct dispatch<2, less_f_<lift_<F>, C>> {
 // less_eq_ : 
 export template <typename V = nothing_, typename C = identity_>
 struct less_eq_ {};
-inline namespace less_eq_implementation {
+inline namespace detail {
 template <typename C>
 struct dispatch<2, less_eq_<C>> {
     template <typename T, typename U>
@@ -1019,7 +1017,7 @@ struct dispatch<1, less_eq_<U, C>> {
 // greater_ : 
 export template <typename V = nothing_, typename C = identity_>
 struct greater_ {};
-inline namespace greater_implementation {
+inline namespace detail {
 template <typename C>
 struct dispatch<2, greater_<C>> {
     template <typename T, typename U>
@@ -1035,7 +1033,7 @@ struct dispatch<1, greater_<U, C>> {
 // range_lo_hi_ : 
 export template <typename LV = nothing_, typename UV = nothing_, typename C = identity_>
 struct range_lo_hi_ {};
-inline namespace range_lo_hi_implementation {
+inline namespace detail {
 template <typename Lower, typename Upper, typename C>
 struct dispatch<1, range_lo_hi_<Lower, Upper, C>> {
     template<typename T>
@@ -1047,7 +1045,7 @@ struct dispatch<1, range_lo_hi_<Lower, Upper, C>> {
 // in a VPP satisfy that predicate.
 export template <typename F, typename C = identity_>
 struct all_of_ {};
-inline namespace all_of_implementation {
+inline namespace detail {
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, all_of_<F, C>> : dispatch<N, and_<F, C>> {};
 } // inline namespace all_of_implementation
@@ -1056,7 +1054,7 @@ struct dispatch<N, all_of_<F, C>> : dispatch<N, and_<F, C>> {};
 // in a VPP satisfy that predicate.
 export template <typename F = identity_, typename C = identity_>
 struct any_of_ {};
-inline namespace any_of_implementation {
+inline namespace detail {
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, any_of_<F, C>> : dispatch<N, or_<F, C>> {};
 } // inline namespace any_of_implementation
@@ -1065,7 +1063,7 @@ struct dispatch<N, any_of_<F, C>> : dispatch<N, or_<F, C>> {};
 // of the elements in a VPP satisfy the predicate F.
 export template <typename F, typename C = identity_>
 struct none_of_ {};
-inline namespace none_of_implementation {
+inline namespace detail {
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, none_of_<F, C>> : dispatch<N, and_<F, not_<C>>> {};
 } // inline namespace none_of_implementation
@@ -1074,7 +1072,7 @@ struct dispatch<N, none_of_<F, C>> : dispatch<N, and_<F, not_<C>>> {};
 // contains the type V.
 export template <typename T, typename C = identity_>
 struct contains_ {};
-inline namespace contains_implementation {
+inline namespace detail {
 template <std::size_t N, typename T, typename C>
 struct dispatch<N, contains_<T, C>> : dispatch<N, or_<is_<T>, C>> {};
 } // inline namespace contains_implementation
@@ -1082,7 +1080,7 @@ struct dispatch<N, contains_<T, C>> : dispatch<N, or_<is_<T>, C>> {};
 // push_back_ :
 export template <typename T, typename C = listify_>
 struct push_back_ {};
-inline namespace push_back_implementation {
+inline namespace detail {
 template <std::size_t N, typename T, typename C>
 struct dispatch<N, push_back_<T, C>> {
     template <typename... Ts>
@@ -1093,7 +1091,7 @@ struct dispatch<N, push_back_<T, C>> {
 // pop_front_ :
 export template <typename C = listify_>
 struct pop_front_ {};
-inline namespace pop_front_implementation {
+inline namespace detail {
 template <std::size_t N, typename C>
 struct dispatch<N, pop_front_<C>> {
     template <typename T, typename... Ts>
@@ -1112,7 +1110,7 @@ struct dispatch<0, pop_front_<C>> {
 // push_front_ :
 export template <typename T, typename C = listify_>
 struct push_front_ {};
-inline namespace push_front_implementation {
+inline namespace detail {
 template <std::size_t N, typename T, typename C>
 struct dispatch<N, push_front_<T, C>> {
     template <typename... Ts>
@@ -1123,7 +1121,7 @@ struct dispatch<N, push_front_<T, C>> {
 // pop_back_ :
 export template <typename C = listify_>
 struct pop_back_ {};
-inline namespace pop_back_implementation {
+inline namespace detail {
 template<std::size_t N, typename C>
 struct dispatch<N, pop_back_<C>> {
     template <typename... Ts>
@@ -1140,7 +1138,7 @@ struct dispatch<0, pop_back_<C>> {
 // tee_ :
 export template <typename... Fs>
 struct tee_ {};
-inline namespace tee_implementation {
+inline namespace detail {
 template <typename N, typename L, typename C, typename... Fs>
 struct tee_impl {
     template <typename... Ts>
@@ -1385,7 +1383,7 @@ using make_index_for_stride = make_seq_impl<next_state(0, N)>::template f<N>;
 template<typename S, typename C, typename... Ts>
 struct chunk_impl;
 } // namespace
-inline namespace chunk_implementation {
+inline namespace detail {
 template<std::size_t N, typename S, typename C, typename... Ts>
 struct dispatch<N, chunk_impl<S, list_<Ts...>, C>> {
     template<typename... Us>
@@ -1419,7 +1417,7 @@ using chunk_test_1 = ChunkEveryThreeElements<call_<chunk_<sizet_<3>>, int_<0>, i
 // Empty return type: sizet_<0>
 export template <typename C = identity_>
 struct size_ {};
-inline namespace size_implementation {
+inline namespace detail {
 template <std::size_t N, typename C>
 struct dispatch<N, size_<C>> {
     template <typename... Ls>
@@ -1493,7 +1491,7 @@ struct joiner<C, list_<T0s...>,  list_<T1s...>,  list_<T2s...>,  list_<T3s...>,
                 T24s..., T25s..., T26s..., T27s..., T28s..., T29s..., T30s..., T31s..., Vs...>;
 };
 } // namespace
-inline namespace join_implementation {
+inline namespace detail {
 template <std::size_t N, template <typename...> class C>
 struct dispatch<N, join_<lift_<C>>> {
     template <typename... Ts>
@@ -1546,7 +1544,7 @@ struct seq_join_loop<0> {
     using f = seq_joiner<C, T0, T1, T2, T3, T4, T5, T6, T7>::template f<>;
 };
 } // namespace
-inline namespace join_seq_implementation {
+inline namespace detail {
 template <template <typename...> class C, std::size_t... T0s, std::size_t... T1s,
             std::size_t... T2s, std::size_t... T3s, std::size_t... T4s, std::size_t... T5s,
             std::size_t... T6s, std::size_t... T7s>
@@ -1599,7 +1597,7 @@ struct dispatch<N, join_seq_<C>> {
 // each time that the predicate holds true. Returns n counts as sizet_<n>.
 export template <typename F, typename C = identity_>
 struct count_if_ {};
-inline namespace count_if_implementation {
+inline namespace detail {
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, count_if_<F, C>>
     : dispatch<N, transform_<if_<F, always_<list_<void>>, always_<list_<>>>,
@@ -1623,7 +1621,7 @@ struct county<true, At, F> {
     static constexpr std::size_t value = At;
 };
 } // namespace
-inline namespace find_if_implementation {
+inline namespace detail {
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, find_if_<F, C>> {
     template <typename... Ts>
@@ -1660,7 +1658,7 @@ struct county_not<false, At, F> {
     static constexpr std::size_t value = At;
 };
 } // namespace
-inline namespace find_if_not_implementation {
+inline namespace detail {
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, find_if_not_<F, C>> {
     template <typename... Ts>
@@ -1687,7 +1685,7 @@ namespace {
 template <std::size_t N, template <typename...> class F, typename C>
 struct filtery;
 } // namespace
-inline namespace filter_implementation {
+inline namespace detail {
 template <template <typename...> class F, typename C>
 struct filtery<0, F, C> {
     template <std::size_t N, typename T, typename U, typename... Ts>
@@ -1739,7 +1737,7 @@ struct dispatch<0, filter_<lift_<F>, C>> {
 // and remove the value if the predicate holds true.
 export template <typename F, typename C = listify_>
 struct remove_if_ {};
-inline namespace remove_if_implementation {
+inline namespace detail {
 template<std::size_t N, typename F, typename C>
 struct dispatch<N, remove_if_<F, C>>
         : dispatch<N, filter_<if_<F, always_<false_>, always_<true_>>, C>> {};
@@ -1749,7 +1747,7 @@ struct dispatch<N, remove_if_<F, C>>
 // the predicate F with the value Input.
 export template <typename Input, typename F, typename C = listify_>
 struct replace_if_ {};
-inline namespace replace_if_implementation {
+inline namespace detail {
 template <std::size_t N, typename Input, typename F, typename C>
 struct dispatch<N, replace_if_<Input, F, C>>
         : dispatch<N, transform_<if_<F, always_<Input>, identity_>, C>> {};
@@ -1761,7 +1759,7 @@ struct dispatch<N, replace_if_<Input, F, C>>
 // The VPP values must also satisfy being less than and greater than comparable.
 export template <typename L, typename H, typename C = identity_>
 struct clamp_ {};
-inline namespace clamp_implementation {
+inline namespace detail {
 template <std::size_t N, typename L, typename H, typename C>
 struct dispatch<N, clamp_<L, H, C>>
     : dispatch<N, remove_if_<range_lo_hi_<L, H, C>>> {};
@@ -1776,7 +1774,7 @@ using test_one = ListWithOnlyFour<call_<clamp_<uint_<3>, uint_<10>>, uint_<0>, u
 // drop_last_ :
 export template<typename N = sizet_<0>, typename C = listify_>
 struct drop_last_ {};
-inline namespace drop_last_implementation {
+inline namespace detail {
 template<std::size_t N, typename DropN, typename C>
 struct dispatch<N, drop_last_<DropN, C>> : dispatch<N, reverse_<drop_<DropN, reverse_<C>>>> {};
 } // inline namespace drop_last_impl
@@ -1790,7 +1788,7 @@ using drop_last_test_1 = DropThreeOffEnd<call_<drop_last_<int_<3>>, int_<1>, int
 // take_last_ :
 export template<typename N = sizet_<0>, typename C = listify_>
 struct take_last_ {};
-inline namespace take_last_implementation {
+inline namespace detail {
 template<std::size_t N, typename P, typename C>
 struct dispatch<N, take_last_<P, C>> {
     template<typename... Ts>
@@ -1807,7 +1805,7 @@ using take_last_test_1 = LastTwoElements<call_<take_last_<int_<2>>, int_<1>, int
 // each_ :
 export template <typename... Fs>
 struct each_ {};
-inline namespace each_implementation {
+inline namespace detail {
 template <typename F, typename C>
 struct dispatch<1, each_<F, C>> {
     template <typename T>
@@ -1838,7 +1836,6 @@ struct dispatch<4, each_<F0, F1, F2, F3, C>> {
 inline namespace each_test {
 } // inline namespace each_test
 
-inline namespace erase {
 // erase_ : Given a VPP, remove the nth value in the pack.
 // Reduces the size of the list by 1.
 // Input params: Parameter pack
@@ -1851,7 +1848,7 @@ inline namespace erase {
 // Empty return type: list_<>
 export template <typename N = sizet_<0>, typename C = listify_>
 struct erase_ {};
-inline namespace erase_implementation {
+inline namespace detail {
 template <std::size_t N, typename I, typename C>
 struct dispatch<N, erase_<I, C>> {
     template <typename... Ts>
@@ -1883,9 +1880,7 @@ using test_two   = EraseSingleElement<call_<erase_<sizet_<0>>, int_<0>>>;
 
 using test_three = EmptyPackReturnsNothingType<call_<erase_<sizet_<0>>>>;
 } // inline namespace erase_test
-} // namespace erase
 
-inline namespace index {
 export template<typename I, typename C = identity_>
 struct index_ {};
 export template<typename I, typename C = identity_>
@@ -1924,7 +1919,7 @@ export template<typename C = identity_>
 using ui6_ = unpack_<index_<sizet_<6>, C>>;
 export template<typename C = identity_>
 using ui7_ = unpack_<index_<sizet_<7>, C>>;
-inline namespace index_implementation {
+inline namespace detail {
 template <std::size_t N, typename I, typename C>
 struct dispatch<N, index_<I, C>> : dispatch<N, drop_<I, front_<C>>> {};
 
@@ -1978,6 +1973,5 @@ struct dispatch<N, index_<sizet_<7>, C>> {
     using f = dispatch<1, C>::template f<T7>;
 };
 } // inline namespace index_implementation
-} // inline namespace index
 
 } // namespace boost::tmp
