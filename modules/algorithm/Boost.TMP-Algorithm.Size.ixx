@@ -21,23 +21,7 @@ import std;
 #endif
 
 namespace boost::tmp {
-// size_ :
-// Input params: Parameter pack
-// Closure params: C - Continuation; default identity_
-// Functional description:
-// input  - T0, T1, ..., TN (Ts...)
-// apply  - (get number of elements in parameter pack)
-// result - sizet_<sizeof...(Ts)>
-// Empty return type: sizet_<0>
-export template <typename C = identity_>
-struct size_ {};
 
-// size_ : implementation
-template <std::size_t N, typename C>
-struct dispatch<N, size_<C>> {
-    template <typename... Ls>
-    using f = dispatch<1, C>::template f<sizet_<sizeof...(Ls)>>;
-};
 } // namespace boost::tmp
 
 // TESTING:

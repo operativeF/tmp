@@ -18,62 +18,6 @@ import :Algorithm.Rotate;
 import :Base.Types;
 
 namespace boost::tmp {
-// push_back_ :
-export template <typename T, typename C = listify_>
-struct push_back_ {};
-
-// push_back_ : implementation
-template <std::size_t N, typename T, typename C>
-struct dispatch<N, push_back_<T, C>> {
-    template <typename... Ts>
-    using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<Ts..., T>;
-};
-
-// pop_front_ :
-export template <typename C = listify_>
-struct pop_front_ {};
-
-// pop_front_ : implementation
-template <std::size_t N, typename C>
-struct dispatch<N, pop_front_<C>> {
-    template <typename T, typename... Ts>
-    using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
-};
-// TODO: Should this be kept? This differs from the behavior of popping
-// the front off of an empty list (which results in an empty list).
-// This, however, will return a list_<nothing_>
-template <typename C>
-struct dispatch<0, pop_front_<C>> {
-    template <typename... Ts>
-    using f = dispatch<1, C>::template f<nothing_>;
-};
-
-// push_front_ :
-export template <typename T, typename C = listify_>
-struct push_front_ {};
-
-// push_front_ : implementation
-template <std::size_t N, typename T, typename C>
-struct dispatch<N, push_front_<T, C>> {
-    template <typename... Ts>
-    using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<T, Ts...>;
-};
-
-// pop_back_ :
-export template <typename C = listify_>
-struct pop_back_ {};
-// // pop_back_ : implementation
-template<std::size_t N, typename C>
-struct dispatch<N, pop_back_<C>> {
-    template <typename... Ts>
-    using f = dispatch<find_dispatch(sizeof...(Ts)), rotate_<sizet_<sizeof...(Ts) - 1>, pop_front_<
-                    rotate_<sizet_<(sizeof...(Ts) - 1)>, C>>>>::template f<Ts...>;
-};
-template <typename C>
-struct dispatch<0, pop_back_<C>> {
-    template <typename... Ts>
-    using f = dispatch<1, C>::template f<nothing_>;
-};
 
 } // namespace boost::tmp
 
