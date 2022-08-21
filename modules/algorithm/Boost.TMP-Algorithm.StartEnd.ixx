@@ -13,7 +13,6 @@ module;
 
 export module Boost.TMP:Algorithm.StartEnd;
 
-import :Algorithm.Index;
 import :Algorithm.Logic;
 import :Algorithm.Reverse;
 import :Algorithm.Take;

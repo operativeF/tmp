@@ -15,7 +15,6 @@ module;
 export module Boost.TMP:Algorithm.Slide;
 
 import :Algorithm.Counted;
-import :Algorithm.Index;
 import :Algorithm.MakeSequence;
 import :Algorithm.Tee;
 import :Base.Types;

@@ -15,7 +15,6 @@ module;
 export module Boost.TMP:Algorithm.Drop;
 
 import :Algorithm.Reverse;
-import :Algorithm.Rotate;
 import :Base.Types;
 
 #if _MSC_VER

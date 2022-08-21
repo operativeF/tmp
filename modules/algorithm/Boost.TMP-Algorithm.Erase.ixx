@@ -14,7 +14,6 @@ module;
 
 export module Boost.TMP:Algorithm.Erase;
 
-import :Algorithm.Drop;
 import :Algorithm.PushPop;
 import :Algorithm.Rotate;
 import :Base.Types;
