@@ -36,8 +36,8 @@ struct reverse_ {};
 template <typename C, typename... Ts>
 struct reverse_impl {
     template <typename... Us>
-    using f = dispatch<find_dispatch(sizeof...(Ts) + sizeof...(Us)),
-                        C>::template f<Ts..., Us...>;
+    using f = dispatch<
+        find_dispatch(sizeof...(Ts) + sizeof...(Us)), C>::template f<Ts..., Us...>;
 };
 template <typename C>
 struct dispatch<0, reverse_<C>> {

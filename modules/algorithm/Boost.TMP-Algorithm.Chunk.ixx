@@ -58,12 +58,15 @@ struct chunk_impl {};
 template<std::size_t N, typename S, typename C, typename... Ts>
 struct dispatch<N, chunk_impl<S, list_<Ts...>, C>> {
     template<typename... Us>
-    using f = dispatch<sizeof...(Us), tee_<counted_<sizet_<(Ts::value * S::value)>, sizet_<chunking_size(Ts::value, S::value, sizeof...(Us))>>..., C>>::template f<Us...>;
+    using f = dispatch<sizeof...(Us),
+        tee_<counted_<sizet_<(Ts::value * S::value)>,
+                      sizet_<chunking_size(Ts::value, S::value, sizeof...(Us))>>..., C>>::template f<Us...>;
 };
 template<std::size_t N, typename S, typename C>
 struct dispatch<N, chunk_<S, C>> {
     template<typename... Ts>
-    using f = dispatch<sizeof...(Ts), chunk_impl<S, make_index_for_stride<chunk_div(sizeof...(Ts), S::value)>, C>>::template f<Ts...>;
+    using f = dispatch<sizeof...(Ts),
+        chunk_impl<S, make_index_for_stride<chunk_div(sizeof...(Ts), S::value)>, C>>::template f<Ts...>;
 };
 
 } // namespace boost::tmp

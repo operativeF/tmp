@@ -45,13 +45,11 @@ template<std::size_t N, typename S, typename C, typename... Ts>
 struct dispatch<N, tee_drops_<S, list_<Ts...>, C>> {
     template<typename... Us>
     using f = dispatch<sizeof...(Us) / S::value + 1, tee_<index_<sizet_<Ts::value * S::value>>..., C>>::template f<Us...>;
-    // using f = tee_<index_<sizet_<(Ts::value * S::value)>>..., C>;
 };
 template<typename S, typename C, typename... Ts>
 struct dispatch<0, tee_drops_<S, list_<Ts...>, C>> {
     template<typename... Us>
     using f = dispatch<0, tee_<i0_<>, C>>::template f<Us...>;
-    // using f = tee_<index_<sizet_<(Ts::value * S::value)>>..., C>;
 };
 
 consteval std::size_t stride_div(std::size_t input_size, std::size_t stride_length) {
@@ -65,7 +63,6 @@ struct dispatch<N, stride_<S, C>> {
     template<typename... Ts>
     using f = dispatch<N, tee_drops_<S, make_index_for_stride<stride_div(sizeof...(Ts), S::value)>, C>>::template f<Ts...>;
 };
-
 template<typename S, typename C>
 struct dispatch<0, stride_<S, C>> {
     template<typename... Ts>
@@ -87,10 +84,5 @@ template<typename T> requires(std::same_as<T, list_<char_<'a'>, char_<'d'>, char
 struct EveryThirdElement;
 
 using stride_test_2 = EveryThirdElement<call_<stride_<sizet_<3>>, char_<'a'>, char_<'b'>, char_<'c'>, char_<'d'>, char_<'e'>, char_<'f'>, char_<'g'>>>;
-
-int b(){
-    list_<char_<'a'>, char_<'c'>>{} = call_<stride_<sizet_<2>>, char_<'a'>, char_<'b'>, char_<'c'>, char_<'d'>>{};
-    return 0;
-}
 
 } // namespace stride_test
