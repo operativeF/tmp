@@ -10,6 +10,7 @@ module;
 #if defined(__GNUC__) || defined(__clang__)
 #include <concepts>
 #include <cstdint>
+#include <limits>
 #include <utility>
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
