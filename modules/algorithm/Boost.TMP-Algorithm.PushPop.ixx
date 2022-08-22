@@ -92,10 +92,7 @@ struct dispatch<0, pop_back_<C>> {
 
 } // namespace impl
 
-} // namespace boost::tmp
-
 namespace push_pop_tests {
-using namespace boost::tmp;
 
 // push_back_ tests
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, char_<'c'>>>)
@@ -148,3 +145,5 @@ using pop_back_test_2 = PopBackEmptyList<call_<pop_back_<>, list_<>>>;
 using pop_back_test_3 = PopBackEmptyPack<call_<pop_back_<>>>;
 
 } // namespace push_pop_tests
+
+} // namespace boost::tmp

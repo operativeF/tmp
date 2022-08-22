@@ -47,7 +47,6 @@ struct dispatch<1, unpack_<C>> {
 
 } // namespace boost::tmp
 
-// TESTING:
 namespace unpack_test {
 
 } // namespace unpack_test

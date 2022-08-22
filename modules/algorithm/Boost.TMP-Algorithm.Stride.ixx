@@ -69,10 +69,7 @@ struct dispatch<0, stride_<S, C>> {
 
 } // namespace impl
 
-} // namespace boost::tmp
-
 namespace stride_test {
-using namespace boost::tmp;
 
 template<typename T> requires(std::same_as<T, list_<int_<0>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>)
 struct EveryZerothElement;
@@ -83,6 +80,8 @@ struct EverySecondElement;
 template<typename T> requires(std::same_as<T, list_<char_<'a'>, char_<'d'>, char_<'g'>>>)
 struct EveryThirdElement;
 
-using stride_test_2 = EveryThirdElement<call_<stride_<sizet_<3>>, char_<'a'>, char_<'b'>, char_<'c'>, char_<'d'>, char_<'e'>, char_<'f'>, char_<'g'>>>;
+using stride_test_1 = EveryThirdElement<call_<stride_<sizet_<3>>, char_<'a'>, char_<'b'>, char_<'c'>, char_<'d'>, char_<'e'>, char_<'f'>, char_<'g'>>>;
 
 } // namespace stride_test
+
+} // namespace boost::tmp

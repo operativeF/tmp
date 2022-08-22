@@ -63,11 +63,7 @@ struct dispatch<N, unique_<F, C>> {
 
 } // namespace impl
 
-} // namespace boost::tmp
-
 namespace unique_test {
-
-using namespace boost::tmp;
 
 template<typename T> requires(std::same_as<T, list_<int_<3>, int_<1>, int_<2>>>)
 struct OnlyUniqueNums;
@@ -75,3 +71,5 @@ struct OnlyUniqueNums;
 using unique_test_1 = OnlyUniqueNums<call_<unique_<>, int_<3>, int_<1>, int_<2>, int_<2>, int_<1>, int_<2>>>;
 
 } // namespace unique_test
+
+} // namespace boost::tmp

@@ -29,10 +29,7 @@ struct dispatch<N, slice_<LowerB, UpperB, C>> : dispatch<N, drop_<LowerB, drop_l
 
 } // namespace impl
 
-} // namespace boost::tmp
-
 namespace slice_test {
-using namespace boost::tmp;
 
 template<typename T> requires(std::same_as<T, list_<int_<5>, int_<6>, int_<7>, int_<8>>>)
 struct LBFourUBTwoSlice;
@@ -43,3 +40,4 @@ using slice_test_1 = LBFourUBTwoSlice<call_<slice_<sizet_<4>, sizet_<2>>,
 
 } // namespace slice_test
 
+} // namespace boost::tmp

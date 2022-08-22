@@ -44,11 +44,7 @@ struct dispatch<N, try_<F, C>> {
 
 } // namespace impl
 
-} // namespace boost::tmp
-
 namespace try_test {
-
-using namespace boost::tmp;
 
 // TODO: Implement try_test
 // template <typename T>
@@ -63,3 +59,5 @@ using namespace boost::tmp;
 // list_<int>{} = call_<try_<call_type, listify_>, has_type>{}; // test the continuation
 
 } // namespace try_test
+
+} // namespace boost::tmp

@@ -49,11 +49,8 @@ struct dispatch<0, insert_<I, V, C>> {
 
 } // namespace impl
 
-} // namespace boost::tmp
-
-// TESTING:
 namespace insert_test {
-using namespace boost::tmp;
+
 // Insert char_<'c'> at position 1
 template<typename T> requires(std::same_as<T, list_<int_<1>, char_<'c'>, int_<2>>>)
 struct Insert_C_AtPositionOne;
@@ -70,8 +67,14 @@ struct Insert_C_AtPositionTwo;
 template<typename T> requires(std::same_as<T, list_<char_<'c'>>>)
 struct EmptyPackInsertionReturnsSingleElementList;
 
-using test_one   = Insert_C_AtPositionZero<call_<insert_<int_<0>, char_<'c'>>, int_<1>, int_<2>>>;
-using test_two   = Insert_C_AtPositionOne<call_<insert_<int_<1>, char_<'c'>>, int_<1>, int_<2>>>;
-using test_three = Insert_C_AtPositionTwo<call_<insert_<int_<2>, char_<'c'>>, int_<1>, int_<2>>>;
-using test_four  = EmptyPackInsertionReturnsSingleElementList<call_<insert_<int_<0>, char_<'c'>>>>;
+using insert_test_1   = Insert_C_AtPositionZero<call_<insert_<int_<0>, char_<'c'>>, int_<1>, int_<2>>>;
+
+using insert_test_2   = Insert_C_AtPositionOne<call_<insert_<int_<1>, char_<'c'>>, int_<1>, int_<2>>>;
+
+using insert_test_3 = Insert_C_AtPositionTwo<call_<insert_<int_<2>, char_<'c'>>, int_<1>, int_<2>>>;
+
+using insert_test_4  = EmptyPackInsertionReturnsSingleElementList<call_<insert_<int_<0>, char_<'c'>>>>;
+
 } // namespace insert_test
+
+} // namespace boost::tmp

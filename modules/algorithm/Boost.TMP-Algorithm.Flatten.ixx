@@ -51,14 +51,13 @@ struct dispatch<N, flatten_<C>> {
 
 } // namespace impl
 
-} // namespace boost::tmp
-
-// TESTING:
 namespace flatten_test {
-using namespace boost::tmp;
 
 template<typename T> requires(std::same_as<T, list_<uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>>)
 struct SingleFlattenedList;
 
-using test_one = SingleFlattenedList<call_<flatten_<>, list_<list_<uint_<0>, uint_<1>>, uint_<2>, list_<uint_<3>>, uint_<4>>>>;
+using flatten_test_1 = SingleFlattenedList<call_<flatten_<>, list_<list_<uint_<0>, uint_<1>>, uint_<2>, list_<uint_<3>>, uint_<4>>>>;
+
 } // namespace flatten_test
+
+} // namespace boost::tmp

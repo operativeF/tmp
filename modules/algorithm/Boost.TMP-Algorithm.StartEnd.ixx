@@ -69,11 +69,7 @@ struct dispatch<N, ends_with_<L, C>> : dispatch<N, ends_with_impl<N, L, C>> {};
 
 } // namespace impl
 
-} // namespace boost::tmp
-
 namespace start_end_tests {
-
-using namespace boost::tmp;
 
 template<typename T> requires(std::same_as<T, true_>)
 struct StartsWithAB;
@@ -88,9 +84,13 @@ template<typename T> requires(std::same_as<T, false_>)
 struct DoesNotEndWithAD;
 
 using starts_with_test_1 = StartsWithAB<call_<starts_with_<list_<char_<'A'>, char_<'B'>>>, char_<'A'>, char_<'B'>, char_<'D'>>>;
+
 using starts_with_test_2 = DoesNotStartWithAD<call_<starts_with_<list_<char_<'A'>, char_<'D'>>>, char_<'A'>, char_<'B'>, char_<'D'>>>;
 
 using ends_with_test_1 = EndsWithBD<call_<starts_with_<list_<char_<'A'>, char_<'B'>>>, char_<'A'>, char_<'B'>, char_<'D'>>>;
+
 using ends_with_test_2 = DoesNotEndWithAD<call_<starts_with_<list_<char_<'A'>, char_<'D'>>>, char_<'A'>, char_<'B'>, char_<'D'>>>;
 
 } // namespace start_end_tests
+
+} // namespace boost::tmp

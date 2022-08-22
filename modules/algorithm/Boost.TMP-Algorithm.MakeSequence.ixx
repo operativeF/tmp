@@ -180,11 +180,7 @@ struct dispatch<N, repeat_sequence_<P, C>> : make_repeat<P::value, C> {};
 
 } // namespace impl
 
-} // namespace boost::tmp
-
-// TESTING:
-namespace make_sequence_test {
-using namespace boost::tmp;
+namespace make_sequence_tests {
 
 template<typename T>
 using and_one = sizet_<T::value + 1>;
@@ -201,15 +197,13 @@ struct ListZeroOneTwo;
 template<typename T> requires(std::same_as<T, list_<sizet_<1>, sizet_<2>, sizet_<3>>>)
 struct ListOneTwoThree;
 
-using test_one = ListZeroOneTwo<call_<make_sequence_<>, sizet_<3>>>;
-using test_two = ListOneTwoThree<call_<make_sequence_<lift_<and_one>>, sizet_<3>>>;
-} // namespace make_sequence_test
-
-// TESTING:
-namespace repeat_sequence_test {
-using namespace boost::tmp;
+using make_sequence_test_1 = ListZeroOneTwo<call_<make_sequence_<>, sizet_<3>>>;
+using make_sequence_test_2 = ListOneTwoThree<call_<make_sequence_<lift_<and_one>>, sizet_<3>>>;
 
 // TODO: Implement repeat_sequence_test
 // std::index_sequence<1, 1, 1, 1, 1, 1, 1, 1, 1, 1>{} = call_<repeat_sequence_<sizet_<10>, lift_<into_sequence>>, sizet_<1>>{};
 // list_<sizet_<1>, sizet_<1>, sizet_<1>, sizet_<2>, sizet_<2>, sizet_<2>, sizet_<3>, sizet_<3>, sizet_<3>>{} = call_<transform_<repeat_sequence_<sizet_<3>>, join_<>>, sizet_<1>, sizet_<2>, sizet_<3>>{};
-} // namespace repeate_sequence_test
+
+} // namespace make_sequence_tests
+
+} // namespace boost::tmp

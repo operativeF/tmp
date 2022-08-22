@@ -190,14 +190,13 @@ struct dispatch<N, join_seq_<C>> {
 
 } // namespace impl
 
-} // namespace boost::tmp
-
-// TESTING:
-namespace join_test {
-using namespace boost::tmp;
-
 // TODO: Implement join_test
+namespace join_test {
+
 // using joined_sequences = call_<join_seq_<lift_<into_sequence>>, std::index_sequence<1, 2>, std::index_sequence<3, 4>>;
 
 // joined_sequences{} = std::index_sequence<1, 2, 3, 4>{};
+
 } // namespace join_test
+
+} // namespace boost::tmp

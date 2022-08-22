@@ -100,11 +100,7 @@ struct dispatch<N, zip_with_index_<F, lift_<C>>> {
 
 } // namespace impl
 
-} // namespace boost::tmp
-
-// TESTING:
 namespace zip_test {
-using namespace boost::tmp;
 
 template<typename T> requires(std::same_as<T, list_<int_<3>, int_<7>>>)
 struct AddPairsTogetherWithZip;
@@ -121,15 +117,13 @@ using zip_test_1 = AddPairsTogetherWithZip<call_<zip_<lift_<add>>, list_<int_<1>
 // Pairs elements in each list together i.e. (x0, y0), (x1, y1), ...
 using zip_test_2 = ZipPairsIntoList<call_<zip_<listify_>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;
 
-} // namespace zip_test
-
-// TESTING:
-namespace zip_with_index_test {
-using namespace boost::tmp;
-
 template<typename T> requires(std::same_as<T, list_<list_<sizet_<0>, char_<'a'>>,
                                                     list_<sizet_<1>, char_<'b'>>,
                                                     list_<sizet_<2>, char_<'c'>>>>)
 struct ZipABCWith123;
-using test_one = ZipABCWith123<call_<zip_with_index_<>, char_<'a'>, char_<'b'>, char_<'c'>>>;
+
+using zip_with_test_1 = ZipABCWith123<call_<zip_with_index_<>, char_<'a'>, char_<'b'>, char_<'c'>>>;
+
 } // namespace zip_with_index_test
+
+} // namespace boost::tmp

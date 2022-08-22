@@ -352,10 +352,7 @@ struct dispatch<N, contains_<T, C>> : dispatch<N, or_<is_<T>, C>> {};
 
 } // namespace impl
 
-} // namespace boost::tmp
-
 namespace logic_test {
-using namespace boost::tmp;
 
 template<typename T> requires(std::same_as<T, false_>)
 struct AllNumbersOdd;
@@ -411,4 +408,7 @@ struct NoneOfTheNumbersAreEven;
 using none_of_test_1 = NoneOfTheNumbersAreOdd<call_<none_of_<lift_<is_even>>, int_<2>, int_<100>, int_<4>, int_<500>>>;
 
 using none_of_test_2 = NoneOfTheNumbersAreEven<call_<none_of_<lift_<is_even>>, int_<1>, int_<3>>>;
+
 } // namespace logic_test
+
+} // namespace boost::tmp

@@ -146,11 +146,7 @@ struct dispatch<N, drop_last_<DropN, C>> : dispatch<N, reverse_<drop_<DropN, rev
 
 } // namespace impl
 
-} // namespace boost::tmp
-
-// TESTING:
 namespace drop_test {
-using namespace boost::tmp;
 
 template<typename T> requires(std::same_as<T, list_<int_<1>>>)
 struct DropOneOffOfList;
@@ -158,9 +154,9 @@ struct DropOneOffOfList;
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>>>)
 struct DropZeroReturnsInputList;
 
-using test_one = DropOneOffOfList<call_<drop_<uint_<1>>, int_<0>, int_<1>>>;
+using drop_test_1 = DropOneOffOfList<call_<drop_<uint_<1>>, int_<0>, int_<1>>>;
 
-using test_two = DropZeroReturnsInputList<call_<drop_<uint_<0>>, int_<1>, int_<2>>>;
+using drop_test_2 = DropZeroReturnsInputList<call_<drop_<uint_<0>>, int_<1>, int_<2>>>;
 
 // Dropping off of no input returns empty list
 // UNDER CONSIDERATION: Dropping input off of no input fails.
@@ -173,3 +169,5 @@ struct DropThreeOffEnd;
 using drop_last_test_1 = DropThreeOffEnd<call_<drop_last_<int_<3>>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>;
 
 } // namespace drop_test
+
+} // namespace boost::tmp

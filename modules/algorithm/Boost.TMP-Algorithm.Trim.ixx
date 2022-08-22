@@ -77,11 +77,7 @@ struct dispatch<N, drop_while_back_<F, C>> : dispatch<N, reverse_<drop_while_<F,
 
 } // namespace impl
 
-} // namespace boost::tmp
-
 namespace drop_while_test {
-
-using namespace boost::tmp;
 
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<1>>>)
 struct DropEvenNumbersAtFront;
@@ -99,9 +95,8 @@ using drop_while_back_test_1 = DropEvenNumbersAtBack<call_<drop_while_back_<lift
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<6>, int_<1>>>)
 struct TrimEvenNumbersUntilOdd;
 
-template<typename T>
-using is_even = bool_<(T::value % 2 == 0)>;
-
 using trim_test_1 = TrimEvenNumbersUntilOdd<call_<trim_<lift_<is_even>>, int_<2>, int_<1>, int_<6>, int_<1>, int_<2>>>;
 
 } // drop_while_test
+
+} // namespace boost::tmp

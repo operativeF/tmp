@@ -44,7 +44,6 @@ struct dispatch<N, transform_<lift_<F, FC>, C>> {
 
 } // namespace boost::tmp
 
-// TESTING:
 namespace transform_test {
 
 } // namespace transform_test

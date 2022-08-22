@@ -51,11 +51,7 @@ struct dispatch<2, product_<F, C>> : dispatch<2, product_<lift_<dispatch<2, F>::
 
 } // namespace impl
 
-} // namespace boost::tmp
-
-// TESTING:
 namespace product_test {
-using namespace boost::tmp;
 
 // TODO: Implement product_test
 
@@ -68,4 +64,7 @@ using namespace boost::tmp;
 //         list_<uint_<2>, uint_<1>>, list_<uint_<2>, uint_<2>>, list_<uint_<2>, uint_<3>>,
 //         list_<uint_<3>, uint_<1>>, list_<uint_<3>, uint_<2>>, list_<uint_<3>, uint_<3>>>{} =
 //         result1{};
+
 } // namespace product_test
+
+} // namespace boost::tmp

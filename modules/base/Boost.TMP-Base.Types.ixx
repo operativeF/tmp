@@ -237,4 +237,5 @@ using maybe_ = impl::maybe_impl<typename impl::dispatch<impl::find_dispatch(size
 export template <typename T, typename... Ts>
 using maybe_t = impl::maybe_impl<typename impl::dispatch<impl::find_dispatch(sizeof...(Ts)), T>::template
                     f<Ts...>::type>;
+
 } // namespace boost::tmp

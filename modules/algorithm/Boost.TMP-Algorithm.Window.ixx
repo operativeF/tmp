@@ -38,11 +38,7 @@ struct dispatch<N, window_<StartIndex, Count, C>> {
 
 } // namespace impl
 
-} // namespace boost::tmp
-
 namespace window_test {
-
-using namespace boost::tmp;
 
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, int_<3>>>)
 struct GetTheMiddle123;
@@ -50,3 +46,5 @@ struct GetTheMiddle123;
 using window_test_1 = GetTheMiddle123<call_<window_<int_<1>, int_<3>>, int_<0>, int_<1>, int_<2>, int_<3>, int_<5>, int_<7>>>;
 
 } // namespace window_test
+
+} // namespace boost::tmp

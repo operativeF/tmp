@@ -222,11 +222,7 @@ struct dispatch<N, tee_<F0, F1, Fs...>>
 
 } // namespace impl
 
-} // namespace boost::tmp
-
-// TESTING:
 namespace tee_test {
-using namespace boost::tmp;
 
 // TODO: Narrow tests down.
 // list_<list_<>>{}          = call_<tee_<listify_, listify_>>{};
@@ -248,4 +244,7 @@ using namespace boost::tmp;
 //                 int>{}; // short circuiting should save from hard error
 // true_{}  = call_<tee_<is_<int>, identity_, is_<int>, or_<>>,
 //                 int>{}; // short circuiting should save from hard error
+
 } // namespace tee_test
+
+} // namespace boost::tmp
