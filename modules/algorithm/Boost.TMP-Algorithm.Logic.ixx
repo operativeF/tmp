@@ -352,6 +352,7 @@ struct dispatch<N, contains_<T, C>> : dispatch<N, or_<is_<T>, C>> {};
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, false_>)
@@ -410,5 +411,6 @@ using none_of_test_1 = NoneOfTheNumbersAreOdd<call_<none_of_<lift_<is_even>>, in
 using none_of_test_2 = NoneOfTheNumbersAreEven<call_<none_of_<lift_<is_even>>, int_<1>, int_<3>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

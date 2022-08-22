@@ -69,6 +69,7 @@ struct dispatch<N, ends_with_<L, C>> : dispatch<N, ends_with_impl<N, L, C>> {};
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, true_>)
@@ -92,5 +93,6 @@ using ends_with_test_1 = EndsWithBD<call_<starts_with_<list_<char_<'A'>, char_<'
 using ends_with_test_2 = DoesNotEndWithAD<call_<starts_with_<list_<char_<'A'>, char_<'D'>>>, char_<'A'>, char_<'B'>, char_<'D'>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

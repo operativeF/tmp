@@ -197,6 +197,7 @@ struct dispatch<N, reverse_<C>> : dispatch<65, reverse_<C>> {};
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<2>, int_<1>, int_<0>>>)
@@ -222,5 +223,6 @@ using reverse_test_3 = SingleElementReturnsListOfSingleElement<call_<reverse_<>,
 using reverse_test_4 = DoubleReverseIsOriginal<call_<reverse_<reverse_<>>, int_<1>, int_<2>, int_<3>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

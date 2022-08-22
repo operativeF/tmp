@@ -31,6 +31,7 @@ struct dispatch<2, swap_<C>> {
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<0>>>)
@@ -39,5 +40,6 @@ struct ListOneZero;
 using swap_test_1 = ListOneZero<call_<swap_<>, int_<0>, int_<1>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

@@ -146,6 +146,7 @@ struct dispatch<N, drop_last_<DropN, C>> : dispatch<N, reverse_<drop_<DropN, rev
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<1>>>)
@@ -169,5 +170,6 @@ struct DropThreeOffEnd;
 using drop_last_test_1 = DropThreeOffEnd<call_<drop_last_<int_<3>>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

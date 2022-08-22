@@ -43,6 +43,7 @@ struct dispatch<N, size_<C>> {
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, sizet_<3>>)
@@ -57,5 +58,6 @@ using size_test_1 = SizeThreeElementsInPack<call_<size_<>, int_<0>, int_<2>, int
 using size_test_2 = SizeEmptyPackIsZero<call_<size_<>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

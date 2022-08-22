@@ -44,7 +44,8 @@ struct dispatch<N, try_<F, C>> {
 
 } // namespace impl
 
-namespace try_test {
+#ifdef TMP_COMPILE_TIME_TESTING
+namespace test {
 
 // TODO: Implement try_test
 // template <typename T>
@@ -58,6 +59,7 @@ namespace try_test {
 // list_<int>{} = list_<call_<try_<call_type>, has_type>>{}; // should not SFINAE
 // list_<int>{} = call_<try_<call_type, listify_>, has_type>{}; // test the continuation
 
-} // namespace try_test
+} // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

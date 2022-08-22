@@ -228,6 +228,7 @@ struct dispatch<N, sort_<F, C>>
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<sizet_<0>, sizet_<1>, sizet_<2>>>)
@@ -239,5 +240,6 @@ using less = bool_<(T::value < U::value)>;
 using sort_test_1 = ListZeroOneTwo<call_<sort_<lift_<less>>, sizet_<1>, sizet_<0>, sizet_<2>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

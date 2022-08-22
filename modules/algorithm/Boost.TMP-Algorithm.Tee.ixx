@@ -222,6 +222,7 @@ struct dispatch<N, tee_<F0, F1, Fs...>>
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 // TODO: Narrow tests down.
@@ -246,5 +247,6 @@ namespace test {
 //                 int>{}; // short circuiting should save from hard error
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

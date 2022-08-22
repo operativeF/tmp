@@ -51,6 +51,7 @@ struct dispatch<2, product_<F, C>> : dispatch<2, product_<lift_<dispatch<2, F>::
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 // TODO: Implement product_test
@@ -66,5 +67,6 @@ namespace test {
 //         result1{};
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

@@ -92,6 +92,7 @@ struct dispatch<0, pop_back_<C>> {
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 // push_back_ tests
@@ -145,5 +146,6 @@ using pop_back_test_2 = PopBackEmptyList<call_<pop_back_<>, list_<>>>;
 using pop_back_test_3 = PopBackEmptyPack<call_<pop_back_<>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

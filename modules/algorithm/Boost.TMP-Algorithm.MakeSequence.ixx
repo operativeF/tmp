@@ -180,6 +180,7 @@ struct dispatch<N, repeat_sequence_<P, C>> : make_repeat<P::value, C> {};
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T>
@@ -205,5 +206,6 @@ using make_sequence_test_2 = ListOneTwoThree<call_<make_sequence_<lift_<and_one>
 // list_<sizet_<1>, sizet_<1>, sizet_<1>, sizet_<2>, sizet_<2>, sizet_<2>, sizet_<3>, sizet_<3>, sizet_<3>>{} = call_<transform_<repeat_sequence_<sizet_<3>>, join_<>>, sizet_<1>, sizet_<2>, sizet_<3>>{};
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

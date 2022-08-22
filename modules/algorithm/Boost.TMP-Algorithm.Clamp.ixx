@@ -41,6 +41,7 @@ struct dispatch<N, clamp_<L, H, C>>
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<uint_<4>>>)
@@ -49,5 +50,6 @@ struct ClampListWithOnlyFour;
 using clamp_test_1 = ClampListWithOnlyFour<call_<clamp_<uint_<3>, uint_<10>>, uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

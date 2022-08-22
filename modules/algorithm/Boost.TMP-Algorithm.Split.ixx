@@ -31,6 +31,7 @@ struct dispatch<N, split_<I, C>> : dispatch<N, tee_<take_<I>, drop_<I>, listify_
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<list_<int_<1>, int_<2>, int_<3>, int_<4>>,
@@ -41,5 +42,6 @@ using split_test_1 = SplitAtIndexFour<call_<split_<sizet_<4>>, int_<1>, int_<2>,
                                                                int_<5>, int_<6>, int_<7>, int_<8>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

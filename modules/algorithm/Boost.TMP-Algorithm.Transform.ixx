@@ -43,8 +43,10 @@ struct dispatch<N, transform_<lift_<F, FC>, C>> {
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

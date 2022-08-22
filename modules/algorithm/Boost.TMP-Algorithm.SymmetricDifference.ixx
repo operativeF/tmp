@@ -40,8 +40,10 @@ struct dispatch<2, binary_symmetric_diff_<F, C>>
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

@@ -191,6 +191,7 @@ struct dispatch<N, join_seq_<C>> {
 } // namespace impl
 
 // TODO: Implement join_test
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 // using joined_sequences = call_<join_seq_<lift_<into_sequence>>, std::index_sequence<1, 2>, std::index_sequence<3, 4>>;
@@ -198,5 +199,6 @@ namespace test {
 // joined_sequences{} = std::index_sequence<1, 2, 3, 4>{};
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

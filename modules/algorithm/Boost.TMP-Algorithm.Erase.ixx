@@ -54,6 +54,7 @@ struct dispatch<0, erase_<I, C>> {
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<2>, int_<3>>>)
@@ -74,5 +75,6 @@ using erase_test_2   = EraseSingleElement<call_<erase_<sizet_<0>>, int_<0>>>;
 using erase_test_3   = EraseEmptyPackReturnsNothingType<call_<erase_<sizet_<0>>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

@@ -29,6 +29,7 @@ struct dispatch<N, slice_<LowerB, UpperB, C>> : dispatch<N, drop_<LowerB, drop_l
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<5>, int_<6>, int_<7>, int_<8>>>)
@@ -39,5 +40,6 @@ using slice_test_1 = SliceLBFourUBTwo<call_<slice_<sizet_<4>, sizet_<2>>,
                                             int_<6>, int_<7>, int_<8>, int_<9>, int_<10>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

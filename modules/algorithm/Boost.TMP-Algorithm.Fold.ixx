@@ -354,6 +354,7 @@ struct dispatch<N, fold_right_<F, lift_<C>>>
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<>>)
@@ -380,5 +381,6 @@ using add = uint_<(T::value + U::value)>;
 using fold_right_test_1 = FoldRightAddsUpToTwenty<call_<fold_right_<lift_<add>>, uint_<1>, uint_<10>, uint_<9>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

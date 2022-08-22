@@ -120,6 +120,7 @@ struct dispatch<N, index_<sizet_<7>, C>> {
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, int_<3>>)
@@ -144,6 +145,7 @@ using unpack_index_test_1 = UnpackedElementAtIndexZeroIsOne<call_<ui0_<>, list_<
 using front_test_1 = ElementAtFrontIsOne<call_<front_<>, int_<1>, int_<2>, int_<3>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp
 

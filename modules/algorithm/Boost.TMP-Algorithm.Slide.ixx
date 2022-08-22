@@ -61,6 +61,7 @@ struct dispatch<0, slide_<W, C>> {
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<list_<int_<1>, int_<2>>,
@@ -81,5 +82,6 @@ using slide_test_2 = SlideThreeIncrByOne<call_<slide_<sizet_<3>>, int_<1>, int_<
 using slide_test_3 = SlideFourIncrByOne<call_<slide_<sizet_<4>>, int_<1>, int_<2>, int_<3>, int_<4>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

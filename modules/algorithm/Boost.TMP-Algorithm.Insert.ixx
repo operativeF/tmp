@@ -49,6 +49,7 @@ struct dispatch<0, insert_<I, V, C>> {
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 // Insert char_<'c'> at position 1
@@ -76,5 +77,6 @@ using insert_test_3 = Insert_C_AtPositionTwo<call_<insert_<int_<2>, char_<'c'>>,
 using insert_test_4  = EmptyPackInsertionReturnsSingleElementList<call_<insert_<int_<0>, char_<'c'>>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

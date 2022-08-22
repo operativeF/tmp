@@ -69,6 +69,7 @@ struct dispatch<0, stride_<S, C>> {
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<0>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>)
@@ -83,5 +84,6 @@ struct EveryThirdElement;
 using stride_test_1 = EveryThirdElement<call_<stride_<sizet_<3>>, char_<'a'>, char_<'b'>, char_<'c'>, char_<'d'>, char_<'e'>, char_<'f'>, char_<'g'>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

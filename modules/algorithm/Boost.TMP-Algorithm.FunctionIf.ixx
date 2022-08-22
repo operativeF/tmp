@@ -149,6 +149,7 @@ struct dispatch<N, replace_if_<Input, F, C>>
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<3>>>)
@@ -205,5 +206,6 @@ using find_if_not_test_1 = FindIfNotOddNumberAtPositionTwo<call_<find_if_not_<li
 using find_if_not_test_2 = FindIfNotReturnNothingForNoValueFound<call_<find_if_not_<lift_<is_even>>, int_<2>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

@@ -82,6 +82,7 @@ struct dispatch<N, nth_values_<I, C>> : dispatch<N, transform_<unpack_index_<I>,
 
 } // namespace impl
 
+#ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>>>)
@@ -102,5 +103,6 @@ using nth_values_test_1 = IndexTwoValuesList<call_<nth_values_<sizet_<2>>,
                                                    list_<int_<2>, int_<10>, int_<23>>>>;
 
 } // namespace test
+#endif // TMP_COMPILE_TIME_TESTING
 
 } // namespace boost::tmp

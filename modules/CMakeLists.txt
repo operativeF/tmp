@@ -70,6 +70,10 @@ target_sources(boost_tmp
         ${TMP_BASE_IXX}
 )
 
+if(ENABLE_COMPILE_TIME_TESTING)
+  target_compile_definitions(boost_tmp PRIVATE TMP_COMPILE_TIME_TESTING)
+endif()
+
 if(MSVC)
     target_compile_options(boost_tmp PRIVATE /reference std=C:/dev/STL/std.ifc)
 endif()
