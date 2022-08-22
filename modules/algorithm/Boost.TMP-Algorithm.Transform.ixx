@@ -21,6 +21,7 @@ import std;
 #endif
 
 namespace boost::tmp {
+
 // transform_ : 
 export template <typename F = identity_, typename C = listify_>
 struct transform_ {};
@@ -42,8 +43,8 @@ struct dispatch<N, transform_<lift_<F, FC>, C>> {
 
 } // namespace impl
 
+namespace test {
+
+} // namespace test
+
 } // namespace boost::tmp
-
-namespace transform_test {
-
-} // namespace transform_test

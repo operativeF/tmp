@@ -69,7 +69,7 @@ struct dispatch<N, chunk_<S, C>> {
 
 } // namespace impl
 
-namespace chunk_test {
+namespace test {
 
 template<typename T> requires(std::same_as<T, list_<list_<int_<0>, int_<1>, int_<2>>,
                                                     list_<int_<3>, int_<4>, int_<5>>,

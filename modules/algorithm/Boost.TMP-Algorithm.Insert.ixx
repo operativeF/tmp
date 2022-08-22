@@ -49,7 +49,7 @@ struct dispatch<0, insert_<I, V, C>> {
 
 } // namespace impl
 
-namespace insert_test {
+namespace test {
 
 // Insert char_<'c'> at position 1
 template<typename T> requires(std::same_as<T, list_<int_<1>, char_<'c'>, int_<2>>>)
@@ -75,6 +75,6 @@ using insert_test_3 = Insert_C_AtPositionTwo<call_<insert_<int_<2>, char_<'c'>>,
 
 using insert_test_4  = EmptyPackInsertionReturnsSingleElementList<call_<insert_<int_<0>, char_<'c'>>>>;
 
-} // namespace insert_test
+} // namespace test
 
 } // namespace boost::tmp

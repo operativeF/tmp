@@ -40,8 +40,8 @@ struct dispatch<2, binary_symmetric_diff_<F, C>>
 
 } // namespace impl
 
+namespace test {
+
+} // namespace test
+
 } // namespace boost::tmp
-
-namespace symmetric_difference_test {
-
-} // namespace symmetric_difference_test

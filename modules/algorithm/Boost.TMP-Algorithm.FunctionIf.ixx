@@ -149,61 +149,61 @@ struct dispatch<N, replace_if_<Input, F, C>>
 
 } // namespace impl
 
-namespace function_if_test {
+namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<3>>>)
-struct OnlyOddNumbersLeft;
+struct RemoveIfOnlyOddNumbersLeft;
 
 template<typename T>
 using is_even = bool_<(T::value % 2 == 0)>;
 
-using remove_if_test_1 = OnlyOddNumbersLeft<call_<remove_if_<lift_<is_even>>, int_<1>, int_<2>, int_<3>>>;
+using remove_if_test_1 = RemoveIfOnlyOddNumbersLeft<call_<remove_if_<lift_<is_even>>, int_<1>, int_<2>, int_<3>>>;
 
 template<typename T> requires(std::same_as<T, sizet_<0>>)
-struct NoEvenNumbers;
+struct CountIfNoEvenNumbers;
 
 template<typename T> requires(std::same_as<T, sizet_<3>>)
-struct HasThreeEvenNumbers;
+struct CountIfHasThreeEvenNumbers;
 
-using count_if_test_1  = NoEvenNumbers<call_<count_if_<lift_<is_even>>, int_<1>, int_<3>>>;
+using count_if_test_1  = CountIfNoEvenNumbers<call_<count_if_<lift_<is_even>>, int_<1>, int_<3>>>;
 
-using count_if_test_2  = HasThreeEvenNumbers<call_<count_if_<lift_<is_even>>, int_<0>, int_<2>, int_<4>>>;
+using count_if_test_2  = CountIfHasThreeEvenNumbers<call_<count_if_<lift_<is_even>>, int_<0>, int_<2>, int_<4>>>;
 
 // Empty input pack returns 0
-using count_if_test_3 = NoEvenNumbers<call_<count_if_<lift_<is_even>>>>;
+using count_if_test_3 = CountIfNoEvenNumbers<call_<count_if_<lift_<is_even>>>>;
 
 template<typename T> requires(std::same_as<T, list_<uint_<1>, char_<'c'>, uint_<1>>>)
 struct ReplaceTwoWithC;
 
 template<typename T> requires(std::same_as<T, list_<>>)
-struct EmptyPackReturnsAnEmptyList;
+struct ReplaceIfEmptyPackReturnsAnEmptyList;
 
 using replace_if_test_1 = ReplaceTwoWithC<call_<replace_if_<char_<'c'>, lift_<is_even>>, uint_<1>, uint_<2>, uint_<1>>>;
 
-using replace_if_test_2 = EmptyPackReturnsAnEmptyList<call_<replace_if_<char_<'c'>, lift_<is_even>>>>;
+using replace_if_test_2 = ReplaceIfEmptyPackReturnsAnEmptyList<call_<replace_if_<char_<'c'>, lift_<is_even>>>>;
 
 template<typename T> requires(std::same_as<T, sizet_<3>>)
-struct EvenNumberAtPositionThree;
+struct FindIfEvenNumberAtPositionThree;
 
 template<typename T> requires(std::same_as<T, nothing_>)
-struct ReturnNothingForNoValueFound;
+struct FindIfReturnNothingForNoValueFound;
 
-using find_if_test_1 = EvenNumberAtPositionThree<call_<find_if_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<2>>>;
+using find_if_test_1 = FindIfEvenNumberAtPositionThree<call_<find_if_<lift_<is_even>>, int_<1>, int_<1>, int_<1>, int_<2>>>;
 
 // find_if_ returns nothing_ when there is no value found that satisfies the predicate.
-using find_if_test_2 = ReturnNothingForNoValueFound<call_<find_if_<lift_<is_even>>, int_<1>>>;
+using find_if_test_2 = FindIfReturnNothingForNoValueFound<call_<find_if_<lift_<is_even>>, int_<1>>>;
 
 template<typename T> requires(std::same_as<T, sizet_<2>>)
-struct OddNumberAtPositionTwo;
+struct FindIfNotOddNumberAtPositionTwo;
 
 template<typename T> requires(std::same_as<T, nothing_>)
-struct ReturnNothingForNoValueFound;
+struct FindIfNotReturnNothingForNoValueFound;
 
-using find_if_not_test_1 = OddNumberAtPositionTwo<call_<find_if_not_<lift_<is_even>>, int_<2>, int_<4>, int_<1>, int_<2>>>;
+using find_if_not_test_1 = FindIfNotOddNumberAtPositionTwo<call_<find_if_not_<lift_<is_even>>, int_<2>, int_<4>, int_<1>, int_<2>>>;
 
 // find_if_ returns nothing_ when there is no value found that satisfies the predicate.
-using find_if_not_test_2 = ReturnNothingForNoValueFound<call_<find_if_not_<lift_<is_even>>, int_<2>>>;
+using find_if_not_test_2 = FindIfNotReturnNothingForNoValueFound<call_<find_if_not_<lift_<is_even>>, int_<2>>>;
 
-} // namespace function_if_tests
+} // namespace test
 
 } // namespace boost::tmp

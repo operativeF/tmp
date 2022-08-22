@@ -100,7 +100,7 @@ struct dispatch<N, zip_with_index_<F, lift_<C>>> {
 
 } // namespace impl
 
-namespace zip_test {
+namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<3>, int_<7>>>)
 struct AddPairsTogetherWithZip;
@@ -124,6 +124,6 @@ struct ZipABCWith123;
 
 using zip_with_test_1 = ZipABCWith123<call_<zip_with_index_<>, char_<'a'>, char_<'b'>, char_<'c'>>>;
 
-} // namespace zip_with_index_test
+} // namespace test
 
 } // namespace boost::tmp

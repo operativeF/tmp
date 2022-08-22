@@ -54,7 +54,7 @@ struct dispatch<N, take_last_<P, C>> {
 
 } // namespace impl
 
-namespace take_test {
+namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<1>>>)
 struct TakeFirstElement_One;
@@ -74,6 +74,6 @@ struct LastTwoElements;
 
 using take_last_test_1 = LastTwoElements<call_<take_last_<int_<2>>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>;
 
-} // namespace take_test
+} // namespace test
 
 } // namespace boost::tmp

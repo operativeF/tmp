@@ -41,13 +41,13 @@ struct dispatch<N, clamp_<L, H, C>>
 
 } // namespace impl
 
-namespace clamp_test {
+namespace test {
 
 template<typename T> requires(std::same_as<T, list_<uint_<4>>>)
-struct ListWithOnlyFour;
+struct ClampListWithOnlyFour;
 
-using clamp_test_1 = ListWithOnlyFour<call_<clamp_<uint_<3>, uint_<10>>, uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>>;
+using clamp_test_1 = ClampListWithOnlyFour<call_<clamp_<uint_<3>, uint_<10>>, uint_<0>, uint_<1>, uint_<2>, uint_<3>, uint_<4>>>;
 
-} // namespace clamp_test
+} // namespace test
 
 } // namespace boost::tmp

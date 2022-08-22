@@ -43,19 +43,19 @@ struct dispatch<N, size_<C>> {
 
 } // namespace impl
 
-namespace size_test {
+namespace test {
 
 template<typename T> requires(std::same_as<T, sizet_<3>>)
-struct ThreeElementsInPack;
+struct SizeThreeElementsInPack;
 
 template<typename T> requires(std::same_as<T, sizet_<0>>)
-struct EmptyPackIsZero;
+struct SizeEmptyPackIsZero;
 
-using size_test_1 = ThreeElementsInPack<call_<size_<>, int_<0>, int_<2>, int_<4>>>;
+using size_test_1 = SizeThreeElementsInPack<call_<size_<>, int_<0>, int_<2>, int_<4>>>;
 
 // No input list is zero size.
-using size_test_2 = EmptyPackIsZero<call_<size_<>>>;
+using size_test_2 = SizeEmptyPackIsZero<call_<size_<>>>;
 
-} // namespace size_test
+} // namespace test
 
 } // namespace boost::tmp

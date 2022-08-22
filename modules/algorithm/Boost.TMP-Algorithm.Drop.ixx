@@ -146,7 +146,7 @@ struct dispatch<N, drop_last_<DropN, C>> : dispatch<N, reverse_<drop_<DropN, rev
 
 } // namespace impl
 
-namespace drop_test {
+namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<1>>>)
 struct DropOneOffOfList;
@@ -168,6 +168,6 @@ struct DropThreeOffEnd;
 
 using drop_last_test_1 = DropThreeOffEnd<call_<drop_last_<int_<3>>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>;
 
-} // namespace drop_test
+} // namespace test
 
 } // namespace boost::tmp

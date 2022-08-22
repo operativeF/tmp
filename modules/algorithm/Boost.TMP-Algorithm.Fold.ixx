@@ -354,7 +354,7 @@ struct dispatch<N, fold_right_<F, lift_<C>>>
 
 } // namespace impl
 
-namespace fold_tests {
+namespace test {
 
 template<typename T> requires(std::same_as<T, list_<>>)
 struct FoldLeftIntoEmptyList;
@@ -372,13 +372,13 @@ using fold_left_test_1 = FoldLeftIntoEmptyList<call_<fold_left_<lift_<pusher>>, 
 using fold_left_test_2 = FoldLeftValuesIntoList<call_<fold_left_<lift_<pusher>>, list_<>, uint_<1>, uint_<2>>>;
 
 template<typename T> requires(std::same_as<T, uint_<20>>)
-struct AddsUpToTwenty;
+struct FoldRightAddsUpToTwenty;
 
 template <typename T, typename U>
 using add = uint_<(T::value + U::value)>;
 
-using fold_right_test_1 = AddsUpToTwenty<call_<fold_right_<lift_<add>>, uint_<1>, uint_<10>, uint_<9>>>;
+using fold_right_test_1 = FoldRightAddsUpToTwenty<call_<fold_right_<lift_<add>>, uint_<1>, uint_<10>, uint_<9>>>;
 
-} // namespace fold_tests
+} // namespace test
 
 } // namespace boost::tmp

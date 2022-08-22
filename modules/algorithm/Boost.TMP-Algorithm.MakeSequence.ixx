@@ -180,7 +180,7 @@ struct dispatch<N, repeat_sequence_<P, C>> : make_repeat<P::value, C> {};
 
 } // namespace impl
 
-namespace make_sequence_tests {
+namespace test {
 
 template<typename T>
 using and_one = sizet_<T::value + 1>;
@@ -204,6 +204,6 @@ using make_sequence_test_2 = ListOneTwoThree<call_<make_sequence_<lift_<and_one>
 // std::index_sequence<1, 1, 1, 1, 1, 1, 1, 1, 1, 1>{} = call_<repeat_sequence_<sizet_<10>, lift_<into_sequence>>, sizet_<1>>{};
 // list_<sizet_<1>, sizet_<1>, sizet_<1>, sizet_<2>, sizet_<2>, sizet_<2>, sizet_<3>, sizet_<3>, sizet_<3>>{} = call_<transform_<repeat_sequence_<sizet_<3>>, join_<>>, sizet_<1>, sizet_<2>, sizet_<3>>{};
 
-} // namespace make_sequence_tests
+} // namespace test
 
 } // namespace boost::tmp

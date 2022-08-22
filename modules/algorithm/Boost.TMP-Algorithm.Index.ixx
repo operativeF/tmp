@@ -120,7 +120,7 @@ struct dispatch<N, index_<sizet_<7>, C>> {
 
 } // namespace impl
 
-namespace index_test {
+namespace test {
 
 template<typename T> requires(std::same_as<T, int_<3>>)
 struct ElementAtIndexTwoIsThree;
@@ -143,7 +143,7 @@ using unpack_index_test_1 = UnpackedElementAtIndexZeroIsOne<call_<ui0_<>, list_<
 // Get first element of pack
 using front_test_1 = ElementAtFrontIsOne<call_<front_<>, int_<1>, int_<2>, int_<3>>>;
 
-} // namespace index_test
+} // namespace test
 
 } // namespace boost::tmp
 

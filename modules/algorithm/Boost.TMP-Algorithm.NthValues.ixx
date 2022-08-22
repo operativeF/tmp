@@ -82,7 +82,7 @@ struct dispatch<N, nth_values_<I, C>> : dispatch<N, transform_<unpack_index_<I>,
 
 } // namespace impl
 
-namespace nth_values_tests {
+namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>>>)
 struct KeysOfMap;
@@ -101,6 +101,6 @@ using nth_values_test_1 = IndexTwoValuesList<call_<nth_values_<sizet_<2>>,
                                                    list_<int_<1>, int_<22>, int_<22>>,
                                                    list_<int_<2>, int_<10>, int_<23>>>>;
 
-} // namespace keys_test
+} // namespace test
 
 } // namespace boost::tmp

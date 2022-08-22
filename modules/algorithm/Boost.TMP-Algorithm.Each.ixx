@@ -58,8 +58,8 @@ struct dispatch<4, each_<F0, F1, F2, F3, C>> {
 
 } // namespace impl
 
-namespace each_test {
+namespace test {
 
-} // namespace each_test
+} // namespace test
 
 } // namespace boost::tmp

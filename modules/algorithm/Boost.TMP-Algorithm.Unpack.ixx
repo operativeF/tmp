@@ -45,8 +45,8 @@ struct dispatch<1, unpack_<C>> {
 
 } // namespace impl
 
+namespace test {
+
+} // namespace test
+
 } // namespace boost::tmp
-
-namespace unpack_test {
-
-} // namespace unpack_test

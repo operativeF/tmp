@@ -54,7 +54,7 @@ struct dispatch<0, erase_<I, C>> {
 
 } // namespace impl
 
-namespace erase_test {
+namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<2>, int_<3>>>)
 struct EraseFirstElement;
@@ -65,14 +65,14 @@ struct EraseSingleElement;
 
 // UNDER RECONSIDERATION: Returns list_<nothing_> if no input is given.
 template<typename T> requires(std::same_as<T, list_<nothing_>>)
-struct EmptyPackReturnsNothingType;
+struct EraseEmptyPackReturnsNothingType;
 
 using erase_test_1   = EraseFirstElement<call_<erase_<sizet_<0>>, int_<1>, int_<2>, int_<3>>>;
 
 using erase_test_2   = EraseSingleElement<call_<erase_<sizet_<0>>, int_<0>>>;
 
-using erase_test_3 = EmptyPackReturnsNothingType<call_<erase_<sizet_<0>>>>;
+using erase_test_3   = EraseEmptyPackReturnsNothingType<call_<erase_<sizet_<0>>>>;
 
-} // namespace erase_test
+} // namespace test
 
 } // namespace boost::tmp

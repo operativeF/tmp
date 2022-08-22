@@ -31,13 +31,13 @@ struct dispatch<2, swap_<C>> {
 
 } // namespace impl
 
-namespace swap_test {
+namespace test {
 
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<0>>>)
 struct ListOneZero;
 
 using swap_test_1 = ListOneZero<call_<swap_<>, int_<0>, int_<1>>>;
 
-} // namespace swap_test
+} // namespace test
 
 } // namespace boost::tmp
