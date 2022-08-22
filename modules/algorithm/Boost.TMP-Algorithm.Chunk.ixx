@@ -35,10 +35,6 @@ export template<typename S = sizet_<0>, typename C = listify_>
 struct chunk_ {};
 
 // chunk_ : implementation
-// TODO: Move this to MakeSequence module.
-template <std::size_t N>
-using make_index_for_stride = make_seq_impl<next_state(0, N)>::template f<N>;
-
 consteval std::size_t chunk_div(std::size_t input_size, std::size_t chunk_length) {
     if((input_size % chunk_length < 1) && (input_size > chunk_length))
         return input_size / chunk_length;
@@ -66,7 +62,7 @@ template<std::size_t N, typename S, typename C>
 struct dispatch<N, chunk_<S, C>> {
     template<typename... Ts>
     using f = dispatch<sizeof...(Ts),
-        chunk_impl<S, make_index_for_stride<chunk_div(sizeof...(Ts), S::value)>, C>>::template f<Ts...>;
+        chunk_impl<S, make_index_for_<chunk_div(sizeof...(Ts), S::value)>, C>>::template f<Ts...>;
 };
 
 } // namespace boost::tmp

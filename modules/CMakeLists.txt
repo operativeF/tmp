@@ -71,5 +71,5 @@ target_sources(boost_tmp
 )
 
 if(MSVC)
-    target_compile_options(boost_tmp PRIVATE /reference std=C:/dev/STL/std.ifc /d1reportTime)
+    target_compile_options(boost_tmp PRIVATE /reference std=C:/dev/STL/std.ifc)
 endif()

@@ -22,7 +22,6 @@ import :Base.Types;
 import std;
 #endif
 
-// FIXME: make_seq_impl used elsewhere.
 // TODO: Generalized to all integers.
 namespace boost::tmp {
 // make_sequence_ :
@@ -70,6 +69,9 @@ struct dispatch<1, make_sequence_<F, C>> {
     using f = dispatch<1, unpack_<transform_<F, C>>>::template f<
             typename make_seq_impl<next_state(0, N::value)>::template f<N::value>>;
 };
+
+template <std::size_t N>
+using make_index_for_ = make_seq_impl<next_state(0, N)>::template f<N>;
 
 // TODO: Benchmark alternate implemenation.
 // template<typename... Vs>

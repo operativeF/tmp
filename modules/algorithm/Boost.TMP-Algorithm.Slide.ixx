@@ -39,9 +39,6 @@ template<typename W = sizet_<0>, typename C = listify_>
 struct slide_ {};
 
 // slide_ : implementation
-// TODO: Move this to MakeSequence module.
-template <std::size_t N>
-using make_index_for_slide = make_seq_impl<next_state(0, N)>::template f<N>;
 template<typename W, typename C = listify_, typename L = listify_>
 struct slide_impl {};
 template<std::size_t N, typename W, typename C, typename... Ts>
@@ -52,7 +49,7 @@ struct dispatch<N, slide_impl<W, list_<Ts...>, C>> {
 template<std::size_t N, typename W, typename C>
 struct dispatch<N, slide_<W, C>> {
     template<typename... Ts>
-    using f = dispatch<N, slide_impl<W, make_index_for_slide<sizeof...(Ts) - W::value + 1>, C>>::template f<Ts...>;
+    using f = dispatch<N, slide_impl<W, make_index_for_<sizeof...(Ts) - W::value + 1>, C>>::template f<Ts...>;
 };
 template<typename W, typename C>
 struct dispatch<0, slide_<W, C>> {

@@ -34,10 +34,6 @@ namespace boost::tmp {
 template<typename S = sizet_<0>, typename C = listify_>
 struct stride_ {};
 
-// TODO: Move this to MakeSequence module.
-template <std::size_t N>
-using make_index_for_stride = make_seq_impl<next_state(0, N)>::template f<N>;
-
 // stride_ : implementation
 template<typename S, typename C = listify_, typename L = listify_>
 struct tee_drops_ {};
@@ -61,7 +57,7 @@ consteval std::size_t stride_div(std::size_t input_size, std::size_t stride_leng
 template<std::size_t N, typename S, typename C>
 struct dispatch<N, stride_<S, C>> {
     template<typename... Ts>
-    using f = dispatch<N, tee_drops_<S, make_index_for_stride<stride_div(sizeof...(Ts), S::value)>, C>>::template f<Ts...>;
+    using f = dispatch<N, tee_drops_<S, make_index_for_<stride_div(sizeof...(Ts), S::value)>, C>>::template f<Ts...>;
 };
 template<typename S, typename C>
 struct dispatch<0, stride_<S, C>> {
