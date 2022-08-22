@@ -52,7 +52,6 @@ set(TMP_ALGO_IXX
 
 set(TMP_MAIN_IXX
     # ${TMP_BASE_DIR}/Boost.TMP-Base.ListOperations.ixx
-    ${TMP_BASE_DIR}/Boost.TMP-Base.Map.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Types.ixx
     ${TMP_BASE_DIR}/Boost.TMP-Base.Try.ixx
 )
@@ -72,5 +71,5 @@ target_sources(boost_tmp
 )
 
 if(MSVC)
-    target_compile_options(boost_tmp PRIVATE /reference std=C:/dev/STL/std.ifc)
+    target_compile_options(boost_tmp PRIVATE /reference std=C:/dev/STL/std.ifc /d1reportTime)
 endif()

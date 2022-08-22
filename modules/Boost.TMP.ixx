@@ -49,6 +49,5 @@ export import :Algorithm.Window;
 export import :Algorithm.Zip;
 
 // export import :Base.ListOperations;
-export import :Base.Map;
 export import :Base.Types;
 export import :Base.Try;
