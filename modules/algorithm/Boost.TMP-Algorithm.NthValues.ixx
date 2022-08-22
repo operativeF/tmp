@@ -36,8 +36,12 @@ export template<typename C = listify_>
 struct keys_ {};
 
 // keys_ : implementation
+namespace impl {
+
 template <std::size_t N, typename C>
 struct dispatch<N, keys_<C>> : dispatch<N, transform_<ui0_<>, C>> {};
+
+} // namespace impl
 
 // values_ :
 // Input params: Parameter pack
@@ -51,8 +55,12 @@ export template<typename C = listify_>
 struct values_ {};
 
 // values_ : implementation
+namespace impl {
+
 template <std::size_t N, typename C>
 struct dispatch<N, values_<C>> : dispatch<N, transform_<ui1_<>, C>> {};
+
+} // namespace impl
 
 // nth_values_ :
 // Input params: Parameter pack
@@ -67,8 +75,12 @@ export template<typename I, typename C = listify_>
 struct nth_values_ {};
 
 // nth_values_ : implementation
+namespace impl {
+
 template <std::size_t N, typename I, typename C>
 struct dispatch<N, nth_values_<I, C>> : dispatch<N, transform_<unpack_index_<I>, C>> {};
+
+} // namespace impl
 
 } // namespace boost::tmp
 

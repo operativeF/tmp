@@ -34,16 +34,22 @@ export template <typename F, typename C = identity_>
 struct count_if_ {};
 
 // count_if_ : implementation
+namespace impl {
+
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, count_if_<F, C>>
     : dispatch<N, transform_<if_<F, always_<list_<void>>, always_<list_<>>>,
                                 join_<size_<C>>>> {};
+
+} // namespace impl
 
 // find_if_ : 
 export template <typename F, typename C = identity_>
 struct find_if_ {};
 
 // find_if_ : implementation
+namespace impl {
+
 template <bool Found, std::size_t At, template <typename...> class F>
 struct county {
     static constexpr auto value{std::numeric_limits<std::size_t>::max()};
@@ -74,9 +80,13 @@ struct dispatch<N, find_if_<lift_<F>, C>> {
                                                         F>, 0, Ts...>>;
 };
 
+} // namespace impl
+
 // find_if_not_ : 
 export template <typename F, typename C = identity_>
 struct find_if_not_ {};
+
+namespace impl {
 
 // find_if_not_ : implementation
 template <bool Found, std::size_t At, template <typename...> class F>
@@ -109,15 +119,21 @@ struct dispatch<N, find_if_not_<lift_<F>, C>> {
                                                         F>, 0, Ts...>>;
 };
 
+} // namespace impl
+
 // remove_if_ : Given a predicate F, check the variadic parameter pack passed in
 // and remove the value if the predicate holds true.
 export template <typename F, typename C = listify_>
 struct remove_if_ {};
 
 // remove_if_ : implementation
+namespace impl {
+
 template<std::size_t N, typename F, typename C>
 struct dispatch<N, remove_if_<F, C>>
         : dispatch<N, filter_<if_<F, always_<false_>, always_<true_>>, C>> {};
+
+} // namespace impl
 
 // replace_if_ : Given a variadic parameter pack, replace every value that fulfills
 // the predicate F with the value Input.
@@ -125,9 +141,14 @@ export template <typename Input, typename F, typename C = listify_>
 struct replace_if_ {};
 
 // replace_if_ : implementation
+namespace impl {
+
 template <std::size_t N, typename Input, typename F, typename C>
 struct dispatch<N, replace_if_<Input, F, C>>
         : dispatch<N, transform_<if_<F, always_<Input>, identity_>, C>> {};
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

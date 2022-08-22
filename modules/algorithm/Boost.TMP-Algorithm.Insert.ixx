@@ -33,6 +33,8 @@ export template <typename N, typename V, typename C = listify_>
 struct insert_ {};
 
 // insert_ : implementation
+namespace impl {
+
 template <std::size_t N, typename I, typename V, typename C>
 struct dispatch<N, insert_<I, V, C>> {
     template <typename... Ts>
@@ -44,6 +46,9 @@ struct dispatch<0, insert_<I, V, C>> {
     template <typename... Ts>
     using f = dispatch<1, C>::template f<V>;
 };
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

@@ -28,6 +28,8 @@ export template <typename N = sizet_<0>, typename C = listify_>
 struct take_ {};
 
 // take_ : implementation
+namespace impl {
+
 template <std::size_t N, typename P, typename C>
 struct dispatch<N, take_<P, C>> {
     template <typename... Ts>
@@ -35,16 +37,22 @@ struct dispatch<N, take_<P, C>> {
                     rotate_<P, drop_<sizet_<(sizeof...(Ts) - P::value)>, C>>>::template f<Ts...>;
 };
 
+} // namespace impl
+
 // take_last_ :
 export template<typename N = sizet_<0>, typename C = listify_>
 struct take_last_ {};
 
 // take_last_ : implementation
+namespace impl {
+
 template<std::size_t N, typename P, typename C>
 struct dispatch<N, take_last_<P, C>> {
     template<typename... Ts>
     using f = dispatch<find_dispatch(sizeof...(Ts)), drop_<sizet_<(sizeof...(Ts) - P::value)>, C>>::template f<Ts...>;
 };
+
+} // namespace impl
 
 } // namespace boost::tmp
 

@@ -30,6 +30,8 @@ export template <typename F = listify_, typename C = listify_>
 struct product_ {};
 
 // product_ : implementation
+namespace impl {
+
 template <template <typename...> class F, typename T, typename... Ts>
 using product_helper_ = list_<F<T, Ts>...>;
 template <template <typename...> class F, typename C, typename T, typename U>
@@ -46,6 +48,9 @@ struct dispatch<2, product_<lift_<F>, C>> {
 };
 template <typename F, typename C>
 struct dispatch<2, product_<F, C>> : dispatch<2, product_<lift_<dispatch<2, F>::template f>, C>> {};
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

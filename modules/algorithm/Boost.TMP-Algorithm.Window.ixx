@@ -28,11 +28,15 @@ export template<typename StartIndex, typename Count, typename C = listify_>
 struct window_ {};
 
 // window_ : implemenation
+namespace impl {
+
 template<std::size_t N, typename StartIndex, typename Count, typename C>
 struct dispatch<N, window_<StartIndex, Count, C>> {
     template<typename... Ts>
     using f = dispatch<sizeof...(Ts), drop_<StartIndex, take_<Count, C>>>::template f<Ts...>;
 };
+
+} // namespace impl
 
 } // namespace boost::tmp
 

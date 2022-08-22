@@ -22,8 +22,12 @@ namespace boost::tmp {
 template<typename LowerB, typename UpperB, typename C = listify_>
 struct slice_ {};
 
+namespace impl {
+
 template<std::size_t N, typename LowerB, typename UpperB, typename C>
 struct dispatch<N, slice_<LowerB, UpperB, C>> : dispatch<N, drop_<LowerB, drop_last_<UpperB, C>>> {};
+
+} // namespace impl
 
 } // namespace boost::tmp
 

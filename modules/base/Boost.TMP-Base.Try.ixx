@@ -20,38 +20,46 @@ import std;
 #endif
 
 namespace boost::tmp {
-    export template <template <typename...> class F, typename C = identity_>
-    struct try_ {};
 
-    template <typename T>
-    struct t_ {
-        using type = T;
-    };
-    template <template <typename...> class F, typename... Ts>
-    t_<F<Ts...>> try_f(lift_<F>, list_<Ts...>);
-    t_<nothing_> try_f(...);
+export template <template <typename...> class F, typename C = identity_>
+struct try_ {};
 
-    template <std::size_t N, template <typename...> class F, typename C>
-    struct dispatch<N, try_<F, C>> {
-        template <typename... Ts>
-        using f = dispatch<1, C>::template f<typename decltype(
-                try_f(lift_<F>{}, list_<Ts...>{}))::type>;
-    };
+template <typename T>
+struct t_ {
+    using type = T;
+};
+
+namespace impl {
+
+template <template <typename...> class F, typename... Ts>
+t_<F<Ts...>> try_f(lift_<F>, list_<Ts...>);
+t_<nothing_> try_f(...);
+
+template <std::size_t N, template <typename...> class F, typename C>
+struct dispatch<N, try_<F, C>> {
+    template <typename... Ts>
+    using f = dispatch<1, C>::template f<typename decltype(
+            try_f(lift_<F>{}, list_<Ts...>{}))::type>;
+};
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 namespace try_test {
-    using namespace boost::tmp;
 
-    // TODO: Implement try_test
-    // template <typename T>
-    // using call_type = T::type;
+using namespace boost::tmp;
 
-    // struct has_type {
-    //     using type = int;
-    // };
+// TODO: Implement try_test
+// template <typename T>
+// using call_type = T::type;
 
-    // nothing_{}   = call_<try_<call_type>, int>{}; // should SFINAE, int has no ::type
-    // list_<int>{} = list_<call_<try_<call_type>, has_type>>{}; // should not SFINAE
-    // list_<int>{} = call_<try_<call_type, listify_>, has_type>{}; // test the continuation
+// struct has_type {
+//     using type = int;
+// };
+
+// nothing_{}   = call_<try_<call_type>, int>{}; // should SFINAE, int has no ::type
+// list_<int>{} = list_<call_<try_<call_type>, has_type>>{}; // should not SFINAE
+// list_<int>{} = call_<try_<call_type, listify_>, has_type>{}; // test the continuation
 
 } // namespace try_test

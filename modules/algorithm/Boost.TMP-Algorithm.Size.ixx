@@ -33,11 +33,16 @@ export template <typename C = identity_>
 struct size_ {};
 
 // size_ : implementation
+namespace impl {
+
 template <std::size_t N, typename C>
 struct dispatch<N, size_<C>> {
     template <typename... Ls>
     using f = dispatch<1, C>::template f<sizet_<sizeof...(Ls)>>;
 };
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

@@ -28,28 +28,38 @@ export template <typename P, typename C = identity_>
 struct is_ {};
 
 // is_ implementation
+namespace impl {
+
 template <typename P, typename C>
 struct dispatch<1, is_<P, C>> {
     template <typename T>
     using f = dispatch<1, C>::template f<bool_<std::is_same_v<P, T>>>;
 };
 
+} // namespace impl
+
 // not_ : 
 export template <typename C = identity_>
 struct not_ {};
 
 // not_ : implementation
+namespace impl {
+
 template <typename C>
 struct dispatch<1, not_<C>> {
     template <typename T>
     using f = dispatch<1, C>::template f<bool_<(!T::value)>>;
 };
 
+} // namespace impl
+
 // or_ : 
 export template <typename F = identity_, typename C = identity_>
 struct or_ {};
 
 // or_ : implementation
+namespace impl {
+
 template <bool Short, template <typename...> class F>
 struct ory {
     template <typename T>
@@ -89,11 +99,15 @@ struct dispatch<0, or_<F, C>> {
     using f = dispatch<1, C>::template f<false_>;
 };
 
+} // namespace impl
+
 // and_ : 
 export template <typename F = identity_, typename C = identity_>
 struct and_ {};
 
 // and_ : implementation
+namespace impl {
+
 template <bool Short, template <typename...> class F>
 struct andy {
     template <typename T>
@@ -132,11 +146,15 @@ struct dispatch<0, and_<F, C>> {
     using f = dispatch<1, C>::template f<false_>;
 };
 
+} // namespace impl
+
 // if_ : Given a predicate P, if true, return T, and if false, return F.
 export template <typename P, typename T, typename F = always_<nothing_>>
 struct if_ {};
 
 // if_ implementation
+namespace impl {
+
 template <bool B>
 struct if_impl;
 template <>
@@ -190,11 +208,15 @@ struct dispatch<1, if_<lift_<P>, listify_, always_<list_<>>>> {
     using f = if_impl<P<U>::value>::template f<list_<U>, list_<>>;
 };
 
+} // namespace impl
+
 // less_ : 
 export template <typename V = nothing_, typename C = identity_>
 struct less_ {};
 
 // less_ : implementation
+namespace impl {
+
 template <typename C>
 struct dispatch<2, less_<C>> {
     template <typename T, typename U>
@@ -206,22 +228,30 @@ struct dispatch<1, less_<U, C>> {
     using f = dispatch<1, C>::template f<bool_<(U::value)<(T::value)>>;
 };
 
+} // namespace impl
+
 // less_f_ : 
 export template <typename F, typename C = identity_>
 struct less_f_ {};
 
 // less_f_ : implementation
+namespace impl {
+
 template <template<typename...> typename F, typename C>
 struct dispatch<2, less_f_<lift_<F>, C>> {
     template<typename T, typename U>
     using f = dispatch<1, C>::template f<bool_<(F<T>::value < F<U>::value)>>;
 };
 
+} // namespace impl
+
 // less_eq_ : 
 export template <typename V = nothing_, typename C = identity_>
 struct less_eq_ {};
 
 // less_eq_ : implementation
+namespace impl {
+
 template <typename C>
 struct dispatch<2, less_eq_<C>> {
     template <typename T, typename U>
@@ -233,11 +263,15 @@ struct dispatch<1, less_eq_<U, C>> {
     using f = dispatch<1, C>::template f<bool_<(U::value)<=(T::value)>>;
 };
 
+} // namespace impl
+
 // greater_ : 
 export template <typename V = nothing_, typename C = identity_>
 struct greater_ {};
 
 // greater_ : implementation
+namespace impl {
+
 template <typename C>
 struct dispatch<2, greater_<C>> {
     template <typename T, typename U>
@@ -249,16 +283,22 @@ struct dispatch<1, greater_<U, C>> {
     using f = dispatch<1, C>::template f<bool_<(T::value)<(U::value)>>;
 };
 
+} // namespace impl
+
 // range_lo_hi_ : 
 export template <typename LV = nothing_, typename UV = nothing_, typename C = identity_>
 struct range_lo_hi_ {};
 
 // range_lo_hi_ : implementation
+namespace impl {
+
 template <typename Lower, typename Upper, typename C>
 struct dispatch<1, range_lo_hi_<Lower, Upper, C>> {
     template<typename T>
     using f = dispatch<1, C>::template f<bool_<!((Lower::value < T::value) && (T::value < Upper::value))>>;
 };
+
+} // namespace impl
 
 // all_of_ : Given a unary predicate, return true_ / false_ on whether all elements
 // in a VPP satisfy that predicate.
@@ -266,8 +306,12 @@ export template <typename F, typename C = identity_>
 struct all_of_ {};
 
 // all_of_ : implementation
+namespace impl {
+
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, all_of_<F, C>> : dispatch<N, and_<F, C>> {};
+
+} // namespace impl
 
 // any_of_ : Given a unary predicate, return true_ / false_ on whether any elements
 // in a VPP satisfy that predicate.
@@ -275,8 +319,12 @@ export template <typename F = identity_, typename C = identity_>
 struct any_of_ {};
 
 // any_of_ : implementation
+namespace impl {
+
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, any_of_<F, C>> : dispatch<N, or_<F, C>> {};
+
+} // namespace impl
 
 // none_of_ : Given a predicate (F), return true_ / false_ if none
 // of the elements in a VPP satisfy the predicate F.
@@ -284,8 +332,12 @@ export template <typename F, typename C = identity_>
 struct none_of_ {};
 
 // none_of_ : implementation
+namespace impl {
+
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, none_of_<F, C>> : dispatch<N, and_<F, not_<C>>> {};
+
+} // namespace impl
 
 // contains_ : Given a type (V), return true_ / false_ on whether a given VPP
 // contains the type V.
@@ -293,8 +345,13 @@ export template <typename T, typename C = identity_>
 struct contains_ {};
 
 // contains_ : implementation
+namespace impl {
+
 template <std::size_t N, typename T, typename C>
 struct dispatch<N, contains_<T, C>> : dispatch<N, or_<is_<T>, C>> {};
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 namespace logic_test {

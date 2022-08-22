@@ -10,12 +10,16 @@ import :Algorithm.Join;
 import :Base.Types;
 
 namespace boost::tmp {
+
 // Returns a single list where common elements from both are removed.
 export template<typename F = listify_, typename C = listify_>
 struct unary_symmetric_diff_ {};
 // Returns list of two lists where elements common to both input lists are removed from each.
 export template<typename F = listify_, typename C = listify_>
 struct binary_symmetric_diff_ {};
+
+namespace impl {
+
 template <template <typename...> class F, typename T, typename... Ts>
 using binary_symmetric_diff_helper_ = list_<F<T, Ts>...>;
 template <template <typename...> class F, typename C, typename T, typename U>
@@ -33,6 +37,9 @@ struct dispatch<2, binary_symmetric_diff_<lift_<F>, C>> {
 template <typename F, typename C>
 struct dispatch<2, binary_symmetric_diff_<F, C>>
         : dispatch<2, binary_symmetric_diff_<lift_<dispatch<2, F>::template f>, C>> {};
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

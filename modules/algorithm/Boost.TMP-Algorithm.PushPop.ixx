@@ -23,17 +23,23 @@ export template <typename T, typename C = listify_>
 struct push_back_ {};
 
 // push_back_ : implementation
+namespace impl {
+
 template <std::size_t N, typename T, typename C>
 struct dispatch<N, push_back_<T, C>> {
     template <typename... Ts>
     using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<Ts..., T>;
 };
 
+} // namespace impl
+
 // pop_front_ :
 export template <typename C = listify_>
 struct pop_front_ {};
 
 // pop_front_ : implementation
+namespace impl {
+
 template <std::size_t N, typename C>
 struct dispatch<N, pop_front_<C>> {
     template <typename T, typename... Ts>
@@ -48,21 +54,30 @@ struct dispatch<0, pop_front_<C>> {
     using f = dispatch<1, C>::template f<nothing_>;
 };
 
+} // namespace impl
+
 // push_front_ :
 export template <typename T, typename C = listify_>
 struct push_front_ {};
 
 // push_front_ : implementation
+namespace impl {
+
 template <std::size_t N, typename T, typename C>
 struct dispatch<N, push_front_<T, C>> {
     template <typename... Ts>
     using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<T, Ts...>;
 };
 
+} // namespace impl
+
 // pop_back_ :
 export template <typename C = listify_>
 struct pop_back_ {};
-// // pop_back_ : implementation
+
+// pop_back_ : implementation
+namespace impl {
+
 template<std::size_t N, typename C>
 struct dispatch<N, pop_back_<C>> {
     template <typename... Ts>
@@ -74,6 +89,8 @@ struct dispatch<0, pop_back_<C>> {
     template <typename... Ts>
     using f = dispatch<1, C>::template f<nothing_>;
 };
+
+} // namespace impl
 
 } // namespace boost::tmp
 

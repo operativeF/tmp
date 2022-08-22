@@ -21,11 +21,14 @@ import std;
 #endif
 
 namespace boost::tmp {
+
 // each_ :
 export template <typename... Fs>
 struct each_ {};
 
 // each_ : implementation
+namespace impl {
+
 template <typename F, typename C>
 struct dispatch<1, each_<F, C>> {
     template <typename T>
@@ -52,6 +55,9 @@ struct dispatch<4, each_<F0, F1, F2, F3, C>> {
                                             dispatch<1, F2>::template f<T2>,
                                             dispatch<1, F3>::template f<T3>>;
 };
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

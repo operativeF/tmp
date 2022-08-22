@@ -33,6 +33,8 @@ export template <typename F = listify_, typename C = identity_>
 struct fold_left_ {};
 
 // fold_left_ : implementation
+namespace impl {
+
 template <template <typename...> class F, template <typename...> class C>
 struct dispatch<0, fold_left_<lift_<F>, lift_<C>>> {
     template <typename...>
@@ -264,6 +266,8 @@ template <std::size_t N, typename F, template <typename...> class C>
 struct dispatch<N, fold_left_<F, lift_<C>>>
     : dispatch<N, fold_left_<lift_<dispatch<2, F>::template f>, lift_<C>>> {};
 
+} // namespace impl
+
 // fold_right_ : folds right over a list using a binary predicate
 // fold right considers the last element in the input pack the initial state, use
 // push_back to add initial state if needed
@@ -271,6 +275,8 @@ export template <typename F, typename C = identity_>
 struct fold_right_ {};
 
 // fold_right_ : implementation
+namespace impl {
+
 template <template <typename...> class F, template <typename...> class C>
 struct dispatch<0, fold_right_<lift_<F>, lift_<C>>> {
     template <typename...>
@@ -345,6 +351,8 @@ struct dispatch<N, fold_right_<lift_<F>, C>>
 template <std::size_t N, typename F, template <typename...> class C>
 struct dispatch<N, fold_right_<F, lift_<C>>>
     : dispatch<N, fold_right_<lift_<dispatch<2, F>::template f>, lift_<C>>> {};
+
+} // namespace impl
 
 } // namespace boost::tmp
 

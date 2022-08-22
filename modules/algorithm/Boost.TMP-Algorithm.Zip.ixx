@@ -40,6 +40,8 @@ export template <typename F, typename C = listify_>
 struct zip_ {};
 
 // zip_ : implementation
+namespace impl {
+
 template<typename F, typename C, typename T, typename U>
 struct zip2;
 template<typename F, typename C, typename...Ts, typename...Us>
@@ -67,12 +69,16 @@ struct dispatch<3, zip_<F, C>> {
     using f = zip3<F, C, T, U, V>::f;
 };
 
+} // namespace impl
+
 // zip_with_index_ : Enumerates over a parameter pack, indexing each
 // element starting at 0.
 export template <typename F = listify_, typename C = listify_>
 struct zip_with_index_ {};
 
 // zip_with_index_ : implementation
+namespace impl {
+
 template <typename L>
 struct indexer;
 template <typename... Is>
@@ -91,6 +97,8 @@ struct dispatch<N, zip_with_index_<F, lift_<C>>> {
     template <typename... Ts>
     using f = indexer<make_index_for_<sizeof...(Ts)>>::template f<F, C, Ts...>;
 };
+
+} // namespace impl
 
 } // namespace boost::tmp
 

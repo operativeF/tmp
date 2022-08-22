@@ -33,6 +33,8 @@ export template <typename C = listify_>
 struct reverse_ {};
 
 // reverse_ : implementation
+namespace impl {
+
 template <typename C, typename... Ts>
 struct reverse_impl {
     template <typename... Us>
@@ -192,6 +194,9 @@ struct dispatch<65, reverse_<C>> {
 };
 template <std::size_t N, typename C>
 struct dispatch<N, reverse_<C>> : dispatch<65, reverse_<C>> {};
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

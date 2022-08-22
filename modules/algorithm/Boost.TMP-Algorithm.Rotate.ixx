@@ -35,6 +35,8 @@ export template <typename N = sizet_<0>, typename C = listify_>
 struct rotate_ {};
 
 // rotate_ : implementation
+namespace impl {
+
 template <std::size_t, typename C>
 struct rotate_impl;
 template <typename C>
@@ -155,6 +157,8 @@ template <std::size_t P, typename C>
 struct make_rotate<P, C, P> : rotate_impl<P, C> {};
 template <std::size_t N, typename P, typename C>
 struct dispatch<N, rotate_<P, C>> : make_rotate<P::value, C> {};
+
+} // namespace impl
 
 } // namespace boost::tmp
 

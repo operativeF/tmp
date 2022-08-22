@@ -20,7 +20,8 @@ import :Base.Types;
 import std;
 #endif
 
-namespace boost::tmp {
+namespace boost::tmp::impl {
+
 consteval std::size_t select_foldey_loop(std::size_t rest_size) {
     return static_cast<std::size_t>(rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008);
 }
@@ -68,4 +69,5 @@ struct foldey<1008> {
 };
 template <>
 struct foldey<1000000> {};
-} // export namespace boost::tmp
+
+} // export namespace boost::tmp::impl

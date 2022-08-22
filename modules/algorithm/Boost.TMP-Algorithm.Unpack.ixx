@@ -18,8 +18,11 @@ import :Base.Types;
 // using alist = list_<uint_<0>>;
 // uint_<0>{} = call_<unpack_<identity_>, alist>{}; // This will be vaild
 namespace boost::tmp {
+
 export template <typename C>
 struct unpack_ {};
+
+namespace impl {
 
 template <typename C, typename L>
 struct unpack_impl;
@@ -39,6 +42,9 @@ struct dispatch<1, unpack_<C>> {
     template <typename L>
     using f = unpack_impl<C, L>::type;
 };
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

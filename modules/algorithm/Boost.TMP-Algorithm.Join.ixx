@@ -33,6 +33,8 @@ using IndexSeq = std::index_sequence<Is...>;
 export template<typename... Ts>
 using into_sequence = IndexSeq<Ts::value...>;
 
+namespace impl {
+
 template <template <typename...> class C, typename...>
 struct joiner;
 template <template <typename...> class C,
@@ -185,6 +187,9 @@ struct dispatch<N, join_seq_<C>> {
     using f = seq_join_loop<(sizeof...(Ts) > 8)>::template
                 f<dispatch_unknown<C>::template f, Ts...>;
 };
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

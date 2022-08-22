@@ -29,6 +29,8 @@ export template <typename F = identity_, typename C = listify_>
 struct make_sequence_ {};
 
 // make_sequence_ : implementation
+namespace impl {
+
 consteval std::size_t next_number(std::size_t current, std::size_t end) {
     return ((end - 2 * current) < 2) ?
                     end :
@@ -73,6 +75,8 @@ struct dispatch<1, make_sequence_<F, C>> {
 template <std::size_t N>
 using make_index_for_ = make_seq_impl<next_state(0, N)>::template f<N>;
 
+} // namespace impl
+
 // TODO: Benchmark alternate implemenation.
 // template<typename... Vs>
 // struct index_impl;
@@ -91,6 +95,8 @@ export template<typename N = sizet_<0>, typename C = listify_>
 struct repeat_sequence_{};
 
 // repeat_sequence_ : implementation
+namespace impl {
+
 template <std::size_t, typename C>
 struct repeat_seq_impl;
 template <typename C>
@@ -171,6 +177,9 @@ template <std::size_t P, typename C>
 struct make_repeat<P, C, P> : repeat_seq_impl<P, C> {};
 template <std::size_t N, typename P, typename C>
 struct dispatch<N, repeat_sequence_<P, C>> : make_repeat<P::value, C> {};
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

@@ -39,6 +39,8 @@ template<typename W = sizet_<0>, typename C = listify_>
 struct slide_ {};
 
 // slide_ : implementation
+namespace impl {
+
 template<typename W, typename C = listify_, typename L = listify_>
 struct slide_impl {};
 template<std::size_t N, typename W, typename C, typename... Ts>
@@ -56,6 +58,8 @@ struct dispatch<0, slide_<W, C>> {
     template<typename... Ts>
     using f = dispatch<0, slide_impl<W, list_<sizet_<0>>, C>>::template f<>;
 };
+
+} // namespace impl
 
 } // namespace boost::tmp
 

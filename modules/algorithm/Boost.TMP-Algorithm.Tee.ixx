@@ -22,8 +22,11 @@ import std;
 #endif
 
 namespace boost::tmp {
+
 export template <typename... Fs>
 struct tee_ {};
+
+namespace impl {
 
 template <typename N, typename L, typename C, typename... Fs>
 struct tee_impl {
@@ -216,6 +219,9 @@ struct dispatch<N, tee_<F0, F1, Fs...>>
     : dispatch<find_dispatch(sizeof...(Fs) + 2),
                 rotate_<sizet_<sizeof...(Fs)>, push_front_<sizet_<N>, lift_<tee_impl>>>>::
                 template f<F0, F1, Fs...> {};
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

@@ -35,6 +35,8 @@ template<typename S = sizet_<0>, typename C = listify_>
 struct stride_ {};
 
 // stride_ : implementation
+namespace impl {
+
 template<typename S, typename C = listify_, typename L = listify_>
 struct tee_drops_ {};
 template<std::size_t N, typename S, typename C, typename... Ts>
@@ -64,6 +66,8 @@ struct dispatch<0, stride_<S, C>> {
     template<typename... Ts>
     using f = dispatch<0, tee_drops_<S, list_<sizet_<0>>, C>>::template f<>;
 };
+
+} // namespace impl
 
 } // namespace boost::tmp
 

@@ -32,9 +32,14 @@ export template <typename L, typename H, typename C = identity_>
 struct clamp_ {};
 
 // clamp_ : implementation
+namespace impl {
+
 template <std::size_t N, typename L, typename H, typename C>
 struct dispatch<N, clamp_<L, H, C>>
     : dispatch<N, remove_if_<range_lo_hi_<L, H, C>>> {};
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

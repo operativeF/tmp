@@ -22,11 +22,14 @@ import std;
 #endif
 
 namespace boost::tmp {
+
 // flatten_ : 
 export template <typename C = listify_>
 struct flatten_ {};
 
 // flatten_ : implementation
+namespace impl {
+
 template <typename C, typename... Ts>
 struct flatten_impl {
     using type = dispatch<0, join_<C>>::template f<Ts...>;
@@ -45,6 +48,9 @@ struct dispatch<N, flatten_<C>> {
     template <typename... Ts>
     using f = flatten_impl<C, list_<>, Ts...>::type;
 };
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

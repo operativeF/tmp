@@ -24,8 +24,12 @@ namespace boost::tmp {
 template<typename I = sizet_<0>, typename C = listify_>
 struct split_ {};
 
+namespace impl {
+
 template<std::size_t N, typename I, typename C>
 struct dispatch<N, split_<I, C>> : dispatch<N, tee_<take_<I>, drop_<I>, listify_>> {};
+
+} // namespace impl
 
 } // namespace boost::tmp
 

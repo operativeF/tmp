@@ -21,11 +21,14 @@ import std;
 #endif
 
 namespace boost::tmp {
+
 // filter_ :
 export template <typename F, typename C = listify_>
 struct filter_ {};
 
 // filter_ : implementation
+namespace impl {
+
 template <std::size_t N, template <typename...> class F, typename C>
 struct filtery;
 template <template <typename...> class F, typename C>
@@ -73,6 +76,9 @@ struct dispatch<0, filter_<lift_<F>, C>> {
     template <typename... Ts>
     using f = dispatch<0, C>::template f<>;
 };
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

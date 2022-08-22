@@ -21,11 +21,16 @@ export template <typename C = listify_>
 struct swap_ {};
 
 // swap_ : implementation
+namespace impl {
+
 template <typename C>
 struct dispatch<2, swap_<C>> {
     template <typename T, typename U>
     using f = dispatch<2, C>::template f<U, T>;
 };
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

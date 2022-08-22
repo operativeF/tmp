@@ -35,6 +35,8 @@ export template<typename S = sizet_<0>, typename C = listify_>
 struct chunk_ {};
 
 // chunk_ : implementation
+namespace impl {
+
 consteval std::size_t chunk_div(std::size_t input_size, std::size_t chunk_length) {
     if((input_size % chunk_length < 1) && (input_size > chunk_length))
         return input_size / chunk_length;
@@ -64,6 +66,8 @@ struct dispatch<N, chunk_<S, C>> {
     using f = dispatch<sizeof...(Ts),
         chunk_impl<S, make_index_for_<chunk_div(sizeof...(Ts), S::value)>, C>>::template f<Ts...>;
 };
+
+} // namespace impl
 
 } // namespace boost::tmp
 

@@ -20,6 +20,8 @@ import std;
 #endif // _MSC_VER
 
 namespace boost::tmp {
+
+namespace impl {
 // dispatch : The type finds the appropriate metaclosure to invoke and forms
 // the basis of the library.
 template <std::size_t N, typename T>
@@ -49,6 +51,8 @@ struct dispatch_unknown {
 consteval std::size_t step_selector(std::size_t N) {
     return N <= 8 ? N : N < 16 ? 8 : N < 32 ? 16 : N < 64 ? 32 : 64;
 }
+
+} // namespace impl
 
 // Boolean type wrapper
 export template<bool B>
@@ -80,11 +84,15 @@ struct char32_ { static constexpr char32_t value = C; };
 export struct identity_ {};
 
 // identity_ : implementation
+namespace impl {
+
 template <>
 struct dispatch<1, identity_> {
     template <typename T>
     using f = T;
 };
+
+} // namespace impl
 
 // Unsigned and signed integral type wrappers
 export template<unsigned long long V>
@@ -118,6 +126,8 @@ export template <template <typename...> class F, typename C = identity_>
 struct lift_ {};
 
 // lift_ : implementation
+namespace impl {
+
 template <template <typename...> class F, typename C>
 struct dispatch<1, lift_<F, C>> {
     template <typename T>
@@ -144,6 +154,8 @@ struct dispatch<N, lift_<F, C>> {
     using f = dispatch<1, C>::template f<F<Ts...>>;
 };
 
+} // namespace impl
+
 // list_ :
 export template <typename... Ts>
 struct list_ {};
@@ -155,11 +167,15 @@ export template <typename T, typename C = identity_>
 struct always_ {};
 
 // always_ : implementation
+namespace impl {
+
 template <std::size_t N, typename T, typename C>
 struct dispatch<N, always_<T, C>> {
     template <typename...>
     using f = dispatch<1, C>::template f<T>;
 };
+
+} // namespace impl
 
 // result_: The same as always_, but refers to the type inside
 // of the input type T.
@@ -167,22 +183,29 @@ export template <typename C = identity_>
 struct result_ {};
 
 // result_ : implementation
+namespace impl {
+
 template <typename C>
 struct dispatch<1, result_<C>> {
     template <typename T>
     using f = dispatch<1, C>::template f<T::type>;
 };
 
+} // namespace impl
+
 // call_ : a foundational metaclosure that immediately evaluates the input metaclosure(s).
 export template <typename F, typename... Ts>
-using call_ = dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>;
+using call_ = impl::dispatch<impl::find_dispatch(sizeof...(Ts)), F>::template f<Ts...>;
 export template <typename T, typename... Ts>
-using call_t = dispatch<find_dispatch(sizeof...(Ts)), T>::template
+using call_t = impl::dispatch<impl::find_dispatch(sizeof...(Ts)), T>::template
                     f<Ts...>::type;
 // call_f_ : 
 export template <typename C = identity_>
 struct call_f_ {};
+
 // call_f_ : implementation
+namespace impl {
+
 template <std::size_t N, typename C>
 struct dispatch<N, call_f_<C>> {
     template <typename F, typename... Ts>
@@ -190,20 +213,28 @@ struct dispatch<N, call_f_<C>> {
                     typename dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>>;
 };
 
+} // namespace impl
+
 // maybe_ metaclosure
+namespace impl
+{
+
 template <bool B>
-struct maybe_test_impl {
+struct maybe_test_ {
     template <typename T>
     using f = T;
 };
 template <>
-struct maybe_test_impl<true> {};
+struct maybe_test_<true> {};
 template <typename T> // TODO: Get rid of std::is_same_v here.
-using maybe_impl = maybe_test_impl<std::is_same_v<T, nothing_>>::template f<T>;
+using maybe_impl = maybe_test_<std::is_same_v<T, nothing_>>::template f<T>;
+
+} // namespace impl
+
 export template <typename T, typename... Ts>
-using maybe_ = maybe_impl<typename dispatch<find_dispatch(sizeof...(Ts)), T>::template
+using maybe_ = impl::maybe_impl<typename impl::dispatch<impl::find_dispatch(sizeof...(Ts)), T>::template
                     f<Ts...>>;
 export template <typename T, typename... Ts>
-using maybe_t = maybe_impl<typename dispatch<find_dispatch(sizeof...(Ts)), T>::template
+using maybe_t = impl::maybe_impl<typename impl::dispatch<impl::find_dispatch(sizeof...(Ts)), T>::template
                     f<Ts...>::type>;
 } // namespace boost::tmp

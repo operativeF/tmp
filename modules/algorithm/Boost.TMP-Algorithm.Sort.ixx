@@ -31,6 +31,8 @@ export template <typename F = less_<>, typename C = listify_>
 struct sort_ {};
 
 // sort_ : implementation
+namespace impl {
+
 namespace btree {
     // The binary tree as a list.
     template <typename... Ts>
@@ -223,6 +225,9 @@ template <std::size_t N, typename F, typename C>
 struct dispatch<N, sort_<F, C>>
     : dispatch<N, make_binary_tree<dispatch<2, F>::template f, collapse_unpack<C>,
                                     btree::blist<>>> {};
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

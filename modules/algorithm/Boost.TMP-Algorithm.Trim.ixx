@@ -31,35 +31,51 @@ template<typename C = listify_>
 struct drop_list_ {};
 
 // drop_list_ : implementation
+namespace impl {
+
 template<std::size_t N, typename C>
 struct dispatch<N, drop_list_<C>> {
     template<typename DropValue, typename... Ts>
     using f = dispatch<find_dispatch(sizeof...(Ts)), unpack_<drop_<DropValue, C>>>::template f<Ts...>;
 };
 
+} // namespace impl
+
 // drop_while_ :
 export template<typename F, typename C = listify_>
 struct drop_while_ {};
 
 // drop_while_ : implementation
+namespace impl {
+
 template<std::size_t N, typename F, typename C>
 struct dispatch<N, drop_while_<F, C>> : dispatch<N, tee_<find_if_not_<F>, listify_, drop_list_<C>>> {};
+
+} // namespace impl
 
 // trim_ :
 export template<typename F, typename C = listify_>
 struct trim_ {};
 
 // trim_ : implementation
+namespace impl {
+
 template<std::size_t N, typename F, typename C>
 struct dispatch<N, trim_<F, C>> : dispatch<N, drop_while_<F, reverse_<drop_while_<F, reverse_<C>>>>> {};
+
+} // namespace impl
 
 // drop_while_back_ :
 export template<typename F, typename C = listify_>
 struct drop_while_back_ {};
 
 // drop_while_back_ : implementation
+namespace impl {
+
 template<std::size_t N, typename F, typename C>
 struct dispatch<N, drop_while_back_<F, C>> : dispatch<N, reverse_<drop_while_<F, reverse_<C>>>> {};
+
+} // namespace impl
 
 } // namespace boost::tmp
 

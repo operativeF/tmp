@@ -27,6 +27,11 @@ import std;
 
 namespace boost::tmp {
 
+template<typename F = identity_, typename C = listify_>
+struct unique_ {};
+
+namespace impl {
+
 template <typename T>
 struct unique_magic_type;
 
@@ -50,14 +55,13 @@ using is_in_set = bool_<T::contains(static_cast<unique_magic_type<U> *>(0))>;
 
 using unique_push_if = if_<lift_<is_in_set>, front_<>, lift_<unique_base>>;
 
-template<typename F = identity_, typename C = listify_>
-struct unique_ {};
-
 template<std::size_t N, typename F, typename C>
 struct dispatch<N, unique_<F, C>> {
     template<typename... Ts>
     using f = dispatch<N, push_front_<unique_super_base, fold_left_<unique_push_if, flatten_<drop_<uint_<1>, C>>>>>::template f<Ts...>;
 };
+
+} // namespace impl
 
 } // namespace boost::tmp
 

@@ -37,6 +37,8 @@ export template <typename N = sizet_<0>, typename C = listify_>
 struct erase_ {};
 
 // erase_ : implementation
+namespace impl {
+
 template <std::size_t N, typename I, typename C>
 struct dispatch<N, erase_<I, C>> {
     template <typename... Ts>
@@ -49,6 +51,9 @@ struct dispatch<0, erase_<I, C>> {
     template <typename... Ts>
     using f = dispatch<1, C>::template f<nothing_>;
 };
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

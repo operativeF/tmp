@@ -63,6 +63,8 @@ using ui6_ = unpack_<index_<sizet_<6>, C>>;
 export template<typename C = identity_>
 using ui7_ = unpack_<index_<sizet_<7>, C>>;
 
+namespace impl {
+
 template <std::size_t N, typename I, typename C>
 struct dispatch<N, index_<I, C>> : dispatch<N, drop_<I, front_<C>>> {};
 
@@ -115,6 +117,9 @@ struct dispatch<N, index_<sizet_<7>, C>> {
                 typename T4, typename T5, typename T6, typename T7, typename... Ts>
     using f = dispatch<1, C>::template f<T7>;
 };
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:

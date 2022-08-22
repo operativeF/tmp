@@ -35,6 +35,8 @@ export template <typename N = sizet_<0>, typename C = listify_>
 struct drop_ {};
 
 // drop_ : implementation
+namespace impl {
+
 template <std::size_t, typename C>
 struct drop_impl;
 // TODO: Is this correct behavior for dropping nothing?
@@ -131,11 +133,18 @@ struct make_drop<P, C, P> : drop_impl<P, C> {};
 template <std::size_t N, typename P, typename C>
 struct dispatch<N, drop_<P, C>> : make_drop<P::value, C> {};
 
+} // namespace impl
+
 export template<typename N = sizet_<0>, typename C = listify_>
 struct drop_last_ {};
 
+// drop_last_ : implementation
+namespace impl {
+
 template<std::size_t N, typename DropN, typename C>
 struct dispatch<N, drop_last_<DropN, C>> : dispatch<N, reverse_<drop_<DropN, reverse_<C>>>> {};
+
+} // namespace impl
 
 } // namespace boost::tmp
 

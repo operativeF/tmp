@@ -28,6 +28,8 @@ namespace boost::tmp {
 export template<typename L, typename C = identity_>
 struct starts_with_ {};
 
+namespace impl {
+
 template<std::size_t N, typename L, typename C = identity_>
 struct starts_with_impl;
 
@@ -42,9 +44,13 @@ struct dispatch<N, starts_with_impl<N, list_<Ts...>, C>> {
 template<std::size_t N, typename L, typename C>
 struct dispatch<N, starts_with_<L, C>> : dispatch<N, starts_with_impl<N, L, C>> {};
 
+} // namespace impl
+
 // ends_with :
 export template<typename L, typename C = identity_>
 struct ends_with_ {};
+
+namespace impl {
 
 template<std::size_t N, typename L, typename C = identity_>
 struct ends_with_impl;
@@ -60,6 +66,8 @@ struct dispatch<N, ends_with_impl<N, list_<Ts...>, C>> {
 
 template<std::size_t N, typename L, typename C>
 struct dispatch<N, ends_with_<L, C>> : dispatch<N, ends_with_impl<N, L, C>> {};
+
+} // namespace impl
 
 } // namespace boost::tmp
 

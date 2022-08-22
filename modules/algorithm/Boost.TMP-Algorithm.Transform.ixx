@@ -26,6 +26,8 @@ export template <typename F = identity_, typename C = listify_>
 struct transform_ {};
 
 // transform_ : implementation
+namespace impl {
+
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, transform_<F, C>> {
     template <typename... Ts>
@@ -37,6 +39,9 @@ struct dispatch<N, transform_<lift_<F, FC>, C>> {
     template <typename... Ts>
     using f = dispatch<(N + (N > sizeof...(Ts))), C>::template f<F<Ts>...>;
 };
+
+} // namespace impl
+
 } // namespace boost::tmp
 
 // TESTING:
