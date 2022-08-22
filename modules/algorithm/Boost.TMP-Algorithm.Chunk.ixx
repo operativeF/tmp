@@ -78,6 +78,6 @@ struct ChunkEveryThreeElements;
 
 using chunk_test_1 = ChunkEveryThreeElements<call_<chunk_<sizet_<3>>, int_<0>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>, int_<6>, int_<7>>>;
 
-} // namespace chunk_test
+} // namespace test
 
 } // namespace boost::tmp
