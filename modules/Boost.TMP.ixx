@@ -10,6 +10,7 @@ export module Boost.TMP;
 
 export import :Algorithm.Chunk;
 export import :Algorithm.Clamp;
+export import :Algorithm.Contains;
 export import :Algorithm.Drop;
 export import :Algorithm.Each;
 export import :Algorithm.Erase;

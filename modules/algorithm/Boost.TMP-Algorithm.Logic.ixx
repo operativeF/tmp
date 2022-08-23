@@ -339,19 +339,6 @@ struct dispatch<N, none_of_<F, C>> : dispatch<N, and_<F, not_<C>>> {};
 
 } // namespace impl
 
-// contains_ : Given a type (V), return true_ / false_ on whether a given VPP
-// contains the type V.
-export template <typename T, typename C = identity_>
-struct contains_ {};
-
-// contains_ : implementation
-namespace impl {
-
-template <std::size_t N, typename T, typename C>
-struct dispatch<N, contains_<T, C>> : dispatch<N, or_<is_<T>, C>> {};
-
-} // namespace impl
-
 #ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
@@ -377,19 +364,6 @@ using and_test_2 = AllNumbersEven<call_<and_<lift_<is_even>>, int_<2>, int_<2>, 
 using or_test_1 = OneNumberEven<call_<or_<lift_<is_even>>, int_<1>, int_<2>, int_<1>>>;
 
 using or_test_2 = OneNumberOdd<call_<or_<lift_<is_even>>, int_<2>, int_<1>, int_<2>>>;
-
-// Contains tests
-template<typename T> requires(std::same_as<T, false_>)
-struct DoesNotContainType;
-
-template<typename T> requires(std::same_as<T, true_>)
-struct ContainsType;
-
-using contains_test_1   = DoesNotContainType<call_<contains_<int_<0>>, int_<1>>>;
-
-using contains_test_2   = ContainsType<call_<contains_<int_<2>>, int_<0>, int_<1>, int_<2>>>;
-
-using contains_test_3   = DoesNotContainType<call_<contains_<int_<1>>>>;
 
 // template<int A, int B>
 // struct two_ints {
