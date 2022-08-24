@@ -247,34 +247,32 @@ namespace impl { // unpack_
 export template <typename... Fs>
 struct each_ {};
 namespace impl { // each_
-
-template <typename F, typename C>
-struct dispatch<1, each_<F, C>> {
-    template <typename T>
-    using f = dispatch<1, C>::template f<dispatch<1, F>::template f<T>>;
-};
-template <typename F0, typename F1, typename C>
-struct dispatch<2, each_<F0, F1, C>> {
-    template <typename T0, typename T1>
-    using f = dispatch<2, C>::template f<dispatch<1, F0>::template f<T0>,
-                                            dispatch<1, F1>::template f<T1>>;
-};
-template <typename F0, typename F1, typename F2, typename C>
-struct dispatch<3, each_<F0, F1, F2, C>> {
-    template <typename T0, typename T1, typename T2>
-    using f = dispatch<3, C>::template f<dispatch<1, F0>::template f<T0>,
-                                            dispatch<1, F1>::template f<T1>,
-                                            dispatch<1, F2>::template f<T2>>;
-};
-template <typename F0, typename F1, typename F2, typename F3, typename C>
-struct dispatch<4, each_<F0, F1, F2, F3, C>> {
-    template <typename T0, typename T1, typename T2, typename T3>
-    using f = dispatch<4, C>::template f<dispatch<1, F0>::template f<T0>,
-                                            dispatch<1, F1>::template f<T1>,
-                                            dispatch<1, F2>::template f<T2>,
-                                            dispatch<1, F3>::template f<T3>>;
-};
-
+    template <typename F, typename C>
+    struct dispatch<1, each_<F, C>> {
+        template <typename T>
+        using f = dispatch<1, C>::template f<dispatch<1, F>::template f<T>>;
+    };
+    template <typename F0, typename F1, typename C>
+    struct dispatch<2, each_<F0, F1, C>> {
+        template <typename T0, typename T1>
+        using f = dispatch<2, C>::template f<dispatch<1, F0>::template f<T0>,
+                                                dispatch<1, F1>::template f<T1>>;
+    };
+    template <typename F0, typename F1, typename F2, typename C>
+    struct dispatch<3, each_<F0, F1, F2, C>> {
+        template <typename T0, typename T1, typename T2>
+        using f = dispatch<3, C>::template f<dispatch<1, F0>::template f<T0>,
+                                                dispatch<1, F1>::template f<T1>,
+                                                dispatch<1, F2>::template f<T2>>;
+    };
+    template <typename F0, typename F1, typename F2, typename F3, typename C>
+    struct dispatch<4, each_<F0, F1, F2, F3, C>> {
+        template <typename T0, typename T1, typename T2, typename T3>
+        using f = dispatch<4, C>::template f<dispatch<1, F0>::template f<T0>,
+                                                dispatch<1, F1>::template f<T1>,
+                                                dispatch<1, F2>::template f<T2>,
+                                                dispatch<1, F3>::template f<T3>>;
+    };
 } // namespace impl
 
 // filter_ :
@@ -653,6 +651,7 @@ namespace impl { // fold_right_
         : dispatch<N, fold_right_<lift_<dispatch<2, F>::template f>, lift_<C>>> {};
 } // namespace impl
 
+// foldey functions are internal only.
 consteval std::size_t select_foldey_loop(std::size_t rest_size) {
     return static_cast<std::size_t>(rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008);
 }
@@ -1232,178 +1231,166 @@ namespace impl { // transform_
 export template <typename N = sizet_<0>, typename C = listify_>
 struct drop_ {};
 namespace impl { // drop_
-
-template <std::size_t, typename C>
-struct drop_impl;
-// TODO: Is this correct behavior for dropping nothing?
-template <typename C>
-struct drop_impl<0, C> {
-    template <typename... Ts>
-    using f = call_<C, Ts...>;
-};
-template <typename C>
-struct drop_impl<1, C> {
-    template <typename T, typename... Ts>
-    using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
-};
-template <typename C>
-struct drop_impl<2, C> {
-    template <typename T0, typename T1, typename... Ts>
-    using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
-};
-template <typename C>
-struct drop_impl<3, C> {
-    template <typename T0, typename T1, typename T2, typename... Ts>
-    using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
-};
-template <typename C>
-struct drop_impl<4, C> {
-    template <typename T0, typename T1, typename T2, typename T3, typename... Ts>
-    using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
-};
-template <typename C>
-struct drop_impl<5, C> {
-    template <typename T0, typename T1, typename T2, typename T3, typename T4,
-              typename... Ts>
-    using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
-};
-template <typename C>
-struct drop_impl<6, C> {
-    template <typename T0, typename T1, typename T2, typename T3, typename T4,
-              typename T5, typename... Ts>
-    using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
-};
-template <typename C>
-struct drop_impl<7, C> {
-    template <typename T0, typename T1, typename T2, typename T3, typename T4,
-              typename T5, typename T6, typename... Ts>
-    using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
-};
-template <typename C>
-struct drop_impl<8, C> {
-    template <typename T0, typename T1, typename T2, typename T3, typename T4,
-              typename T5, typename T6, typename T7, typename... Ts>
-    using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
-};
-template <typename C>
-struct drop_impl<16, C> {
-    template<typename T0,  typename T1,  typename T2,  typename T3,  typename T4,
-             typename T5,  typename T6,  typename T7,  typename T8,  typename T9,
-             typename T10, typename T11, typename T12, typename T13, typename T14,
-             typename T15, typename... Ts>
-    using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
-};
-template <typename C>
-struct drop_impl<32, C> {
-    template <typename T0,  typename T1,  typename T2,  typename T3,  typename T4,
-              typename T5,  typename T6,  typename T7,  typename T8,  typename T9,
-              typename T10, typename T11, typename T12, typename T13, typename T14,
-              typename T15, typename T16, typename T17, typename T18, typename T19,
-              typename T20, typename T21, typename T22, typename T23, typename T24,
-              typename T25, typename T26, typename T27, typename T28, typename T29,
-              typename T30, typename T31, typename... Ts>
-    using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
-};
-template <typename C>
-struct drop_impl<64, C> {
-    template <typename T0,  typename T1,  typename T2,  typename T3,  typename T4,
-              typename T5,  typename T6,  typename T7,  typename T8,  typename T9,
-              typename T10, typename T11, typename T12, typename T13, typename T14,
-              typename T15, typename T16, typename T17, typename T18, typename T19,
-              typename T20, typename T21, typename T22, typename T23, typename T24,
-              typename T25, typename T26, typename T27, typename T28, typename T29,
-              typename T30, typename T31, typename T32, typename T33, typename T34,
-              typename T35, typename T36, typename T37, typename T38, typename T39,
-              typename T40, typename T41, typename T42, typename T43, typename T44,
-              typename T45, typename T46, typename T47, typename T48, typename T49,
-              typename T50, typename T51, typename T52, typename T53, typename T54,
-              typename T55, typename T56, typename T57, typename T58, typename T59,
-              typename T60, typename T61, typename T62, typename T63, typename... Ts>
-    using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
-};
-template <std::size_t P, typename C, std::size_t Step = step_selector(P)>
-struct make_drop : drop_impl<Step, drop_<sizet_<(P - Step)>, C>> { /* not done */
-};
-template <std::size_t P, typename C>
-struct make_drop<P, C, P> : drop_impl<P, C> {};
-template <std::size_t N, typename P, typename C>
-struct dispatch<N, drop_<P, C>> : make_drop<P::value, C> {};
-
+    template <std::size_t, typename C>
+    struct drop_impl;
+    // TODO: Is this correct behavior for dropping nothing?
+    template <typename C>
+    struct drop_impl<0, C> {
+        template <typename... Ts>
+        using f = call_<C, Ts...>;
+    };
+    template <typename C>
+    struct drop_impl<1, C> {
+        template <typename T, typename... Ts>
+        using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
+    };
+    template <typename C>
+    struct drop_impl<2, C> {
+        template <typename T0, typename T1, typename... Ts>
+        using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
+    };
+    template <typename C>
+    struct drop_impl<3, C> {
+        template <typename T0, typename T1, typename T2, typename... Ts>
+        using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
+    };
+    template <typename C>
+    struct drop_impl<4, C> {
+        template <typename T0, typename T1, typename T2, typename T3, typename... Ts>
+        using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
+    };
+    template <typename C>
+    struct drop_impl<5, C> {
+        template <typename T0, typename T1, typename T2, typename T3, typename T4,
+                typename... Ts>
+        using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
+    };
+    template <typename C>
+    struct drop_impl<6, C> {
+        template <typename T0, typename T1, typename T2, typename T3, typename T4,
+                typename T5, typename... Ts>
+        using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
+    };
+    template <typename C>
+    struct drop_impl<7, C> {
+        template <typename T0, typename T1, typename T2, typename T3, typename T4,
+                typename T5, typename T6, typename... Ts>
+        using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
+    };
+    template <typename C>
+    struct drop_impl<8, C> {
+        template <typename T0, typename T1, typename T2, typename T3, typename T4,
+                typename T5, typename T6, typename T7, typename... Ts>
+        using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
+    };
+    template <typename C>
+    struct drop_impl<16, C> {
+        template<typename T0,  typename T1,  typename T2,  typename T3,  typename T4,
+                typename T5,  typename T6,  typename T7,  typename T8,  typename T9,
+                typename T10, typename T11, typename T12, typename T13, typename T14,
+                typename T15, typename... Ts>
+        using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
+    };
+    template <typename C>
+    struct drop_impl<32, C> {
+        template <typename T0,  typename T1,  typename T2,  typename T3,  typename T4,
+                typename T5,  typename T6,  typename T7,  typename T8,  typename T9,
+                typename T10, typename T11, typename T12, typename T13, typename T14,
+                typename T15, typename T16, typename T17, typename T18, typename T19,
+                typename T20, typename T21, typename T22, typename T23, typename T24,
+                typename T25, typename T26, typename T27, typename T28, typename T29,
+                typename T30, typename T31, typename... Ts>
+        using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
+    };
+    template <typename C>
+    struct drop_impl<64, C> {
+        template <typename T0,  typename T1,  typename T2,  typename T3,  typename T4,
+                typename T5,  typename T6,  typename T7,  typename T8,  typename T9,
+                typename T10, typename T11, typename T12, typename T13, typename T14,
+                typename T15, typename T16, typename T17, typename T18, typename T19,
+                typename T20, typename T21, typename T22, typename T23, typename T24,
+                typename T25, typename T26, typename T27, typename T28, typename T29,
+                typename T30, typename T31, typename T32, typename T33, typename T34,
+                typename T35, typename T36, typename T37, typename T38, typename T39,
+                typename T40, typename T41, typename T42, typename T43, typename T44,
+                typename T45, typename T46, typename T47, typename T48, typename T49,
+                typename T50, typename T51, typename T52, typename T53, typename T54,
+                typename T55, typename T56, typename T57, typename T58, typename T59,
+                typename T60, typename T61, typename T62, typename T63, typename... Ts>
+        using f = dispatch<sizeof...(Ts), C>::template f<Ts...>;
+    };
+    template <std::size_t P, typename C, std::size_t Step = step_selector(P)>
+    struct make_drop : drop_impl<Step, drop_<sizet_<(P - Step)>, C>> { /* not done */
+    };
+    template <std::size_t P, typename C>
+    struct make_drop<P, C, P> : drop_impl<P, C> {};
+    template <std::size_t N, typename P, typename C>
+    struct dispatch<N, drop_<P, C>> : make_drop<P::value, C> {};
 } // namespace impl
 
 export template<typename N = sizet_<0>, typename C = listify_>
 struct drop_last_ {};
 namespace impl { // drop_last_
-
-template<std::size_t N, typename DropN, typename C>
-struct dispatch<N, drop_last_<DropN, C>> : dispatch<N, reverse_<drop_<DropN, reverse_<C>>>> {};
-
+    template<std::size_t N, typename DropN, typename C>
+    struct dispatch<N, drop_last_<DropN, C>> : dispatch<N, reverse_<drop_<DropN, reverse_<C>>>> {};
 } // namespace impl
 
 // push_back_ :
 export template <typename T, typename C = listify_>
 struct push_back_ {};
 namespace impl { // push_back_
-
-template <std::size_t N, typename T, typename C>
-struct dispatch<N, push_back_<T, C>> {
-    template <typename... Ts>
-    using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<Ts..., T>;
-};
-
+    template <std::size_t N, typename T, typename C>
+    struct dispatch<N, push_back_<T, C>> {
+        template <typename... Ts>
+        using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<Ts..., T>;
+    };
 } // namespace impl
 
 // pop_front_ :
 export template <typename C = listify_>
 struct pop_front_ {};
 namespace impl { // pop_front_
-
-template <std::size_t N, typename C>
-struct dispatch<N, pop_front_<C>> {
-    template <typename T, typename... Ts>
-    using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
-};
-// TODO: Should this be kept? This differs from the behavior of popping
-// the front off of an empty list (which results in an empty list).
-// This, however, will return a list_<nothing_>
-template <typename C>
-struct dispatch<0, pop_front_<C>> {
+    template <std::size_t N, typename C>
+    struct dispatch<N, pop_front_<C>> {
+        template <typename T, typename... Ts>
+        using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
+    };
+    // TODO: Should this be kept? This differs from the behavior of popping
+    // the front off of an empty list (which results in an empty list).
+    // This, however, will return a list_<nothing_>
+    template <typename C>
+    struct dispatch<0, pop_front_<C>> {
     template <typename... Ts>
     using f = dispatch<1, C>::template f<nothing_>;
 };
-
 } // namespace impl
 
 // push_front_ :
 export template <typename T, typename C = listify_>
 struct push_front_ {};
 namespace impl { // push_front_
-
-template <std::size_t N, typename T, typename C>
-struct dispatch<N, push_front_<T, C>> {
-    template <typename... Ts>
-    using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<T, Ts...>;
-};
-
+    template <std::size_t N, typename T, typename C>
+    struct dispatch<N, push_front_<T, C>> {
+        template <typename... Ts>
+        using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<T, Ts...>;
+    };
 } // namespace impl
 
 // pop_back_ :
 export template <typename C = listify_>
 struct pop_back_ {};
 namespace impl { // pop_back_
-
-template<std::size_t N, typename C>
-struct dispatch<N, pop_back_<C>> {
-    template <typename... Ts>
-    using f = dispatch<find_dispatch(sizeof...(Ts)), rotate_<sizet_<sizeof...(Ts) - 1>, pop_front_<
-                    rotate_<sizet_<(sizeof...(Ts) - 1)>, C>>>>::template f<Ts...>;
-};
-template <typename C>
-struct dispatch<0, pop_back_<C>> {
-    template <typename... Ts>
-    using f = dispatch<1, C>::template f<nothing_>;
-};
-
+    template<std::size_t N, typename C>
+    struct dispatch<N, pop_back_<C>> {
+        template <typename... Ts>
+        using f = dispatch<find_dispatch(sizeof...(Ts)), rotate_<sizet_<sizeof...(Ts) - 1>, pop_front_<
+                        rotate_<sizet_<(sizeof...(Ts) - 1)>, C>>>>::template f<Ts...>;
+    };
+    template <typename C>
+    struct dispatch<0, pop_back_<C>> {
+        template <typename... Ts>
+        using f = dispatch<1, C>::template f<nothing_>;
+    };
 } // namespace impl
 
 export template<typename I, typename C = identity_>
@@ -1446,60 +1433,58 @@ using ui6_ = unpack_<index_<sizet_<6>, C>>;
 export template<typename C = identity_>
 using ui7_ = unpack_<index_<sizet_<7>, C>>;
 namespace impl { // index_
+    template <std::size_t N, typename I, typename C>
+    struct dispatch<N, index_<I, C>> : dispatch<N, drop_<I, front_<C>>> {};
 
-template <std::size_t N, typename I, typename C>
-struct dispatch<N, index_<I, C>> : dispatch<N, drop_<I, front_<C>>> {};
-
-template <std::size_t N, typename C>
-struct dispatch<N, index_<nothing_, C>> {
-    template <typename... Ts>
-    using f = nothing_;
-};
-template <std::size_t N, typename C>
-struct dispatch<N, index_<sizet_<0>, C>> {
-    template <typename T0, typename... Ts>
-    using f = dispatch<1, C>::template f<T0>;
-};
-template <std::size_t N, typename C>
-struct dispatch<N, index_<sizet_<1>, C>> {
-    template <typename T0, typename T1, typename... Ts>
-    using f = dispatch<1, C>::template f<T1>;
-};
-template <std::size_t N, typename C>
-struct dispatch<N, index_<sizet_<2>, C>> {
-    template <typename T0, typename T1, typename T2, typename... Ts>
-    using f = dispatch<1, C>::template f<T2>;
-};
-template <std::size_t N, typename C>
-struct dispatch<N, index_<sizet_<3>, C>> {
-    template <typename T0, typename T1, typename T2, typename T3, typename... Ts>
-    using f = dispatch<1, C>::template f<T3>;
-};
-template <std::size_t N, typename C>
-struct dispatch<N, index_<sizet_<4>, C>> {
-    template<typename T0, typename T1, typename T2, typename T3,
-                typename T4, typename... Ts>
-    using f = dispatch<1, C>::template f<T4>;
-};
-template <std::size_t N, typename C>
-struct dispatch<N, index_<sizet_<5>, C>> {
-    template<typename T0, typename T1, typename T2, typename T3,
-                typename T4, typename T5, typename... Ts>
-    using f = dispatch<1, C>::template f<T5>;
-};
-template <std::size_t N, typename C>
-struct dispatch<N, index_<sizet_<6>, C>> {
-    template<typename T0, typename T1, typename T2, typename T3,
-                typename T4, typename T5, typename T6, typename... Ts>
-    using f = dispatch<1, C>::template f<T6>;
-};
-template <std::size_t N, typename C>
-struct dispatch<N, index_<sizet_<7>, C>> {
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_<nothing_, C>> {
+        template <typename... Ts>
+        using f = nothing_;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_<sizet_<0>, C>> {
+        template <typename T0, typename... Ts>
+        using f = dispatch<1, C>::template f<T0>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_<sizet_<1>, C>> {
+        template <typename T0, typename T1, typename... Ts>
+        using f = dispatch<1, C>::template f<T1>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_<sizet_<2>, C>> {
+        template <typename T0, typename T1, typename T2, typename... Ts>
+        using f = dispatch<1, C>::template f<T2>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_<sizet_<3>, C>> {
+        template <typename T0, typename T1, typename T2, typename T3, typename... Ts>
+        using f = dispatch<1, C>::template f<T3>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_<sizet_<4>, C>> {
+        template<typename T0, typename T1, typename T2, typename T3,
+                    typename T4, typename... Ts>
+        using f = dispatch<1, C>::template f<T4>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_<sizet_<5>, C>> {
+        template<typename T0, typename T1, typename T2, typename T3,
+                    typename T4, typename T5, typename... Ts>
+        using f = dispatch<1, C>::template f<T5>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_<sizet_<6>, C>> {
+        template<typename T0, typename T1, typename T2, typename T3,
+                    typename T4, typename T5, typename T6, typename... Ts>
+        using f = dispatch<1, C>::template f<T6>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_<sizet_<7>, C>> {
     template <typename T0, typename T1, typename T2, typename T3,
                 typename T4, typename T5, typename T6, typename T7, typename... Ts>
     using f = dispatch<1, C>::template f<T7>;
 };
-
 } // namespace impl
 
 // erase_ : Given a VPP, remove the nth value in the pack.
@@ -1515,90 +1500,83 @@ struct dispatch<N, index_<sizet_<7>, C>> {
 export template <typename N = sizet_<0>, typename C = listify_>
 struct erase_ {};
 namespace impl { // erase_
-
-template <std::size_t N, typename I, typename C>
-struct dispatch<N, erase_<I, C>> {
-    template <typename... Ts>
-    using f = dispatch<N,
-        rotate_<I,
-            pop_front_<rotate_<sizet_<(sizeof...(Ts) - I::value - 1)>, C>>>>::template f<Ts...>;
-};
-template <typename I, typename C>
-struct dispatch<0, erase_<I, C>> {
-    template <typename... Ts>
-    using f = dispatch<1, C>::template f<nothing_>;
-};
-
+    template <std::size_t N, typename I, typename C>
+    struct dispatch<N, erase_<I, C>> {
+        template <typename... Ts>
+        using f = dispatch<N,
+            rotate_<I,
+                pop_front_<rotate_<sizet_<(sizeof...(Ts) - I::value - 1)>, C>>>>::template f<Ts...>;
+    };
+    template <typename I, typename C>
+    struct dispatch<0, erase_<I, C>> {
+        template <typename... Ts>
+        using f = dispatch<1, C>::template f<nothing_>;
+    };
 } // namespace impl
 
 // insert_ :
 export template <typename N, typename V, typename C = listify_>
 struct insert_ {};
 namespace impl { // insert_
-
-template <std::size_t N, typename I, typename V, typename C>
-struct dispatch<N, insert_<I, V, C>> {
-    template <typename... Ts>
-    using f = dispatch<N, rotate_<I, push_front_<V, rotate_<sizet_<(sizeof...(Ts) - I::value + 1)>,
-                                                    C>>>>::template f<Ts...>;
-};
-template <typename I, typename V, typename C>
-struct dispatch<0, insert_<I, V, C>> {
-    template <typename... Ts>
-    using f = dispatch<1, C>::template f<V>;
-};
-
+    template <std::size_t N, typename I, typename V, typename C>
+    struct dispatch<N, insert_<I, V, C>> {
+        template <typename... Ts>
+        using f = dispatch<N, rotate_<I, push_front_<V, rotate_<sizet_<(sizeof...(Ts) - I::value + 1)>,
+                                                        C>>>>::template f<Ts...>;
+    };
+    template <typename I, typename V, typename C>
+    struct dispatch<0, insert_<I, V, C>> {
+        template <typename... Ts>
+        using f = dispatch<1, C>::template f<V>;
+    };
 } // namespace impl
 
 // make_sequence_ :
 export template <typename F = identity_, typename C = listify_>
 struct make_sequence_ {};
 namespace impl { // make_sequence_
-
-consteval std::size_t next_number(std::size_t current, std::size_t end) {
-    return ((end - 2 * current) < 2) ?
-                    end :
-                    next_number(current,
-                                end / 2); // note that std::size_t / 2 always rounds down
-}
-consteval std::size_t next_state(std::size_t current, std::size_t end) {
-    return ((end - current) < 2) ? end - current :
-                                    (2 + (next_number(current, end) - 2 * current));
-}
-template <std::size_t State>
-struct make_seq_impl;
-template <>
-struct make_seq_impl<0> { // done
-    template <std::size_t End, std::size_t... Is>
-    using f = list_<sizet_<Is>...>;
-};
-template <>
-struct make_seq_impl<1> { // done +1
-    template <std::size_t End, std::size_t... Is>
-    using f = list_<sizet_<Is>..., sizet_<End - 1>>;
-};
-template <>
-struct make_seq_impl<2> { // double
-    template <std::size_t End, std::size_t... Is>
-    using f = make_seq_impl<next_state(2 * sizeof...(Is), End)>::template 
-                f<End, Is..., (Is + sizeof...(Is))...>;
-};
-template <>
-struct make_seq_impl<3> { // double +1
-    template <std::size_t End, std::size_t... Is>
-    using f = make_seq_impl<next_state(2 * sizeof...(Is) + 1, End)>::template f<
-                    End, Is..., (Is + sizeof...(Is))..., (2 * sizeof...(Is))>;
-};
-template <typename F, typename C>
-struct dispatch<1, make_sequence_<F, C>> {
-    template <typename N>
-    using f = dispatch<1, unpack_<transform_<F, C>>>::template f<
-            typename make_seq_impl<next_state(0, N::value)>::template f<N::value>>;
-};
-
-template <std::size_t N>
-using make_index_for_ = make_seq_impl<next_state(0, N)>::template f<N>;
-
+    consteval std::size_t next_number(std::size_t current, std::size_t end) {
+        return ((end - 2 * current) < 2) ?
+                        end :
+                        next_number(current,
+                                    end / 2); // note that std::size_t / 2 always rounds down
+    }
+    consteval std::size_t next_state(std::size_t current, std::size_t end) {
+        return ((end - current) < 2) ? end - current :
+                                        (2 + (next_number(current, end) - 2 * current));
+    }
+    template <std::size_t State>
+    struct make_seq_impl;
+    template <>
+    struct make_seq_impl<0> { // done
+        template <std::size_t End, std::size_t... Is>
+        using f = list_<sizet_<Is>...>;
+    };
+    template <>
+    struct make_seq_impl<1> { // done +1
+        template <std::size_t End, std::size_t... Is>
+        using f = list_<sizet_<Is>..., sizet_<End - 1>>;
+    };
+    template <>
+    struct make_seq_impl<2> { // double
+        template <std::size_t End, std::size_t... Is>
+        using f = make_seq_impl<next_state(2 * sizeof...(Is), End)>::template 
+                    f<End, Is..., (Is + sizeof...(Is))...>;
+    };
+    template <>
+    struct make_seq_impl<3> { // double +1
+        template <std::size_t End, std::size_t... Is>
+        using f = make_seq_impl<next_state(2 * sizeof...(Is) + 1, End)>::template f<
+                        End, Is..., (Is + sizeof...(Is))..., (2 * sizeof...(Is))>;
+    };
+    template <typename F, typename C>
+    struct dispatch<1, make_sequence_<F, C>> {
+        template <typename N>
+        using f = dispatch<1, unpack_<transform_<F, C>>>::template f<
+                typename make_seq_impl<next_state(0, N::value)>::template f<N::value>>;
+    };
+    template <std::size_t N>
+    using make_index_for_ = make_seq_impl<next_state(0, N)>::template f<N>;
 } // namespace impl
 
 // TODO: Benchmark alternate implemenation.
@@ -1618,88 +1596,86 @@ using make_index_for_ = make_seq_impl<next_state(0, N)>::template f<N>;
 export template<typename N = sizet_<0>, typename C = listify_>
 struct repeat_sequence_{};
 namespace impl { // repeat_sequence_
-
-template <std::size_t, typename C>
-struct repeat_seq_impl;
-template <typename C>
-struct repeat_seq_impl<0, C> {
-    template <typename...>
-    using f = dispatch<0, C>::template f<>;
-};
-template <typename C>
-struct repeat_seq_impl<1, C> {
-    template <typename T, typename... Ts>
-    using f = dispatch<sizeof...(Ts) + 1, C>::template f<T, Ts...>;
-};
-template <typename C>
-struct repeat_seq_impl<2, C> {
-    template <typename T, typename... Ts>
-    using f = dispatch<sizeof...(Ts) + 2, C>::template f<T, T, Ts...>;
-};
-template <typename C>
-struct repeat_seq_impl<3, C> {
-    template <typename T, typename... Ts>
-    using f = dispatch<sizeof...(Ts) + 3, C>::template f<T, T, T, Ts...>;
-};
-template <typename C>
-struct repeat_seq_impl<4, C> {
-    template <typename T, typename... Ts>
-    using f = dispatch<sizeof...(Ts) + 4, C>::template f<T, T, T, T, Ts...>;
-};
-template <typename C>
-struct repeat_seq_impl<5, C> {
-    template <typename T, typename... Ts>
-    using f = dispatch<sizeof...(Ts) + 5, C>::template f<T, T, T, T, T, Ts...>;
-};
-template <typename C>
-struct repeat_seq_impl<6, C> {
-    template <typename T, typename... Ts>
-    using f = dispatch<sizeof...(Ts) + 6, C>::template f<T, T, T, T, T, T, Ts...>;
-};
-template <typename C>
-struct repeat_seq_impl<7, C> {
-    template <typename T, typename... Ts>
-    using f = dispatch<sizeof...(Ts) + 7, C>::template f<T, T, T, T, T, T, T, Ts...>;
-};
-template <typename C>
-struct repeat_seq_impl<8, C> {
-    template <typename T, typename... Ts>
-    using f = dispatch<sizeof...(Ts) + 8, C>::template f<T, T, T, T, T, T, T, T, Ts...>;
-};
-template <typename C>
-struct repeat_seq_impl<16, C> {
-    template <typename T, typename... Ts>
-    using f = dispatch<sizeof...(Ts) + 16, C>::template f<T, T, T, T, T, T, T, T,
-                                                          T, T, T, T, T, T, T, T, Ts...>;
-};
-template <typename C>
-struct repeat_seq_impl<32, C> {
-    template <typename T, typename... Ts>
-    using f = dispatch<sizeof...(Ts) + 32, C>::template f<T, T, T, T, T, T, T, T,
-                                                          T, T, T, T, T, T, T, T,
-                                                          T, T, T, T, T, T, T, T,
-                                                          T, T, T, T, T, T, T, T, Ts...>;
-};
-template <typename C>
-struct repeat_seq_impl<64, C> {
-    template <typename T, typename... Ts>
-    using f = dispatch<sizeof...(Ts) + 64, C>::template f<
-            T, T, T, T, T, T, T, T,
-            T, T, T, T, T, T, T, T,
-            T, T, T, T, T, T, T, T,
-            T, T, T, T, T, T, T, T,
-            T, T, T, T, T, T, T, T,
-            T, T, T, T, T, T, T, T,
-            T, T, T, T, T, T, T, T,
-            T, T, T, T, T, T, T, T, Ts...>;
-};
-template <std::size_t P, typename C, std::size_t Step = step_selector(P)>
-struct make_repeat : repeat_seq_impl<Step, repeat_sequence_<sizet_<(P - Step) + 1>, C>> {};
-template <std::size_t P, typename C>
-struct make_repeat<P, C, P> : repeat_seq_impl<P, C> {};
-template <std::size_t N, typename P, typename C>
-struct dispatch<N, repeat_sequence_<P, C>> : make_repeat<P::value, C> {};
-
+    template <std::size_t, typename C>
+    struct repeat_seq_impl;
+    template <typename C>
+    struct repeat_seq_impl<0, C> {
+        template <typename...>
+        using f = dispatch<0, C>::template f<>;
+    };
+    template <typename C>
+    struct repeat_seq_impl<1, C> {
+        template <typename T, typename... Ts>
+        using f = dispatch<sizeof...(Ts) + 1, C>::template f<T, Ts...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl<2, C> {
+        template <typename T, typename... Ts>
+        using f = dispatch<sizeof...(Ts) + 2, C>::template f<T, T, Ts...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl<3, C> {
+        template <typename T, typename... Ts>
+        using f = dispatch<sizeof...(Ts) + 3, C>::template f<T, T, T, Ts...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl<4, C> {
+        template <typename T, typename... Ts>
+        using f = dispatch<sizeof...(Ts) + 4, C>::template f<T, T, T, T, Ts...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl<5, C> {
+        template <typename T, typename... Ts>
+        using f = dispatch<sizeof...(Ts) + 5, C>::template f<T, T, T, T, T, Ts...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl<6, C> {
+        template <typename T, typename... Ts>
+        using f = dispatch<sizeof...(Ts) + 6, C>::template f<T, T, T, T, T, T, Ts...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl<7, C> {
+        template <typename T, typename... Ts>
+        using f = dispatch<sizeof...(Ts) + 7, C>::template f<T, T, T, T, T, T, T, Ts...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl<8, C> {
+        template <typename T, typename... Ts>
+        using f = dispatch<sizeof...(Ts) + 8, C>::template f<T, T, T, T, T, T, T, T, Ts...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl<16, C> {
+        template <typename T, typename... Ts>
+        using f = dispatch<sizeof...(Ts) + 16, C>::template f<T, T, T, T, T, T, T, T,
+                                                            T, T, T, T, T, T, T, T, Ts...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl<32, C> {
+        template <typename T, typename... Ts>
+        using f = dispatch<sizeof...(Ts) + 32, C>::template f<T, T, T, T, T, T, T, T,
+                                                            T, T, T, T, T, T, T, T,
+                                                            T, T, T, T, T, T, T, T,
+                                                            T, T, T, T, T, T, T, T, Ts...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl<64, C> {
+        template <typename T, typename... Ts>
+        using f = dispatch<sizeof...(Ts) + 64, C>::template f<
+                T, T, T, T, T, T, T, T,
+                T, T, T, T, T, T, T, T,
+                T, T, T, T, T, T, T, T,
+                T, T, T, T, T, T, T, T,
+                T, T, T, T, T, T, T, T,
+                T, T, T, T, T, T, T, T,
+                T, T, T, T, T, T, T, T,
+                T, T, T, T, T, T, T, T, Ts...>;
+    };
+    template <std::size_t P, typename C, std::size_t Step = step_selector(P)>
+    struct make_repeat : repeat_seq_impl<Step, repeat_sequence_<sizet_<(P - Step) + 1>, C>> {};
+    template <std::size_t P, typename C>
+    struct make_repeat<P, C, P> : repeat_seq_impl<P, C> {};
+    template <std::size_t N, typename P, typename C>
+    struct dispatch<N, repeat_sequence_<P, C>> : make_repeat<P::value, C> {};
 } // namespace impl
 
 // is_ : 
@@ -1945,10 +1921,8 @@ namespace impl { // range_lo_hi_
 export template <typename F, typename C = identity_>
 struct all_of_ {};
 namespace impl { // all_of_
-
-template <std::size_t N, typename F, typename C>
-struct dispatch<N, all_of_<F, C>> : dispatch<N, and_<F, C>> {};
-
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, all_of_<F, C>> : dispatch<N, and_<F, C>> {};
 } // namespace impl
 
 // any_of_ : Given a unary predicate, return true_ / false_ on whether any elements
@@ -2096,11 +2070,9 @@ namespace impl { // remove_if_
 export template <typename Input, typename F, typename C = listify_>
 struct replace_if_ {};
 namespace impl { // replace_if_
-
-template <std::size_t N, typename Input, typename F, typename C>
-struct dispatch<N, replace_if_<Input, F, C>>
-        : dispatch<N, transform_<if_<F, always_<Input>, identity_>, C>> {};
-
+    template <std::size_t N, typename Input, typename F, typename C>
+    struct dispatch<N, replace_if_<Input, F, C>>
+            : dispatch<N, transform_<if_<F, always_<Input>, identity_>, C>> {};
 } // namespace impl
 
 // keys_ :
