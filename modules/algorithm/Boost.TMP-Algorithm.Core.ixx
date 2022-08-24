@@ -27,8 +27,7 @@ namespace boost::tmp {
 export template <typename... Fs>
 struct each_ {};
 
-// each_ : implementation
-namespace impl {
+namespace impl { // each_
 
 template <typename F, typename C>
 struct dispatch<1, each_<F, C>> {
@@ -65,13 +64,11 @@ namespace test {
 } // namespace test
 #endif // TMP_COMPILE_TIME_TESTING
 
-
 // filter_ :
 export template <typename F, typename C = listify_>
 struct filter_ {};
 
-// filter_ : implementation
-namespace impl {
+namespace impl { // filter_
 
 template <std::size_t N, template <typename...> class F, typename C>
 struct filtery;
@@ -147,8 +144,7 @@ using filter_test_1 = FilterOutOddNumbers<call_<filter_<lift_<is_even>>,
 export template <typename F = listify_, typename C = identity_>
 struct fold_left_ {};
 
-// fold_left_ : implementation
-namespace impl {
+namespace impl { // fold_left_
 
 template <template <typename...> class F, template <typename...> class C>
 struct dispatch<0, fold_left_<lift_<F>, lift_<C>>> {
@@ -389,8 +385,7 @@ struct dispatch<N, fold_left_<F, lift_<C>>>
 export template <typename F, typename C = identity_>
 struct fold_right_ {};
 
-// fold_right_ : implementation
-namespace impl {
+namespace impl { // fold_right_
 
 template <template <typename...> class F, template <typename...> class C>
 struct dispatch<0, fold_right_<lift_<F>, lift_<C>>> {
@@ -485,7 +480,6 @@ using fold_right_test_1 = FoldRightAddsUpToTwenty<call_<fold_right_<lift_<add>>,
 } // namespace test
 #endif // TMP_COMPILE_TIME_TESTING
 
-
 consteval std::size_t select_foldey_loop(std::size_t rest_size) {
     return static_cast<std::size_t>(rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008);
 }
@@ -533,7 +527,6 @@ struct foldey<1008> {
 };
 template <>
 struct foldey<1000000> {};
-
 
 export template <typename C = listify_>
 struct join_ {};
@@ -721,7 +714,6 @@ namespace test {
 } // namespace test
 #endif // TMP_COMPILE_TIME_TESTING
 
-
 // reverse_ :
 // Input params: Parameter pack
 // Closure params: C - Continuation; default listify_
@@ -733,8 +725,7 @@ namespace test {
 export template <typename C = listify_>
 struct reverse_ {};
 
-// reverse_ : implementation
-namespace impl {
+namespace impl { // reverse_
 
 template <typename C, typename... Ts>
 struct reverse_impl {
@@ -926,7 +917,6 @@ using reverse_test_4 = DoubleReverseIsOriginal<call_<reverse_<reverse_<>>, int_<
 } // namespace test
 #endif // TMP_COMPILE_TIME_TESTING
 
-
 // rotate_ :
 // Input params: Parameter pack
 // Closure params: N - Positive (for now) integer type
@@ -939,8 +929,7 @@ using reverse_test_4 = DoubleReverseIsOriginal<call_<reverse_<reverse_<>>, int_<
 export template <typename N = sizet_<0>, typename C = listify_>
 struct rotate_ {};
 
-// rotate_ : implementation
-namespace impl {
+namespace impl { // rotate_
 
 template <std::size_t, typename C>
 struct rotate_impl;
@@ -1089,7 +1078,6 @@ using rotate_test_3   = RotateEmptyList<call_<rotate_<int_<0>>>>;
 } // namespace test
 #endif // TMP_COMPILE_TIME_TESTING
 
-
 // size_ :
 // Input params: Parameter pack
 // Closure params: C - Continuation; default identity_
@@ -1101,8 +1089,7 @@ using rotate_test_3   = RotateEmptyList<call_<rotate_<int_<0>>>>;
 export template <typename C = identity_>
 struct size_ {};
 
-// size_ : implementation
-namespace impl {
+namespace impl { // size_
 
 template <std::size_t N, typename C>
 struct dispatch<N, size_<C>> {
@@ -1133,8 +1120,7 @@ using size_test_2 = SizeEmptyPackIsZero<call_<size_<>>>;
 export template <typename C = listify_>
 struct swap_ {};
 
-// swap_ : implementation
-namespace impl {
+namespace impl { // swap_
 
 template <typename C>
 struct dispatch<2, swap_<C>> {
@@ -1160,8 +1146,7 @@ using swap_test_1 = ListOneZero<call_<swap_<>, int_<0>, int_<1>>>;
 export template <typename F = identity_, typename C = listify_>
 struct transform_ {};
 
-// transform_ : implementation
-namespace impl {
+namespace impl { // transform_
 
 template <std::size_t N, typename F, typename C>
 struct dispatch<N, transform_<F, C>> {
@@ -1195,8 +1180,7 @@ namespace test {
 export template <typename N = sizet_<0>, typename C = listify_>
 struct drop_ {};
 
-// drop_ : implementation
-namespace impl {
+namespace impl { // drop_
 
 template <std::size_t, typename C>
 struct drop_impl;
@@ -1299,8 +1283,7 @@ struct dispatch<N, drop_<P, C>> : make_drop<P::value, C> {};
 export template<typename N = sizet_<0>, typename C = listify_>
 struct drop_last_ {};
 
-// drop_last_ : implementation
-namespace impl {
+namespace impl { // drop_last_
 
 template<std::size_t N, typename DropN, typename C>
 struct dispatch<N, drop_last_<DropN, C>> : dispatch<N, reverse_<drop_<DropN, reverse_<C>>>> {};
@@ -1338,8 +1321,7 @@ using drop_last_test_1 = DropThreeOffEnd<call_<drop_last_<int_<3>>, int_<1>, int
 export template <typename T, typename C = listify_>
 struct push_back_ {};
 
-// push_back_ : implementation
-namespace impl {
+namespace impl { // push_back_
 
 template <std::size_t N, typename T, typename C>
 struct dispatch<N, push_back_<T, C>> {
@@ -1353,8 +1335,7 @@ struct dispatch<N, push_back_<T, C>> {
 export template <typename C = listify_>
 struct pop_front_ {};
 
-// pop_front_ : implementation
-namespace impl {
+namespace impl { // pop_front_
 
 template <std::size_t N, typename C>
 struct dispatch<N, pop_front_<C>> {
@@ -1376,8 +1357,7 @@ struct dispatch<0, pop_front_<C>> {
 export template <typename T, typename C = listify_>
 struct push_front_ {};
 
-// push_front_ : implementation
-namespace impl {
+namespace impl { // push_front_
 
 template <std::size_t N, typename T, typename C>
 struct dispatch<N, push_front_<T, C>> {
@@ -1391,8 +1371,7 @@ struct dispatch<N, push_front_<T, C>> {
 export template <typename C = listify_>
 struct pop_back_ {};
 
-// pop_back_ : implementation
-namespace impl {
+namespace impl { // pop_back_
 
 template<std::size_t N, typename C>
 struct dispatch<N, pop_back_<C>> {
@@ -1464,7 +1443,6 @@ using pop_back_test_3 = PopBackEmptyPack<call_<pop_back_<>>>;
 } // namespace test
 #endif // TMP_COMPILE_TIME_TESTING
 
-
 export template<typename I, typename C = identity_>
 struct index_ {};
 export template<typename I, typename C = identity_>
@@ -1505,7 +1483,7 @@ using ui6_ = unpack_<index_<sizet_<6>, C>>;
 export template<typename C = identity_>
 using ui7_ = unpack_<index_<sizet_<7>, C>>;
 
-namespace impl {
+namespace impl { // index_
 
 template <std::size_t N, typename I, typename C>
 struct dispatch<N, index_<I, C>> : dispatch<N, drop_<I, front_<C>>> {};
@@ -1589,7 +1567,6 @@ using front_test_1 = ElementAtFrontIsOne<call_<front_<>, int_<1>, int_<2>, int_<
 } // namespace test
 #endif // TMP_COMPILE_TIME_TESTING
 
-
 // erase_ : Given a VPP, remove the nth value in the pack.
 // Reduces the size of the list by 1.
 // Input params: Parameter pack
@@ -1603,8 +1580,7 @@ using front_test_1 = ElementAtFrontIsOne<call_<front_<>, int_<1>, int_<2>, int_<
 export template <typename N = sizet_<0>, typename C = listify_>
 struct erase_ {};
 
-// erase_ : implementation
-namespace impl {
+namespace impl { // erase_
 
 template <std::size_t N, typename I, typename C>
 struct dispatch<N, erase_<I, C>> {
@@ -1648,8 +1624,7 @@ using erase_test_3   = EraseEmptyPackReturnsNothingType<call_<erase_<sizet_<0>>>
 export template <typename N, typename V, typename C = listify_>
 struct insert_ {};
 
-// insert_ : implementation
-namespace impl {
+namespace impl { // insert_
 
 template <std::size_t N, typename I, typename V, typename C>
 struct dispatch<N, insert_<I, V, C>> {
@@ -1695,13 +1670,11 @@ using insert_test_4  = EmptyPackInsertionReturnsSingleElementList<call_<insert_<
 } // namespace test
 #endif // TMP_COMPILE_TIME_TESTING
 
-
 // make_sequence_ :
 export template <typename F = identity_, typename C = listify_>
 struct make_sequence_ {};
 
-// make_sequence_ : implementation
-namespace impl {
+namespace impl { // make_sequence_
 
 consteval std::size_t next_number(std::size_t current, std::size_t end) {
     return ((end - 2 * current) < 2) ?
@@ -1766,8 +1739,7 @@ using make_index_for_ = make_seq_impl<next_state(0, N)>::template f<N>;
 export template<typename N = sizet_<0>, typename C = listify_>
 struct repeat_sequence_{};
 
-// repeat_sequence_ : implementation
-namespace impl {
+namespace impl { // repeat_sequence_
 
 template <std::size_t, typename C>
 struct repeat_seq_impl;
