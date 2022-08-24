@@ -12,39 +12,24 @@ set(TMP_ALGO_IXX
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Chunk.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Clamp.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Contains.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Drop.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Each.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Erase.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Filter.ixx
+    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Core.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Flatten.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Fold.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Foldey.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.FunctionIf.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Index.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Insert.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Join.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Logic.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.MakeSequence.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.NthValues.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Partition.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Product.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.PushPop.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Reverse.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Rotate.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Set.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Size.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Slice.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Slide.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Split.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Sort.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.StartEnd.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Stride.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Swap.ixx
     # ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.SymmetricDifference.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Take.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Tee.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Trim.ixx
-    ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Transform.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Unique.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Window.ixx
     ${TMP_ALGO_DIR}/Boost.TMP-Algorithm.Zip.ixx

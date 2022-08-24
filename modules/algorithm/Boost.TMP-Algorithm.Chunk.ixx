@@ -14,7 +14,7 @@ module;
 
 export module Boost.TMP:Algorithm.Chunk;
 
-import :Algorithm.MakeSequence;
+import :Algorithm.Core;
 import :Algorithm.Tee;
 import :Algorithm.Window;
 import :Base.Types;

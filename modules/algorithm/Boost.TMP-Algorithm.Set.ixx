@@ -14,15 +14,10 @@ module;
 
 export module Boost.TMP:Algorithm.Set;
 
-import :Algorithm.Drop;
-import :Algorithm.Filter;
+import :Algorithm.Core;
 import :Algorithm.Flatten;
-import :Algorithm.Fold;
-import :Algorithm.Index;
-import :Algorithm.Join;
 import :Algorithm.Logic;
 import :Algorithm.Product;
-import :Algorithm.PushPop;
 import :Algorithm.Sort;
 import :Algorithm.Tee;
 import :Base.ListOperations;

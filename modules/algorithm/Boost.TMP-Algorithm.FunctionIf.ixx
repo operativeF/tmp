@@ -16,11 +16,8 @@ module;
 
 export module Boost.TMP:Algorithm.FunctionIf;
 
-import :Algorithm.Filter;
-import :Algorithm.Join;
+import :Algorithm.Core;
 import :Algorithm.Logic;
-import :Algorithm.Size;
-import :Algorithm.Transform;
 import :Base.Types;
 
 #if _MSC_VER

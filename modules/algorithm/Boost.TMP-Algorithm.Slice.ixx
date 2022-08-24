@@ -14,7 +14,7 @@ module;
 
 export module Boost.TMP:Algorithm.Slice;
 
-import :Algorithm.Drop;
+import :Algorithm.Core;
 import :Base.Types;
 
 namespace boost::tmp {

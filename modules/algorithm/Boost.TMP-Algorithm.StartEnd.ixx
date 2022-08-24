@@ -13,8 +13,8 @@ module;
 
 export module Boost.TMP:Algorithm.StartEnd;
 
+import :Algorithm.Core;
 import :Algorithm.Logic;
-import :Algorithm.Reverse;
 import :Algorithm.Take;
 import :Base.Types;
 

@@ -13,9 +13,8 @@ module;
 
 export module Boost.TMP:Algorithm.Trim;
 
-import :Algorithm.Drop;
+import :Algorithm.Core;
 import :Algorithm.FunctionIf;
-import :Algorithm.Reverse;
 import :Algorithm.Tee;
 import :Base.Types;
 

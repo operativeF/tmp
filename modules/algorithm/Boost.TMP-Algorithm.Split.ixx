@@ -14,7 +14,7 @@ module;
 
 export module Boost.TMP:Algorithm.Split;
 
-import :Algorithm.Drop;
+import :Algorithm.Core;
 import :Algorithm.Take;
 import :Algorithm.Tee;
 import :Base.Types;

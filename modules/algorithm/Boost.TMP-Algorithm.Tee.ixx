@@ -13,9 +13,8 @@ module;
 
 export module Boost.TMP:Algorithm.Tee;
 
+import :Algorithm.Core;
 import :Algorithm.Logic;
-import :Algorithm.PushPop;
-import :Algorithm.Rotate;
 
 #if _MSC_VER
 import std;

@@ -14,9 +14,8 @@ module;
 
 export module Boost.TMP:Algorithm.Take;
 
-import :Algorithm.Drop;
+import :Algorithm.Core;
 import :Algorithm.FunctionIf;
-import :Algorithm.Rotate;
 import :Algorithm.Tee;
 import :Algorithm.Zip;
 import :Base.Types;

@@ -14,8 +14,7 @@ module;
 
 export module Boost.TMP:Algorithm.Stride;
 
-import :Algorithm.Index;
-import :Algorithm.MakeSequence;
+import :Algorithm.Core;
 import :Algorithm.Tee;
 import :Base.Types;
 

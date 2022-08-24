@@ -13,7 +13,7 @@ module;
 
 export module Boost.TMP:Algorithm.Window;
 
-import :Algorithm.Drop;
+import :Algorithm.Core;
 import :Algorithm.Take;
 import :Base.Types;
 

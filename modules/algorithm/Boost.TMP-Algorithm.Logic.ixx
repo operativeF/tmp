@@ -14,8 +14,7 @@ module;
 
 export module Boost.TMP:Algorithm.Logic;
 
-import :Algorithm.Filter;
-import :Algorithm.Foldey;
+import :Algorithm.Core;
 import :Base.Types;
 
 #if _MSC_VER

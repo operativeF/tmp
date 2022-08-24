@@ -14,7 +14,7 @@ module;
 
 export module Boost.TMP:Algorithm.Product;
 
-import :Algorithm.Join;
+import :Algorithm.Core;
 import :Base.Types;
 
 namespace boost::tmp {

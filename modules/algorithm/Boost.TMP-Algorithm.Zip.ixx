@@ -14,8 +14,7 @@ module;
 
 export module Boost.TMP:Algorithm.Zip;
 
-import :Algorithm.MakeSequence;
-import :Algorithm.Transform;
+import :Algorithm.Core;
 import :Base.Types;
 
 #if _MSC_VER
@@ -106,13 +105,13 @@ template<typename T> requires(std::same_as<T, list_<int_<3>, int_<7>>>)
 struct AddPairsTogetherWithZip;
 
 template<typename T, typename U>
-using add = int_<T::value + U::value>;
+using add_values = int_<T::value + U::value>;
 
 template<typename T> requires(std::same_as<T, list_<list_<int_<1>, int_<2>>, list_<int_<3>, int_<4>>>>)
 struct ZipPairsIntoList;
 
 // Performs an addition of pairs of elements component wise i.e. (x0 + x1), (y0 + y1), ...
-using zip_test_1 = AddPairsTogetherWithZip<call_<zip_<lift_<add>>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;
+using zip_test_1 = AddPairsTogetherWithZip<call_<zip_<lift_<add_values>>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;
 
 // Pairs elements in each list together i.e. (x0, y0), (x1, y1), ...
 using zip_test_2 = ZipPairsIntoList<call_<zip_<listify_>, list_<int_<1>, int_<3>>, list_<int_<2>, int_<4>>>>;

@@ -14,8 +14,7 @@ module;
 
 export module Boost.TMP:Algorithm.NthValues;
 
-import :Algorithm.Index;
-import :Algorithm.Transform;
+import :Algorithm.Core;
 import :Base.Types;
 
 #if _MSC_VER

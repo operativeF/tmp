@@ -13,12 +13,9 @@ module;
 
 export module Boost.TMP:Algorithm.Unique;
 
-import :Algorithm.Drop;
+import :Algorithm.Core;
 import :Algorithm.Flatten;
-import :Algorithm.Fold;
-import :Algorithm.Index;
 import :Algorithm.Logic;
-import :Algorithm.PushPop;
 import :Base.Types;
 
 #if _MSC_VER
