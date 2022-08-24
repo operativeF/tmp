@@ -48,8 +48,12 @@ add_subdirectory(modules)
 
 option(ENABLE_BENCHMARKING "Enable benchmarking" OFF)
 
-option(ENABLE_COMPILE_TIME_TESTING "Enable compile-time testing using concepts." OFF)
+option(ENABLE_COMPILE_TIME_TESTING "Enable compile-time testing using concepts." ON)
 
 if(ENABLE_BENCHMARKING)
   add_subdirectory(benchmark)
+endif()
+
+if(ENABLE_COMPILE_TIME_TESTING)
+  add_subdirectory(tests)
 endif()
