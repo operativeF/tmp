@@ -23,6 +23,7 @@ import std;
 #endif
 
 namespace boost::tmp {
+
 // erase_ : Given a VPP, remove the nth value in the pack.
 // Reduces the size of the list by 1.
 // Input params: Parameter pack

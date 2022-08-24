@@ -16,7 +16,6 @@ export module Boost.TMP:Algorithm.Zip;
 
 import :Algorithm.MakeSequence;
 import :Algorithm.Transform;
-import :Algorithm.Unpack;
 import :Base.Types;
 
 #if _MSC_VER

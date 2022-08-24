@@ -45,7 +45,6 @@ export import :Algorithm.Tee;
 export import :Algorithm.Transform;
 export import :Algorithm.Trim;
 export import :Algorithm.Unique;
-export import :Algorithm.Unpack;
 export import :Algorithm.Window;
 export import :Algorithm.Zip;
 

@@ -17,14 +17,12 @@ export module Boost.TMP:Algorithm.Sort;
 import :Algorithm.Fold;
 import :Algorithm.Logic;
 import :Algorithm.PushPop;
-import :Algorithm.Unpack;
 import :Base.Types;
 
 #if _MSC_VER
 import std;
 #endif
 
-// NOTE: Sort only works on lists, not parameter packs.
 namespace boost::tmp {
 // sort_ :
 export template <typename F = less_<>, typename C = listify_>

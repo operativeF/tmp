@@ -18,7 +18,6 @@ import :Algorithm.Erase;
 import :Algorithm.Index;
 import :Algorithm.PushPop;
 import :Algorithm.Size;
-import :Algorithm.Unpack;
 
 namespace boost::tmp {
     export template <typename T>

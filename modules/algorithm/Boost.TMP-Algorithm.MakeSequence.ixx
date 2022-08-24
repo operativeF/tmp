@@ -15,7 +15,6 @@ module;
 export module Boost.TMP:Algorithm.MakeSequence;
 
 import :Algorithm.Transform;
-import :Algorithm.Unpack;
 import :Base.Types;
 
 #if _MSC_VER
