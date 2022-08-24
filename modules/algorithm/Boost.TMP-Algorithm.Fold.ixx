@@ -14,8 +14,6 @@ module;
 
 export module Boost.TMP:Algorithm.Fold;
 
-// TODO: Kind of a waste to use join_
-import :Algorithm.Join;
 import :Base.Types;
 
 #if _MSC_VER
@@ -357,20 +355,7 @@ struct dispatch<N, fold_right_<F, lift_<C>>>
 #ifdef TMP_COMPILE_TIME_TESTING
 namespace test {
 
-template<typename T> requires(std::same_as<T, list_<>>)
-struct FoldLeftIntoEmptyList;
-
-template<typename T> requires(std::same_as<T, list_<uint_<1>, uint_<2>>>)
-struct FoldLeftValuesIntoList;
-
-template <typename T, typename U>
-using pusher = call_<join_<>, T, list_<U>>;
-
-// Returns an empty list.
-using fold_left_test_1 = FoldLeftIntoEmptyList<call_<fold_left_<lift_<pusher>>, list_<>>>;
-
-// Returns list of folded over values uint_<1> and uint_<2>.
-using fold_left_test_2 = FoldLeftValuesIntoList<call_<fold_left_<lift_<pusher>>, list_<>, uint_<1>, uint_<2>>>;
+// TODO: Redo fold_left_ tests
 
 template<typename T> requires(std::same_as<T, uint_<20>>)
 struct FoldRightAddsUpToTwenty;
