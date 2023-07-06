@@ -15,7 +15,3 @@ target_sources(clamp_bench
 )
 
 target_link_libraries(clamp_bench PRIVATE boost_tmp)
-
-if(MSVC)
-    target_compile_options(clamp_bench PRIVATE /reference std=C:/dev/STL/std.ifc /d1reportTime)
-endif()
