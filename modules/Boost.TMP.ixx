@@ -115,6 +115,15 @@ struct int32_ { static constexpr std::int32_t value = V; };
 export template<std::int64_t V>
 struct int64_ { static constexpr std::int64_t value = V; };
 
+template<typename T>
+concept Boolable = std::convertible_to<decltype(T::value), bool>;
+
+template<typename I>
+concept Sizable = std::same_as<std::remove_cvref_t<decltype(I::value)>, std::size_t>;
+
+template<typename F>
+concept Predicatable = std::same_as<std::remove_cvref_t<decltype(F::return_type)>, bool>;
+
 // nothing_ : 
 export struct nothing_ {};
 
@@ -709,7 +718,10 @@ struct join_seq_ {};
 template<std::size_t... Is>
 using IndexSeq = std::index_sequence<Is...>;
 
-export template<typename... Ts>
+template<int... Is>
+using IntSeq = std::integer_sequence<Is...>;
+
+export template<typename... Ts> requires(std::same_as<Ts::value, std::size_t> && ...)
 using into_sequence = IndexSeq<Ts::value...>;
 
 namespace impl {
@@ -1048,6 +1060,8 @@ namespace impl { // reverse_
 // apply  - (M rotations)
 // result - T(M), T(M + 1), ..., T0, T1, ..., TN, ..., T(M - 1)
 // Empty return type: list_<>
+// FIXME: Add negative rotation.
+// FIXME: If rotation count > element count; use modulo.
 export template <typename N = sizet_<0>, typename C = listify_>
 struct rotate_ {};
 namespace impl { // rotate_
@@ -1200,6 +1214,11 @@ namespace impl { // swap_
         template <typename T, typename U>
         using f = dispatch<2, C>::template f<U, T>;
     };
+    template<std::size_t N, typename C> requires(N == 2)
+    struct dispatch<N, swap_<C>> {
+        template<typename...>
+        using f = nothing_;
+    };
 } // namespace impl
 
 // transform_ : 
@@ -1228,7 +1247,7 @@ namespace impl { // transform_
 // apply  - (drop M values)
 // result - T(M), T(M + 1), ..., TN
 // Empty return type: list_<>
-export template <typename N = sizet_<0>, typename C = listify_>
+export template <Sizable N = sizet_<0>, typename C = listify_>
 struct drop_ {};
 namespace impl { // drop_
     template <std::size_t, typename C>
@@ -1328,7 +1347,7 @@ namespace impl { // drop_
     struct dispatch<N, drop_<P, C>> : make_drop<P::value, C> {};
 } // namespace impl
 
-export template<typename N = sizet_<0>, typename C = listify_>
+export template<Sizable N = sizet_<0>, typename C = listify_>
 struct drop_last_ {};
 namespace impl { // drop_last_
     template<std::size_t N, typename DropN, typename C>
@@ -1393,9 +1412,9 @@ namespace impl { // pop_back_
     };
 } // namespace impl
 
-export template<typename I, typename C = identity_>
+export template<Sizable I, typename C = identity_>
 struct index_ {};
-export template<typename I, typename C = identity_>
+export template<Sizable I, typename C = identity_>
 using unpack_index_ = unpack_<index_<I, C>>;
 export template<typename C = identity_>
 using front_ = index_<sizet_<0>, C>;
@@ -1497,7 +1516,7 @@ namespace impl { // index_
 // apply  -  (erase element at index M)
 // result -  T0, T1, ..., T(M - 1), T(M + 1), ..., TN
 // Empty return type: list_<>
-export template <typename N = sizet_<0>, typename C = listify_>
+export template <Sizable N = sizet_<0>, typename C = listify_>
 struct erase_ {};
 namespace impl { // erase_
     template <std::size_t N, typename I, typename C>
@@ -1515,7 +1534,7 @@ namespace impl { // erase_
 } // namespace impl
 
 // insert_ :
-export template <typename N, typename V, typename C = listify_>
+export template <Sizable N, typename V, typename C = listify_>
 struct insert_ {};
 namespace impl { // insert_
     template <std::size_t N, typename I, typename V, typename C>
@@ -1593,7 +1612,7 @@ namespace impl { // make_sequence_
 // };
 
 // repeat_sequence_ :
-export template<typename N = sizet_<0>, typename C = listify_>
+export template<Sizable N = sizet_<0>, typename C = listify_>
 struct repeat_sequence_{};
 namespace impl { // repeat_sequence_
     template <std::size_t, typename C>
@@ -1695,7 +1714,7 @@ struct not_ {};
 namespace impl { // not_
     template <typename C>
     struct dispatch<1, not_<C>> {
-        template <typename T>
+        template <Boolable T>
         using f = dispatch<1, C>::template f<bool_<(!T::value)>>;
     };
 } // namespace impl
@@ -1917,7 +1936,7 @@ namespace impl { // range_lo_hi_
 } // namespace impl
 
 // all_of_ : Given a unary predicate, return true_ / false_ on whether all elements
-// in a VPP satisfy that predicate.
+// in a parameter pack satisfy that predicate. Shorting (uses and_).
 export template <typename F, typename C = identity_>
 struct all_of_ {};
 namespace impl { // all_of_
@@ -1936,7 +1955,7 @@ namespace impl { // any_of_
 
 // none_of_ : Given a predicate (F), return true_ / false_ if none
 // of the elements in a VPP satisfy the predicate F.
-export template <typename F, typename C = identity_>
+export template <typename UnaryPred, typename C = identity_>
 struct none_of_ {};
 namespace impl { // none_of_
     template <std::size_t N, typename F, typename C>
@@ -1976,7 +1995,7 @@ namespace impl { // slice_
 
 // count_if_ : Given a predicate F, check the variadic parameter pack passed in and count
 // each time that the predicate holds true. Returns n counts as sizet_<n>.
-export template <typename F, typename C = identity_>
+export template <typename UnaryPred, typename C = identity_>
 struct count_if_ {};
 namespace impl { // count_if_
     template <std::size_t N, typename F, typename C>
@@ -1986,7 +2005,7 @@ namespace impl { // count_if_
 } // namespace impl
 
 // find_if_ : 
-export template <typename F, typename C = identity_>
+export template <typename UnaryPred, typename C = identity_>
 struct find_if_ {};
 namespace impl { // find_if_
     template <bool Found, std::size_t At, template <typename...> class F>
@@ -2021,7 +2040,7 @@ namespace impl { // find_if_
 } // namespace impl
 
 // find_if_not_ : 
-export template <typename F, typename C = identity_>
+export template <typename UnaryPred, typename C = identity_>
 struct find_if_not_ {};
 namespace impl { // find_if_not_
     template <bool Found, std::size_t At, template <typename...> class F>
@@ -2057,7 +2076,7 @@ namespace impl { // find_if_not_
 
 // remove_if_ : Given a predicate F, check the variadic parameter pack passed in
 // and remove the value if the predicate holds true.
-export template <typename F, typename C = listify_>
+export template <typename UnaryPred, typename C = listify_>
 struct remove_if_ {};
 namespace impl { // remove_if_
     template<std::size_t N, typename F, typename C>
@@ -2067,12 +2086,12 @@ namespace impl { // remove_if_
 
 // replace_if_ : Given a variadic parameter pack, replace every value that fulfills
 // the predicate F with the value Input.
-export template <typename Input, typename F, typename C = listify_>
+export template <typename Input, typename UnaryPred, typename C = listify_>
 struct replace_if_ {};
 namespace impl { // replace_if_
-    template <std::size_t N, typename Input, typename F, typename C>
-    struct dispatch<N, replace_if_<Input, F, C>>
-            : dispatch<N, transform_<if_<F, always_<Input>, identity_>, C>> {};
+    template <std::size_t N, typename Input, typename UnaryPred, typename C>
+    struct dispatch<N, replace_if_<Input, UnaryPred, C>>
+            : dispatch<N, transform_<if_<UnaryPred, always_<Input>, identity_>, C>> {};
 } // namespace impl
 
 // keys_ :
@@ -2114,7 +2133,7 @@ namespace impl { // values_
 // apply  -  (get Ith element from each element)
 // result -  list_<T0I, T1I, ..., TNI>
 // Empty return type: list_<>
-export template<typename I, typename C = listify_>
+export template<Sizable I, typename C = listify_>
 struct nth_values_ {};
 namespace impl { // nth_values_
     template <std::size_t N, typename I, typename C>
@@ -2585,7 +2604,7 @@ namespace impl { // unique_
     template<std::size_t N, typename F, typename C>
     struct dispatch<N, unique_<F, C>> {
         template<typename... Ts>
-        using f = dispatch<N, push_front_<unique_super_base, fold_left_<unique_push_if, flatten_<drop_<uint_<1>, C>>>>>::template f<Ts...>;
+        using f = dispatch<N, push_front_<unique_super_base, fold_left_<unique_push_if, flatten_<drop_<sizet_<1>, C>>>>>::template f<Ts...>;
     };
 } // namespace impl
 
@@ -2600,7 +2619,7 @@ namespace impl { // unique_
 // apply  - (invoke F on each element)
 // result - list_<F<T0>, F<T1>, ..., F<TN>>
 // Empty / default return type: list_<>
-export template <typename F, typename C = listify_>
+export template <typename UnaryOp, typename C = listify_>
 struct zip_ {};
 namespace impl { // zip_
     template<typename F, typename C, typename T, typename U>
@@ -2659,7 +2678,7 @@ namespace impl { // zip_with_index_
 // partition_ : Given a unary predicate, separate a VPP into a list of two lists,
 // with the first list being the elements where the predicate is true.
 // Maintains order of elements.
-export template <typename F, typename C = listify_>
+export template <typename UnaryPred, typename C = listify_>
 struct partition_ {};
 namespace impl { // partition_
     template <std::size_t N, typename F, typename C>
@@ -2676,7 +2695,7 @@ namespace impl { // partition_
 // apply  -  (get every nth element)
 // result -  T0, T(n), T(2n), T(3n), ..., T(m * n)
 // Empty return type: list_<>
-export template<typename S = sizet_<0>, typename C = listify_>
+export template<Sizable S = sizet_<0>, typename C = listify_>
 struct stride_ {};
 namespace impl { // stride_
     template<typename S, typename C = listify_, typename L = listify_>
@@ -2711,7 +2730,7 @@ namespace impl { // stride_
 } // namespace impl
 
 // take_ :
-export template <typename N = sizet_<0>, typename C = listify_>
+export template <Sizable N = sizet_<0>, typename C = listify_>
 struct take_ {};
 namespace impl { // take_
     template <std::size_t N, typename P, typename C>
@@ -2723,7 +2742,7 @@ namespace impl { // take_
 } // namespace impl
 
 // take_last_ :
-export template<typename N = sizet_<0>, typename C = listify_>
+export template<Sizable N = sizet_<0>, typename C = listify_>
 struct take_last_ {};
 namespace impl { // take_last_
     template<std::size_t N, typename P, typename C>
@@ -2737,7 +2756,7 @@ namespace impl { // take_last_
 template<typename C = listify_>
 struct take_list {};
 
-export template<typename F, typename C = listify_>
+export template<typename UnaryPred, typename C = listify_>
 struct take_while_ {};
 namespace impl { // take_while_
     template<std::size_t N, typename C>
@@ -2785,7 +2804,7 @@ namespace impl { // drop_while_back_
     struct dispatch<N, drop_while_back_<F, C>> : dispatch<N, reverse_<drop_while_<F, reverse_<C>>>> {};
 } // namespace impl
 
-export template<typename I = sizet_<0>, typename C = listify_>
+export template<Sizable I = sizet_<0>, typename C = listify_>
 struct split_ {};
 namespace impl { // split_
     template<std::size_t N, typename I, typename C>
@@ -2832,7 +2851,7 @@ namespace impl { // ends_with_
 } // namespace impl
 
 // window_ :
-export template<typename StartIndex, typename Count, typename C = listify_>
+export template<Sizable StartIndex, Sizable Count, typename C = listify_>
 struct window_ {};
 namespace impl { // window_
     template<std::size_t N, typename StartIndex, typename Count, typename C>
@@ -2852,7 +2871,7 @@ namespace impl { // window_
 // apply  -  (get every nth element)
 // result -  T0, T(n), T(2n), T(3n), ..., T(m * n)
 // Empty return type: list_<>
-export template<typename S = sizet_<0>, typename C = listify_>
+export template<Sizable S = sizet_<0>, typename C = listify_>
 struct chunk_ {};
 namespace impl { // chunk_
     consteval std::size_t chunk_div(std::size_t input_size, std::size_t chunk_length) {
@@ -2899,7 +2918,7 @@ namespace impl { // chunk_
 // apply  -  (get W elements starting at index 0, incrementing through until the last element)
 // result -  L(T0, ..., TW), L(T1, ... T(W + 1)), ..., L(T(W - N), TN)
 // Empty return type: list_<>
-export template<typename W = sizet_<0>, typename C = listify_>
+export template<Sizable W = sizet_<0>, typename C = listify_>
 struct slide_ {};
 namespace impl { // slide_
     template<typename W, typename C = listify_, typename L = listify_>

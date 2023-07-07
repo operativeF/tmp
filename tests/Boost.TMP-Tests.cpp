@@ -84,7 +84,7 @@ using drop_test_2 = DropZeroReturnsInputList<call_<drop_<uint_<0>>, int_<1>, int
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>>>)
 struct DropThreeOffEnd;
 
-using drop_last_test_1 = DropThreeOffEnd<call_<drop_last_<int_<3>>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>;
+using drop_last_test_1 = DropThreeOffEnd<call_<drop_last_<sizet_<3>>, int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>;
 
 } // namespace drop_tests
 
@@ -250,13 +250,13 @@ struct Insert_C_AtPositionTwo;
 template<typename T> requires(std::same_as<T, list_<char_<'c'>>>)
 struct EmptyPackInsertionReturnsSingleElementList;
 
-using insert_test_1   = Insert_C_AtPositionZero<call_<insert_<int_<0>, char_<'c'>>, int_<1>, int_<2>>>;
+using insert_test_1   = Insert_C_AtPositionZero<call_<insert_<sizet_<0>, char_<'c'>>, int_<1>, int_<2>>>;
 
-using insert_test_2   = Insert_C_AtPositionOne<call_<insert_<int_<1>, char_<'c'>>, int_<1>, int_<2>>>;
+using insert_test_2   = Insert_C_AtPositionOne<call_<insert_<sizet_<1>, char_<'c'>>, int_<1>, int_<2>>>;
 
-using insert_test_3 = Insert_C_AtPositionTwo<call_<insert_<int_<2>, char_<'c'>>, int_<1>, int_<2>>>;
+using insert_test_3 = Insert_C_AtPositionTwo<call_<insert_<sizet_<2>, char_<'c'>>, int_<1>, int_<2>>>;
 
-using insert_test_4  = EmptyPackInsertionReturnsSingleElementList<call_<insert_<int_<0>, char_<'c'>>>>;
+using insert_test_4  = EmptyPackInsertionReturnsSingleElementList<call_<insert_<sizet_<0>, char_<'c'>>>>;
 
 } // namespace insert_tests
 
@@ -611,7 +611,7 @@ template<typename T> requires(std::same_as<T, list_<int_<1>, int_<0>>>)
 struct ListOneZero;
 
 using swap_test_1 = ListOneZero<call_<swap_<>, int_<0>, int_<1>>>;
-
+// using too_many_swap_test = call_<swap_<>, int_<1>, int_<2>, int_<3>>;
 } // namespace swap_tests
 
 namespace take_tests {
@@ -622,8 +622,8 @@ struct TakeFirstElement_One;
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>>>)
 struct TakeFirstTwoElements_OneTwo;
 
-using take_test_1 = TakeFirstElement_One<call_<take_<uint_<1>>, int_<1>, int_<2>, int_<3>>>;
-using take_test_2 = TakeFirstTwoElements_OneTwo<call_<take_<uint_<2>>, int_<1>, int_<2>, int_<3>>>;
+using take_test_1 = TakeFirstElement_One<call_<take_<sizet_<1>>, int_<1>, int_<2>, int_<3>>>;
+using take_test_2 = TakeFirstTwoElements_OneTwo<call_<take_<sizet_<2>>, int_<1>, int_<2>, int_<3>>>;
 
 // UNDER CONSIDERATION: Taking more than the list results in compilation failure.
 // UNDER CONSIDERATION: Taking from an empty input results in compilation failure.
@@ -632,7 +632,7 @@ using take_test_2 = TakeFirstTwoElements_OneTwo<call_<take_<uint_<2>>, int_<1>, 
 template<typename T> requires(std::same_as<T, list_<int_<4>, int_<5>>>)
 struct LastTwoElements;
 
-using take_last_test_1 = LastTwoElements<call_<take_last_<int_<2>>,
+using take_last_test_1 = LastTwoElements<call_<take_last_<sizet_<2>>,
                                             int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>;
 
 template<typename T> requires(std::same_as<T, list_<int_<2>, int_<4>, int_<8>>>)
@@ -728,7 +728,7 @@ namespace window_tests {
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, int_<3>>>)
 struct GetTheMiddle123;
 
-using window_test_1 = GetTheMiddle123<call_<window_<int_<1>, int_<3>>, int_<0>, int_<1>, int_<2>, int_<3>, int_<5>, int_<7>>>;
+using window_test_1 = GetTheMiddle123<call_<window_<sizet_<1>, sizet_<3>>, int_<0>, int_<1>, int_<2>, int_<3>, int_<5>, int_<7>>>;
 
 } // namespace window_tests
 
