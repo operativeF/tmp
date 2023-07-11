@@ -72,9 +72,9 @@ struct DropOneOffOfList;
 template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>>>)
 struct DropZeroReturnsInputList;
 
-using drop_test_1 = DropOneOffOfList<call_<drop_<uint_<1>>, int_<0>, int_<1>>>;
+using drop_test_1 = DropOneOffOfList<call_<drop_<sizet_<1>>, int_<0>, int_<1>>>;
 
-using drop_test_2 = DropZeroReturnsInputList<call_<drop_<uint_<0>>, int_<1>, int_<2>>>;
+using drop_test_2 = DropZeroReturnsInputList<call_<drop_<sizet_<0>>, int_<1>, int_<2>>>;
 
 // Dropping off of no input returns empty list
 // UNDER CONSIDERATION: Dropping input off of no input fails.
@@ -222,7 +222,7 @@ template<typename T> requires(std::same_as<T, int_<1>>)
 struct EighthElement;
 
 // Get index 2 of pack (int_<3>)
-using index_test_1 = ElementAtIndexTwoIsThree<call_<index_<uint_<2>>, int_<1>, char_<'c'>, int_<3>, int_<4>>>;
+using index_test_1 = ElementAtIndexTwoIsThree<call_<index_<sizet_<2>>, int_<1>, char_<'c'>, int_<3>, int_<4>>>;
 
 // Unpack simple_list, then take index 0
 using unpack_index_test_1 = UnpackedElementAtIndexZeroIsOne<call_<ui0_<>, list_<int_<1>, int_<2>, int_<3>>>>;

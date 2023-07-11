@@ -1,5 +1,5 @@
 //  Copyright 2018-2019 Odin Holmes.
-//            2020-2022 Thomas Figueroa.
+//            2020-2023 Thomas Figueroa.
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //
@@ -92,10 +92,10 @@ namespace impl { // identity_
 } // namespace impl
 
 // Unsigned and signed integral type wrappers
-export template<unsigned long long V>
-struct uint_ { static constexpr unsigned long long value = V; };
-export template<long long I>
-struct int_ { static constexpr long long value = I; };
+export template<unsigned int V>
+struct uint_ { static constexpr unsigned int value = V; };
+export template<int I>
+struct int_ { static constexpr int value = I; };
 export template<std::size_t S>
 struct sizet_ { static constexpr std::size_t value = S; };
 export template<std::uint8_t V>
@@ -718,8 +718,8 @@ struct join_seq_ {};
 template<std::size_t... Is>
 using IndexSeq = std::index_sequence<Is...>;
 
-template<int... Is>
-using IntSeq = std::integer_sequence<Is...>;
+// template<int... Is>
+// using IntSeq = std::integer_sequence<Is...>;
 
 export template<typename... Ts> requires(std::same_as<Ts::value, std::size_t> && ...)
 using into_sequence = IndexSeq<Ts::value...>;
