@@ -23,6 +23,17 @@ import std;
 
 using namespace boost::tmp;
 
+namespace array_into_list_tests {
+
+static constexpr std::array<int, 5> Arr1{1, 2, 3, 4, 5};
+
+template<typename T> requires(std::same_as<T, list_<int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>)
+struct ArrayNowParamPack;
+
+using array_into_list_test_1 = ArrayNowParamPack<call_v_<lift_v_<array_into_list_>, Arr1>>;
+
+} // namespace array_into_list_tests
+
 namespace chunk_tests {
 
 template<typename T> requires(std::same_as<T, list_<list_<int_<0>, int_<1>, int_<2>>,
@@ -273,6 +284,14 @@ namespace join_tests {
 // joined_sequences{} = std::index_sequence<1, 2, 3, 4>{};
 
 } // namespace join_tests
+
+namespace list_into_array_tests {
+
+static constexpr auto larr = list_into_array_<list_<int_<0>, int_<1>, int_<2>>>::value;
+
+static_assert(std::same_as<decltype(larr), const std::array<int, 3>>); // const because of constexpr
+
+} // namespace list_into_array_tests
 
 namespace logic_tests {
 

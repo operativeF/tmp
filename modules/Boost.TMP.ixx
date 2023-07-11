@@ -130,6 +130,10 @@ export struct nothing_ {};
 // lift_ : Used for lifting a type into a function.
 export template <template <typename...> class F, typename C = identity_>
 struct lift_ {};
+
+export template <template <auto...> class F, typename C = identity_>
+struct lift_v_ {};
+
 namespace impl { // lift_
     template <template <typename...> class F, typename C>
     struct dispatch<1, lift_<F, C>> {
@@ -155,6 +159,33 @@ namespace impl { // lift_
     struct dispatch<N, lift_<F, C>> {
         template <typename... Ts>
         using f = dispatch<1, C>::template f<F<Ts...>>;
+    };
+
+    // lift_v_
+    template <template <auto...> class F, typename C>
+    struct dispatch<1, lift_v_<F, C>> {
+        template <auto V>
+        using f = dispatch<1, C>::template f<F<V>>;
+    };
+    template <template <auto...> class F, typename C>
+    struct dispatch<2, lift_v_<F, C>> {
+        template <auto V0, auto V1>
+        using f = dispatch<1, C>::template f<F<V0, V1>>;
+    };
+    template <template <auto...> class F, typename C>
+    struct dispatch<3, lift_v_<F, C>> {
+        template <auto V0, auto V1, auto V2>
+        using f = dispatch<1, C>::template f<F<V0, V1, V2>>;
+    };
+    template <template <auto...> class F, typename C>
+    struct dispatch<4, lift_v_<F, C>> {
+        template <auto V0, auto V1, auto V2, auto V3>
+        using f = dispatch<1, C>::template f<F<V0, V1, V2, V3>>;
+    };
+    template <std::size_t N, template <auto...> class F, typename C>
+    struct dispatch<N, lift_v_<F, C>> {
+        template <auto... Vs>
+        using f = dispatch<1, C>::template f<F<Vs...>>;
     };
 } // namespace impl
 
@@ -193,6 +224,9 @@ using call_ = impl::dispatch<impl::find_dispatch(sizeof...(Ts)), F>::template f<
 export template <typename T, typename... Ts>
 using call_t = impl::dispatch<impl::find_dispatch(sizeof...(Ts)), T>::template
                     f<Ts...>::type;
+export template <typename F, auto... Vs>
+using call_v_ = impl::dispatch<impl::find_dispatch(sizeof...(Vs)), F>::template f<Vs...>;
+
 // call_f_ : 
 export template <typename C = identity_>
 struct call_f_ {};
@@ -1864,6 +1898,19 @@ namespace impl { // if_
     };
 } // namespace impl
 
+// array_into_list_
+template<auto Array, typename IS = decltype(std::make_index_sequence<Array.size()>())>
+struct array_into_list_base;
+
+template<auto Array, std::size_t... Is>
+struct array_into_list_base<Array, std::index_sequence<Is...>> {
+    using array_type = std::remove_extent_t<decltype(Array)>;
+    using list_type = list_<int_<Array[Is]>...>;
+};
+
+export template<auto Array>
+using array_into_list_ = typename array_into_list_base<Array>::list_type;
+
 // less_ : 
 export template <typename V = nothing_, typename C = identity_>
 struct less_ {};
@@ -2574,6 +2621,20 @@ namespace impl { // tee_
                     rotate_<sizet_<sizeof...(Fs)>, push_front_<sizet_<N>, lift_<tee_impl>>>>::
                     template f<F0, F1, Fs...> {};
 } // namespace impl
+
+template<typename T, typename SizeT>
+using actual_array = std::array<std::remove_cvref_t<decltype(T::value)>, SizeT::value>;
+
+// list_into_array_
+export template<typename... Ts>
+struct list_into_array_ {};
+
+template<typename... Ts>
+struct list_into_array_<list_<Ts...>> {
+    using arr = call_<tee_<i0_<>, size_<>, lift_<actual_array>>, Ts...>;
+
+    static constexpr arr value = {Ts::value...};
+};
 
 export template<typename F = identity_, typename C = listify_>
 struct unique_ {};
