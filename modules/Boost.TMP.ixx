@@ -131,6 +131,7 @@ export struct nothing_ {};
 export template <template <typename...> class F, typename C = identity_>
 struct lift_ {};
 
+// lift_ : Used for lifting a non-type parameter into a function.
 export template <template <auto...> class F, typename C = identity_>
 struct lift_v_ {};
 
@@ -195,6 +196,12 @@ struct list_ {};
 // listify_ : 
 export using listify_ = lift_<list_>;
 
+// list_v_ :
+export template <auto... Vs>
+struct list_v_ {};
+// listify_v_ :
+export using listify_v_ = lift_v_<list_v_>;
+
 // always_ : metaclosure returns type / shovels into the continuation C.
 export template <typename T, typename C = identity_>
 struct always_ {};
@@ -203,6 +210,17 @@ namespace impl { // always_
     struct dispatch<N, always_<T, C>> {
         template <typename...>
         using f = dispatch<1, C>::template f<T>;
+    };
+} // namespace impl
+
+// always_v_ : metaclosure returns value / shovels into the continuation C.
+export template <auto V, typename C = identity_>
+struct always_v_ {};
+namespace impl { // always_v_
+    template <std::size_t N, auto V, typename C>
+    struct dispatch<N, always_v_<V, C>> {
+        template <typename...>
+        using f = dispatch<1, C>::template f<V>;
     };
 } // namespace impl
 
@@ -283,6 +301,35 @@ namespace impl { // unpack_
     struct dispatch<1, unpack_<C>> {
         template <typename L>
         using f = unpack_impl<C, L>::type;
+    };
+} // namespace impl
+
+// \brief turns a list of types into a variadic pack of those types /
+// example: call<all<>,true_,false_,true_> is equivalent to
+// call<unpack<all<>>,list<true_,false_,true_>>
+// \requirement
+// Unpack always needs a continuation, so even if you're just unpacking
+// a list, you need to use it like the following:
+// using alist = list_v_<0>;
+// 0 = call_<unpack_v_<identity_>, alist>{}; // This will be vaild
+export template <typename C>
+struct unpack_v_ {};
+namespace impl { // unpack_v_
+    template <typename C, typename L>
+    struct unpack_impl_v;
+    template <typename C, template <auto...> class Seq, auto... Ls>
+    struct unpack_impl_v<C, Seq<Ls...>> {
+        using type = dispatch<find_dispatch(sizeof...(Ls)), C>::template f<Ls...>;
+    };
+    // in case of nothing_ input give a nothing_ output
+    template <typename C>
+    struct unpack_impl_v<C, nothing_> {
+        using type = nothing_;
+    };
+    template <typename C>
+    struct dispatch<1, unpack_v_<C>> {
+        template <typename L>
+        using f = unpack_impl_v<C, L>::type;
     };
 } // namespace impl
 
@@ -367,6 +414,59 @@ namespace impl { // filter_
     template <template <typename...> class F, typename C>
     struct dispatch<0, filter_<lift_<F>, C>> {
         template <typename... Ts>
+        using f = dispatch<0, C>::template f<>;
+    };
+} // namespace impl
+
+// filter_v_:
+export template <typename F, typename C = listify_v_>
+struct filter_v_ {};
+namespace impl { // filter_v_
+    template <std::size_t N, template <auto...> class F, typename C>
+    struct filtery_v;
+    template <template <auto...> class F, typename C>
+    struct filtery_v<0, F, C> {
+        template <std::size_t N, auto V, auto U, auto... Vs>
+        using f = filtery_v<(F<U>::value + 2 * (N == 1)), F,
+                                    C>::template f<(N - 1), U, Vs...>;
+    };
+    template <template <auto...> class F, typename C>
+    struct filtery_v<1, F, C> {
+        template <std::size_t N, auto V, auto U, auto... Vs>
+        using f = filtery_v<(F<U>::value + 2 * (N == 1)), F, C>::template
+                        f<(N - 1), U, Vs..., V>;
+    };
+    template <template <auto...> class F, typename C>
+    struct filtery_v<2, F, C> { // all the way around, remove last
+        template <std::size_t N, auto V, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<Vs...>;
+    };
+    template <template <auto...> class F, typename C>
+    struct filtery_v<3, F, C> { // all the way around, keep last
+        template <std::size_t N, auto V, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1), C>::template f<Vs..., V>;
+    };
+    template <std::size_t N, template <auto...> class F, typename C>
+    struct dispatch<N, filter_v_<lift_v_<F>, C>> {
+        template <auto V, auto... Vs>
+        using f = filtery_v<(F<V>::value + 2 * (sizeof...(Vs) == 0)), F,
+                                    C>::template f<(sizeof...(Vs)), V, Vs...>;
+    };
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, filter_v_<F, C>> {
+        template <auto V, auto... Vs>
+        using f = filtery_v<
+                (dispatch<1, F>::template f<V>::value + 2 * (sizeof...(Vs) == 0)),
+                dispatch<1, F>::template f, C>::template f<(sizeof...(Vs)), V, Vs...>;
+    };
+    template <typename F, typename C>
+    struct dispatch<0, filter_v_<F, C>> {
+        template <auto... Vs>
+        using f = dispatch<0, C>::template f<>;
+    };
+    template <template <auto...> class F, typename C>
+    struct dispatch<0, filter_v_<lift_v_<F>, C>> {
+        template <auto... Vs>
         using f = dispatch<0, C>::template f<>;
     };
 } // namespace impl
@@ -1085,6 +1185,179 @@ namespace impl { // reverse_
     struct dispatch<N, reverse_<C>> : dispatch<65, reverse_<C>> {};
 } // namespace impl
 
+// TODO: Fix reverse_v_. Currently, reverse_v_impl will fail when lift_v_
+// attempts to lift it with a single type and the rest as value params.
+// The dispatching needs to be made more like rotate_.
+// reverse_v_ :
+// Input params: Value parameter pack
+// Closure params: C - Continuation; default listify_
+// Functional description:
+// input  -  V0, V1, ..., VN
+// apply  - (reverse element order of value parameter pack)
+// result -  VN, ..., V1, V0
+// Empty return type: list_<>
+/*
+export template <typename C = identity_>
+struct reverse_v_ {};
+namespace impl { // reverse_v_
+    template<typename C, auto... Vs>
+    struct reverse_v_impl {
+        template <auto... Ws>
+        using f = dispatch<
+            find_dispatch(sizeof...(Vs) + sizeof...(Ws)), C>::template f<Vs..., Ws...>;
+    };
+    template <typename C>
+    struct dispatch<0, reverse_v_<C>> {
+        template <auto...>
+        using f = dispatch<0, C>::template f<>;
+    };
+    template <typename C>
+    struct dispatch<1, reverse_v_<C>> {
+        template <auto V>
+        using f = dispatch<1, C>::template f<V>;
+    };
+    template <typename C>
+    struct dispatch<2, reverse_v_<C>> {
+        template <auto V0, auto V1>
+        using f = dispatch<2, C>::template f<V1, V0>;
+    };
+    template <typename C>
+    struct dispatch<3, reverse_v_<C>> {
+        template <auto V0, auto V1, auto V2>
+        using f = dispatch<3, C>::template f<V2, V1, V0>;
+    };
+    template <typename C>
+    struct dispatch<4, reverse_v_<C>> {
+        template <auto V0, auto V1, auto V2, auto V3>
+        using f = dispatch<4, C>::template f<V3, V2, V1, V0>;
+    };
+    template <typename C>
+    struct dispatch<5, reverse_v_<C>> {
+        template <auto V0, auto V1, auto V2, auto V3, auto V4>
+        using f = dispatch<5, C>::template f<V4, V3, V2, V1, V0>;
+    };
+    template <typename C>
+    struct dispatch<6, reverse_v_<C>> {
+        template <auto V0, auto V1, auto V2, auto V3, auto V4, auto V5>
+        using f = dispatch<6, C>::template f<V5, V4, V3, V2, V1, V0>;
+    };
+    template <typename C>
+    struct dispatch<7, reverse_v_<C>> {
+        template <auto V0, auto V1, auto V2, auto V3, auto V4,
+                  auto V5, auto V6>
+        using f = dispatch<7, C>::template f<V6, V5, V4, V3, V2, V1, V0>;
+    };
+    template <typename C>
+    struct dispatch<8, reverse_v_<C>> {
+        template <auto V0, auto V1, auto V2, auto V3, auto V4,
+                  auto V5, auto V6, auto V7>
+        using f = dispatch<8, C>::template f<V7, V6, V5, V4, V3, V2, V1, V0>;
+    };
+    template <typename C>
+    struct dispatch<9, reverse_v_<C>> {
+        template <auto V0, auto V1, auto V2, auto V3, auto V4,
+                  auto V5, auto V6, auto V7, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
+                            reverse_v_<lift_<reverse_v_impl>>>::template f<Vs..., C>::
+                                template f<V7, V6, V5, V4, V3, V2, V1, V0>;
+    };
+    template <typename C>
+    struct dispatch<16, reverse_v_<C>> {
+        template <auto V0,  auto V1,  auto V2,  auto V3,  auto V4,
+                  auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
+                  auto V10, auto V11, auto V12, auto V13, auto V14,
+                  auto V15>
+        using f = dispatch<16, C>::template f<V15, V14, V13, V12, V11, V10, V9, V8,
+                                              V7,  V6,  V5,  V4,  V3,  V2,  V1, V0>;
+    };
+    template <typename C>
+    struct dispatch<17, reverse_v_<C>> {
+        template <auto V0,  auto V1,  auto V2,  auto V3,  auto V4,
+                  auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
+                  auto V10, auto V11, auto V12, auto V13, auto V14,
+                  auto V15, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
+                                    reverse_v_<lift_v_<reverse_v_impl>>>::template f<Vs..., C>::
+                template f<V15, V14, V13, V12, V11, V10, V9, V8, V7, V6, V5, V4, V3, V2, V1, V0>;
+    };
+    template <typename C>
+    struct dispatch<32, reverse_v_<C>> {
+        template <auto V0,  auto V1,  auto V2,  auto V3,  auto V4,
+                  auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
+                  auto V10, auto V11, auto V12, auto V13, auto V14,
+                  auto V15, auto V16, auto V17, auto V18, auto V19,
+                  auto V20, auto V21, auto V22, auto V23, auto V24,
+                  auto V25, auto V26, auto V27, auto V28, auto V29,
+                  auto V30, auto V31>
+        using f = dispatch<32, C>::template f<V31, V30, V29, V28, V27, V26, V25, V24,
+                                              V23, V22, V21, V20, V19, V18, V17, V16,
+                                              V15, V14, V13, V12, V11, V10, V9,  V8,
+                                              V7,  V6,  V5,  V4,  V3,  V2,  V1,  V0>;
+    };
+    template <typename C>
+    struct dispatch<33, reverse_v_<C>> {
+        template <auto V0,  auto V1,  auto V2,  auto V3,  auto V4,
+                  auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
+                  auto V10, auto V11, auto V12, auto V13, auto V14,
+                  auto V15, auto V16, auto V17, auto V18, auto V19,
+                  auto V20, auto V21, auto V22, auto V23, auto V24,
+                  auto V25, auto V26, auto V27, auto V28, auto V29,
+                  auto V30, auto V31, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1), reverse_v_<lift_v_<reverse_v_impl>>>::template
+                    f<Vs..., C>::template f<V31, V30, V29, V28, V27, V26, V25, V24,
+                                            V23, V22, V21, V20, V19, V18, V17, V16,
+                                            V15, V14, V13, V12, V11, V10, V9,  V8,
+                                            V7,  V6,  V5,  V4,  V3,  V2,  V1,  V0>;
+    };
+    template <typename C>
+    struct dispatch<64, reverse_v_<C>> {
+        template <auto V0,  auto V1,  auto V2,  auto V3,  auto V4,
+                  auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
+                  auto V10, auto V11, auto V12, auto V13, auto V14,
+                  auto V15, auto V16, auto V17, auto V18, auto V19,
+                  auto V20, auto V21, auto V22, auto V23, auto V24,
+                  auto V25, auto V26, auto V27, auto V28, auto V29,
+                  auto V30, auto V31, auto V32, auto V33, auto V34,
+                  auto V35, auto V36, auto V37, auto V38, auto V39,
+                  auto V40, auto V41, auto V42, auto V43, auto V44,
+                  auto V45, auto V46, auto V47, auto V48, auto V49,
+                  auto V50, auto V51, auto V52, auto V53, auto V54,
+                  auto V55, auto V56, auto V57, auto V58, auto V59,
+                  auto V60, auto V61, auto V62, auto V63>
+        using f = dispatch<16, C>::template f<V63, V62, V61, V60, V59, V58, V57, V56,
+                                              V55, V54, V53, V52, V51, V50, V49, V48,
+                                              V47, V46, V45, V44, V43, V42, V41, V40,
+                                              V39, V38, V37, V36, V35, V34, V33, V32,
+                                              V31, V30, V29, V28, V27, V26, V25, V24,
+                                              V23, V22, V21, V20, V19, V18, V17, V16,
+                                              V15, V14, V13, V12, V11, V10, V9,  V8,
+                                              V7,  V6,  V5,  V4,  V3,  V2,  V1,  V0>;
+    };
+    template <typename C>
+    struct dispatch<65, reverse_v_<C>> {
+        template <auto V0,  auto V1,  auto V2,  auto V3,  auto V4,
+                  auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
+                  auto V10, auto V11, auto V12, auto V13, auto V14,
+                  auto V15, auto V16, auto V17, auto V18, auto V19,
+                  auto V20, auto V21, auto V22, auto V23, auto V24,
+                  auto V25, auto V26, auto V27, auto V28, auto V29,
+                  auto V30, auto V31, auto V32, auto V33, auto V34,
+                  auto V35, auto V36, auto V37, auto V38, auto V39,
+                  auto V40, auto V41, auto V42, auto V43, auto V44,
+                  auto V45, auto V46, auto V47, auto V48, auto V49,
+                  auto V50, auto V51, auto V52, auto V53, auto V54,
+                  auto V55, auto V56, auto V57, auto V58, auto V59,
+                  auto V60, auto V61, auto V62, auto V63, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
+                        reverse_v_<lift_v_<reverse_v_impl>>>::template f<Vs..., C>::template
+                        f<V63, V62, V61, V60, V59, V58, V57, V56, V55, V54, V53, V52, V51, V50,
+                          V49, V48, V47, V46, V45, V44, V43, V42, V41, V40, V39, V38, V37, V36,
+                          V35, V34, V33, V32, V31, V30, V29, V28, V27, V26, V25, V24, V23, V22,
+                          V21, V20, V19, V18, V17, V16, V15, V14, V13, V12, V11, V10, V9,  V8,
+                          V7,  V6,  V5,  V4,  V3,  V2,  V1,  V0>;
+    };
+} // namespace impl
+*/
 // rotate_ :
 // Input params: Parameter pack
 // Closure params: N - Positive (for now) integer type
@@ -1221,6 +1494,133 @@ namespace impl { // rotate_
     struct dispatch<N, rotate_<P, C>> : make_rotate<P::value, C> {};
 } // namespace impl
 
+// rotate_v_
+export template <std::integral auto N, typename C = listify_v_>
+struct rotate_v_ {};
+namespace impl { // rotate_v_
+    // rotate_v_ impl
+    template <auto P, typename C>
+    struct rotate_v_impl;
+    template <typename C>
+    struct rotate_v_impl<0, C> {
+        template <typename... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<Vs...>;
+    };
+    template <typename C>
+    struct rotate_v_impl<1, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1), C>::template
+                        f<Vs..., V>;
+    };
+    template <typename C>
+    struct rotate_v_impl<2, C> {
+        template <auto V0, auto V1, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 2), C>::template
+                        f<Vs..., V0, V1>;
+    };
+    template <typename C>
+    struct rotate_v_impl<3, C> {
+        template <auto V0, auto V1, auto V2, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 3), C>::template
+                        f<Vs..., V0, V1, V2>;
+    };
+    template <typename C>
+    struct rotate_v_impl<4, C> {
+        template <auto V0, auto V1, auto V2, auto V3, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 4), C>::template
+                        f<Vs..., V0, V1, V2, V3>;
+    };
+    template <typename C>
+    struct rotate_v_impl<5, C> {
+        template <auto V0, auto V1, auto V2, auto V3, auto V4,
+                typename... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 5), C>::template
+                        f<Vs..., V0, V1, V2, V3, V4>;
+    };
+    template <typename C>
+    struct rotate_v_impl<6, C> {
+        template <auto V0, auto V1, auto V2, auto V3, auto V4,
+                  auto V5, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 6), C>::template
+                        f<Vs..., V0, V1, V2, V3, V4, V5>;
+    };
+    template <typename C>
+    struct rotate_v_impl<7, C> {
+        template <auto V0, auto V1, auto V2, auto V3, auto V4,
+                  auto V5, auto V6, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 7), C>::template
+                        f<Vs..., V0, V1, V2, V3, V4, V5, V6>;
+    };
+    template <typename C>
+    struct rotate_v_impl<8, C> {
+        template<auto V0, auto V1, auto V2, auto V3, auto V4,
+                 auto V5, auto V6, auto V7, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 8), C>::template
+                        f<Vs..., V0, V1, V2, V3, V4, V5, V6, V7>;
+    };
+    template <typename C>
+    struct rotate_v_impl<16, C> {
+        template<auto V0,  auto V1,  auto V2,  auto V3,  auto V4,
+                 auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
+                 auto V10, auto V11, auto V12, auto V13, auto V14,
+                 auto V15, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 16), C>::template
+                        f<Vs..., V0, V1, V2,  V3,  V4,  V5,  V6,  V7,
+                                 V8, V9, V10, V11, V12, V13, V14, V15>;
+    };
+    template <typename C>
+    struct rotate_v_impl<32, C> {
+        template<auto V0,  auto V1,  auto V2,  auto V3,  auto V4,
+                 auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
+                 auto V10, auto V11, auto V12, auto V13, auto V14,
+                 auto V15, auto V16, auto V17, auto V18, auto V19,
+                 auto V20, auto V21, auto V22, auto V23, auto V24,
+                 auto V25, auto V26, auto V27, auto V28, auto V29,
+                 auto V30, auto V31, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 32), C>::template
+                        f<Vs..., V0,  V1,  V2,  V3,  V4,  V5,  V6, V7,
+                                 V8,  V9,  V10, V11, V12, V13, V14, V15,
+                                 V16, V17, V18, V19, V20, V21, V22, V23,
+                                 V24, V25, V26, V27, V28, V29, V30, V31>;
+    };
+    template <typename C>
+    struct rotate_v_impl<64, C> {
+        template<auto V0,  auto V1,  auto V2,  auto V3,  auto V4,
+                 auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
+                 auto V10, auto V11, auto V12, auto V13, auto V14,
+                 auto V15, auto V16, auto V17, auto V18, auto V19,
+                 auto V20, auto V21, auto V22, auto V23, auto V24,
+                 auto V25, auto V26, auto V27, auto V28, auto V29,
+                 auto V30, auto V31, auto V32, auto V33, auto V34,
+                 auto V35, auto V36, auto V37, auto V38, auto V39,
+                 auto V40, auto V41, auto V42, auto V43, auto V44,
+                 auto V45, auto V46, auto V47, auto V48, auto V49,
+                 auto V50, auto V51, auto V52, auto V53, auto V54,
+                 auto V55, auto V56, auto V57, auto V58, auto V59,
+                 auto V60, auto V61, auto V62, auto V63, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 64), C>::template
+                        f<Vs..., V0,  V1,  V2,  V3,  V4,  V5,  V6,  V7,  V8,  V9,  V10,
+                                 V11, V12, V13, V14, V15, V16, V17, V18, V19, V20, V21,
+                                 V22, V23, V24, V25, V26, V27, V28, V29, V30, V31, V32,
+                                 V33, V34, V35, V36, V37, V38, V39, V40, V41, V42, V43,
+                                 V44, V45, V46, V47, V48, V49, V50, V51, V52, V53, V54,
+                                 V55, V56, V57, V58, V59, V60, V61, V62, V63>;
+    };
+    template <auto P, typename C>
+    struct dispatch<0, rotate_v_<P, C>> {
+        template <typename...>
+        using f = dispatch<0, C>::template f<>;
+    };
+    template <auto P, typename C, auto Step = step_selector(P)>
+    struct make_rotate_v_
+        : rotate_v_impl<step_selector(Step), rotate_v_<(P - Step), C>> { /* not done */
+    };
+    template <auto P, typename C>
+    struct make_rotate_v_<P, C, P> : rotate_v_impl<P, C> {};
+    template <std::size_t N, auto P, typename C>
+    struct dispatch<N, rotate_v_<P, C>> : make_rotate_v_<P, C> {};
+} // namespace impl
+
 // size_ :
 // Input params: Parameter pack
 // Closure params: C - Continuation; default identity_
@@ -1239,7 +1639,7 @@ namespace impl { // size_
     };
 } // namespace impl
 
-// swap_ : Swaps two variadic parametic pack values. Must be only two values.
+// swap_ : Swaps two variadic parameter pack values. Must be only two values.
 export template <typename C = listify_>
 struct swap_ {};
 namespace impl { // swap_
@@ -1250,6 +1650,22 @@ namespace impl { // swap_
     };
     template<std::size_t N, typename C> requires(N == 2)
     struct dispatch<N, swap_<C>> {
+        template<typename...>
+        using f = nothing_;
+    };
+} // namespace impl
+
+// swap_v_ : Swaps two variadic values. Must be only two values.
+export template <typename C = listify_v_>
+struct swap_v_ {};
+namespace impl { // swap_
+    template <typename C>
+    struct dispatch<2, swap_v_<C>> {
+        template <auto T, auto U>
+        using f = dispatch<2, C>::template f<U, T>;
+    };
+    template<std::size_t N, typename C> requires(N == 2)
+    struct dispatch<N, swap_v_<C>> {
         template<typename...>
         using f = nothing_;
     };
@@ -1381,12 +1797,131 @@ namespace impl { // drop_
     struct dispatch<N, drop_<P, C>> : make_drop<P::value, C> {};
 } // namespace impl
 
+// drop_v_ : Remove (N) values from the front of the input VPP.
+// Input params: Parameter value pack
+// Closure params: N - Positive integer
+//                 C - Continuation; default listify_
+// Functional description:
+// input  - T0, T1, ..., T(M), T(M + 1), ..., TN
+// apply  - (drop M values)
+// result - T(M), T(M + 1), ..., TN
+// Empty return type: list_<>
+export template <auto N, typename C = listify_v_>
+struct drop_v_ {};
+namespace impl { // drop_v_
+    template <std::size_t, typename C>
+    struct drop_v_impl;
+    // TODO: Is this correct behavior for dropping nothing?
+    template <typename C>
+    struct drop_v_impl<0, C> {
+        template <auto... Vs>
+        using f = call_v_<C, Vs...>;
+    };
+    template <typename C>
+    struct drop_v_impl<1, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<sizeof...(Vs), C>::template f<Vs...>;
+    };
+    template <typename C>
+    struct drop_v_impl<2, C> {
+        template <auto V0, auto V1, auto... Vs>
+        using f = dispatch<sizeof...(Vs), C>::template f<Vs...>;
+    };
+    template <typename C>
+    struct drop_v_impl<3, C> {
+        template <auto V0, auto V1, auto V2, auto... Vs>
+        using f = dispatch<sizeof...(Vs), C>::template f<Vs...>;
+    };
+    template <typename C>
+    struct drop_v_impl<4, C> {
+        template <auto V0, auto V1, auto V2, auto V3, auto... Vs>
+        using f = dispatch<sizeof...(Vs), C>::template f<Vs...>;
+    };
+    template <typename C>
+    struct drop_v_impl<5, C> {
+        template <auto V0, auto V1, auto V2, auto V3, auto V4,
+                auto... Vs>
+        using f = dispatch<sizeof...(Vs), C>::template f<Vs...>;
+    };
+    template <typename C>
+    struct drop_v_impl<6, C> {
+        template <auto V0, auto V1, auto V2, auto V3, auto V4,
+                  auto V5, auto... Vs>
+        using f = dispatch<sizeof...(Vs), C>::template f<Vs...>;
+    };
+    template <typename C>
+    struct drop_v_impl<7, C> {
+        template <auto V0, auto V1, auto V2, auto V3, auto V4,
+                  auto V5, auto V6, auto... Vs>
+        using f = dispatch<sizeof...(Vs), C>::template f<Vs...>;
+    };
+    template <typename C>
+    struct drop_v_impl<8, C> {
+        template <auto V0, auto V1, auto V2, auto V3, auto V4,
+                  auto V5, auto V6, auto V7, auto... Vs>
+        using f = dispatch<sizeof...(Vs), C>::template f<Vs...>;
+    };
+    template <typename C>
+    struct drop_v_impl<16, C> {
+        template<auto V0,  auto V1,  auto V2,  auto V3,  auto V4,
+                 auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
+                 auto V10, auto V11, auto V12, auto V13, auto V14,
+                 auto V15, auto... Vs>
+        using f = dispatch<sizeof...(Vs), C>::template f<Vs...>;
+    };
+    template <typename C>
+    struct drop_v_impl<32, C> {
+        template <auto V0,  auto V1,  auto V2,  auto V3,  auto V4,
+                  auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
+                  auto V10, auto V11, auto V12, auto V13, auto V14,
+                  auto V15, auto V16, auto V17, auto V18, auto V19,
+                  auto V20, auto V21, auto V22, auto V23, auto V24,
+                  auto V25, auto V26, auto V27, auto V28, auto V29,
+                  auto V30, auto V31, typename... Vs>
+        using f = dispatch<sizeof...(Vs), C>::template f<Vs...>;
+    };
+    template <typename C>
+    struct drop_v_impl<64, C> {
+        template <auto V0,  auto V1,  auto V2,  auto V3,  auto V4,
+                  auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
+                  auto V10, auto V11, auto V12, auto V13, auto V14,
+                  auto V15, auto V16, auto V17, auto V18, auto V19,
+                  auto V20, auto V21, auto V22, auto V23, auto V24,
+                  auto V25, auto V26, auto V27, auto V28, auto V29,
+                  auto V30, auto V31, auto V32, auto V33, auto V34,
+                  auto V35, auto V36, auto V37, auto V38, auto V39,
+                  auto V40, auto V41, auto V42, auto V43, auto V44,
+                  auto V45, auto V46, auto V47, auto V48, auto V49,
+                  auto V50, auto V51, auto V52, auto V53, auto V54,
+                  auto V55, auto V56, auto V57, auto V58, auto V59,
+                  auto V60, auto V61, auto V62, auto V63, auto... Vs>
+        using f = dispatch<sizeof...(Vs), C>::template f<Vs...>;
+    };
+    template <std::size_t P, typename C, std::size_t Step = step_selector(P)>
+    struct make_drop_v : drop_v_impl<Step, drop_v_<(P - Step), C>> { /* not done */
+    };
+    template <std::size_t P, typename C>
+    struct make_drop_v<P, C, P> : drop_v_impl<P, C> {};
+    template <std::size_t N, auto P, typename C>
+    struct dispatch<N, drop_v_<P, C>> : make_drop_v<P, C> {};
+} // namespace impl
+
+// drop_last_ :
 export template<Sizable N = sizet_<0>, typename C = listify_>
 struct drop_last_ {};
 namespace impl { // drop_last_
     template<std::size_t N, typename DropN, typename C>
     struct dispatch<N, drop_last_<DropN, C>> : dispatch<N, reverse_<drop_<DropN, reverse_<C>>>> {};
 } // namespace impl
+
+// drop_last_v_ :
+// TODO: Not implemented yet; needs reverse_v_
+// export template<std::integral auto N, typename C = listify_v_>
+// struct drop_last_v_ {};
+// namespace impl { // drop_last_
+//     template<std::size_t N, auto DropN, typename C>
+//     struct dispatch<N, drop_last_v_<DropN, C>> : dispatch<N, reverse_<drop_v_<DropN, reverse_<C>>>> {};
+// } // namespace impl
 
 // push_back_ :
 export template <typename T, typename C = listify_>
@@ -1396,6 +1931,17 @@ namespace impl { // push_back_
     struct dispatch<N, push_back_<T, C>> {
         template <typename... Ts>
         using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<Ts..., T>;
+    };
+} // namespace impl
+
+// push_back_v_ :
+export template <auto V, typename C = listify_>
+struct push_back_v_ {};
+namespace impl { // push_back_v_
+    template <std::size_t N, auto V, typename C>
+    struct dispatch<N, push_back_v_<V, C>> {
+        template <auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1), C>::template f<Vs..., V>;
     };
 } // namespace impl
 
@@ -1418,6 +1964,25 @@ namespace impl { // pop_front_
 };
 } // namespace impl
 
+// pop_front_v_ :
+export template <typename C = listify_>
+struct pop_front_v_ {};
+namespace impl { // pop_front_
+    template <std::size_t N, typename C>
+    struct dispatch<N, pop_front_v_<C>> {
+        template <auto V, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<Vs...>;
+    };
+    // TODO: Should this be kept? This differs from the behavior of popping
+    // the front off of an empty list (which results in an empty list).
+    // This, however, will return a list_<nothing_>
+    template <typename C>
+    struct dispatch<0, pop_front_v_<C>> {
+    template <auto... Vs>
+    using f = dispatch<1, C>::template f<nothing_>;
+};
+} // namespace impl
+
 // push_front_ :
 export template <typename T, typename C = listify_>
 struct push_front_ {};
@@ -1426,6 +1991,17 @@ namespace impl { // push_front_
     struct dispatch<N, push_front_<T, C>> {
         template <typename... Ts>
         using f = dispatch<find_dispatch(sizeof...(Ts) + 1), C>::template f<T, Ts...>;
+    };
+} // namespace impl
+
+// push_front_v_ :
+export template <auto V, typename C = listify_>
+struct push_front_v_ {};
+namespace impl { // push_front_v_
+    template <std::size_t N, auto V, typename C>
+    struct dispatch<N, push_front_v_<V, C>> {
+        template <auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1), C>::template f<V, Vs...>;
     };
 } // namespace impl
 
@@ -1442,6 +2018,23 @@ namespace impl { // pop_back_
     template <typename C>
     struct dispatch<0, pop_back_<C>> {
         template <typename... Ts>
+        using f = dispatch<1, C>::template f<nothing_>;
+    };
+} // namespace impl
+
+// pop_back_v_ :
+export template <typename C = listify_>
+struct pop_back_v_ {};
+namespace impl { // pop_back_v_
+    template<std::size_t N, typename C>
+    struct dispatch<N, pop_back_v_<C>> {
+        template <auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs)), rotate_v_<sizeof...(Vs) - 1, pop_front_v_<
+                        rotate_v_<(sizeof...(Vs) - 1), C>>>>::template f<Vs...>;
+    };
+    template <typename C>
+    struct dispatch<0, pop_back_v_<C>> {
+        template <auto... Vs>
         using f = dispatch<1, C>::template f<nothing_>;
     };
 } // namespace impl
@@ -1540,6 +2133,100 @@ namespace impl { // index_
 };
 } // namespace impl
 
+export template<std::size_t I, typename C = identity_>
+struct index_v_ {};
+export template<std::size_t I, typename C = identity_>
+using unpack_index_v_ = unpack_<index_v_<I, C>>;
+export template<typename C = identity_>
+using front_v_ = index_v_<0, C>;
+
+export template<typename C = identity_>
+using iv0_ = index_v_<0, C>;
+export template<typename C = identity_>
+using iv1_ = index_v_<1, C>;
+export template<typename C = identity_>
+using iv2_ = index_v_<2, C>;
+export template<typename C = identity_>
+using iv3_ = index_v_<3, C>;
+export template<typename C = identity_>
+using iv4_ = index_v_<4, C>;
+export template<typename C = identity_>
+using iv5_ = index_v_<5, C>;
+export template<typename C = identity_>
+using iv6_ = index_v_<6, C>;
+export template<typename C = identity_>
+using iv7_ = index_v_<7, C>;
+export template<typename C = identity_>
+using uiv0_ = unpack_<index_v_<0, C>>;
+export template<typename C = identity_>
+using uiv1_ = unpack_<index_v_<1, C>>;
+export template<typename C = identity_>
+using uiv2_ = unpack_<index_v_<2, C>>;
+export template<typename C = identity_>
+using uiv3_ = unpack_<index_v_<3, C>>;
+export template<typename C = identity_>
+using uiv4_ = unpack_<index_v_<4, C>>;
+export template<typename C = identity_>
+using uiv5_ = unpack_<index_v_<5, C>>;
+export template<typename C = identity_>
+using uiv6_ = unpack_<index_v_<6, C>>;
+export template<typename C = identity_>
+using uiv7_ = unpack_<index_v_<7, C>>;
+namespace impl { // index_v_
+    template <std::size_t N, auto I, typename C>
+    struct dispatch<N, index_v_<I, C>> : dispatch<N, drop_v_<I, front_v_<C>>> {};
+
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_v_<std::numeric_limits<std::size_t>::max(), C>> { // 
+        template <auto... Ts>
+        using f = nothing_;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_v_<0, C>> {
+        template <auto V0, auto... Vs>
+        using f = dispatch<1, C>::template f<V0>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_v_<1, C>> {
+        template <auto V0, auto V1, auto... Vs>
+        using f = dispatch<1, C>::template f<V1>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_v_<2, C>> {
+        template <auto V0, auto V1, auto V2, auto... Vs>
+        using f = dispatch<1, C>::template f<V2>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_v_<3, C>> {
+        template <auto V0, auto V1, auto V2, auto V3, auto... Vs>
+        using f = dispatch<1, C>::template f<V3>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_v_<4, C>> {
+        template<auto V0, auto V1, auto V2, auto V3,
+                 auto V4, auto... Vs>
+        using f = dispatch<1, C>::template f<V4>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_v_<5, C>> {
+        template<auto V0, auto V1, auto V2, auto V3,
+                 auto V4, auto V5, auto... Vs>
+        using f = dispatch<1, C>::template f<V5>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_v_<6, C>> {
+        template<auto V0, auto V1, auto V2, auto V3,
+                 auto V4, auto V5, auto V6, auto... Vs>
+        using f = dispatch<1, C>::template f<V6>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, index_v_<7, C>> {
+    template <auto V0, auto V1, auto V2, auto V3,
+              auto V4, auto V5, auto V6, auto V7, auto... Vs>
+    using f = dispatch<1, C>::template f<V7>;
+};
+} // namespace impl
+
 // erase_ : Given a VPP, remove the nth value in the pack.
 // Reduces the size of the list by 1.
 // Input params: Parameter pack
@@ -1567,6 +2254,25 @@ namespace impl { // erase_
     };
 } // namespace impl
 
+// Like erase_ except the nth value is given by a value, N
+export template <auto N, typename C = listify_v_>
+struct erase_v_ {};
+namespace impl {
+    // erase_v_
+    template <std::size_t N, auto I, typename C>
+    struct dispatch<N, erase_v_<I, C>> {
+        template <typename... Ts>
+        using f = dispatch<N,
+            rotate_v_<I,
+                pop_front_v_<rotate_v_<(sizeof...(Ts) - I - 1), C>>>>::template f<Ts...>;
+    };
+    template <auto I, typename C>
+    struct dispatch<0, erase_v_<I, C>> {
+        template <typename... Ts>
+        using f = dispatch<1, C>::template f<nothing_>;
+    };
+} // namespace impl
+
 // insert_ :
 export template <Sizable N, typename V, typename C = listify_>
 struct insert_ {};
@@ -1579,6 +2285,23 @@ namespace impl { // insert_
     };
     template <typename I, typename V, typename C>
     struct dispatch<0, insert_<I, V, C>> {
+        template <typename... Ts>
+        using f = dispatch<1, C>::template f<V>;
+    };
+} // namespace impl
+
+// insert_ :
+export template <std::size_t N, auto V, typename C = listify_>
+struct insert_v_ {};
+namespace impl { // insert_v_
+    template <std::size_t N, std::size_t I, auto V, typename C>
+    struct dispatch<N, insert_v_<I, V, C>> {
+        template <typename... Vs>
+        using f = dispatch<N, rotate_v_<I, push_front_v_<V, rotate_v_<(sizeof...(Vs) - I + 1),
+                                                        C>>>>::template f<Vs...>;
+    };
+    template <std::size_t I, auto V, typename C>
+    struct dispatch<0, insert_v_<I, V, C>> {
         template <typename... Ts>
         using f = dispatch<1, C>::template f<V>;
     };
@@ -1742,6 +2465,17 @@ namespace impl { // is_
     };
 } // namespace impl
 
+// is_v_ : 
+export template <auto P, typename C = identity_>
+struct is_v_ {};
+namespace impl { // is_v_
+    template <auto P, typename C>
+    struct dispatch<1, is_v_<P, C>> {
+        template <auto T>
+        using f = dispatch<1, C>::template f<(P == T)>;
+    };
+} // namespace impl
+
 // not_ : 
 export template <typename C = identity_>
 struct not_ {};
@@ -1750,6 +2484,17 @@ namespace impl { // not_
     struct dispatch<1, not_<C>> {
         template <Boolable T>
         using f = dispatch<1, C>::template f<bool_<(!T::value)>>;
+    };
+} // namespace impl
+
+// not_v_ : 
+export template <typename C = identity_>
+struct not_v_ {};
+namespace impl { // not_v_
+    template <typename C>
+    struct dispatch<1, not_v_<C>> {
+        template <bool V>
+        using f = dispatch<1, C>::template f<(!V)>;
     };
 } // namespace impl
 
@@ -1935,6 +2680,17 @@ namespace impl { // less_f_
     struct dispatch<2, less_f_<lift_<F>, C>> {
         template<typename T, typename U>
         using f = dispatch<1, C>::template f<bool_<(F<T>::value < F<U>::value)>>;
+    };
+} // namespace impl
+
+// less_f_v_ : 
+export template <typename F, typename C = identity_>
+struct less_f_v_ {};
+namespace impl { // less_f_
+    template <template<auto...> typename F, typename C>
+    struct dispatch<2, less_f_v_<lift_v_<F>, C>> {
+        template<auto T, auto U>
+        using f = dispatch<1, C>::template f<(F<T>::value < F<U>::value)>;
     };
 } // namespace impl
 
@@ -2802,6 +3558,18 @@ namespace impl { // take_
     };
 } // namespace impl
 
+// take_v_ :
+export template <std::integral auto N, typename C = listify_v_>
+struct take_v_ {};
+namespace impl { // take_v_
+    template <std::size_t N, auto P, typename C>
+    struct dispatch<N, take_v_<P, C>> {
+        template <auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs)),
+                        rotate_v_<P, drop_v_<(sizeof...(Vs) - P), C>>>::template f<Vs...>;
+    };
+} // namespace impl
+
 // take_last_ :
 export template<Sizable N = sizet_<0>, typename C = listify_>
 struct take_last_ {};
@@ -2810,6 +3578,17 @@ namespace impl { // take_last_
     struct dispatch<N, take_last_<P, C>> {
         template<typename... Ts>
         using f = dispatch<find_dispatch(sizeof...(Ts)), drop_<sizet_<(sizeof...(Ts) - P::value)>, C>>::template f<Ts...>;
+    };
+} // namespace impl
+
+// take_last_v_ :
+export template<auto N, typename C = listify_>
+struct take_last_v_ {};
+namespace impl { // take_last_
+    template<std::size_t N, auto P, typename C>
+    struct dispatch<N, take_last_v_<P, C>> {
+        template<auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs)), drop_v_<(sizeof...(Vs) - P), C>>::template f<Vs...>;
     };
 } // namespace impl
 
@@ -3009,6 +3788,16 @@ namespace impl { // contains_
     template <std::size_t N, typename T, typename C>
     struct dispatch<N, contains_<T, C>> : dispatch<N, or_<is_<T>, C>> {};
 } // namespace impl
+
+// contains_v_ : Given a non-type parameter (V), return true_ / false_ on whether a given NTTP
+// contains the value V.
+export template <auto V, typename C = identity_>
+struct contains_v_ {};
+namespace impl { // contains_
+    template <std::size_t N, auto V, typename C>
+    struct dispatch<N, contains_v_<V, C>> : dispatch<N, or_<is_v_<V>, C>> {};
+} // namespace impl
+
 
 // contains_subrange_ :
 export template<typename L, typename C = identity_>
