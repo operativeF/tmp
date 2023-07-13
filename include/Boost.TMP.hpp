@@ -1508,7 +1508,7 @@ namespace impl { // rotate_v_
     struct rotate_v_impl;
     template <typename C>
     struct rotate_v_impl<0, C> {
-        template <typename... Vs>
+        template <auto... Vs>
         using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<Vs...>;
     };
     template <typename C>
