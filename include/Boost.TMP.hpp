@@ -7,6 +7,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #if defined(__GNUC__) || defined(__clang__) || !defined(ENABLE_CPP_MODULE)
+#include <array>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
@@ -859,7 +860,7 @@ using IndexSeq = std::index_sequence<Is...>;
 // template<int... Is>
 // using IntSeq = std::integer_sequence<Is...>;
 
-BOOST_TMP_EXPORT template<typename... Ts> requires(std::same_as<Ts::value, std::size_t> && ...)
+BOOST_TMP_EXPORT template<typename... Ts> requires(std::same_as<Ts, std::size_t> && ...)
 using into_sequence = IndexSeq<Ts::value...>;
 
 namespace impl {
