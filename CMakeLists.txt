@@ -36,7 +36,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 add_subdirectory(modules)
 
 option(ENABLE_BENCHMARKING "Enable benchmarking" OFF)
-
+option(ENABLE_CPP_MODULE "Enable C++ module of Boost.TMP" OFF)
 option(ENABLE_COMPILE_TIME_TESTING "Enable compile-time testing using concepts." ON)
 
 if(ENABLE_BENCHMARKING)

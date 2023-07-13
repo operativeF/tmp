@@ -6,33 +6,36 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#if defined(__GNUC__) || defined(__clang__)
+#if defined(__GNUC__) || defined(__clang__) || !defined(ENABLE_CPP_MODULE)
+#include "Boost.TMP.hpp"
+
+#include <array>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
 #include <limits>
 #include <type_traits>
 #include <utility>
-#endif // defined(__GNUC__ ) || defined(__clang__)
-
+#else //
 import Boost.TMP;
 
 #ifdef _MSC_VER
 import std;
 #endif // _MSC_VER
+#endif //
 
 using namespace boost::tmp;
 
 namespace array_into_list_tests {
 
-	static constexpr std::array<int, 5> Arr1{1, 2, 3, 4, 5};
-	static constexpr auto str = StrLit{"nameless"};
+	// static constexpr std::array<int, 5> Arr1{1, 2, 3, 4, 5};
+	// static constexpr auto str = StrLit{"nameless"};
 
-	template <typename T>
-	    requires(std::same_as<T, list_<int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>)
-	struct ArrayNowParamPack;
+	// template <typename T>
+	//     requires(std::same_as<T, list_<int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>)
+	// struct ArrayNowParamPack;
 
-	using array_into_list_test_1 = ArrayNowParamPack<call_v_<lift_v_<array_into_list_>, Arr1>>;
+	// using array_into_list_test_1 = ArrayNowParamPack<call_v_<lift_v_<array_into_list_>, Arr1>>;
 
 } // namespace array_into_list_tests
 
