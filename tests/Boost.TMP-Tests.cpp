@@ -442,6 +442,26 @@ namespace logic_tests {
 
 } // namespace logic_tests
 
+namespace value_to_type_tests {
+
+	template<typename T> requires(std::same_as<T,
+		list_<
+			int_<1>,
+			uint_<2>,
+			char_<'c'>,
+			false_,
+			uchar_<'d'>
+		>>)
+	struct TransmogValueToType;
+	using value_to_type_test_1 = TransmogValueToType<call_v_<transform_v_<value_to_type_<default_type_lookup_table_>>,
+		1,
+		2U,
+		'c',
+		false,
+		unsigned char{'d'}>>;
+
+} // namespace value_to_type_tests
+
 namespace nth_values_tests {
 
 	template <typename T>

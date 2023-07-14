@@ -86,15 +86,10 @@ namespace impl { // identity_
 } // namespace impl
 
 // identity_v_ :
-BOOST_TMP_EXPORT struct identity_v_ {};
-namespace impl { // identity_v_
-    template <>
-    struct dispatch<1, identity_v_> {
-        template <auto V>
-        static constexpr decltype(V) v = V;
-    };
-} // namespace impl
-
+template<auto V>
+BOOST_TMP_EXPORT consteval auto identity_v_() {
+    return std::forward<decltype(V)>(V);
+}
 
 // Unsigned and signed integral type wrappers
 BOOST_TMP_EXPORT template<unsigned int V>
@@ -135,11 +130,6 @@ BOOST_TMP_EXPORT struct nothing_ {};
 // lift_ : Used for lifting a type into a function.
 BOOST_TMP_EXPORT template <template <typename...> class F, typename C = identity_>
 struct lift_ {};
-
-// lift_ : Used for lifting a non-type parameter into a function.
-BOOST_TMP_EXPORT template <template <auto...> class F, typename C = identity_>
-struct lift_v_ {};
-
 namespace impl { // lift_
     template <template <typename...> class F, typename C>
     struct dispatch<1, lift_<F, C>> {
@@ -166,8 +156,12 @@ namespace impl { // lift_
         template <typename... Ts>
         using f = dispatch<1, C>::template f<F<Ts...>>;
     };
+} // namespace impl
 
-    // lift_v_
+// lift_v_ : Used for lifting a non-type parameter into a function.
+BOOST_TMP_EXPORT template <template <auto...> class F, typename C = identity_>
+struct lift_v_ {};
+namespace impl { // lift_v_
     template <template <auto...> class F, typename C>
     struct dispatch<1, lift_v_<F, C>> {
         template <auto V>
@@ -207,6 +201,29 @@ struct list_v_ {};
 // listify_v_ :
 BOOST_TMP_EXPORT using listify_v_ = lift_v_<list_v_>;
 
+
+BOOST_TMP_EXPORT using default_type_lookup_table_ =
+    list_<
+        list_<bool, lift_v_<bool_>>,
+        list_<int,  lift_v_<int_>>,
+        list_<unsigned int, lift_v_<uint_>>,
+        list_<char, lift_v_<char_>>,
+        list_<wchar_t, lift_v_<wchar_>>,
+        list_<unsigned char, lift_v_<uchar_>>,
+        list_<char8_t, lift_v_<char8_>>,
+        list_<char16_t, lift_v_<char16_>>,
+        list_<char32_t, lift_v_<char32_>>,
+        list_<std::size_t, lift_v_<sizet_>>,
+        list_<std::uint8_t, lift_v_<uint8_>>,
+        list_<std::uint16_t, lift_v_<uint16_>>,
+        list_<std::uint32_t, lift_v_<uint32_>>,
+        list_<std::uint64_t, lift_v_<uint64_>>,
+        list_<std::int8_t, lift_v_<int8_>>,
+        list_<std::int16_t, lift_v_<int16_>>,
+        list_<std::int32_t, lift_v_<int32_>>,
+        list_<std::int64_t, lift_v_<int64_>>
+    >;
+
 // always_ : metaclosure returns type / shovels into the continuation C.
 BOOST_TMP_EXPORT template <typename T, typename C = identity_>
 struct always_ {};
@@ -218,7 +235,7 @@ namespace impl { // always_
     };
 } // namespace impl
 
-// always_v_ : metaclosure returns value / shovels into the continuation C.
+// always_v_ : metaclosure returns NTTP / shovels into the continuation C.
 BOOST_TMP_EXPORT template <auto V, typename C = identity_>
 struct always_v_ {};
 namespace impl { // always_v_
@@ -249,6 +266,12 @@ using call_t = impl::dispatch<impl::find_dispatch(sizeof...(Ts)), T>::template
                     f<Ts...>::type;
 BOOST_TMP_EXPORT template <typename F, auto... Vs>
 using call_v_ = impl::dispatch<impl::find_dispatch(sizeof...(Vs)), F>::template f<Vs...>;
+
+BOOST_TMP_EXPORT template <auto... Vs>
+struct call_vv_ {
+    template<typename F>
+    using f = impl::dispatch<impl::find_dispatch(sizeof...(Vs)), F>::template f<Vs...>;
+};
 
 // call_f_ : 
 BOOST_TMP_EXPORT template <typename C = identity_>
@@ -803,14 +826,11 @@ namespace impl { // fold_right_
 consteval std::size_t select_foldey_loop(std::size_t rest_size) {
     return static_cast<std::size_t>(rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008);
 }
-
-// FIXME: Workaround employed after value isn't found when invoking F::template f<T0>::value
-// in foldey<1001>. The value of the type is found after referring to it here, not in foldey<1001>.
-template<typename WorkAroundT>
-consteval std::size_t select_foldey(std::size_t chunk_size, std::size_t rest_size) {
-    return WorkAroundT::value == std::numeric_limits<std::size_t>::max() ? select_foldey_loop(rest_size) :
-                                    chunk_size - WorkAroundT::value;
+    consteval std::size_t select_foldey(std::size_t chunk_size, std::size_t rest_size, std::size_t found_at_index) {
+        return found_at_index == -1 ? select_foldey_loop(rest_size) :
+                                        chunk_size - found_at_index;
 }
+
 
 template <std::size_t S>
 struct foldey {
@@ -822,11 +842,10 @@ struct foldey<1000> {
     template <typename F, std::size_t N, typename... Ts>
     using f = nothing_;
 };
-// FIXME: Workaround for extracting value in F::template f<T0>. Pass type into now templated select_foldey.
 template <>
 struct foldey<1001> {
     template <typename F, std::size_t N, typename T0, typename... Ts> 
-    using f = foldey<select_foldey<typename F::template f<T0>>(1, sizeof...(Ts))>::template f<F, N + 1, Ts...>;
+    using f = foldey<select_foldey(1, sizeof...(Ts), F::template f<T0>::value)>::template f<F, N + 1, Ts...>;
 };
 template <>
 struct foldey<1008> {
@@ -1691,6 +1710,23 @@ namespace impl { // transform_
     template <typename... Ts>
     using f = dispatch<(N + (N > sizeof...(Ts))), C>::template f<F<Ts>...>;
 };
+} // namespace impl
+
+// transform_v_ : 
+BOOST_TMP_EXPORT template <typename F = identity_, typename C = listify_>
+struct transform_v_ {};
+namespace impl { // transform_v_
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, transform_v_<F, C>> {
+        template <auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<
+                        typename dispatch<1, F>::template f<Vs>...>;
+    };
+    template <std::size_t N, template <auto...> class F, typename FC, typename C>
+    struct dispatch<N, transform_v_<lift_v_<F, FC>, C>> {
+        template <auto... Vs>
+        using f = dispatch<(N + (N > sizeof...(Vs))), C>::template f<F<Vs>...>;
+    };
 } // namespace impl
 
 // drop_ : Remove (N) values from the front of the input VPP.
@@ -3834,5 +3870,19 @@ namespace impl { // try_
                 try_f(lift_<F>{}, list_<Ts...>{}))::type>;
     };
 } // namespace impl
+
+BOOST_TMP_EXPORT template <typename M, typename C = identity_>
+struct value_to_type_ {};
+namespace impl { // value_to_type_
+    template<std::size_t N, typename M, typename C>
+    struct dispatch<N, value_to_type_<M, C>> {
+        template<auto V>
+        using f = dispatch<N, C>::template f<
+            call_<
+              unpack_<tee_<keys_<find_if_<is_<decltype(V)>, lift_<unpack_index_>>>, values_<>,
+                lift_<call_, lift_<typename call_vv_<V>::f>>>>, M>>;
+    };
+} // namespace impl
+
 
 } // namespace boost::tmp
