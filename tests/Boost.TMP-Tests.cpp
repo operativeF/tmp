@@ -169,6 +169,28 @@ namespace erase_tests {
 
 } // namespace erase_tests
 
+namespace erase_v_tests {
+	template <typename T>
+	    requires(std::same_as<T, list_v_<2, 3>>)
+	struct EraseFirstElement;
+
+	// Erasing an element from a list with a single element will always result in empty list.
+	template <typename T>
+	    requires(std::same_as<T, list_v_<>>)
+	struct EraseSingleElement;
+
+	// UNDER RECONSIDERATION: Returns list_<nothing_> if no input is given.
+	template <typename T>
+	    requires(std::same_as<T, list_v_<nothing_{}>>)
+	struct EraseEmptyPackReturnsNothingType;
+
+	using erase_test_1 = EraseFirstElement<call_v_<erase_v_<0>, 1, 2, 3>>;
+
+	using erase_test_2 = EraseSingleElement<call_v_<erase_v_<0>, 0>>;
+
+	using erase_test_3 = EraseEmptyPackReturnsNothingType<call_v_<erase_v_<0>>>;
+} // namespace erase_tests
+
 namespace filter_tests {
 
 	template <typename T>
@@ -644,6 +666,15 @@ namespace rotate_tests {
 	// list_<int_<3>, int_<1>, int_<2>>{} = call_<rotate_<int_<-1>>, int_<1>, int_<2>, int_<3>>{};
 
 } // namespace rotate_tests
+
+namespace rotate_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<1, 3, 2>>)
+struct OneThreeTwo;
+
+using RotateTwice = OneThreeTwo<call_v_<rotate_v_<2>, 3, 2, 1>>;
+
+} // namespace rotate_v_tests
 
 namespace sequence_tests {
 

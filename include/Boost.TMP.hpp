@@ -2302,15 +2302,15 @@ namespace impl {
     // erase_v_
     template <std::size_t N, auto I, typename C>
     struct dispatch<N, erase_v_<I, C>> {
-        template <typename... Ts>
+        template <auto... Vs>
         using f = dispatch<N,
             rotate_v_<I,
-                pop_front_v_<rotate_v_<(sizeof...(Ts) - I - 1), C>>>>::template f<Ts...>;
+                pop_front_v_<rotate_v_<(sizeof...(Vs) - I - 1), C>>>>::template f<Vs...>;
     };
     template <auto I, typename C>
     struct dispatch<0, erase_v_<I, C>> {
-        template <typename... Ts>
-        using f = dispatch<1, C>::template f<nothing_>;
+        template <auto... Vs>
+        using f = dispatch<1, C>::template f<nothing_{}>;
     };
 } // namespace impl
 
