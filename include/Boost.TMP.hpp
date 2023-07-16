@@ -2332,7 +2332,7 @@ namespace impl { // insert_
 } // namespace impl
 
 // insert_v_ :
-BOOST_TMP_EXPORT template <std::size_t N, auto V, typename C = listify_>
+BOOST_TMP_EXPORT template <std::size_t N, auto V, typename C = listify_v_>
 struct insert_v_ {};
 namespace impl { // insert_v_
     template <std::size_t N, std::size_t I, auto V, typename C>

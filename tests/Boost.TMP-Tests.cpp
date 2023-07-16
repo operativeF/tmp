@@ -385,6 +385,43 @@ namespace insert_tests {
 
 } // namespace insert_tests
 
+namespace insert_v_tests {
+
+	// Insert char_<'c'> at position 1
+	template <typename T>
+	    requires(std::same_as<T, list_v_<1, 'c', 2>>)
+	struct Insert_C_AtPositionOne;
+
+	// Insert char_<'c'> at position 0
+	template <typename T>
+	    requires(std::same_as<T, list_v_<'c', 1, 2>>)
+	struct Insert_C_AtPositionZero;
+
+	// Insert char_<'c'> at position 2
+	template <typename T>
+	    requires(std::same_as<T, list_v_<1, 2, 'c'>>)
+	struct Insert_C_AtPositionTwo;
+
+	// Insert char_<'c'> into no list (returns a list_ with char_<'c'> in it)
+	template <typename T>
+	    requires(std::same_as<T, list_v_<'c'>>)
+	struct EmptyPackInsertionReturnsSingleElementList;
+
+	using insert_test_1 =
+	        Insert_C_AtPositionZero<call_v_<insert_v_<0, 'c'>, 1, 2>>;
+
+	using insert_test_2 =
+	        Insert_C_AtPositionOne<call_v_<insert_v_<1, 'c'>, 1, 2>>;
+
+	using insert_test_3 =
+	        Insert_C_AtPositionTwo<call_v_<insert_v_<2, 'c'>, 1, 2>>;
+
+	using insert_test_4 =
+	        EmptyPackInsertionReturnsSingleElementList<call_v_<insert_v_<0, 'c'>>>;
+
+} // namespace insert_v_tests
+
+
 namespace join_tests {
 
 	// TODO: join_ must flatten nested lists.
