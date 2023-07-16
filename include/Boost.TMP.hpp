@@ -86,8 +86,8 @@ namespace impl { // identity_
 } // namespace impl
 
 // identity_v_ :
-template<auto V>
-BOOST_TMP_EXPORT consteval auto identity_v_() {
+BOOST_TMP_EXPORT template<auto V>
+consteval auto identity_v_() {
     return std::forward<decltype(V)>(V);
 }
 
