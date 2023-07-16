@@ -241,7 +241,7 @@ struct always_v_ {};
 namespace impl { // always_v_
     template <std::size_t N, auto V, typename C>
     struct dispatch<N, always_v_<V, C>> {
-        template <typename...>
+        template <auto...>
         using f = dispatch<1, C>::template f<V>;
     };
 } // namespace impl
@@ -1690,7 +1690,7 @@ namespace impl { // swap_
     };
     template<std::size_t N, typename C> requires(N == 2)
     struct dispatch<N, swap_v_<C>> {
-        template<typename...>
+        template<auto...>
         using f = nothing_;
     };
 } // namespace impl
@@ -2331,19 +2331,19 @@ namespace impl { // insert_
     };
 } // namespace impl
 
-// insert_ :
+// insert_v_ :
 BOOST_TMP_EXPORT template <std::size_t N, auto V, typename C = listify_>
 struct insert_v_ {};
 namespace impl { // insert_v_
     template <std::size_t N, std::size_t I, auto V, typename C>
     struct dispatch<N, insert_v_<I, V, C>> {
-        template <typename... Vs>
+        template <auto... Vs>
         using f = dispatch<N, rotate_v_<I, push_front_v_<V, rotate_v_<(sizeof...(Vs) - I + 1),
                                                         C>>>>::template f<Vs...>;
     };
     template <std::size_t I, auto V, typename C>
     struct dispatch<0, insert_v_<I, V, C>> {
-        template <typename... Ts>
+        template <auto... Ts>
         using f = dispatch<1, C>::template f<V>;
     };
 } // namespace impl
