@@ -1663,6 +1663,16 @@ namespace impl { // size_
     };
 } // namespace impl
 
+BOOST_TMP_EXPORT template <typename C = listify_v_>
+struct size_v_ {};
+namespace impl { // size_
+    template <std::size_t N, typename C>
+    struct dispatch<N, size_v_<C>> {
+        template <auto... Ls>
+        using f = dispatch<1, C>::template f<sizeof...(Ls)>;
+    };
+} // namespace impl
+
 // swap_ : Swaps two variadic parameter pack values. Must be only two values.
 BOOST_TMP_EXPORT template <typename C = listify_>
 struct swap_ {};

@@ -126,9 +126,9 @@ namespace drop_v_tests {
 	    requires(std::same_as<T, list_v_<1, 2>>)
 	struct DropVZeroReturnsInputList;
 
-	// using drop_test_1 = DropOneOffOfList<call_v_<drop_v_<1>, 0, 1>>;
+	using drop_test_1 = DropVOneOffOfList<call_v_<drop_v_<1>, 0, 1>>;
 
-	// using drop_test_2 = DropZeroReturnsInputList<call_v_<drop_v_<0>, 1, 2>>;
+	using drop_test_2 = DropVZeroReturnsInputList<call_v_<drop_v_<0>, 1, 2>>;
 
 	// Dropping off of no input returns empty list
 	// UNDER CONSIDERATION: Dropping input off of no input fails.
@@ -420,7 +420,6 @@ namespace insert_v_tests {
 	        EmptyPackInsertionReturnsSingleElementList<call_v_<insert_v_<0, 'c'>>>;
 
 } // namespace insert_v_tests
-
 
 namespace join_tests {
 
@@ -769,6 +768,15 @@ namespace size_tests {
 	using size_test_2 = SizeEmptyPackIsZero<call_<size_<>>>;
 
 } // namespace size_tests
+
+namespace size_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<3>>)
+struct FiveValueListV;
+
+using size_v_test_1 = FiveValueListV<call_v_<size_v_<>, 1, 2, 3>>;
+
+} // namespace size_v_tests
 
 namespace slice_tests {
 
