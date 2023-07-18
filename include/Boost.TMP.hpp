@@ -1519,7 +1519,7 @@ namespace impl { // rotate_
 } // namespace impl
 
 // rotate_v_
-BOOST_TMP_EXPORT template <std::integral auto N, typename C = listify_v_>
+BOOST_TMP_EXPORT template <std::size_t N = 0, typename C = listify_v_>
 struct rotate_v_ {};
 namespace impl { // rotate_v_
     // rotate_v_ impl
@@ -1630,18 +1630,18 @@ namespace impl { // rotate_v_
                                  V44, V45, V46, V47, V48, V49, V50, V51, V52, V53, V54,
                                  V55, V56, V57, V58, V59, V60, V61, V62, V63>;
     };
-    template <auto P, typename C>
+    template <std::size_t P, typename C>
     struct dispatch<0, rotate_v_<P, C>> {
         template <typename...>
         using f = dispatch<0, C>::template f<>;
     };
-    template <auto P, typename C, auto Step = step_selector(P)>
+    template <std::size_t P, typename C, std::size_t Step = step_selector(P)>
     struct make_rotate_v_
         : rotate_v_impl<step_selector(Step), rotate_v_<(P - Step), C>> { /* not done */
     };
-    template <auto P, typename C>
+    template <std::size_t P, typename C>
     struct make_rotate_v_<P, C, P> : rotate_v_impl<P, C> {};
-    template <std::size_t N, auto P, typename C>
+    template <std::size_t N, std::size_t P, typename C>
     struct dispatch<N, rotate_v_<P, C>> : make_rotate_v_<P, C> {};
 } // namespace impl
 
