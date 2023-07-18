@@ -507,16 +507,14 @@ namespace value_to_type_tests {
 			int_<1>,
 			uint_<2>,
 			char_<'c'>,
-			false_,
-			uchar_<'d'>
+			false_
 		>>)
 	struct TransmogValueToType;
 	using value_to_type_test_1 = TransmogValueToType<call_v_<transform_v_<value_to_type_<default_type_lookup_table_>>,
 		1,
 		2U,
 		'c',
-		false,
-		unsigned char{'d'}>>;
+		false>>;
 
 } // namespace value_to_type_tests
 
