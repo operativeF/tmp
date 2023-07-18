@@ -1969,13 +1969,12 @@ namespace impl { // drop_last_
 } // namespace impl
 
 // drop_last_v_ :
-// TODO: Not implemented yet; needs reverse_v_
-// BOOST_TMP_EXPORT template<std::integral auto N, typename C = listify_v_>
-// struct drop_last_v_ {};
-// namespace impl { // drop_last_
-//     template<std::size_t N, auto DropN, typename C>
-//     struct dispatch<N, drop_last_v_<DropN, C>> : dispatch<N, reverse_<drop_v_<DropN, reverse_<C>>>> {};
-// } // namespace impl
+BOOST_TMP_EXPORT template<std::size_t N, typename C = listify_v_>
+struct drop_last_v_ {};
+namespace impl { // drop_last_
+    template<std::size_t N, std::size_t DropN, typename C>
+    struct dispatch<N, drop_last_v_<DropN, C>> : dispatch<N, reverse_v_<drop_v_<DropN, reverse_v_<C>>>> {};
+} // namespace impl
 
 // push_back_ :
 BOOST_TMP_EXPORT template <typename T, typename C = listify_>

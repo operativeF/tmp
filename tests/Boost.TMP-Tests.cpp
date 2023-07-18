@@ -126,21 +126,21 @@ namespace drop_v_tests {
 	    requires(std::same_as<T, list_v_<1, 2>>)
 	struct DropVZeroReturnsInputList;
 
-	using drop_test_1 = DropVOneOffOfList<call_v_<drop_v_<1>, 0, 1>>;
+	using drop_v_test_1 = DropVOneOffOfList<call_v_<drop_v_<1>, 0, 1>>;
 
-	using drop_test_2 = DropVZeroReturnsInputList<call_v_<drop_v_<0>, 1, 2>>;
+	using drop_v_test_2 = DropVZeroReturnsInputList<call_v_<drop_v_<0>, 1, 2>>;
 
 	// Dropping off of no input returns empty list
 	// UNDER CONSIDERATION: Dropping input off of no input fails.
 	// Should this return an empty list?
 	// list_<>{} = call_<drop_<uint_<7>>>{};
 
-	// template <typename T>
-	//     requires(std::same_as<T, list_v_<1, 2>>)
-	// struct DropVLastThreeOffEnd;
+	template <typename T>
+	    requires(std::same_as<T, list_v_<1, 2>>)
+	struct DropVLastThreeOffEnd;
 
-	// using drop_last_test_1 = DropVLastThreeOffEnd<
-	//         call_v_<drop_last_v_<3>, 1, 2, 3, 4, 5>>;
+	using drop_last_v_test_1 = DropVLastThreeOffEnd<
+	        call_v_<drop_last_v_<3>, 1, 2, 3, 4, 5>>;
 } // namespace drop_v_tests
 
 namespace each_tests {}
