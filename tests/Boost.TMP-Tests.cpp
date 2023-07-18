@@ -635,6 +635,16 @@ namespace push_pop_tests {
 
 } // namespace push_pop_tests
 
+namespace range_lo_hi_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<false>>)
+struct OutsideOf5To10;
+
+using range_lo_hi_v_test_1 = OutsideOf5To10<call_v_<range_lo_hi_v_<5, 10>, 7>>;
+
+} // namespace range_lo_hi_v_tests
+
+
 namespace reverse_tests {
 
 	template <typename T>

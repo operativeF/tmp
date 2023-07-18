@@ -2877,6 +2877,19 @@ namespace impl { // range_lo_hi_
 
 } // namespace impl
 
+// range_lo_hi_v_ : 
+BOOST_TMP_EXPORT template <auto LV, auto UV, typename C = listify_v_>
+struct range_lo_hi_v_ {};
+namespace impl { // range_lo_hi_v_
+    template <auto Lower, auto Upper, typename C>
+    struct dispatch<1, range_lo_hi_v_<Lower, Upper, C>> {
+        template<auto T>
+        using f = dispatch<1, C>::template f<!((Lower < T) && (T < Upper))>;
+};
+
+} // namespace impl
+
+
 // all_of_ : Given a unary predicate, return true_ / false_ on whether all elements
 // in a parameter pack satisfy that predicate. Shorting (uses and_).
 BOOST_TMP_EXPORT template <typename F, typename C = identity_>
