@@ -2495,6 +2495,93 @@ namespace impl { // repeat_sequence_
     struct dispatch<N, repeat_sequence_<P, C>> : make_repeat<P::value, C> {};
 } // namespace impl
 
+// repeat_sequence_ :
+BOOST_TMP_EXPORT template<std::size_t N = 0, typename C = listify_v_>
+struct repeat_sequence_v_{};
+namespace impl { // repeat_sequence_
+    template <std::size_t, typename C>
+    struct repeat_seq_impl_v;
+    template <typename C>
+    struct repeat_seq_impl_v<0, C> {
+        template <auto...>
+        using f = dispatch<0, C>::template f<>;
+    };
+    template <typename C>
+    struct repeat_seq_impl_v<1, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<sizeof...(Vs) + 1, C>::template f<V, Vs...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl_v<2, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<sizeof...(Vs) + 2, C>::template f<V, V, Vs...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl_v<3, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<sizeof...(Vs) + 3, C>::template f<V, V, V, Vs...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl_v<4, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<sizeof...(Vs) + 4, C>::template f<V, V, V, V, Vs...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl_v<5, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<sizeof...(Vs) + 5, C>::template f<V, V, V, V, V, Vs...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl_v<6, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<sizeof...(Vs) + 6, C>::template f<V, V, V, V, V, V, Vs...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl_v<7, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<sizeof...(Vs) + 7, C>::template f<V, V, V, V, V, V, V, Vs...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl_v<8, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<sizeof...(Vs) + 8, C>::template f<V, V, V, V, V, V, V, V, Vs...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl_v<16, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<sizeof...(Vs) + 16, C>::template f<V, V, V, V, V, V, V, V,
+                                                            V, V, V, V, V, V, V, V, Vs...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl_v<32, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<sizeof...(Vs) + 32, C>::template f<V, V, V, V, V, V, V, V,
+                                                            V, V, V, V, V, V, V, V,
+                                                            V, V, V, V, V, V, V, V,
+                                                            V, V, V, V, V, V, V, V, Vs...>;
+    };
+    template <typename C>
+    struct repeat_seq_impl_v<64, C> {
+        template <auto V, auto... Vs>
+        using f = dispatch<sizeof...(Vs) + 64, C>::template f<
+                V, V, V, V, V, V, V, V,
+                V, V, V, V, V, V, V, V,
+                V, V, V, V, V, V, V, V,
+                V, V, V, V, V, V, V, V,
+                V, V, V, V, V, V, V, V,
+                V, V, V, V, V, V, V, V,
+                V, V, V, V, V, V, V, V,
+                V, V, V, V, V, V, V, V, Vs...>;
+    };
+    template <std::size_t P, typename C, std::size_t Step = step_selector(P)>
+    struct make_repeat_v : repeat_seq_impl_v<Step, repeat_sequence_v_<(P - Step) + 1, C>> {};
+    template <std::size_t P, typename C>
+    struct make_repeat_v<P, C, P> : repeat_seq_impl_v<P, C> {};
+    template <std::size_t N, std::size_t P, typename C>
+    struct dispatch<N, repeat_sequence_v_<P, C>> : make_repeat_v<P, C> {};
+} // namespace impl
+
+
 // is_ : 
 BOOST_TMP_EXPORT template <typename P, typename C = identity_>
 struct is_ {};

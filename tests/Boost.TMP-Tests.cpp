@@ -743,6 +743,16 @@ namespace sequence_tests {
 
 } // namespace sequence_tests
 
+namespace sequence_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<1, 1, 1, 1, 1,
+													  1, 1, 1, 1, 1>>)
+struct RepeatedOnes;
+
+using sequence_v_test_1 = RepeatedOnes<call_v_<repeat_sequence_v_<10>, 1>>;
+
+} // namespace sequence_v_tests
+
 namespace size_tests {
 
 	template <typename T>
