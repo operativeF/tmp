@@ -771,7 +771,7 @@ namespace size_tests {
 
 namespace size_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<3>>)
+template<typename T> requires(std::same_as<T, list_v_<std::size_t{3}>>)
 struct FiveValueListV;
 
 using size_v_test_1 = FiveValueListV<call_v_<size_v_<>, 1, 2, 3>>;
