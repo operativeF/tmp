@@ -43,6 +43,11 @@ namespace impl { // dispatch
         template <typename... Ts>
         using f = dispatch<find_dispatch(sizeof...(Ts)), C>::template f<Ts...>;
     };
+    template <typename C>
+    struct dispatch_unknown_v {
+        template <auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<Vs...>;
+    };
 
     consteval std::size_t step_selector(std::size_t N) {
         return N <= 8 ? N : N < 16 ? 8 : N < 32 ? 16 : N < 64 ? 32 : 64;
@@ -1219,13 +1224,12 @@ namespace impl { // reverse_
 // apply  - (reverse element order of value parameter pack)
 // result -  VN, ..., V1, V0
 // Empty return type: list_<>
-/*
-BOOST_TMP_EXPORT template <typename C = identity_>
+BOOST_TMP_EXPORT template <typename C = listify_v_>
 struct reverse_v_ {};
 namespace impl { // reverse_v_
-    template<typename C, auto... Vs>
+    template<auto... Vs>
     struct reverse_v_impl {
-        template <auto... Ws>
+        template <typename C, auto... Ws>
         using f = dispatch<
             find_dispatch(sizeof...(Vs) + sizeof...(Ws)), C>::template f<Vs..., Ws...>;
     };
@@ -1280,9 +1284,9 @@ namespace impl { // reverse_v_
     struct dispatch<9, reverse_v_<C>> {
         template <auto V0, auto V1, auto V2, auto V3, auto V4,
                   auto V5, auto V6, auto V7, auto... Vs>
-        using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
-                            reverse_v_<lift_<reverse_v_impl>>>::template f<Vs..., C>::
-                                template f<V7, V6, V5, V4, V3, V2, V1, V0>;
+        using f = dispatch<find_dispatch(sizeof...(Vs)),
+                            reverse_v_<lift_v_<reverse_v_impl>>>::template f<Vs...>::
+                                template f<C, V7, V6, V5, V4, V3, V2, V1, V0>;
     };
     template <typename C>
     struct dispatch<16, reverse_v_<C>> {
@@ -1299,9 +1303,9 @@ namespace impl { // reverse_v_
                   auto V5,  auto V6,  auto V7,  auto V8,  auto V9,
                   auto V10, auto V11, auto V12, auto V13, auto V14,
                   auto V15, auto... Vs>
-        using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
-                                    reverse_v_<lift_v_<reverse_v_impl>>>::template f<Vs..., C>::
-                template f<V15, V14, V13, V12, V11, V10, V9, V8, V7, V6, V5, V4, V3, V2, V1, V0>;
+        using f = dispatch<find_dispatch(sizeof...(Vs)),
+                                    reverse_v_<lift_v_<reverse_v_impl>>>::template f<Vs...>::
+                template f<C, V15, V14, V13, V12, V11, V10, V9, V8, V7, V6, V5, V4, V3, V2, V1, V0>;
     };
     template <typename C>
     struct dispatch<32, reverse_v_<C>> {
@@ -1326,8 +1330,8 @@ namespace impl { // reverse_v_
                   auto V20, auto V21, auto V22, auto V23, auto V24,
                   auto V25, auto V26, auto V27, auto V28, auto V29,
                   auto V30, auto V31, auto... Vs>
-        using f = dispatch<find_dispatch(sizeof...(Vs) + 1), reverse_v_<lift_v_<reverse_v_impl>>>::template
-                    f<Vs..., C>::template f<V31, V30, V29, V28, V27, V26, V25, V24,
+        using f = dispatch<find_dispatch(sizeof...(Vs)), reverse_v_<lift_v_<reverse_v_impl>>>::template
+                    f<Vs...>::template f<C, V31, V30, V29, V28, V27, V26, V25, V24,
                                             V23, V22, V21, V20, V19, V18, V17, V16,
                                             V15, V14, V13, V12, V11, V10, V9,  V8,
                                             V7,  V6,  V5,  V4,  V3,  V2,  V1,  V0>;
@@ -1371,16 +1375,16 @@ namespace impl { // reverse_v_
                   auto V50, auto V51, auto V52, auto V53, auto V54,
                   auto V55, auto V56, auto V57, auto V58, auto V59,
                   auto V60, auto V61, auto V62, auto V63, auto... Vs>
-        using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
-                        reverse_v_<lift_v_<reverse_v_impl>>>::template f<Vs..., C>::template
-                        f<V63, V62, V61, V60, V59, V58, V57, V56, V55, V54, V53, V52, V51, V50,
-                          V49, V48, V47, V46, V45, V44, V43, V42, V41, V40, V39, V38, V37, V36,
-                          V35, V34, V33, V32, V31, V30, V29, V28, V27, V26, V25, V24, V23, V22,
-                          V21, V20, V19, V18, V17, V16, V15, V14, V13, V12, V11, V10, V9,  V8,
-                          V7,  V6,  V5,  V4,  V3,  V2,  V1,  V0>;
+        using f = dispatch<find_dispatch(sizeof...(Vs)),
+                        reverse_v_<lift_v_<reverse_v_impl>>>::template f<Vs...>::template
+                        f<C, V63, V62, V61, V60, V59, V58, V57, V56, V55, V54, V53, V52, V51, V50,
+                             V49, V48, V47, V46, V45, V44, V43, V42, V41, V40, V39, V38, V37, V36,
+                             V35, V34, V33, V32, V31, V30, V29, V28, V27, V26, V25, V24, V23, V22,
+                             V21, V20, V19, V18, V17, V16, V15, V14, V13, V12, V11, V10, V9,  V8,
+                             V7,  V6,  V5,  V4,  V3,  V2,  V1,  V0>;
     };
 } // namespace impl
-*/
+
 // rotate_ :
 // Input params: Parameter pack
 // Closure params: N - Positive (for now) integer type

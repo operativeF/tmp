@@ -666,15 +666,20 @@ namespace reverse_tests {
 
 } // namespace reverse_tests
 
-// TODO: Not implemented yet.
-// namespace reverse_v_tests {
+namespace reverse_v_tests {
 
-// 	template <typename T>
-// 	    requires(std::same_as<T, list_v_<9, 8, 7, 6, 5, 4, 3, 2, 1, 0>>)
-// 	struct ReverseNineV;
+	template <typename T>
+	    requires(std::same_as<T, list_v_<9, 8, 7, 6, 5, 4, 3, 2, 1, 0>>)
+	struct ReverseNineV;
 
-//     using reverse_v_test_1 = ReverseNineV<call_v_<reverse_v_<identity_>, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9>>;
-// } // namespace reverse_v_tests
+    using reverse_v_test_1 = ReverseNineV<call_v_<reverse_v_<>, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9>>;
+
+	template <typename T>
+	    requires(std::same_as<T, list_v_<15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0>>)
+	struct Reverse17V;
+
+    using reverse_v_test_2 = Reverse17V<call_v_<reverse_v_<>, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15>>;
+} // namespace reverse_v_tests
 
 namespace rotate_tests {
 
