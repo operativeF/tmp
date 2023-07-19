@@ -194,6 +194,37 @@ namespace impl { // lift_v_
     };
 } // namespace impl
 
+// lift_v_ : Used for lifting a typename and non-type parameter(s) into a function.
+BOOST_TMP_EXPORT template <template <typename, auto...> class F, typename C = identity_>
+struct lift_tv_ {};
+namespace impl { // lift_tv_
+    template <template <typename, auto...> class F, typename C>
+    struct dispatch<1, lift_tv_<F, C>> {
+        template <typename T, auto V>
+        using f = dispatch<1, C>::template f<F<T, V>>;
+    };
+    template <template <typename, auto...> class F, typename C>
+    struct dispatch<2, lift_tv_<F, C>> {
+        template <typename T, auto V0, auto V1>
+        using f = dispatch<1, C>::template f<F<T, V0, V1>>;
+    };
+    template <template <typename, auto...> class F, typename C>
+    struct dispatch<3, lift_tv_<F, C>> {
+        template <typename T, auto V0, auto V1, auto V2>
+        using f = dispatch<1, C>::template f<F<T, V0, V1, V2>>;
+    };
+    template <template <typename, auto...> class F, typename C>
+    struct dispatch<4, lift_tv_<F, C>> {
+        template <typename T, auto V0, auto V1, auto V2, auto V3>
+        using f = dispatch<1, C>::template f<F<T, V0, V1, V2, V3>>;
+    };
+    template <std::size_t N, template <typename, auto...> class F, typename C>
+    struct dispatch<N, lift_tv_<F, C>> {
+        template <typename T, auto... Vs>
+        using f = dispatch<1, C>::template f<F<T, Vs...>>;
+    };
+} // namespace impl
+
 // list_ :
 BOOST_TMP_EXPORT template <typename... Ts>
 struct list_ {};
@@ -271,6 +302,9 @@ using call_t = impl::dispatch<impl::find_dispatch(sizeof...(Ts)), T>::template
                     f<Ts...>::type;
 BOOST_TMP_EXPORT template <typename F, auto... Vs>
 using call_v_ = impl::dispatch<impl::find_dispatch(sizeof...(Vs)), F>::template f<Vs...>;
+
+BOOST_TMP_EXPORT template <typename F, typename T, auto... Vs>
+using call_tv_ = impl::dispatch<impl::find_dispatch(sizeof...(Vs) + 1), F>::template f<T, Vs...>;
 
 BOOST_TMP_EXPORT template <auto... Vs>
 struct call_vv_ {
