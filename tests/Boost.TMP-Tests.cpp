@@ -349,6 +349,20 @@ namespace index_tests {
 
 } // namespace index_tests
 
+namespace index_v_tests {
+	
+	template<typename T> requires(std::same_as<T, list_v_<9>>)
+	struct AtIndexTwo;
+
+	using index_v_test_1 = AtIndexTwo<call_v_<iv2_<listify_v_>, 1, 4, 9, 10>>;
+
+	template<typename T> requires(std::same_as<T, list_v_<2>>)
+	struct AtUnpackedIndexTen;
+
+	using index_v_test_2 = AtUnpackedIndexTen<call_<unpack_index_v_<10>, list_v_<1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2>>>;
+
+} // namespace index_v_tests
+
 namespace insert_tests {
 
 	// Insert char_<'c'> at position 1
@@ -643,7 +657,6 @@ struct OutsideOf5To10;
 using range_lo_hi_v_test_1 = OutsideOf5To10<call_v_<range_lo_hi_v_<5, 10>, 7>>;
 
 } // namespace range_lo_hi_v_tests
-
 
 namespace reverse_tests {
 

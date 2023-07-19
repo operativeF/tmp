@@ -2220,47 +2220,47 @@ namespace impl { // index_
 };
 } // namespace impl
 
-BOOST_TMP_EXPORT template<std::size_t I, typename C = identity_>
+BOOST_TMP_EXPORT template<std::size_t I, typename C = listify_v_>
 struct index_v_ {};
-BOOST_TMP_EXPORT template<std::size_t I, typename C = identity_>
+BOOST_TMP_EXPORT template<std::size_t I, typename C = listify_v_>
 using unpack_index_v_ = unpack_v_<index_v_<I, C>>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using front_v_ = index_v_<0, C>;
 
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using iv0_ = index_v_<0, C>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using iv1_ = index_v_<1, C>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using iv2_ = index_v_<2, C>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using iv3_ = index_v_<3, C>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using iv4_ = index_v_<4, C>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using iv5_ = index_v_<5, C>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using iv6_ = index_v_<6, C>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using iv7_ = index_v_<7, C>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using uiv0_ = unpack_<index_v_<0, C>>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using uiv1_ = unpack_<index_v_<1, C>>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using uiv2_ = unpack_<index_v_<2, C>>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using uiv3_ = unpack_<index_v_<3, C>>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using uiv4_ = unpack_<index_v_<4, C>>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using uiv5_ = unpack_<index_v_<5, C>>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using uiv6_ = unpack_<index_v_<6, C>>;
-BOOST_TMP_EXPORT template<typename C = identity_>
+BOOST_TMP_EXPORT template<typename C = listify_v_>
 using uiv7_ = unpack_<index_v_<7, C>>;
 namespace impl { // index_v_
-    template <std::size_t N, auto I, typename C>
+    template <std::size_t N, std::size_t I, typename C>
     struct dispatch<N, index_v_<I, C>> : dispatch<N, drop_v_<I, front_v_<C>>> {};
 
     template <std::size_t N, typename C>
