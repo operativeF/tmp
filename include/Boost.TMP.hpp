@@ -237,7 +237,6 @@ struct list_v_ {};
 // listify_v_ :
 BOOST_TMP_EXPORT using listify_v_ = lift_v_<list_v_>;
 
-
 BOOST_TMP_EXPORT using default_type_lookup_table_ =
     list_<
         list_<bool, lift_v_<bool_>>,
@@ -1488,9 +1487,6 @@ namespace impl { // reverse_
     struct dispatch<N, reverse_<C>> : dispatch<65, reverse_<C>> {};
 } // namespace impl
 
-// TODO: Fix reverse_v_. Currently, reverse_v_impl will fail when lift_v_
-// attempts to lift it with a single type and the rest as value params.
-// The dispatching needs to be made more like rotate_.
 // reverse_v_ :
 // Input params: Value parameter pack
 // Closure params: C - Continuation; default listify_
@@ -1941,7 +1937,7 @@ namespace impl { // size_
     };
 } // namespace impl
 
-BOOST_TMP_EXPORT template <typename C = listify_v_>
+BOOST_TMP_EXPORT template <typename C = identity_>
 struct size_v_ {};
 namespace impl { // size_
     template <std::size_t N, typename C>
@@ -4256,17 +4252,11 @@ namespace impl { // try_
     };
 } // namespace impl
 
-// BOOST_TMP_EXPORT template <typename M, typename C = identity_>
-// struct value_to_type_ {};
-// namespace impl { // value_to_type_
-//     template<std::size_t N, typename M, typename C>
-//     struct dispatch<N, value_to_type_<M, C>> {
-        // template<auto V>
-        // using f = dispatch<N, C>::template f<
-        //     call_<
-        //       unpack_<tee_<keys_<find_if_<is_<decltype(V)>, lift_<unpack_index_>>>, values_<>,
-        //         lift_<call_, lift_<typename call_vv_<V>::f>>>>, M>>;
-    // };
+template<template<auto> typename ValueType, auto Value>
+struct value_encap_t_ {
+    using type = ValueType<Value>;
+};
+
 // } // namespace impl
 
 

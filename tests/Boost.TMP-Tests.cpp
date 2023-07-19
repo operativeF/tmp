@@ -87,6 +87,15 @@ namespace contains_tests {
 	        ContainsSubrange123<call_<contains_subrange_<list_<int_<1>, int_<2>, int_<3>>>, int_<0>,
 	                                  int_<1>, int_<2>, int_<3>, int_<4>>>;
 
+
+	template <typename T>
+	    requires(std::same_as<T, false_>)
+	struct DoesNotContainSubrange321;
+
+	using contains_subrange_test_2 =
+	        DoesNotContainSubrange321<call_<contains_subrange_<list_<int_<3>, int_<2>, int_<1>>>, int_<0>,
+	                                  int_<1>, int_<2>, int_<3>, int_<4>>>;
+
 } // namespace contains_tests
 
 namespace drop_tests {
@@ -818,7 +827,7 @@ namespace size_v_tests {
 template<typename T> requires(std::same_as<T, list_v_<std::size_t{3}>>)
 struct FiveValueListV;
 
-using size_v_test_1 = FiveValueListV<call_v_<size_v_<>, 1, 2, 3>>;
+using size_v_test_1 = FiveValueListV<call_v_<size_v_<listify_v_>, 1, 2, 3>>;
 
 } // namespace size_v_tests
 
