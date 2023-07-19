@@ -3230,6 +3230,7 @@ namespace impl { // count_if_
                                     join_<size_<C>>>> {};
 } // namespace impl
 
+// Returns the index of the type that satisfies UnaryPredicate.
 // find_if_ : 
 BOOST_TMP_EXPORT template <typename UnaryPred, typename C = identity_>
 struct find_if_ {};
@@ -3800,6 +3801,19 @@ namespace impl { // tee_
                     rotate_<sizet_<sizeof...(Fs)>, push_front_<sizet_<N>, lift_<tee_impl>>>>::
                     template f<F0, F1, Fs...> {};
 } // namespace impl
+
+BOOST_TMP_EXPORT template <typename M, typename C = identity_>
+struct find_ {};
+namespace impl {
+    template<typename I, typename Ts>
+    using index_helper = call_<unpack_index_<I>, Ts>;
+    template<std::size_t N, typename M, typename C>
+    struct dispatch<N, find_<M, C>> {
+        template<typename T>
+        using f = dispatch<N, unpack_<tee_<keys_<find_if_<is_<T>>>, values_<>, lift_<index_helper, C>>>>::template f<M>;
+    };
+} // namespace impl
+
 
 template<typename T, typename SizeT>
 using actual_array = std::array<std::remove_cvref_t<decltype(T::value)>, SizeT::value>;

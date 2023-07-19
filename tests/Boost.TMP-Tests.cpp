@@ -225,6 +225,27 @@ namespace filter_v_tests {
 	using filter_test_1 = FilterOutOddValues<call_v_<filter_v_<lift_v_<is_even_val>>, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10>>;
 }
 
+namespace find_tests {
+
+using alt_type_lookup_table =
+    list_<
+        list_<bool, bool_<false>>,
+        list_<int,  int_<8>>,
+        list_<unsigned int, uint_<3>>,
+        list_<char, char_<'c'>>
+    >;
+
+template<typename T> requires(std::same_as<T, char_<'c'>>)
+struct ValueFoundAtIndex3;
+template<typename T> requires(std::same_as<T, false_>)
+struct ValueFoundAtIndex0;
+
+using find_test_1 = ValueFoundAtIndex3<call_<find_<alt_type_lookup_table>, char>>;
+using find_test_2 = ValueFoundAtIndex0<call_<find_<alt_type_lookup_table>, bool>>;
+
+} // namespace find_tests
+
+
 namespace flatten_tests {
 
 	template <typename T>
