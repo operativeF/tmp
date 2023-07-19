@@ -4252,12 +4252,9 @@ namespace impl { // try_
     };
 } // namespace impl
 
-template<template<auto> typename ValueType, auto Value>
+BOOST_TMP_EXPORT template<template<auto> typename ValueType, auto Value>
 struct value_encap_t_ {
     using type = ValueType<Value>;
 };
-
-// } // namespace impl
-
 
 } // namespace boost::tmp
