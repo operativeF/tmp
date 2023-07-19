@@ -2880,7 +2880,7 @@ namespace impl { // is_
 } // namespace impl
 
 // is_v_ : 
-BOOST_TMP_EXPORT template <auto P, typename C = identity_>
+BOOST_TMP_EXPORT template <auto P, typename C = listify_v_>
 struct is_v_ {};
 namespace impl { // is_v_
     template <auto P, typename C>

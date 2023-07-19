@@ -254,7 +254,7 @@ namespace fold_v_tests {
 	};
 
 	template<typename T, auto U>
-	using add_up_left = call_<unpack_v_<lift_v_<typename added_in<U>::template f>>, T>;
+	using add_up_left = call_<unpack_v_<lift_v_<added_in<U>::template f>>, T>;
 
 	using fold_left_v_test_1 =
 	        FoldLeftValuesTo20<call_tv_<fold_left_v_<lift_tv_<add_up_left>>, list_v_<1>, 10, 9>>;
