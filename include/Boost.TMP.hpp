@@ -779,6 +779,247 @@ namespace impl { // fold_left_
 
 } // namespace impl
 
+/// fold_left_v_ : folds left over a list using a binary predicate /
+/// fold left considers the first element in the input pack the initial state, use
+/// `push_front_v_<>` to add initial state if needed
+/// Multiple input, single output
+// fold_left_v_ : 
+BOOST_TMP_EXPORT template <typename F = listify_v_, typename C = identity_>
+struct fold_left_v_ {};
+namespace impl { // fold_left_v_
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<0, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template <auto...>
+        using f = nothing_;
+    };
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<1, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template <auto V>
+        using f = C<list_v_<V>>;
+    };
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<2, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template <typename In, auto V0>
+        using f = C<F<In, V0>>;
+    };
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<3, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template <typename In, auto V0, auto V1>
+        using f = C<F<F<In, V0>, V1>>;
+    };
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<4, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template <typename In, auto V0, auto V1, auto V2>
+        using f = C<F<F<F<In, V0>, V1>, V2>>;
+    };
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<5, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template <typename In, auto V0, auto V1, auto V2, auto V3>
+        using f = C<F<F<F<F<In, V0>, V1>, V2>, V3>>;
+    };
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<6, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template <typename In, auto V0, auto V1, auto V2, auto V3,
+                auto V4>
+        using f = C<F<F<F<F<F<In, V0>, V1>, V2>, V3>, V4>>;
+    };
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<7, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template <typename In, auto V0, auto V1, auto V2, auto V3,
+                auto V4, auto V5>
+        using f = C<F<F<F<F<F<F<In, V0>, V1>, V2>, V3>, V4>, V5>>;
+    };
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<8, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template <typename In, auto V0, auto V1, auto V2, auto V3,
+                auto V4, auto V5, auto V6>
+        using f = C<F<F<F<F<F<F<F<In, V0>, V1>, V2>, V3>, V4>, V5>, V6>>;
+    };
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<9, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template <typename In, auto V0, auto V1, auto V2, auto V3,
+                auto V4, auto V5, auto V6, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
+                                    fold_left_v_<lift_tv_<F>, lift_<C>>>::
+                template f<F<F<F<F<F<F<F<In, V0>, V1>, V2>, V3>, V4>, V5>, V6>, Vs...>;
+    };
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<16, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template <typename In,  auto V0,  auto V1,  auto V2,  auto V3,
+                auto V4,  auto V5,  auto V6,  auto V7,  auto V8,
+                auto V9,  auto V10, auto V11, auto V12, auto V13,
+                auto V14, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1), fold_left_v_<lift_tv_<F>, lift_<C>>>::template
+                    f<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<In,
+                                                    V0>,
+                                                    V1>,
+                                                V2>,
+                                                V3>,
+                                            V4>,
+                                            V5>,
+                                        V6>,
+                                        V7>,
+                                    V8>,
+                                    V9>,
+                                V10>,
+                                V11>,
+                            V12>,
+                            V13>,
+                        V14>,
+                        Vs...>;
+    };
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<17, fold_left_v_<lift_tv_<F>, lift_<C>>>
+        : dispatch<16, fold_left_v_<lift_tv_<F>, lift_<C>>> {};
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<32, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template<typename In,  auto V0,  auto V1,  auto V2,  auto V3,
+                auto V4,  auto V5,  auto V6,  auto V7,  auto V8,
+                auto V9,  auto V10, auto V11, auto V12, auto V13,
+                auto V14, auto V15, auto V16, auto V17, auto V18,
+                auto V19, auto V20, auto V21, auto V22, auto V23,
+                auto V24, auto V25, auto V26, auto V27, auto V28,
+                auto V29, auto V30, auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
+                    fold_left_v_<lift_tv_<F>, lift_<C>>>::template
+                    f<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<In,
+                                                                                    V0>,
+                                                                                    V1>,
+                                                                                V2>,
+                                                                                V3>,
+                                                                            V4>,
+                                                                            V5>,
+                                                                        V6>,
+                                                                        V7>,
+                                                                    V8>,
+                                                                    V9>,
+                                                                V10>,
+                                                                V11>,
+                                                            V12>,
+                                                            V13>,
+                                                        V14>,
+                                                        V15>,
+                                                    V16>,
+                                                    V17>,
+                                                V18>,
+                                                V19>,
+                                            V20>,
+                                            V21>,
+                                        V22>,
+                                        V23>,
+                                    V24>,
+                                    V25>,
+                                V26>,
+                                V27>,
+                            V28>,
+                            V29>,
+                        V30>,
+                        Vs...>;
+    };
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<33, fold_left_v_<lift_tv_<F>, lift_<C>>>
+        : dispatch<32, fold_left_v_<lift_tv_<F>, lift_<C>>> {};
+    template <template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<64, fold_left_v_<lift_tv_<F>, lift_<C>>> {
+        template<typename In,  auto V0,  auto V1,  auto V2,  auto V3,
+                auto V4,  auto V5,  auto V6,  auto V7,  auto V8,
+                auto V9,  auto V10, auto V11, auto V12, auto V13,
+                auto V14, auto V15, auto V16, auto V17, auto V18,
+                auto V19, auto V20, auto V21, auto V22, auto V23,
+                auto V24, auto V25, auto V26, auto V27, auto V28,
+                auto V29, auto V30, auto V31, auto V32, auto V33,
+                auto V34, auto V35, auto V36, auto V37, auto V38,
+                auto V39, auto V40, auto V41, auto V42, auto V43,
+                auto V44, auto V45, auto V46, auto V47, auto V48,
+                auto V49, auto V50, auto V51, auto V52, auto V53,
+                auto V54, auto V55, auto V56, auto V57, auto V58,
+                auto V59, auto V60, auto V61, auto V62, auto V63,
+                auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
+                fold_left_v_<lift_tv_<F>, lift_<C>>>::
+        template f<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<In,
+                                                                                                                                                    V0>,
+                                                                                                                                                V1>,
+                                                                                                                                                V2>,
+                                                                                                                                            V3>,
+                                                                                                                                            V4>,
+                                                                                                                                        V5>,
+                                                                                                                                        V6>,
+                                                                                                                                    V7>,
+                                                                                                                                    V8>,
+                                                                                                                                V9>,
+                                                                                                                                V10>,
+                                                                                                                            V11>,
+                                                                                                                            V12>,
+                                                                                                                        V13>,
+                                                                                                                        V14>,
+                                                                                                                    V15>,
+                                                                                                                    V16>,
+                                                                                                                V17>,
+                                                                                                                V18>,
+                                                                                                            V19>,
+                                                                                                            V20>,
+                                                                                                        V21>,
+                                                                                                        V22>,
+                                                                                                    V23>,
+                                                                                                    V24>,
+                                                                                                V25>,
+                                                                                                V26>,
+                                                                                            V27>,
+                                                                                            V28>,
+                                                                                        V29>,
+                                                                                        V30>,
+                                                                                    V31>,
+                                                                                    V32>,
+                                                                                V33>,
+                                                                                V34>,
+                                                                            V35>,
+                                                                            V36>,
+                                                                        V37>,
+                                                                        V38>,
+                                                                    V39>,
+                                                                    V40>,
+                                                                V41>,
+                                                                V42>,
+                                                            V43>,
+                                                            V44>,
+                                                        V45>,
+                                                        V46>,
+                                                    V47>,
+                                                    V48>,
+                                                V49>,
+                                                V50>,
+                                            V51>,
+                                            V52>,
+                                        V53>,
+                                        V54>,
+                                    V55>,
+                                    V56>,
+                                V57>,
+                                V58>,
+                            V59>,
+                            V60>,
+                        V61>,
+                        V62>,
+                    V63>,
+                    Vs...>;
+    };
+    template <std::size_t N, template <typename, auto...> class F, template <typename...> class C>
+    struct dispatch<N, fold_left_v_<lift_tv_<F>, lift_<C>>>
+        : dispatch<64, fold_left_v_<lift_tv_<F>, lift_<C>>> {};
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, fold_left_v_<F, C>>
+        : dispatch<N, fold_left_v_<lift_v_<dispatch<2, F>::template f>,
+                                    lift_<dispatch<1, C>::template f>>> {};
+    template <std::size_t N, template <typename, auto...> class F, typename C>
+    struct dispatch<N, fold_left_v_<lift_tv_<F>, C>>
+        : dispatch<N, fold_left_v_<lift_tv_<F>, lift_<dispatch<1, C>::template f>>> {};
+    template <std::size_t N, typename F, template <typename...> class C>
+    struct dispatch<N, fold_left_v_<F, lift_<C>>>
+        : dispatch<N, fold_left_v_<lift_<dispatch<2, F>::template f>, lift_<C>>> {};
+
+} // namespace impl
+
 // fold_right_ : folds right over a list using a binary predicate
 // fold right considers the last element in the input pack the initial state, use
 // push_back to add initial state if needed

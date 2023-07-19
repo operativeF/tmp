@@ -230,7 +230,6 @@ namespace flatten_tests {
 namespace fold_tests {
 
 	// TODO: Redo fold_left_ tests
-
 	template <typename T>
 	    requires(std::same_as<T, uint_<20>>)
 	struct FoldRightAddsUpToTwenty;
@@ -242,6 +241,25 @@ namespace fold_tests {
 	        FoldRightAddsUpToTwenty<call_<fold_right_<lift_<add>>, uint_<1>, uint_<10>, uint_<9>>>;
 
 } // namespace fold_tests
+
+namespace fold_v_tests {
+
+	template <typename T> requires(std::same_as<T, list_v_<20>>)
+	struct FoldLeftValuesTo20;
+
+	template<auto V0>
+	struct added_in {
+		template<auto V1>
+		using f = list_v_<V0 + V1>;
+	};
+
+	template<typename T, auto U>
+	using add_up_left = call_<unpack_v_<lift_v_<typename added_in<U>::template f>>, T>;
+
+	using fold_left_v_test_1 =
+	        FoldLeftValuesTo20<call_tv_<fold_left_v_<lift_tv_<add_up_left>>, list_v_<1>, 10, 9>>;
+
+} // namespace fold_v_tests
 
 namespace function_if_tests {
 
