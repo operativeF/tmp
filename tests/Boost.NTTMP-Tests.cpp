@@ -26,6 +26,20 @@ import std;
 
 using namespace boost::tmp;
 
+// TODO: Place StrLit somewhere.
+// namespace array_into_list_tests {
+
+// 	static constexpr std::array<int, 5> Arr1{1, 2, 3, 4, 5};
+// 	static constexpr auto str = StrLit{"nameless"};
+
+// 	template <typename T>
+// 	    requires(std::same_as<T, list_<int_<1>, int_<2>, int_<3>, int_<4>, int_<5>>>)
+// 	struct ArrayNowParamPack;
+
+// 	using array_into_list_test_1 = ArrayNowParamPack<call_v_<lift_v_<array_into_list_>, Arr1>>;
+
+// } // namespace array_into_list_tests
+
 namespace drop_v_tests {
 	template <typename T>
 	    requires(std::same_as<T, list_v_<1>>)
@@ -241,3 +255,24 @@ namespace take_v_tests {
 	using take_v_test_2 = TakeVFirstTwoElements_OneTwo<call_v_<take_v_<2>, 1, 2, 3>>;
 
 } // namespace take_v_tests
+
+// TODO: Implement value_to_type_
+/*
+namespace value_to_type_tests {
+
+	template<typename T> requires(std::same_as<T,
+		list_<
+			int_<1>,
+			uint_<2>,
+			char_<'c'>,
+			false_
+		>>)
+	struct TransmogValueToType;
+	using value_to_type_test_1 = TransmogValueToType<call_v_<transform_v_<value_to_type_<default_type_lookup_table_>>,
+		1,
+		2U,
+		'c',
+		false>>;
+
+} // namespace value_to_type_tests
+*/
