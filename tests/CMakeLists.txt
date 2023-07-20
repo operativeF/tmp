@@ -2,6 +2,7 @@
 add_library(boost_tmp_tests
     STATIC
         ${CMAKE_CURRENT_LIST_DIR}/Boost.TMP-Tests.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/Boost.NTTMP-Tests.cpp
 )
 
 if(ENABLE_CPP_MODULE)

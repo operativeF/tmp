@@ -283,4 +283,52 @@ struct foldey<1008> {
 template <>
 struct foldey<1000000> {};
 
+// call_ : a foundational metaclosure that immediately evaluates the input metaclosure(s).
+BOOST_TMP_EXPORT template <typename F, typename... Ts>
+using call_ = impl::dispatch<impl::find_dispatch(sizeof...(Ts)), F>::template f<Ts...>;
+BOOST_TMP_EXPORT template <typename T, typename... Ts>
+using call_t = impl::dispatch<impl::find_dispatch(sizeof...(Ts)), T>::template
+                    f<Ts...>::type;
+
+// call_f_ : 
+BOOST_TMP_EXPORT template <typename C = identity_>
+struct call_f_ {};
+namespace impl { // call_f_
+    template <std::size_t N, typename C>
+    struct dispatch<N, call_f_<C>> {
+        template <typename F, typename... Ts>
+        using f = dispatch<1, C>::template f<
+                        typename dispatch<find_dispatch(sizeof...(Ts)), F>::template f<Ts...>>;
+    };
+} // namespace impl
+
+// \brief turns a list of types into a variadic pack of those types /
+// example: call<all<>,true_,false_,true_> is equivalent to
+// call<unpack<all<>>,list<true_,false_,true_>>
+// \requirement
+// Unpack always needs a continuation, so even if you're just unpacking
+// a list, you need to use it like the following:
+// using alist = list_<uint_<0>>;
+// uint_<0>{} = call_<unpack_<identity_>, alist>{}; // This will be vaild
+BOOST_TMP_EXPORT template <typename C>
+struct unpack_ {};
+namespace impl { // unpack_
+    template <typename C, typename L>
+    struct unpack_impl;
+    template <typename C, template <typename...> class Seq, typename... Ls>
+    struct unpack_impl<C, Seq<Ls...>> {
+        using type = dispatch<find_dispatch(sizeof...(Ls)), C>::template f<Ls...>;
+    };
+    // in case of nothing_ input give a nothing_ output
+    template <typename C>
+    struct unpack_impl<C, nothing_> {
+        using type = nothing_;
+    };
+    template <typename C>
+    struct dispatch<1, unpack_<C>> {
+        template <typename L>
+        using f = unpack_impl<C, L>::type;
+    };
+} // namespace impl
+
 } // namespace boost::tmp
