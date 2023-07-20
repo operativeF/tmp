@@ -7,5 +7,6 @@ export module Boost.TMP;
 import std;
 #endif // _MSC_VER
 
+#include "Boost.TMP.Base.hpp"
 #include "Boost.TMP.hpp"
-
+#include "Boost.NTTMP.hpp"

@@ -7,7 +7,9 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #if defined(__GNUC__) || defined(__clang__) || !defined(ENABLE_CPP_MODULE)
+#include "Boost.TMP.Base.hpp"
 #include "Boost.TMP.hpp"
+#include "Boost.NTTMP.hpp"
 
 #include <array>
 #include <concepts>
@@ -245,6 +247,15 @@ using find_test_2 = ValueFoundAtIndex0<call_<find_<alt_type_lookup_table>, bool>
 
 } // namespace find_tests
 
+// TODO: finish find_v_
+// namespace find_v_tests {
+
+// template<typename T> requires(std::same_as<T, list_v_<4>>)
+// struct FindNumberOne;
+
+// using find_v_test_1 = FindNumberOne<call_v_<find_v_<default_type_lookup_table_>, 3>>;
+
+// } // namespace find_v_tests
 
 namespace flatten_tests {
 
@@ -1120,6 +1131,10 @@ namespace unique_tests {
 	        OnlyUniqueNums<call_<unique_<>, int_<3>, int_<1>, int_<2>, int_<2>, int_<1>, int_<2>>>;
 
 } // namespace unique_tests
+
+namespace values_tests {
+
+} // namespace values_tests
 
 namespace window_tests {
 
