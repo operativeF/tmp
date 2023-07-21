@@ -231,6 +231,25 @@ using pop_back_test_3 = PopNoValue<call_v_<pop_back_v_<>>>;
 
 } // namespace pop_back_v_tests
 
+namespace push_front_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<4, 1, 2, 3>>)
+struct Push4ToFront;
+
+using push_front_v_test_1 = Push4ToFront<call_v_<push_front_v_<4>, 1, 2, 3>>;
+
+template<typename T> requires(std::same_as<T, list_v_<4>>)
+struct Push4ToFrontOfNoList;
+
+using push_front_v_test_2 = Push4ToFrontOfNoList<call_v_<push_front_v_<4>>>;
+
+template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+struct PushNothingToFront;
+
+using push_front_v_test_3 = PushNothingToFront<call_v_<push_front_v_<>, 1, 2, 3>>;
+
+} // namespace push_front_v_tests
+
 namespace range_lo_hi_v_tests {
 
 template<typename T> requires(std::same_as<T, list_v_<false>>)

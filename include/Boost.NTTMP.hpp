@@ -1018,13 +1018,18 @@ namespace impl { // push_back_v_
 } // namespace impl
 
 // push_front_v_ :
-BOOST_TMP_EXPORT template <auto V, typename C = listify_v_>
+BOOST_TMP_EXPORT template <auto V = nothing_{}, typename C = listify_v_>
 struct push_front_v_ {};
 namespace impl { // push_front_v_
     template <std::size_t N, auto V, typename C>
     struct dispatch<N, push_front_v_<V, C>> {
         template <auto... Vs>
         using f = dispatch<find_dispatch(sizeof...(Vs) + 1), C>::template f<V, Vs...>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, push_front_v_<nothing_{}, C>> {
+        template <auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<Vs...>;
     };
 } // namespace impl
 
