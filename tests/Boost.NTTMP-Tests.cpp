@@ -52,6 +52,9 @@ namespace drop_v_tests {
 	using drop_v_test_1 = DropVOneOffOfList<call_v_<drop_v_<1>, 0, 1>>;
 
 	using drop_v_test_2 = DropVZeroReturnsInputList<call_v_<drop_v_<0>, 1, 2>>;
+} // namespace drop_v_tests
+
+namespace drop_last_v_tests {
 
 	template <typename T>
 	    requires(std::same_as<T, list_v_<1, 2>>)
@@ -59,7 +62,8 @@ namespace drop_v_tests {
 
 	using drop_last_v_test_1 = DropVLastThreeOffEnd<
 	        call_v_<drop_last_v_<3>, 1, 2, 3, 4, 5>>;
-} // namespace drop_v_tests
+
+} // namespace drop_last_v_tests
 
 namespace erase_v_tests {
 	template <typename T>
@@ -174,6 +178,38 @@ namespace insert_v_tests {
 	        EmptyPackInsertionReturnsSingleElementList<call_v_<insert_v_<0, 'c'>>>;
 
 } // namespace insert_v_tests
+
+namespace is_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<true>>)
+struct ValueIsFive;
+
+using is_v_test_1 = ValueIsFive<call_v_<is_v_<5>, 5>>;
+
+template<typename T> requires(std::same_as<T, list_v_<true>>)
+struct ValueCharCIsInt99;
+
+using is_v_test_2 = ValueCharCIsInt99<call_v_<is_v_<99>, 'c'>>;
+
+} // namespace is_v_tests
+
+namespace is_not_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<true>>)
+struct ValueIsNotFive;
+
+using is_not_v_test_1 = ValueIsNotFive<call_v_<is_not_v_<5>, 2>>;
+
+} // namespace is_v_tests
+
+namespace not_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<true>>)
+struct ValueIsNotTrue;
+
+using not_v_test_1 = ValueIsNotTrue<call_v_<not_v_<>, false>>;
+
+} // namespace not_v_tests
 
 namespace range_lo_hi_v_tests {
 

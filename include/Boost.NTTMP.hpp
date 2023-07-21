@@ -978,12 +978,12 @@ namespace impl { // less_f_
 } // namespace impl
 
 // not_v_ : 
-BOOST_TMP_EXPORT template <typename C = identity_>
+BOOST_TMP_EXPORT template <typename C = listify_v_>
 struct not_v_ {};
 namespace impl { // not_v_
     template <typename C>
     struct dispatch<1, not_v_<C>> {
-        template <bool V>
+        template <auto V>
         using f = dispatch<1, C>::template f<(!V)>;
     };
 } // namespace impl
