@@ -211,6 +211,26 @@ using not_v_test_1 = ValueIsNotTrue<call_v_<not_v_<>, false>>;
 
 } // namespace not_v_tests
 
+namespace pop_back_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+struct PopTheFourOffBack;
+
+using pop_back_test_1 = PopTheFourOffBack<call_v_<pop_back_v_<>, 1, 2, 3, 4>>;
+
+template<typename T> requires(std::same_as<T, list_v_<>>)
+struct PopOnlyValue;
+
+using pop_back_test_2 = PopOnlyValue<call_v_<pop_back_v_<>, 1>>;
+
+// TODO: Should this be the default behavior for no value?
+template<typename T> requires(std::same_as<T, list_v_<nothing_{}>>)
+struct PopNoValue;
+
+using pop_back_test_3 = PopNoValue<call_v_<pop_back_v_<>>>;
+
+} // namespace pop_back_v_tests
+
 namespace range_lo_hi_v_tests {
 
 template<typename T> requires(std::same_as<T, list_v_<false>>)

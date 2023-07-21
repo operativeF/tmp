@@ -79,7 +79,7 @@ namespace impl { // always_v_
 // drop_v_ : Remove (N) values from the front of the input VPP.
 // Input params: Parameter value pack
 // Closure params: N - Positive integer
-//                 C - Continuation; default listify_
+//                 C - Continuation; default listify_v_
 // Functional description:
 // input  - T0, T1, ..., T(M), T(M + 1), ..., TN
 // apply  - (drop M values)
@@ -187,7 +187,7 @@ namespace impl { // drop_v_
 
 // reverse_v_ :
 // Input params: Value parameter pack
-// Closure params: C - Continuation; default listify_
+// Closure params: C - Continuation; default listify_v_
 // Functional description:
 // input  -  V0, V1, ..., VN
 // apply  - (reverse element order of value parameter pack)
@@ -998,10 +998,11 @@ namespace impl { // pop_back_v_
         using f = dispatch<find_dispatch(sizeof...(Vs)), rotate_v_<sizeof...(Vs) - 1, pop_front_v_<
                         rotate_v_<(sizeof...(Vs) - 1), C>>>>::template f<Vs...>;
     };
+    // TODO: Should this be the default behavior for no value?
     template <typename C>
     struct dispatch<0, pop_back_v_<C>> {
         template <auto... Vs>
-        using f = dispatch<1, C>::template f<nothing_>;
+        using f = dispatch<1, C>::template f<nothing_{}>;
     };
 } // namespace impl
 
