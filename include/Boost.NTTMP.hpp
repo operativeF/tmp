@@ -85,7 +85,7 @@ namespace impl { // always_v_
 // apply  - (drop M values)
 // result - T(M), T(M + 1), ..., TN
 // Empty return type: list_<>
-BOOST_TMP_EXPORT template <auto N, typename C = listify_v_>
+BOOST_TMP_EXPORT template <std::size_t N, typename C = listify_v_>
 struct drop_v_ {};
 namespace impl { // drop_v_
     template <std::size_t, typename C>
@@ -181,7 +181,7 @@ namespace impl { // drop_v_
     };
     template <std::size_t P, typename C>
     struct make_drop_v<P, C, P> : drop_v_impl<P, C> {};
-    template <std::size_t N, auto P, typename C>
+    template <std::size_t N, std::size_t P, typename C>
     struct dispatch<N, drop_v_<P, C>> : make_drop_v<P, C> {};
 } // namespace impl
 
@@ -509,18 +509,18 @@ namespace impl { // pop_front_
 } // namespace impl
 
 // Like erase_ except the nth value is given by a value, N
-BOOST_TMP_EXPORT template <auto N, typename C = listify_v_>
+BOOST_TMP_EXPORT template <std::size_t N, typename C = listify_v_>
 struct erase_v_ {};
 namespace impl {
     // erase_v_
-    template <std::size_t N, auto I, typename C>
+    template <std::size_t N, std::size_t I, typename C>
     struct dispatch<N, erase_v_<I, C>> {
         template <auto... Vs>
         using f = dispatch<N,
             rotate_v_<I,
                 pop_front_v_<rotate_v_<(sizeof...(Vs) - I - 1), C>>>>::template f<Vs...>;
     };
-    template <auto I, typename C>
+    template <std::size_t I, typename C>
     struct dispatch<0, erase_v_<I, C>> {
         template <auto... Vs>
         using f = dispatch<1, C>::template f<nothing_{}>;
@@ -739,71 +739,71 @@ namespace impl { // fold_left_v_
         using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
                 fold_left_v_<lift_tv_<F>, lift_<C>>>::
         template f<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<In,
-                                                                                                                                                    V0>,
-                                                                                                                                                V1>,
-                                                                                                                                                V2>,
-                                                                                                                                            V3>,
-                                                                                                                                            V4>,
-                                                                                                                                        V5>,
-                                                                                                                                        V6>,
-                                                                                                                                    V7>,
-                                                                                                                                    V8>,
-                                                                                                                                V9>,
-                                                                                                                                V10>,
-                                                                                                                            V11>,
-                                                                                                                            V12>,
-                                                                                                                        V13>,
-                                                                                                                        V14>,
-                                                                                                                    V15>,
-                                                                                                                    V16>,
-                                                                                                                V17>,
-                                                                                                                V18>,
-                                                                                                            V19>,
-                                                                                                            V20>,
-                                                                                                        V21>,
-                                                                                                        V22>,
-                                                                                                    V23>,
-                                                                                                    V24>,
-                                                                                                V25>,
-                                                                                                V26>,
-                                                                                            V27>,
-                                                                                            V28>,
-                                                                                        V29>,
-                                                                                        V30>,
-                                                                                    V31>,
-                                                                                    V32>,
-                                                                                V33>,
-                                                                                V34>,
-                                                                            V35>,
-                                                                            V36>,
-                                                                        V37>,
-                                                                        V38>,
-                                                                    V39>,
-                                                                    V40>,
-                                                                V41>,
-                                                                V42>,
-                                                            V43>,
-                                                            V44>,
-                                                        V45>,
-                                                        V46>,
-                                                    V47>,
-                                                    V48>,
-                                                V49>,
-                                                V50>,
-                                            V51>,
-                                            V52>,
-                                        V53>,
-                                        V54>,
-                                    V55>,
-                                    V56>,
-                                V57>,
-                                V58>,
-                            V59>,
-                            V60>,
-                        V61>,
-                        V62>,
-                    V63>,
-                    Vs...>;
+                                                                                                                                                   V0>,
+                                                                                                                                                 V1>,
+                                                                                                                                               V2>,
+                                                                                                                                             V3>,
+                                                                                                                                           V4>,
+                                                                                                                                         V5>,
+                                                                                                                                       V6>,
+                                                                                                                                     V7>,
+                                                                                                                                   V8>,
+                                                                                                                                 V9>,
+                                                                                                                               V10>,
+                                                                                                                             V11>,
+                                                                                                                           V12>,
+                                                                                                                         V13>,
+                                                                                                                       V14>,
+                                                                                                                     V15>,
+                                                                                                                   V16>,
+                                                                                                                 V17>,
+                                                                                                               V18>,
+                                                                                                             V19>,
+                                                                                                           V20>,
+                                                                                                         V21>,
+                                                                                                       V22>,
+                                                                                                     V23>,
+                                                                                                   V24>,
+                                                                                                 V25>,
+                                                                                               V26>,
+                                                                                             V27>,
+                                                                                           V28>,
+                                                                                         V29>,
+                                                                                       V30>,
+                                                                                     V31>,
+                                                                                   V32>,
+                                                                                 V33>,
+                                                                               V34>,
+                                                                             V35>,
+                                                                           V36>,
+                                                                         V37>,
+                                                                       V38>,
+                                                                     V39>,
+                                                                   V40>,
+                                                                 V41>,
+                                                               V42>,
+                                                             V43>,
+                                                           V44>,
+                                                         V45>,
+                                                       V46>,
+                                                     V47>,
+                                                   V48>,
+                                                 V49>,
+                                               V50>,
+                                             V51>,
+                                           V52>,
+                                         V53>,
+                                       V54>,
+                                     V55>,
+                                   V56>,
+                                 V57>,
+                               V58>,
+                             V59>,
+                           V60>,
+                         V61>,
+                       V62>,
+                     V63>,
+                   Vs...>;
     };
     template <std::size_t N, template <typename, auto...> class F, template <typename...> class C>
     struct dispatch<N, fold_left_v_<lift_tv_<F>, lift_<C>>>
@@ -1219,30 +1219,46 @@ namespace impl { // take_v_
 } // namespace impl
 
 // take_last_v_ :
-BOOST_TMP_EXPORT template<std::size_t N, typename C = listify_>
+BOOST_TMP_EXPORT template<std::size_t N, typename C = listify_v_>
 struct take_last_v_ {};
 namespace impl { // take_last_
     template<std::size_t N, std::size_t P, typename C>
     struct dispatch<N, take_last_v_<P, C>> {
-        template<auto... Vs>
+        template<auto... Vs> requires(sizeof...(Vs) >= P)
         using f = dispatch<find_dispatch(sizeof...(Vs)), drop_v_<(sizeof...(Vs) - P), C>>::template f<Vs...>;
+    };
+    template<std::size_t N, typename C>
+    struct dispatch<N, take_last_v_<0, C>> {
+        template<auto... Vs>
+        using f = dispatch<0, C>::template f<>;
     };
 } // namespace impl
 
 // transform_v_ : 
-BOOST_TMP_EXPORT template <typename F = identity_, typename C = listify_v_>
+// BOOST_TMP_EXPORT template <typename F = identity_, typename C = listify_v_>
+// struct transform_v_ {};
+// namespace impl { // transform_v_
+//     template <std::size_t N, typename F, typename C>
+//     struct dispatch<N, transform_v_<F, C>> {
+//         template <auto... Vs>
+//         using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<
+//                         typename dispatch<1, F>::template f<Vs>...>;
+//     };
+//     template <std::size_t N, template <auto...> class F, typename FC, typename C>
+//     struct dispatch<N, transform_v_<lift_v_<F, FC>, C>> {
+//         template <auto... Vs>
+//         using f = dispatch<(N + (N > sizeof...(Vs))), C>::template f<F<Vs>...>;
+//     };
+// } // namespace impl
+
+// transform_v_ :
+BOOST_TMP_EXPORT template <auto F, typename C = listify_v_>
 struct transform_v_ {};
 namespace impl { // transform_v_
-    template <std::size_t N, typename F, typename C>
+    template <std::size_t N, auto F, typename C>
     struct dispatch<N, transform_v_<F, C>> {
         template <auto... Vs>
-        using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<
-                        typename dispatch<1, F>::template f<Vs>...>;
-    };
-    template <std::size_t N, template <auto...> class F, typename FC, typename C>
-    struct dispatch<N, transform_v_<lift_v_<F, FC>, C>> {
-        template <auto... Vs>
-        using f = dispatch<(N + (N > sizeof...(Vs))), C>::template f<F<Vs>...>;
+        using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<F(Vs)...>;
     };
 } // namespace impl
 

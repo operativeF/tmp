@@ -53,11 +53,6 @@ namespace drop_v_tests {
 
 	using drop_v_test_2 = DropVZeroReturnsInputList<call_v_<drop_v_<0>, 1, 2>>;
 
-	// Dropping off of no input returns empty list
-	// UNDER CONSIDERATION: Dropping input off of no input fails.
-	// Should this return an empty list?
-	// list_<>{} = call_<drop_<uint_<7>>>{};
-
 	template <typename T>
 	    requires(std::same_as<T, list_v_<1, 2>>)
 	struct DropVLastThreeOffEnd;
@@ -255,6 +250,44 @@ namespace take_v_tests {
 	using take_v_test_2 = TakeVFirstTwoElements_OneTwo<call_v_<take_v_<2>, 1, 2, 3>>;
 
 } // namespace take_v_tests
+
+namespace take_last_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<4, 5, 6>>)
+struct LastThreeOfSeries;
+
+using take_last_v_test_1 = LastThreeOfSeries<call_v_<take_last_v_<3>, 1, 2, 3, 4, 5, 6>>;
+
+template<typename T> requires(std::same_as<T, list_v_<>>)
+struct TakeNoLastElements;
+
+using take_last_v_test_2 = TakeNoLastElements<call_v_<take_last_v_<0>, 1, 2, 3, 4>>;
+
+template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+struct TakeAllElements;
+
+using take_last_v_test_3 = TakeAllElements<call_v_<take_last_v_<3>, 1, 2, 3>>;
+
+// Test here fails (as it should):
+// template<typename T> requires(std::same_as<T, list_v_<1, 2, 3, 4>>)
+// struct TakePastElementCount;
+
+// using take_last_v_test_4 = TakePastElementCount<call_v_<take_last_v_<5>, 1, 2, 3, 4>>;
+
+} // namespace take_last_v_tests
+
+namespace transform_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+struct AddOneToEach;
+
+constexpr auto add_one = [](auto V) consteval {
+    return V + 1;
+};
+
+using transform_v_test_1 = AddOneToEach<call_v_<transform_v_<add_one>, 0, 1, 2>>;
+
+} // namespace transform_v_tests
 
 // TODO: Implement value_to_type_
 /*
