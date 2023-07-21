@@ -955,6 +955,17 @@ namespace impl { // is_v_
     };
 } // namespace impl
 
+// is_not_v_ : 
+BOOST_TMP_EXPORT template <auto P, typename C = listify_v_>
+struct is_not_v_ {};
+namespace impl { // is_v_
+    template <auto P, typename C>
+    struct dispatch<1, is_not_v_<P, C>> {
+        template <auto T>
+        using f = dispatch<1, C>::template f<(P != T)>;
+    };
+} // namespace impl
+
 // less_f_v_ : 
 BOOST_TMP_EXPORT template <typename F, typename C = identity_>
 struct less_f_v_ {};
