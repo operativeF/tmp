@@ -274,7 +274,18 @@ namespace rotate_v_tests {
 template<typename T> requires(std::same_as<T, list_v_<1, 3, 2>>)
 struct OneThreeTwo;
 
-using RotateTwice = OneThreeTwo<call_v_<rotate_v_<2>, 3, 2, 1>>;
+using rotate_v_test_1 = OneThreeTwo<call_v_<rotate_v_<2>, 3, 2, 1>>;
+
+template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+struct NoRotation;
+
+using rotate_v_test_2 = NoRotation<call_v_<rotate_v_<0>, 1, 2, 3>>;
+
+template<typename T> requires(std::same_as<T, list_v_<2, 3, 1>>)
+struct RotateAround;
+
+// Equivalent to rotate_v_<1>
+using rotate_v_test_3 = RotateAround<call_v_<rotate_v_<7>, 1, 2, 3>>;
 
 } // namespace rotate_v_tests
 

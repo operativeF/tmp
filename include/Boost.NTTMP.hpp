@@ -354,9 +354,30 @@ namespace impl { // reverse_v_
 BOOST_TMP_EXPORT template <std::size_t N = 0, typename C = listify_v_>
 struct rotate_v_ {};
 namespace impl { // rotate_v_
+    // TODO: Add more conditions.
+    consteval auto select_rotation(int Rcount, int Vcount) {
+        if(Rcount < 0) {
+            return step_selector(Vcount + Rcount);
+        }
+        else if(Rcount > Vcount) {
+            return step_selector(Rcount % Vcount);
+        }
+        else {
+            return step_selector(Rcount);
+        }
+    }
+
     // rotate_v_ impl
-    template <auto P, typename C>
+    template <std::size_t P, typename C>
     struct rotate_v_impl;
+
+    // rotate_v_ selection
+    template<std::size_t P, typename C>
+    struct rotate_v_selection {
+        template<auto... Vs>
+        using f = rotate_v_impl<select_rotation(P, sizeof...(Vs)), C>::template f<Vs...>;
+    };
+
     template <typename C>
     struct rotate_v_impl<0, C> {
         template <auto... Vs>
@@ -469,10 +490,10 @@ namespace impl { // rotate_v_
     };
     template <std::size_t P, typename C, std::size_t Step = step_selector(P)>
     struct make_rotate_v_
-        : rotate_v_impl<step_selector(Step), rotate_v_<(P - Step), C>> { /* not done */
+        : rotate_v_selection<step_selector(Step), rotate_v_<(P - Step), C>> { /* not done */
     };
     template <std::size_t P, typename C>
-    struct make_rotate_v_<P, C, P> : rotate_v_impl<P, C> {};
+    struct make_rotate_v_<P, C, P> : rotate_v_selection<P, C> {};
     template <std::size_t N, std::size_t P, typename C>
     struct dispatch<N, rotate_v_<P, C>> : make_rotate_v_<P, C> {};
 } // namespace impl
