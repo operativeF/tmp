@@ -10,11 +10,9 @@
 #define __BOOST_TMP_BASE_HPP
 
 #if defined(__GNUC__) || defined(__clang__) || !defined(ENABLE_CPP_MODULE)
-#include <array>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
-#include <limits>
 #include <type_traits>
 #include <utility>
 #define BOOST_TMP_EXPORT
