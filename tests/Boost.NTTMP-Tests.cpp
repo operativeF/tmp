@@ -115,17 +115,12 @@ namespace fold_v_tests {
 	template <typename T> requires(std::same_as<T, list_v_<20>>)
 	struct FoldLeftValuesTo20;
 
-	template<auto V0>
-	struct added_in {
-		template<auto V1>
-		using f = list_v_<V0 + V1>;
+	constexpr auto add_in = [](auto lhs, auto rhs) consteval {
+		return lhs + rhs;
 	};
 
-	template<typename T, auto U>
-	using add_up_left = call_<unpack_v_<lift_v_<added_in<U>::template f>>, T>;
-
 	using fold_left_v_test_1 =
-	        FoldLeftValuesTo20<call_tv_<fold_left_v_<lift_tv_<add_up_left>>, list_v_<1>, 10, 9>>;
+	        FoldLeftValuesTo20<call_v_<fold_left_v_<add_in>, 1, 10, 9>>;
 
 } // namespace fold_v_tests
 
