@@ -6,7 +6,8 @@
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef __BOOST_TMP_BASE_HPP
+#define __BOOST_TMP_BASE_HPP
 
 #if defined(__GNUC__) || defined(__clang__) || !defined(ENABLE_CPP_MODULE)
 #include <array>
@@ -332,3 +333,5 @@ namespace impl { // unpack_
 } // namespace impl
 
 } // namespace boost::tmp
+
+#endif // __BOOST_TMP_BASE_HPP
