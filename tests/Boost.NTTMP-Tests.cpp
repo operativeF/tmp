@@ -65,6 +65,24 @@ namespace drop_last_v_tests {
 
 } // namespace drop_last_v_tests
 
+// FIXME: Needs join_v_
+// namespace each_v_tests {
+// 	template<typename T> requires(std::same_as<T, list_v_<1, 'f', 3.0>>)
+// 	struct EachValueGetsOwnFunction;
+
+// 	template<auto V>
+// 	struct add_one {
+// 		template<auto V0>
+// 		using f = list_v_<V + V0>;
+// 	};
+
+// 	using each_v_test_1 = EachValueGetsOwnFunction<call_v_<each_v_<lift_v_<add_one<1>::template f>,
+// 	                                                               lift_v_<add_one<1>::template f>,
+// 																   lift_v_<add_one<1>::template f>,
+// 																   listify_v_>, 0, 'e', 2.0>>;
+
+// } // namespace each_v_tests
+
 namespace erase_v_tests {
 	template <typename T>
 	    requires(std::same_as<T, list_v_<2, 3>>)
@@ -196,6 +214,15 @@ struct ValueIsNotFive;
 using is_not_v_test_1 = ValueIsNotFive<call_v_<is_not_v_<5>, 2>>;
 
 } // namespace is_v_tests
+
+namespace join_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+struct JoinLists123;
+
+using join_v_test_1 = JoinLists123<call_<join_v_<>, list_v_<1>, list_v_<2>, list_v_<3>>>;
+
+} // namespace join_v_tests
 
 namespace not_v_tests {
 

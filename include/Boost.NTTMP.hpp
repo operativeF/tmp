@@ -498,6 +498,89 @@ namespace impl { // rotate_v_
     struct dispatch<N, rotate_v_<P, C>> : make_rotate_v_<P, C> {};
 } // namespace impl
 
+// join_v_ :
+BOOST_TMP_EXPORT template<typename C = listify_v_>
+struct join_v_ {};
+namespace impl { // join_v_
+    template<template<auto...> typename C, typename...>
+    struct joiner_v;
+
+    template <template <auto...> class C,
+                auto... T0s, auto... T1s, auto... T2s, auto... T3s,
+                auto... T4s, auto... T5s, auto... T6s, auto... T7s>
+    struct joiner_v<C, list_v_<T0s...>, list_v_<T1s...>, list_v_<T2s...>, list_v_<T3s...>,
+                        list_v_<T4s...>, list_v_<T5s...>, list_v_<T6s...>, list_v_<T7s...>> {
+        template <auto... Vs>
+        using f = C<T0s..., T1s..., T2s..., T3s..., T4s..., T5s..., T6s..., T7s..., Vs...>;
+    };
+    template<template <auto...> class C,
+            auto... T0s,  auto... T1s,  auto... T2s,  auto... T3s,
+            auto... T4s,  auto... T5s,  auto... T6s,  auto... T7s,
+            auto... T8s,  auto... T9s,  auto... T10s, auto... T11s,
+            auto... T12s, auto... T13s, auto... T14s, auto... T15s,
+            auto... T16s, auto... T17s, auto... T18s, auto... T19s,
+            auto... T20s, auto... T21s, auto... T22s, auto... T23s,
+            auto... T24s, auto... T25s, auto... T26s, auto... T27s,
+            auto... T28s, auto... T29s, auto... T30s, auto... T31s>
+    struct joiner_v<C, list_v_<T0s...>,  list_v_<T1s...>,  list_v_<T2s...>,  list_v_<T3s...>,
+                    list_v_<T4s...>,  list_v_<T5s...>,  list_v_<T6s...>,  list_v_<T7s...>,
+                    list_v_<T8s...>,  list_v_<T9s...>,  list_v_<T10s...>, list_v_<T11s...>,
+                    list_v_<T12s...>, list_v_<T13s...>, list_v_<T14s...>, list_v_<T15s...>,
+                    list_v_<T16s...>, list_v_<T17s...>, list_v_<T18s...>, list_v_<T19s...>,
+                    list_v_<T20s...>, list_v_<T21s...>, list_v_<T22s...>, list_v_<T23s...>,
+                    list_v_<T24s...>, list_v_<T25s...>, list_v_<T26s...>, list_v_<T27s...>,
+                    list_v_<T28s...>, list_v_<T29s...>, list_v_<T30s...>, list_v_<T31s...>> {
+        template <auto... Vs>
+        using f = C<T0s...,  T1s...,  T2s...,  T3s...,  T4s...,  T5s...,  T6s...,  T7s...,
+                    T8s...,  T9s...,  T10s..., T11s..., T12s..., T13s..., T14s..., T15s...,
+                    T16s..., T17s..., T18s..., T19s..., T20s..., T21s..., T22s..., T23s...,
+                    T24s..., T25s..., T26s..., T27s..., T28s..., T29s..., T30s..., T31s..., Vs...>;
+    };
+    
+    template <std::size_t N>
+    struct join_loop_v;
+    template <>
+    struct join_loop_v<1> {
+        template <template <auto...> class C,
+                typename T0  = list_v_<>, typename T1  = list_v_<>, typename T2  = list_v_<>,
+                typename T3  = list_v_<>, typename T4  = list_v_<>, typename T5  = list_v_<>,
+                typename T6  = list_v_<>, typename T7  = list_v_<>, typename T8  = list_v_<>,
+                typename T9  = list_v_<>, typename T10 = list_v_<>, typename T11 = list_v_<>,
+                typename T12 = list_v_<>, typename T13 = list_v_<>, typename T14 = list_v_<>,
+                typename T15 = list_v_<>, typename T16 = list_v_<>, typename T17 = list_v_<>,
+                typename T18 = list_v_<>, typename T19 = list_v_<>, typename T20 = list_v_<>,
+                typename T21 = list_v_<>, typename T22 = list_v_<>, typename T23 = list_v_<>,
+                typename T24 = list_v_<>, typename T25 = list_v_<>, typename T26 = list_v_<>,
+                typename T27 = list_v_<>, typename T28 = list_v_<>, typename T29 = list_v_<>,
+                typename T30 = list_v_<>, typename T31 = list_v_<>, typename... Ts>
+        using f = join_loop_v<(sizeof...(Ts) > 8)>::template f<
+                joiner_v<C, T0,  T1,  T2,  T3,  T4,  T5,  T6,  T7,  T8,  T9,  T10, T11, T12, T13,
+                        T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27,
+                        T28, T29, T30, T31>::template f, Ts...>;
+    };
+    template <>
+    struct join_loop_v<0> {
+        template <template <auto...> class C,
+                typename T0 = list_v_<>, typename T1 = list_v_<>, typename T2 = list_v_<>,
+                typename T3 = list_v_<>, typename T4 = list_v_<>, typename T5 = list_v_<>,
+                typename T6 = list_v_<>, typename T7 = list_v_<>, typename T8 = list_v_<>>
+        using f = joiner_v<C, T0, T1, T2, T3, T4, T5, T6, T7>::template f<>;
+    };
+
+    template <std::size_t N, template <auto...> class C>
+    struct dispatch<N, join_v_<lift_v_<C>>> {
+        template <typename... VTs>
+        using f = join_loop_v<(sizeof...(VTs) > 8)>::template f<C, VTs...>;
+    };
+    template <std::size_t N, typename C>
+    struct dispatch<N, join_v_<C>> {
+        template <typename... VTs>
+        using f = join_loop_v<(
+                sizeof...(VTs) > 8)>::template f<dispatch_unknown_v<C>::template f, VTs...>;
+    };
+} // namespace impl
+
+
 // drop_last_v_ :
 BOOST_TMP_EXPORT template<std::size_t N, typename C = listify_v_>
 struct drop_last_v_ {};
