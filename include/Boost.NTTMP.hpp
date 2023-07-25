@@ -668,23 +668,22 @@ namespace impl { // fold_left_v_
                 auto V9,  auto V10, auto V11, auto V12, auto V13,
                 auto V14, auto... Vs>
         using f = dispatch<find_dispatch(sizeof...(Vs) + 1), fold_left_v_<F, lift_v_<C>>>::template
-                    f<F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(In,
-                                                    V0),
-                                                    V1),
+                    f<F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(In, V0),
+                                                  V1),
                                                 V2),
-                                                V3),
+                                              V3),
                                             V4),
-                                            V5),
+                                          V5),
                                         V6),
-                                        V7),
+                                      V7),
                                     V8),
-                                    V9),
+                                  V9),
                                 V10),
-                                V11),
+                              V11),
                             V12),
-                            V13),
+                          V13),
                         V14),
-                        Vs...>;
+                      Vs...>;
     };
     template <auto F, template <auto...> class C>
     struct dispatch<17, fold_left_v_<F, lift_v_<C>>>
@@ -700,39 +699,38 @@ namespace impl { // fold_left_v_
                 auto V29, auto V30, auto... Vs>
         using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
                     fold_left_v_<F, lift_v_<C>>>::template
-                    f<F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(In,
-                                                                                    V0),
-                                                                                    V1),
+                    f<F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(F(In, V0),
+                                                                                  V1),
                                                                                 V2),
-                                                                                V3),
+                                                                              V3),
                                                                             V4),
-                                                                            V5),
+                                                                          V5),
                                                                         V6),
-                                                                        V7),
+                                                                      V7),
                                                                     V8),
-                                                                    V9),
+                                                                  V9),
                                                                 V10),
-                                                                V11),
+                                                              V11),
                                                             V12),
-                                                            V13),
+                                                          V13),
                                                         V14),
-                                                        V15),
+                                                      V15),
                                                     V16),
-                                                    V17),
+                                                  V17),
                                                 V18),
-                                                V19),
+                                              V19),
                                             V20),
-                                            V21),
+                                          V21),
                                         V22),
-                                        V23),
+                                      V23),
                                     V24),
-                                    V25),
+                                  V25),
                                 V26),
-                                V27),
+                              V27),
                             V28),
-                            V29),
+                          V29),
                         V30),
-                        Vs...>;
+                      Vs...>;
     };
     template <auto F, template <auto...> class C>
     struct dispatch<33, fold_left_v_<F, lift_v_<C>>>
@@ -1150,8 +1148,8 @@ namespace impl { // repeat_sequence_
 //     };
 // } // namespace impl
 
+// find_if_ :
 // Returns the index of the type that satisfies UnaryPredicate.
-// find_if_ : 
 BOOST_TMP_EXPORT template <typename UnaryPred, typename C = identity_>
 struct find_if_v_ {};
 namespace impl { // find_if_v_
