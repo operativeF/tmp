@@ -506,35 +506,35 @@ namespace impl { // join_v_
     struct joiner_v;
 
     template <template <auto...> class C,
-                auto... T0s, auto... T1s, auto... T2s, auto... T3s,
-                auto... T4s, auto... T5s, auto... T6s, auto... T7s>
-    struct joiner_v<C, list_v_<T0s...>, list_v_<T1s...>, list_v_<T2s...>, list_v_<T3s...>,
-                        list_v_<T4s...>, list_v_<T5s...>, list_v_<T6s...>, list_v_<T7s...>> {
+                auto... V0s, auto... V1s, auto... V2s, auto... V3s,
+                auto... V4s, auto... V5s, auto... V6s, auto... V7s>
+    struct joiner_v<C, list_v_<V0s...>, list_v_<V1s...>, list_v_<V2s...>, list_v_<V3s...>,
+                        list_v_<V4s...>, list_v_<V5s...>, list_v_<V6s...>, list_v_<V7s...>> {
         template <auto... Vs>
-        using f = C<T0s..., T1s..., T2s..., T3s..., T4s..., T5s..., T6s..., T7s..., Vs...>;
+        using f = C<V0s..., V1s..., V2s..., V3s..., V4s..., V5s..., V6s..., V7s..., Vs...>;
     };
     template<template <auto...> class C,
-            auto... T0s,  auto... T1s,  auto... T2s,  auto... T3s,
-            auto... T4s,  auto... T5s,  auto... T6s,  auto... T7s,
-            auto... T8s,  auto... T9s,  auto... T10s, auto... T11s,
-            auto... T12s, auto... T13s, auto... T14s, auto... T15s,
-            auto... T16s, auto... T17s, auto... T18s, auto... T19s,
-            auto... T20s, auto... T21s, auto... T22s, auto... T23s,
-            auto... T24s, auto... T25s, auto... T26s, auto... T27s,
-            auto... T28s, auto... T29s, auto... T30s, auto... T31s>
-    struct joiner_v<C, list_v_<T0s...>,  list_v_<T1s...>,  list_v_<T2s...>,  list_v_<T3s...>,
-                    list_v_<T4s...>,  list_v_<T5s...>,  list_v_<T6s...>,  list_v_<T7s...>,
-                    list_v_<T8s...>,  list_v_<T9s...>,  list_v_<T10s...>, list_v_<T11s...>,
-                    list_v_<T12s...>, list_v_<T13s...>, list_v_<T14s...>, list_v_<T15s...>,
-                    list_v_<T16s...>, list_v_<T17s...>, list_v_<T18s...>, list_v_<T19s...>,
-                    list_v_<T20s...>, list_v_<T21s...>, list_v_<T22s...>, list_v_<T23s...>,
-                    list_v_<T24s...>, list_v_<T25s...>, list_v_<T26s...>, list_v_<T27s...>,
-                    list_v_<T28s...>, list_v_<T29s...>, list_v_<T30s...>, list_v_<T31s...>> {
+            auto... V0s,  auto... V1s,  auto... V2s,  auto... V3s,
+            auto... V4s,  auto... V5s,  auto... V6s,  auto... V7s,
+            auto... V8s,  auto... V9s,  auto... V10s, auto... V11s,
+            auto... V12s, auto... V13s, auto... V14s, auto... V15s,
+            auto... V16s, auto... V17s, auto... V18s, auto... V19s,
+            auto... V20s, auto... V21s, auto... V22s, auto... V23s,
+            auto... V24s, auto... V25s, auto... V26s, auto... V27s,
+            auto... V28s, auto... V29s, auto... V30s, auto... V31s>
+    struct joiner_v<C, list_v_<V0s...>,  list_v_<V1s...>,  list_v_<V2s...>,  list_v_<V3s...>,
+                    list_v_<V4s...>,  list_v_<V5s...>,  list_v_<V6s...>,  list_v_<V7s...>,
+                    list_v_<V8s...>,  list_v_<V9s...>,  list_v_<V10s...>, list_v_<V11s...>,
+                    list_v_<V12s...>, list_v_<V13s...>, list_v_<V14s...>, list_v_<V15s...>,
+                    list_v_<V16s...>, list_v_<V17s...>, list_v_<V18s...>, list_v_<V19s...>,
+                    list_v_<V20s...>, list_v_<V21s...>, list_v_<V22s...>, list_v_<V23s...>,
+                    list_v_<V24s...>, list_v_<V25s...>, list_v_<V26s...>, list_v_<V27s...>,
+                    list_v_<V28s...>, list_v_<V29s...>, list_v_<V30s...>, list_v_<V31s...>> {
         template <auto... Vs>
-        using f = C<T0s...,  T1s...,  T2s...,  T3s...,  T4s...,  T5s...,  T6s...,  T7s...,
-                    T8s...,  T9s...,  T10s..., T11s..., T12s..., T13s..., T14s..., T15s...,
-                    T16s..., T17s..., T18s..., T19s..., T20s..., T21s..., T22s..., T23s...,
-                    T24s..., T25s..., T26s..., T27s..., T28s..., T29s..., T30s..., T31s..., Vs...>;
+        using f = C<V0s...,  V1s...,  V2s...,  V3s...,  V4s...,  V5s...,  V6s...,  V7s...,
+                    V8s...,  V9s...,  V10s..., V11s..., V12s..., V13s..., V14s..., V15s...,
+                    V16s..., V17s..., V18s..., V19s..., V20s..., V21s..., V22s..., V23s...,
+                    V24s..., V25s..., V26s..., V27s..., V28s..., V29s..., V30s..., V31s..., Vs...>;
     };
     
     template <std::size_t N>
@@ -542,29 +542,29 @@ namespace impl { // join_v_
     template <>
     struct join_loop_v<1> {
         template <template <auto...> class C,
-                typename T0  = list_v_<>, typename T1  = list_v_<>, typename T2  = list_v_<>,
-                typename T3  = list_v_<>, typename T4  = list_v_<>, typename T5  = list_v_<>,
-                typename T6  = list_v_<>, typename T7  = list_v_<>, typename T8  = list_v_<>,
-                typename T9  = list_v_<>, typename T10 = list_v_<>, typename T11 = list_v_<>,
-                typename T12 = list_v_<>, typename T13 = list_v_<>, typename T14 = list_v_<>,
-                typename T15 = list_v_<>, typename T16 = list_v_<>, typename T17 = list_v_<>,
-                typename T18 = list_v_<>, typename T19 = list_v_<>, typename T20 = list_v_<>,
-                typename T21 = list_v_<>, typename T22 = list_v_<>, typename T23 = list_v_<>,
-                typename T24 = list_v_<>, typename T25 = list_v_<>, typename T26 = list_v_<>,
-                typename T27 = list_v_<>, typename T28 = list_v_<>, typename T29 = list_v_<>,
-                typename T30 = list_v_<>, typename T31 = list_v_<>, typename... Ts>
+                typename LV0  = list_v_<>, typename LV1  = list_v_<>, typename LV2  = list_v_<>,
+                typename LV3  = list_v_<>, typename LV4  = list_v_<>, typename LV5  = list_v_<>,
+                typename LV6  = list_v_<>, typename LV7  = list_v_<>, typename LV8  = list_v_<>,
+                typename LV9  = list_v_<>, typename LV10 = list_v_<>, typename LV11 = list_v_<>,
+                typename LV12 = list_v_<>, typename LV13 = list_v_<>, typename LV14 = list_v_<>,
+                typename LV15 = list_v_<>, typename LV16 = list_v_<>, typename LV17 = list_v_<>,
+                typename LV18 = list_v_<>, typename LV19 = list_v_<>, typename LV20 = list_v_<>,
+                typename LV21 = list_v_<>, typename LV22 = list_v_<>, typename LV23 = list_v_<>,
+                typename LV24 = list_v_<>, typename LV25 = list_v_<>, typename LV26 = list_v_<>,
+                typename LV27 = list_v_<>, typename LV28 = list_v_<>, typename LV29 = list_v_<>,
+                typename LV30 = list_v_<>, typename LV31 = list_v_<>, typename... Ts>
         using f = join_loop_v<(sizeof...(Ts) > 8)>::template f<
-                joiner_v<C, T0,  T1,  T2,  T3,  T4,  T5,  T6,  T7,  T8,  T9,  T10, T11, T12, T13,
-                        T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27,
-                        T28, T29, T30, T31>::template f, Ts...>;
+                joiner_v<C, LV0,  LV1,  LV2,  LV3,  LV4,  LV5,  LV6,  LV7,  LV8,  LV9,  LV10, LV11, LV12, LV13,
+                        LV14, LV15, LV16, LV17, LV18, LV19, LV20, LV21, LV22, LV23, LV24, LV25, LV26, LV27,
+                        LV28, LV29, LV30, LV31>::template f, Ts...>;
     };
     template <>
     struct join_loop_v<0> {
         template <template <auto...> class C,
-                typename T0 = list_v_<>, typename T1 = list_v_<>, typename T2 = list_v_<>,
-                typename T3 = list_v_<>, typename T4 = list_v_<>, typename T5 = list_v_<>,
-                typename T6 = list_v_<>, typename T7 = list_v_<>, typename T8 = list_v_<>>
-        using f = joiner_v<C, T0, T1, T2, T3, T4, T5, T6, T7>::template f<>;
+                typename LV0 = list_v_<>, typename LV1 = list_v_<>, typename LV2 = list_v_<>,
+                typename LV3 = list_v_<>, typename LV4 = list_v_<>, typename LV5 = list_v_<>,
+                typename LV6 = list_v_<>, typename LV7 = list_v_<>, typename LV8 = list_v_<>>
+        using f = joiner_v<C, LV0, LV1, LV2, LV3, LV4, LV5, LV6, LV7>::template f<>;
     };
 
     template <std::size_t N, template <auto...> class C>
@@ -982,7 +982,7 @@ namespace impl { // index_v_
 
     template <std::size_t N, typename C>
     struct dispatch<N, index_v_<std::numeric_limits<std::size_t>::max(), C>> { // 
-        template <auto... Ts>
+        template <auto... Vs>
         using f = dispatch<1, C>::template f<nothing_{}>;
     };
     template <std::size_t N, typename C>
@@ -1279,7 +1279,7 @@ namespace impl { // insert_v_
     };
     template <std::size_t I, auto V, typename C>
     struct dispatch<0, insert_v_<I, V, C>> {
-        template <auto... Ts>
+        template <auto... Vs>
         using f = dispatch<1, C>::template f<V>;
     };
 } // namespace impl
