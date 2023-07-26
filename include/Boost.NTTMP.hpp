@@ -1367,13 +1367,13 @@ namespace impl { // take_last_
 // } // namespace impl
 
 // transform_v_ :
-BOOST_TMP_EXPORT template <auto F, typename C = listify_v_>
+BOOST_TMP_EXPORT template <typename F, typename C = listify_>
 struct transform_v_ {};
 namespace impl { // transform_v_
-    template <std::size_t N, auto F, typename C>
-    struct dispatch<N, transform_v_<F, C>> {
+    template <std::size_t N, template<auto> typename F, typename C>
+    struct dispatch<N, transform_v_<lift_v_<F>, C>> {
         template <auto... Vs>
-        using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<F(Vs)...>;
+        using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<F<Vs>...>;
     };
 } // namespace impl
 

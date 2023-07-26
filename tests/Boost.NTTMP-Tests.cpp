@@ -395,14 +395,13 @@ using take_last_v_test_3 = TakeAllElements<call_v_<take_last_v_<3>, 1, 2, 3>>;
 
 namespace transform_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+template<typename T> requires(std::same_as<T, list_<list_v_<1>, list_v_<2>, list_v_<3>>>)
 struct AddOneToEach;
 
-constexpr auto add_one = [](auto V) consteval {
-    return V + 1;
-};
+template<auto V>
+using add_one = list_v_<V + 1>;
 
-using transform_v_test_1 = AddOneToEach<call_v_<transform_v_<add_one>, 0, 1, 2>>;
+using transform_v_test_1 = AddOneToEach<call_v_<transform_v_<lift_v_<add_one>>, 0, 1, 2>>;
 
 } // namespace transform_v_tests
 
