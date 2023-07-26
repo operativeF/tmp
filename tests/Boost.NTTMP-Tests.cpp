@@ -133,12 +133,17 @@ namespace fold_v_tests {
 	template <typename T> requires(std::same_as<T, list_v_<20>>)
 	struct FoldLeftValuesTo20;
 
-	constexpr auto add_in = [](auto lhs, auto rhs) consteval {
-		return lhs + rhs;
+	template<auto V>
+	struct adder_ {
+		template<auto U>
+		using f = list_v_<V + U>;
 	};
 
+	template<typename TV, auto U>
+	using add_in = call_<unpack_v_<lift_v_<adder_<U>::template f>>, TV>;
+
 	using fold_left_v_test_1 =
-	        FoldLeftValuesTo20<call_v_<fold_left_v_<add_in>, 1, 10, 9>>;
+	        FoldLeftValuesTo20<call_tv_<fold_left_v_<lift_tv_<add_in>>, list_v_<1>, 9, 10>>;
 
 } // namespace fold_v_tests
 
@@ -215,11 +220,15 @@ using is_not_v_test_1 = ValueIsNotFive<call_v_<is_not_v_<5>, 2>>;
 
 } // namespace is_v_tests
 
+// TODO: Joining amorphous types and values i.e. 
+// list_v_<1>, 1, 'c', list_v_<3> -> list_v_<1, 1, 'c', 3>
 namespace join_v_tests {
 
 template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
 struct JoinLists123;
 
+// Notice the use of call_ here, and *not* call_v_.
+// While we are dealing with combining values, types are being used to ferry the values.
 using join_v_test_1 = JoinLists123<call_<join_v_<>, list_v_<1>, list_v_<2>, list_v_<3>>>;
 
 } // namespace join_v_tests
