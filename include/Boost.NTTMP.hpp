@@ -189,28 +189,28 @@ namespace impl { // each_
     template <typename F, typename C>
     struct dispatch<1, each_v_<F, C>> {
         template <auto V>
-        using f = dispatch<1, C>::template f<dispatch<1, F>::template f<V>>;
+        using f = dispatch<1, C>::template f<typename dispatch<1, F>::template f<V>>;
     };
     template <typename F0, typename F1, typename C>
     struct dispatch<2, each_v_<F0, F1, C>> {
         template <auto V0, auto V1>
-        using f = dispatch<2, C>::template f<dispatch<1, F0>::template f<V0>,
-                                             dispatch<1, F1>::template f<V1>>;
+        using f = dispatch<2, C>::template f<typename dispatch<1, F0>::template f<V0>,
+                                             typename dispatch<1, F1>::template f<V1>>;
     };
     template <typename F0, typename F1, typename F2, typename C>
     struct dispatch<3, each_v_<F0, F1, F2, C>> {
         template <auto V0, auto V1, auto V2>
-        using f = dispatch<3, C>::template f<dispatch<1, F0>::template f<V0>,
-                                             dispatch<1, F1>::template f<V1>,
-                                             dispatch<1, F2>::template f<V2>>;
+        using f = dispatch<3, C>::template f<typename dispatch<1, F0>::template f<V0>,
+                                             typename dispatch<1, F1>::template f<V1>,
+                                             typename dispatch<1, F2>::template f<V2>>;
     };
     template <typename F0, typename F1, typename F2, typename F3, typename C>
     struct dispatch<4, each_v_<F0, F1, F2, F3, C>> {
         template <auto V0, auto V1, auto V2, auto V3>
-        using f = dispatch<4, C>::template f<dispatch<1, F0>::template f<V0>,
-                                             dispatch<1, F1>::template f<V1>,
-                                             dispatch<1, F2>::template f<V2>,
-                                             dispatch<1, F3>::template f<V3>>;
+        using f = dispatch<4, C>::template f<typename dispatch<1, F0>::template f<V0>,
+                                             typename dispatch<1, F1>::template f<V1>,
+                                             typename dispatch<1, F2>::template f<V2>,
+                                             typename dispatch<1, F3>::template f<V3>>;
     };
 } // namespace impl
 
