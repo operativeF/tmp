@@ -83,22 +83,21 @@ namespace drop_last_v_tests {
 } // namespace drop_last_v_tests
 
 // FIXME: Needs join_v_
-// namespace each_v_tests {
-// 	template<typename T> requires(std::same_as<T, list_v_<1, 'f', 3.0>>)
-// 	struct EachValueGetsOwnFunction;
+namespace each_v_tests {
+	template<typename T> requires(std::same_as<T, list_v_<1, 3.0>>)
+	struct EachValueGetsOwnFunction;
 
-// 	template<auto V>
-// 	struct add_one {
-// 		template<auto V0>
-// 		using f = list_v_<V + V0>;
-// 	};
+	template<auto V>
+	struct add_some {
+		template<auto V0>
+		using f = list_v_<V + V0>;
+	};
 
-// 	using each_v_test_1 = EachValueGetsOwnFunction<call_v_<each_v_<lift_v_<add_one<1>::template f>,
-// 	                                                               lift_v_<add_one<1>::template f>,
-// 																   lift_v_<add_one<1>::template f>,
-// 																   listify_v_>, 0, 'e', 2.0>>;
+	using each_v_test_1 = EachValueGetsOwnFunction<call_v_<each_v_<lift_v_<add_some<1>::template f>,
+																   lift_v_<add_some<2.0>::template f>,
+																   join_v_<>>, 0, 1.0>>;
 
-// } // namespace each_v_tests
+} // namespace each_v_tests
 
 namespace erase_v_tests {
 	template <typename T>
