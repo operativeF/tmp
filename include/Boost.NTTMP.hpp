@@ -53,7 +53,7 @@ struct call_vv_ {
 };
 
 // always_v_ : metaclosure returns NTTP / shovels into the continuation C.
-BOOST_TMP_EXPORT template <auto V, typename C = identity_>
+BOOST_TMP_EXPORT template <auto V, typename C = listify_v_>
 struct always_v_ {};
 namespace impl { // always_v_
     template <std::size_t N, auto V, typename C>
@@ -1065,7 +1065,7 @@ namespace impl { // is_v_
 } // namespace impl
 
 // less_f_v_ : 
-BOOST_TMP_EXPORT template <typename F, typename C = identity_>
+BOOST_TMP_EXPORT template <typename F, typename C = listify_v_>
 struct less_f_v_ {};
 namespace impl { // less_f_
     template <template<auto...> typename F, typename C>
