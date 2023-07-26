@@ -741,7 +741,7 @@ namespace impl { // fold_left_v_
         template <typename In, auto V0, auto V1, auto V2, auto V3,
                 auto V4, auto V5, auto V6, auto... Vs>
         using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
-                                    fold_left_v_<F, lift_<C>>>::
+                                    fold_left_v_<lift_tv_<F>, lift_<C>>>::
                 template f<F<F<F<F<F<F<F<In, V0>, V1>, V2>, V3>, V4>, V5>, V6>, Vs...>;
     };
     template <template<typename, auto...> typename F, template <typename...> class C>
@@ -750,7 +750,7 @@ namespace impl { // fold_left_v_
                 auto V4,  auto V5,  auto V6,  auto V7,  auto V8,
                 auto V9,  auto V10, auto V11, auto V12, auto V13,
                 auto V14, auto... Vs>
-        using f = dispatch<find_dispatch(sizeof...(Vs) + 1), fold_left_v_<F, lift_<C>>>::template
+        using f = dispatch<find_dispatch(sizeof...(Vs) + 1), fold_left_v_<lift_tv_<F>, lift_<C>>>::template
                     f<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<In, V0>,
                                                   V1>,
                                                 V2>,
@@ -781,7 +781,7 @@ namespace impl { // fold_left_v_
                 auto V24, auto V25, auto V26, auto V27, auto V28,
                 auto V29, auto V30, auto... Vs>
         using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
-                    fold_left_v_<F, lift_<C>>>::template
+                    fold_left_v_<lift_tv_<F>, lift_<C>>>::template
                     f<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<In, V0>,
                                                                                   V1>,
                                                                                 V2>,
@@ -835,7 +835,7 @@ namespace impl { // fold_left_v_
                 auto V59, auto V60, auto V61, auto V62, auto V63,
                 auto... Vs>
         using f = dispatch<find_dispatch(sizeof...(Vs) + 1),
-                fold_left_v_<F, lift_<C>>>::
+                fold_left_v_<lift_tv_<F>, lift_<C>>>::
         template f<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<F<In,
                                                                                                                                                    V0>,
                                                                                                                                                  V1>,
