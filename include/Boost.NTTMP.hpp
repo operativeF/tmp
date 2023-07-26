@@ -64,15 +64,6 @@ namespace impl { // always_v_
     };
 } // namespace impl
 
-// contains_v_ : Given a non-type parameter (V), return true_ / false_ on whether a given NTTP
-// contains the value V.
-// BOOST_TMP_EXPORT template <auto V, typename C = identity_>
-// struct contains_v_ {};
-// namespace impl { // contains_
-//     template <std::size_t N, auto V, typename C>
-//     struct dispatch<N, contains_v_<V, C>> : dispatch<N, or_<is_v_<V>, C>> {};
-// } // namespace impl
-
 // drop_v_ : Remove (N) values from the front of the input VPP.
 // Input params: Parameter value pack
 // Closure params: N - Positive integer
@@ -1370,7 +1361,7 @@ namespace impl { // or_
     template <bool Short, template <auto...> class F>
     struct ory_v {
         template <auto V>
-        using f                    = ory_v<F<V>::value, F>;
+        using f                    = ory_v<V, F>;
         static constexpr std::size_t value = -1;
     };
     template <template <auto...> class F>
@@ -1405,6 +1396,15 @@ namespace impl { // or_
         template <auto... Vs>
         using f = dispatch<1, C>::template f<false_>;
     };
+} // namespace impl
+
+// contains_v_ : Given a non-type parameter (V), return true_ / false_ on whether a given NTTP
+// contains the value V.
+BOOST_TMP_EXPORT template <auto V, typename C = identity_>
+struct contains_v_ {};
+namespace impl { // contains_
+    template <std::size_t N, auto V, typename C>
+    struct dispatch<N, contains_v_<V, C>> : dispatch<N, or_v_<is_v_<V>, C>> {};
 } // namespace impl
 
 // and_ : 

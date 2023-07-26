@@ -57,6 +57,15 @@ using and_v_test_2 = SingleEvenFalse<call_v_<and_v_<lift_v_<is_even>>, 2, 4, 8, 
 
 } // namespace and_v_tests
 
+namespace contains_v_tests {
+
+template<typename T> requires(std::same_as<T, true_>)
+struct DoesContainNine;
+
+using contains_v_test_1 = DoesContainNine<call_v_<contains_v_<9>, 1, 3, 5, 9>>;
+
+} // namespace contains_v_tests
+
 namespace drop_v_tests {
 	template <typename T>
 	    requires(std::same_as<T, list_v_<1>>)
