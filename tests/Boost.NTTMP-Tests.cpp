@@ -141,6 +141,19 @@ namespace filter_v_tests {
 	using filter_test_1 = FilterOutOddValues<call_v_<filter_v_<lift_v_<is_even_val>>, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10>>;
 }
 
+namespace find_if_not_v_tests {
+
+template<typename T> requires(std::same_as<T, sizet_<3>>)
+struct FindIfNot_OddNumberAtIndexThree;
+
+template <auto V>
+using is_even = bool_<(V % 2 == 0)>;
+
+
+using find_if_not_test_1 = FindIfNot_OddNumberAtIndexThree<call_v_<find_if_not_v_<lift_v_<is_even>>, 2, 4, 6, 9>>;
+
+} // namespace find_if_not_v_tests
+
 // TODO: finish find_v_
 /*
 namespace find_v_tests {

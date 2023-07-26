@@ -1354,6 +1354,41 @@ struct foldey_v<1008> {
 template <>
 struct foldey_v<1000000> {};
 
+// find_if_not_v_ : 
+BOOST_TMP_EXPORT template <typename UnaryPred, typename C = identity_>
+struct find_if_not_v_ {};
+namespace impl { // find_if_not_v_
+    template <bool Found, std::size_t At, template <auto...> class F>
+    struct county_not_v {
+        static constexpr auto value{std::numeric_limits<std::size_t>::max()};
+        template <auto V>
+        using f = county_not_v<F<V>::value, (At + 1), F>;
+    };
+    template <std::size_t At, template <auto...> class F>
+    struct county_not_v<false, At, F> {
+        template <typename T>
+        using f                    = county_not_v;
+        static constexpr std::size_t value = At;
+    };
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, find_if_not_v_<F, C>> {
+        template <auto... Vs>
+        using f = typename dispatch<1, C>::template f<
+                        foldey_v<select_foldey_loop(sizeof...(Vs))>::template f<
+                        county_not_v<true,
+                                std::numeric_limits<std::size_t>::max(),
+                                dispatch<1, F>::template f>, 0, Vs...>>;
+    };
+    template <std::size_t N, template <auto...> class F, typename C>
+    struct dispatch<N, find_if_not_v_<lift_v_<F>, C>> {
+            template <auto... Vs>
+            using f = typename dispatch<1, C>::template f<typename foldey_v<select_foldey_loop(
+                        sizeof...(Vs))>::template f<county_not_v<true,
+                                                            std::numeric_limits<std::size_t>::max(),
+                                                            F>, 0, Vs...>>;
+    };
+} // namespace impl
+
 // or_ : 
 BOOST_TMP_EXPORT template <typename F, typename C = identity_>
 struct or_v_ {};
