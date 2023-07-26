@@ -1375,6 +1375,49 @@ namespace impl { // or_
     };
 } // namespace impl
 
+// and_ : 
+BOOST_TMP_EXPORT template <typename F, typename C = identity_>
+struct and_v_ {};
+namespace impl { // and_
+    template <bool Short, template <auto...> class F>
+    struct andy_v {
+        template <auto V>
+        using f                    = andy_v<(!F<V>::value), F>;
+        static constexpr std::size_t value = -1;
+    };
+    template <template <auto...> class F>
+    struct andy_v<true, F> {
+        template <auto V>
+        using f                    = andy_v;
+        static constexpr std::size_t value = 1;
+    };
+    template <std::size_t N, template <auto...> class F, typename C>
+    struct dispatch<N, and_v_<lift_v_<F>, C>> {
+        template <auto... Vs>
+        using f = dispatch<1, C>::template f<
+                call_<is_<nothing_>, typename foldey_v<(select_foldey_loop(sizeof...(
+                                                Vs)))>::template f<andy_v<false, F>, 0, Vs...>>>;
+    };
+    template <template <auto...> class F, typename C>
+    struct dispatch<0, and_v_<lift_v_<F>, C>> {
+        template <auto... Vs>
+        using f = dispatch<1, C>::template f<false_>;
+    };
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, and_v_<F, C>> {
+        template <auto... Vs>
+        using f = dispatch<1, C>::template f<
+                call_<is_<nothing_>,
+                        typename foldey_v<(select_foldey_loop(sizeof...(Vs)))>::template f<
+                                andy_v<false, dispatch<1, F>::template f>, 0, Vs...>>>;
+    };
+    template <typename F, typename C>
+    struct dispatch<0, and_v_<F, C>> {
+        template <auto... Vs>
+        using f = dispatch<1, C>::template f<false_>;
+    };
+} // namespace impl
+
 BOOST_TMP_EXPORT template <typename C = listify_v_>
 struct size_v_ {};
 namespace impl { // size_
