@@ -186,7 +186,7 @@ namespace impl { // lift_v_
     };
 } // namespace impl
 
-// lift_v_ : Used for lifting a typename and non-type parameter(s) into a function.
+// lift_tv_ : Used for lifting a typename and non-type parameter(s) into a function.
 BOOST_TMP_EXPORT template <template <typename, auto...> class F, typename C = identity_>
 struct lift_tv_ {};
 namespace impl { // lift_tv_

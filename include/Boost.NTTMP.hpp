@@ -1295,7 +1295,7 @@ namespace impl { // insert_v_
     };
 } // namespace impl
 
-BOOST_TMP_EXPORT template <typename C = identity_>
+BOOST_TMP_EXPORT template <typename C = listify_v_>
 struct size_v_ {};
 namespace impl { // size_
     template <std::size_t N, typename C>

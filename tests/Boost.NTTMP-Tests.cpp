@@ -152,7 +152,7 @@ namespace index_v_tests {
 	template<typename T> requires(std::same_as<T, list_v_<9>>)
 	struct AtIndexTwo;
 
-	using index_v_test_1 = AtIndexTwo<call_v_<iv2_<listify_v_>, 1, 4, 9, 10>>;
+	using index_v_test_1 = AtIndexTwo<call_v_<iv2_<>, 1, 4, 9, 10>>;
 
 	template<typename T> requires(std::same_as<T, list_v_<2>>)
 	struct AtUnpackedIndexTen;
@@ -340,7 +340,7 @@ namespace size_v_tests {
 template<typename T> requires(std::same_as<T, list_v_<std::size_t{3}>>)
 struct FiveValueListV;
 
-using size_v_test_1 = FiveValueListV<call_v_<size_v_<listify_v_>, 1, 2, 3>>;
+using size_v_test_1 = FiveValueListV<call_v_<size_v_<>, 1, 2, 3>>;
 
 } // namespace size_v_tests
 
