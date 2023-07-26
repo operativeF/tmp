@@ -242,6 +242,18 @@ using not_v_test_1 = ValueIsNotTrue<call_v_<not_v_<>, false>>;
 
 } // namespace not_v_tests
 
+namespace or_v_tests {
+
+template<typename T> requires(std::same_as<T, true_>)
+struct AtLeastOneEven;
+
+template<auto V>
+using is_even = bool_<(V % 2 == 0)>;
+
+using or_v_test_1 = AtLeastOneEven<call_v_<or_v_<lift_v_<is_even>>, 1, 3, 5, 6>>;
+
+} // namespace or_v_tests
+
 namespace pop_back_v_tests {
 
 template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)

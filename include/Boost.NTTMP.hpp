@@ -15,6 +15,7 @@
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
 #include "Boost.TMP.Base.hpp"
+#include "Boost.TMP.hpp"
 
 namespace boost::tmp {
 
@@ -1292,6 +1293,85 @@ namespace impl { // insert_v_
     struct dispatch<0, insert_v_<I, V, C>> {
         template <auto... Vs>
         using f = dispatch<1, C>::template f<V>;
+    };
+} // namespace impl
+
+template <std::size_t S>
+struct foldey_v {
+    template <typename F, std::size_t N, auto...>
+    using f = sizet_<N - S>;
+};
+template <>
+struct foldey_v<1000> {
+    template <typename F, std::size_t N, auto... Vs>
+    using f = nothing_;
+};
+template <>
+struct foldey_v<1001> {
+    template <typename F, std::size_t N, auto V0, auto... Vs> 
+    using f = foldey_v<select_foldey(1, sizeof...(Vs), F::template f<V0>::value)>::template f<F, N + 1, Vs...>;
+};
+template <>
+struct foldey_v<1008> {
+    template <typename F, std::size_t N, auto V0, auto V1, auto V2,
+              auto V3, auto V4, auto V5, auto V6, auto V7,
+              auto... Vs>
+    using f = foldey_v<select_foldey(8, sizeof...(Vs),
+                F::template
+                  f<V0>::template
+                    f<V1>::template
+                      f<V2>::template
+                        f<V3>::template
+                          f<V4>::template
+                            f<V5>::template
+                              f<V6>::template
+                                f<V7>::value)>::template
+                                  f<F, N + 8, Vs...>;
+};
+template <>
+struct foldey_v<1000000> {};
+
+// or_ : 
+BOOST_TMP_EXPORT template <typename F, typename C = identity_>
+struct or_v_ {};
+namespace impl { // or_
+    template <bool Short, template <auto...> class F>
+    struct ory_v {
+        template <auto V>
+        using f                    = ory_v<F<V>::value, F>;
+        static constexpr std::size_t value = -1;
+    };
+    template <template <auto...> class F>
+    struct ory_v<true, F> {
+        template <auto V>
+        using f                    = ory_v;
+        static constexpr std::size_t value = 1;
+    };
+    template <std::size_t N, template <auto...> class F, typename C>
+    struct dispatch<N, or_v_<lift_v_<F>, C>> {
+        template <auto... Vs>
+        using f = dispatch<1, C>::template f<
+                call_<is_<nothing_, not_<identity_>>,
+                        typename foldey_v<(select_foldey_loop(
+                                sizeof...(Vs)))>::template f<ory_v<false, F>, 0, Vs...>>>;
+    };
+    template <template <auto...> class F, typename C>
+    struct dispatch<0, or_v_<lift_v_<F>, C>> {
+        template <auto... Vs>
+        using f = dispatch<1, C>::template f<false_>;
+    };
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, or_v_<F, C>> {
+        template <auto... Vs>
+        using f = dispatch<1, C>::template f<
+                call_<is_<nothing_, not_<identity_>>,
+                        typename foldey_v<(select_foldey_loop(sizeof...(Vs)))>::template f<
+                                ory_v<false, dispatch<1, F>::template f>, 0, Vs...>>>;
+    };
+    template <typename F, typename C>
+    struct dispatch<0, or_v_<F, C>> {
+        template <auto... Vs>
+        using f = dispatch<1, C>::template f<false_>;
     };
 } // namespace impl
 
