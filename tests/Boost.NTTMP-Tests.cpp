@@ -135,7 +135,6 @@ namespace drop_last_v_tests {
 
 } // namespace drop_last_v_tests
 
-// FIXME: Needs join_v_
 namespace each_v_tests {
 	template<typename T> requires(std::same_as<T, list_v_<1, 30>>)
 	struct EachValueGetsOwnFunction;
@@ -300,6 +299,11 @@ struct ValueIsNotFive;
 
 using is_not_v_test_1 = ValueIsNotFive<call_v_<is_not_v_<5>, 2>>;
 
+template<typename T> requires(std::same_as<T, list_v_<false>>)
+struct ValueIsNine;
+
+using is_not_v_test_2 = ValueIsNine<call_v_<is_not_v_<9>, 9>>;
+
 } // namespace is_v_tests
 
 // TODO: Joining amorphous types and values i.e. 
@@ -331,6 +335,15 @@ template<typename T> requires(std::same_as<T, sizet_<3>>)
 struct SizeAsSizet;
 
 using map_value_test_3 = SizeAsSizet<call_v_<map_value_<default_type_lookup_table_>, std::size_t(3)>>;
+
+    template<typename T> requires(std::same_as<T,
+	list_<
+		int_<1>,
+		char_<'c'>
+	>>)
+	struct TransmogValueToType;
+	
+	using map_value_test_4 = TransmogValueToType<call_v_<transform_v_<map_value_<default_type_lookup_table_>>, 1, char('c')>>;
 
 } // namespace map_value_tests
 
@@ -517,24 +530,3 @@ using add_one = list_v_<V + 1>;
 using transform_v_test_1 = AddOneToEach<call_v_<transform_v_<lift_v_<add_one>>, 0, 1, 2>>;
 
 } // namespace transform_v_tests
-
-// TODO: Implement value_to_type_
-/*
-namespace value_to_type_tests {
-
-	template<typename T> requires(std::same_as<T,
-		list_<
-			int_<1>,
-			uint_<2>,
-			char_<'c'>,
-			false_
-		>>)
-	struct TransmogValueToType;
-	using value_to_type_test_1 = TransmogValueToType<call_v_<transform_v_<value_to_type_<default_type_lookup_table_>>,
-		1,
-		2U,
-		'c',
-		false>>;
-
-} // namespace value_to_type_tests
-*/
