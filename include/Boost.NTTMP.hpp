@@ -1392,11 +1392,25 @@ namespace impl { // find_if_not_v_
 // or_ : 
 BOOST_TMP_EXPORT template <typename F, typename C = identity_>
 struct or_v_ {};
-namespace impl { // or_
+namespace impl { // or_v_
+
+    template<typename LV>
+    struct ory_v_helper;
+
+    template<auto V>
+    struct ory_v_helper<bool_<V>> {
+        static constexpr auto value = V;
+    };
+
+    template<auto V>
+    struct ory_v_helper<list_v_<V>> {
+        static constexpr auto value = V;
+    };
+
     template <bool Short, template <auto...> class F>
     struct ory_v {
         template <auto V>
-        using f                    = ory_v<V, F>;
+        using f                    = ory_v<ory_v_helper<F<V>>::value, F>;
         static constexpr std::size_t value = -1;
     };
     template <template <auto...> class F>
