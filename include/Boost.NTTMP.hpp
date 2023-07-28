@@ -1433,6 +1433,15 @@ namespace impl { // or_
     };
 } // namespace impl
 
+// any_of_ : Given a unary predicate, return true_ / false_ on whether any elements
+// in a VPP satisfy that predicate.
+BOOST_TMP_EXPORT template <typename F = identity_, typename C = identity_>
+struct any_of_v_ {};
+namespace impl { // any_of_
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, any_of_v_<F, C>> : dispatch<N, or_v_<F, C>> {};
+} // namespace impl
+
 // contains_v_ : Given a non-type parameter (V), return true_ / false_ on whether a given NTTP
 // contains the value V.
 BOOST_TMP_EXPORT template <auto V, typename C = identity_>

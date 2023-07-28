@@ -79,6 +79,28 @@ using and_v_test_2 = SingleEvenFalse<call_v_<and_v_<lift_v_<is_even>>, 2, 4, 8, 
 
 } // namespace and_v_tests
 
+namespace any_of_v_tests {
+
+template<typename T> requires(std::same_as<T, true_>)
+struct OneEvenNumber;
+
+template<auto V>
+using is_even = bool_<V % 2 == 0>;
+
+using any_of_test_1 = OneEvenNumber<call_v_<any_of_v_<lift_v_<is_even>>, 1, 3, 5, 8>>;
+
+template<typename T> requires(std::same_as<T, false_>)
+struct NoEvenNumbers;
+
+using any_of_test_2 = NoEvenNumbers<call_v_<any_of_v_<lift_v_<is_even>>, 1, 3, 5, 9>>;
+
+template<typename T> requires(std::same_as<T, true_>)
+struct AllEvenNumbers;
+
+using any_of_test_3 = AllEvenNumbers<call_v_<any_of_v_<lift_v_<is_even>>, 2, 4, 8, 12>>;
+
+} // namespace any_of_v_tests
+
 namespace contains_v_tests {
 
 template<typename T> requires(std::same_as<T, true_>)
