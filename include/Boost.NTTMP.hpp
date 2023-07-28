@@ -1568,6 +1568,35 @@ namespace impl { // transform_v_
     };
 } // namespace impl
 
+BOOST_TMP_EXPORT template<typename TMap, typename C = identity_>
+struct map_value_ {};
+namespace impl {
+    template<auto V>
+    struct value_type_hoist {
+        template<typename AT>
+        using f = call_v_<AT, V>;
+    };
+    template<typename TMap, typename C>
+    struct dispatch<1, map_value_<TMap, C>> {
+        template<auto V>
+        using f = dispatch<1, find_<TMap, lift_<value_type_hoist<V>::template f, C>>>::template f<decltype(V)>;
+    };
+} // namespace impl
+
+// value_to_type_ :
+// find type from decltype(V) from table
+// 
+
+// BOOST_TMP_EXPORT template <typename C = identity_>
+// struct value_to_type_ {};
+// namespace impl { // value_to_type_
+//     template <std::size_t N, typename C>
+//     struct dispatch<N, value_to_type_<C>> {
+//         template <auto V, typename VT = decltype(V)>
+//         using f = dispatch<1, C>::template f<F<V>>;
+//     };
+// } // namespace impl
+
 } // namespace boost::tmp
 
 #endif // __BOOST_NTTMP_HPP

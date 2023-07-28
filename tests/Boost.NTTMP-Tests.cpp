@@ -315,6 +315,25 @@ using join_v_test_1 = JoinLists123<call_<join_v_<>, list_v_<1>, list_v_<2>, list
 
 } // namespace join_v_tests
 
+namespace map_value_tests {
+
+template<typename T> requires(std::same_as<T, false_>)
+struct FalseType;
+
+using map_value_test_1 = FalseType<call_v_<map_value_<default_type_lookup_table_>, false>>;
+
+template<typename T> requires(std::same_as<T, true_>)
+struct TrueType;
+
+using map_value_test_2 = TrueType<call_v_<map_value_<default_type_lookup_table_>, true>>;
+
+template<typename T> requires(std::same_as<T, sizet_<3>>)
+struct SizeAsSizet;
+
+using map_value_test_3 = SizeAsSizet<call_v_<map_value_<default_type_lookup_table_>, std::size_t(3)>>;
+
+} // namespace map_value_tests
+
 namespace not_v_tests {
 
 template<typename T> requires(std::same_as<T, list_v_<true>>)
