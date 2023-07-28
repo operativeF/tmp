@@ -40,6 +40,28 @@ using namespace boost::tmp;
 
 // } // namespace array_into_list_tests
 
+namespace all_of_v_tests {
+
+template<typename T> requires(std::same_as<T, true_>)
+struct AllAreEven;
+
+template<auto V>
+using is_even = bool_<V % 2 == 0>;
+
+using all_of_v_test_1 = AllAreEven<call_v_<all_of_v_<lift_v_<is_even>>, 2, 4, 6>>;
+
+template<typename T> requires(std::same_as<T, false_>)
+struct NotAllEven;
+
+using all_of_v_test_2 = NotAllEven<call_v_<all_of_v_<lift_v_<is_even>>, 2, 1, 4, 3>>;
+
+template<typename T> requires(std::same_as<T, false_>)
+struct NoneAreEven;
+
+using all_of_v_test_3 = NoneAreEven<call_v_<all_of_v_<lift_v_<is_even>>, 1, 3, 5, 9>>;
+
+} // namespace all_of_v_tests
+
 namespace and_v_tests {
 
 template<typename T> requires(std::same_as<T, true_>)

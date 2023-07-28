@@ -1442,7 +1442,7 @@ namespace impl { // contains_
     struct dispatch<N, contains_v_<V, C>> : dispatch<N, or_v_<is_v_<V>, C>> {};
 } // namespace impl
 
-// and_ : 
+// and_v_ : 
 BOOST_TMP_EXPORT template <typename F, typename C = identity_>
 struct and_v_ {};
 namespace impl { // and_
@@ -1483,6 +1483,15 @@ namespace impl { // and_
         template <auto... Vs>
         using f = dispatch<1, C>::template f<false_>;
     };
+} // namespace impl
+
+// all_of_v_ : Given a unary predicate, return true_ / false_ on whether all elements
+// in a value parameter pack satisfy that predicate. Shorting (uses and_v_).
+BOOST_TMP_EXPORT template <typename F, typename C = identity_>
+struct all_of_v_ {};
+namespace impl { // all_of_
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, all_of_v_<F, C>> : dispatch<N, and_v_<F, C>> {};
 } // namespace impl
 
 BOOST_TMP_EXPORT template <typename C = listify_v_>
