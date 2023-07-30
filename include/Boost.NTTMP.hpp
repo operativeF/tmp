@@ -1604,6 +1604,12 @@ namespace impl {
     };
 } // namespace impl
 
+BOOST_TMP_EXPORT template<typename TMap>
+using typify_ = lift_v_<impl::dispatch<1, map_value_<TMap>>::template f>;
+
+BOOST_TMP_EXPORT
+using typify_default_ = lift_v_<impl::dispatch<1, map_value_<default_type_lookup_table_>>::template f>;
+
 } // namespace boost::tmp
 
 #endif // __BOOST_NTTMP_HPP
