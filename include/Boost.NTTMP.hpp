@@ -628,7 +628,7 @@ namespace impl { // pop_front_
     template <typename C>
     struct dispatch<0, pop_front_v_<C>> {
     template <auto... Vs>
-    using f = dispatch<1, C>::template f<nothing_>;
+    using f = dispatch<1, C>::template f<nothing_{}>;
 };
 } // namespace impl
 

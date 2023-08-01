@@ -388,6 +388,25 @@ using pop_back_test_3 = PopNoValue<call_v_<pop_back_v_<>>>;
 
 } // namespace pop_back_v_tests
 
+namespace pop_front_v_tests {
+
+template<typename T> requires(std::same_as<T, list_v_<2, 3, 4, 5>>)
+struct PopOneOff;
+
+using pop_front_v_test_1 = PopOneOff<call_v_<pop_front_v_<>, 1, 2, 3, 4, 5>>;
+
+template<typename T> requires(std::same_as<T, list_v_<nothing_{}>>)
+struct PopEmptyList;
+
+using pop_front_v_test_2 = PopEmptyList<call_v_<pop_front_v_<>>>;
+
+template<typename T> requires(std::same_as<T, list_v_<>>)
+struct PopSingleElement;
+
+using pop_front_v_test_3 = PopSingleElement<call_v_<pop_front_v_<>, 1>>;
+
+} // namespace pop_front_v_tests
+
 namespace push_front_v_tests {
 
 template<typename T> requires(std::same_as<T, list_v_<4, 1, 2, 3>>)
