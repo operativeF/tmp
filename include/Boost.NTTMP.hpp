@@ -509,7 +509,7 @@ namespace impl { // rotate_v_
     };
     template <std::size_t P, typename C>
     struct dispatch<0, rotate_v_<P, C>> {
-        template <typename...>
+        template <auto...>
         using f = dispatch<0, C>::template f<>;
     };
     template <std::size_t P, typename C, std::size_t Step = step_selector(P)>
@@ -1012,6 +1012,7 @@ using uiv6_ = unpack_<index_v_<6, C>>;
 BOOST_TMP_EXPORT template<typename C = listify_v_>
 using uiv7_ = unpack_<index_v_<7, C>>;
 namespace impl { // index_v_
+    // TODO: Use a "mechanical" method for this instead of using other metaclosures.
     template <std::size_t N, std::size_t I, typename C>
     struct dispatch<N, index_v_<I, C>> : dispatch<N, drop_v_<I, front_v_<C>>> {};
 
