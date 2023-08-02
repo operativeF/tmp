@@ -111,6 +111,7 @@ using contains_v_test_1 = DoesContainNine<call_v_<contains_v_<9>, 1, 3, 5, 9>>;
 } // namespace contains_v_tests
 
 namespace drop_v_tests {
+
 	template <typename T>
 	    requires(std::same_as<T, list_v_<1>>)
 	struct DropVOneOffOfList;
@@ -122,6 +123,7 @@ namespace drop_v_tests {
 	using drop_v_test_1 = DropVOneOffOfList<call_v_<drop_v_<1>, 0, 1>>;
 
 	using drop_v_test_2 = DropVZeroReturnsInputList<call_v_<drop_v_<0>, 1, 2>>;
+
 } // namespace drop_v_tests
 
 namespace drop_last_v_tests {
@@ -136,6 +138,7 @@ namespace drop_last_v_tests {
 } // namespace drop_last_v_tests
 
 namespace each_v_tests {
+	
 	template<typename T> requires(std::same_as<T, list_v_<1, 30>>)
 	struct EachValueGetsOwnFunction;
 
@@ -152,6 +155,7 @@ namespace each_v_tests {
 } // namespace each_v_tests
 
 namespace erase_v_tests {
+
 	template <typename T>
 	    requires(std::same_as<T, list_v_<2, 3>>)
 	struct EraseFirstElement;
@@ -171,9 +175,11 @@ namespace erase_v_tests {
 	using erase_test_2 = EraseSingleElement<call_v_<erase_v_<0>, 0>>;
 
 	using erase_test_3 = EraseEmptyPackReturnsNothingType<call_v_<erase_v_<0>>>;
+
 } // namespace erase_tests
 
 namespace filter_v_tests {
+
 	template<typename T>
 		requires(std::same_as<T, list_v_<2, 4, 6, 8, 10>>)
 	struct FilterOutOddValues;
@@ -182,6 +188,7 @@ namespace filter_v_tests {
 	using is_even_val = bool_<T % 2 == 0>;
 
 	using filter_test_1 = FilterOutOddValues<call_v_<filter_v_<lift_v_<is_even_val>>, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10>>;
+
 }
 
 namespace find_if_not_v_tests {
@@ -448,6 +455,7 @@ namespace reverse_v_tests {
 	struct Reverse17V;
 
     using reverse_v_test_2 = Reverse17V<call_v_<reverse_v_<>, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15>>;
+
 } // namespace reverse_v_tests
 
 namespace rotate_v_tests {
