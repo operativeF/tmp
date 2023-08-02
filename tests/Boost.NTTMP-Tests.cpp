@@ -24,7 +24,16 @@ import std;
 #endif // _MSC_VER
 #endif //
 
+// Test helpers
+namespace boost::tmp::test {
+
+	template<auto V>
+	using is_even_v = bool_<V % 2 == 0>;
+
+} // namespace boost::tmp::test
+
 using namespace boost::tmp;
+
 
 // TODO: Place StrLit somewhere.
 // namespace array_into_list_tests {
@@ -42,71 +51,65 @@ using namespace boost::tmp;
 
 namespace all_of_v_tests {
 
-template<typename T> requires(std::same_as<T, true_>)
-struct AllAreEven;
+	template<typename T> requires(std::same_as<T, true_>)
+	struct AllAreEven;
 
-template<auto V>
-using is_even = bool_<V % 2 == 0>;
+	using all_of_v_test_1 = AllAreEven<call_v_<all_of_v_<lift_v_<test::is_even_v>>, 2, 4, 6>>;
 
-using all_of_v_test_1 = AllAreEven<call_v_<all_of_v_<lift_v_<is_even>>, 2, 4, 6>>;
+	template<typename T> requires(std::same_as<T, false_>)
+	struct NotAllEven;
 
-template<typename T> requires(std::same_as<T, false_>)
-struct NotAllEven;
+	using all_of_v_test_2 = NotAllEven<call_v_<all_of_v_<lift_v_<test::is_even_v>>, 2, 1, 4, 3>>;
 
-using all_of_v_test_2 = NotAllEven<call_v_<all_of_v_<lift_v_<is_even>>, 2, 1, 4, 3>>;
+	template<typename T> requires(std::same_as<T, false_>)
+	struct NoneAreEven;
 
-template<typename T> requires(std::same_as<T, false_>)
-struct NoneAreEven;
-
-using all_of_v_test_3 = NoneAreEven<call_v_<all_of_v_<lift_v_<is_even>>, 1, 3, 5, 9>>;
+	using all_of_v_test_3 = NoneAreEven<call_v_<all_of_v_<lift_v_<test::is_even_v>>, 1, 3, 5, 9>>;
 
 } // namespace all_of_v_tests
 
 namespace and_v_tests {
 
-template<typename T> requires(std::same_as<T, true_>)
-struct AllEvenNumbers;
+	template<typename T> requires(std::same_as<T, true_>)
+	struct AllEvenNumbers;
 
-template<auto V>
-using is_even = bool_<(V % 2 == 0)>;
+	template<auto V>
+	using is_even_v = bool_<(V % 2 == 0)>;
 
-using and_v_test_1 = AllEvenNumbers<call_v_<and_v_<lift_v_<is_even>>, 2, 4, 6>>;
+	using and_v_test_1 = AllEvenNumbers<call_v_<and_v_<lift_v_<is_even_v>>, 2, 4, 6>>;
 
-template<typename T> requires(std::same_as<T, false_>)
-struct SingleEvenFalse;
+	template<typename T> requires(std::same_as<T, false_>)
+	struct SingleEvenFalse;
 
-using and_v_test_2 = SingleEvenFalse<call_v_<and_v_<lift_v_<is_even>>, 2, 4, 8, 1>>;
+	using and_v_test_2 = SingleEvenFalse<call_v_<and_v_<lift_v_<is_even_v>>, 2, 4, 8, 1>>;
 
 } // namespace and_v_tests
 
 namespace any_of_v_tests {
 
-template<typename T> requires(std::same_as<T, true_>)
-struct OneEvenNumber;
+	template<typename T> requires(std::same_as<T, true_>)
+	struct OneEvenNumber;
 
-template<auto V>
-using is_even = bool_<V % 2 == 0>;
+	using any_of_test_1 = OneEvenNumber<call_v_<any_of_v_<lift_v_<test::is_even_v>>, 1, 3, 5, 8>>;
 
-using any_of_test_1 = OneEvenNumber<call_v_<any_of_v_<lift_v_<is_even>>, 1, 3, 5, 8>>;
+	template<typename T> requires(std::same_as<T, false_>)
+	struct NoEvenNumbers;
 
-template<typename T> requires(std::same_as<T, false_>)
-struct NoEvenNumbers;
+	using any_of_test_2 = NoEvenNumbers<call_v_<any_of_v_<lift_v_<test::is_even_v>>, 1, 3, 5, 9>>;
 
-using any_of_test_2 = NoEvenNumbers<call_v_<any_of_v_<lift_v_<is_even>>, 1, 3, 5, 9>>;
+	template<typename T> requires(std::same_as<T, true_>)
+	struct AllEvenNumbers;
 
-template<typename T> requires(std::same_as<T, true_>)
-struct AllEvenNumbers;
-
-using any_of_test_3 = AllEvenNumbers<call_v_<any_of_v_<lift_v_<is_even>>, 2, 4, 8, 12>>;
+	using any_of_test_3 = AllEvenNumbers<call_v_<any_of_v_<lift_v_<test::is_even_v>>, 2, 4, 8, 12>>;
 
 } // namespace any_of_v_tests
 
 namespace contains_v_tests {
 
-template<typename T> requires(std::same_as<T, true_>)
-struct DoesContainNine;
+	template<typename T> requires(std::same_as<T, true_>)
+	struct DoesContainNine;
 
-using contains_v_test_1 = DoesContainNine<call_v_<contains_v_<9>, 1, 3, 5, 9>>;
+	using contains_v_test_1 = DoesContainNine<call_v_<contains_v_<9>, 1, 3, 5, 9>>;
 
 } // namespace contains_v_tests
 
@@ -184,23 +187,16 @@ namespace filter_v_tests {
 		requires(std::same_as<T, list_v_<2, 4, 6, 8, 10>>)
 	struct FilterOutOddValues;
 
-	template <auto T>
-	using is_even_val = bool_<T % 2 == 0>;
-
-	using filter_test_1 = FilterOutOddValues<call_v_<filter_v_<lift_v_<is_even_val>>, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10>>;
+	using filter_test_1 = FilterOutOddValues<call_v_<filter_v_<lift_v_<test::is_even_v>>, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10>>;
 
 }
 
 namespace find_if_not_v_tests {
 
-template<typename T> requires(std::same_as<T, sizet_<3>>)
-struct FindIfNot_OddNumberAtIndexThree;
+	template<typename T> requires(std::same_as<T, sizet_<3>>)
+	struct FindIfNot_OddNumberAtIndexThree;
 
-template <auto V>
-using is_even = bool_<(V % 2 == 0)>;
-
-
-using find_if_not_test_1 = FindIfNot_OddNumberAtIndexThree<call_v_<find_if_not_v_<lift_v_<is_even>>, 2, 4, 6, 9>>;
+	using find_if_not_test_1 = FindIfNot_OddNumberAtIndexThree<call_v_<find_if_not_v_<lift_v_<test::is_even_v>>, 2, 4, 6, 9>>;
 
 } // namespace find_if_not_v_tests
 
@@ -287,29 +283,29 @@ namespace insert_v_tests {
 
 namespace is_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<true>>)
-struct ValueIsFive;
+	template<typename T> requires(std::same_as<T, list_v_<true>>)
+	struct ValueIsFive;
 
-using is_v_test_1 = ValueIsFive<call_v_<is_v_<5>, 5>>;
+	using is_v_test_1 = ValueIsFive<call_v_<is_v_<5>, 5>>;
 
-template<typename T> requires(std::same_as<T, list_v_<true>>)
-struct ValueCharCIsInt99;
+	template<typename T> requires(std::same_as<T, list_v_<true>>)
+	struct ValueCharCIsInt99;
 
-using is_v_test_2 = ValueCharCIsInt99<call_v_<is_v_<99>, 'c'>>;
+	using is_v_test_2 = ValueCharCIsInt99<call_v_<is_v_<99>, 'c'>>;
 
 } // namespace is_v_tests
 
 namespace is_not_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<true>>)
-struct ValueIsNotFive;
+	template<typename T> requires(std::same_as<T, list_v_<true>>)
+	struct ValueIsNotFive;
 
-using is_not_v_test_1 = ValueIsNotFive<call_v_<is_not_v_<5>, 2>>;
+	using is_not_v_test_1 = ValueIsNotFive<call_v_<is_not_v_<5>, 2>>;
 
-template<typename T> requires(std::same_as<T, list_v_<false>>)
-struct ValueIsNine;
+	template<typename T> requires(std::same_as<T, list_v_<false>>)
+	struct ValueIsNine;
 
-using is_not_v_test_2 = ValueIsNine<call_v_<is_not_v_<9>, 9>>;
+	using is_not_v_test_2 = ValueIsNine<call_v_<is_not_v_<9>, 9>>;
 
 } // namespace is_v_tests
 
@@ -317,128 +313,125 @@ using is_not_v_test_2 = ValueIsNine<call_v_<is_not_v_<9>, 9>>;
 // list_v_<1>, 1, 'c', list_v_<3> -> list_v_<1, 1, 'c', 3>
 namespace join_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
-struct JoinLists123;
+	template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+	struct JoinLists123;
 
-// Notice the use of call_ here, and *not* call_v_.
-// While we are dealing with combining values, types are being used to ferry the values.
-using join_v_test_1 = JoinLists123<call_<join_v_<>, list_v_<1>, list_v_<2>, list_v_<3>>>;
+	// Notice the use of call_ here, and *not* call_v_.
+	// While we are dealing with combining values, types are being used to ferry the values.
+	using join_v_test_1 = JoinLists123<call_<join_v_<>, list_v_<1>, list_v_<2>, list_v_<3>>>;
 
 } // namespace join_v_tests
 
 namespace map_value_tests {
 
-template<typename T> requires(std::same_as<T, false_>)
-struct FalseType;
+	template<typename T> requires(std::same_as<T, false_>)
+	struct FalseType;
 
-using map_value_test_1 = FalseType<call_v_<map_value_<default_type_lookup_table_>, false>>;
+	using map_value_test_1 = FalseType<call_v_<map_value_<default_type_lookup_table_>, false>>;
 
-template<typename T> requires(std::same_as<T, true_>)
-struct TrueType;
+	template<typename T> requires(std::same_as<T, true_>)
+	struct TrueType;
 
-using map_value_test_2 = TrueType<call_v_<map_value_<default_type_lookup_table_>, true>>;
+	using map_value_test_2 = TrueType<call_v_<map_value_<default_type_lookup_table_>, true>>;
 
-template<typename T> requires(std::same_as<T, sizet_<3>>)
-struct SizeAsSizet;
+	template<typename T> requires(std::same_as<T, sizet_<3>>)
+	struct SizeAsSizet;
 
-using map_value_test_3 = SizeAsSizet<call_v_<map_value_<default_type_lookup_table_>, std::size_t(3)>>;
+	using map_value_test_3 = SizeAsSizet<call_v_<map_value_<default_type_lookup_table_>, std::size_t(3)>>;
 
-    template<typename T> requires(std::same_as<T,
-	list_<
-		int_<1>,
-		char_<'c'>
-	>>)
-	struct TransmogValueToType;
-	
-	using map_value_test_4 = TransmogValueToType<call_v_<transform_v_<map_value_<default_type_lookup_table_>>, 1, char('c')>>;
+		template<typename T> requires(std::same_as<T,
+		list_<
+			int_<1>,
+			char_<'c'>
+		>>)
+		struct TransmogValueToType;
+		
+		using map_value_test_4 = TransmogValueToType<call_v_<transform_v_<map_value_<default_type_lookup_table_>>, 1, char('c')>>;
 
 } // namespace map_value_tests
 
 namespace not_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<true>>)
-struct ValueIsNotTrue;
+	template<typename T> requires(std::same_as<T, list_v_<true>>)
+	struct ValueIsNotTrue;
 
-using not_v_test_1 = ValueIsNotTrue<call_v_<not_v_<>, false>>;
+	using not_v_test_1 = ValueIsNotTrue<call_v_<not_v_<>, false>>;
 
 } // namespace not_v_tests
 
 namespace or_v_tests {
 
-template<typename T> requires(std::same_as<T, true_>)
-struct AtLeastOneEven;
+	template<typename T> requires(std::same_as<T, true_>)
+	struct AtLeastOneEven;
 
-template<auto V>
-using is_even = bool_<(V % 2 == 0)>;
-
-using or_v_test_1 = AtLeastOneEven<call_v_<or_v_<lift_v_<is_even>>, 1, 3, 5, 6>>;
+	using or_v_test_1 = AtLeastOneEven<call_v_<or_v_<lift_v_<test::is_even_v>>, 1, 3, 5, 6>>;
 
 } // namespace or_v_tests
 
 namespace pop_back_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
-struct PopTheFourOffBack;
+	template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+	struct PopTheFourOffBack;
 
-using pop_back_test_1 = PopTheFourOffBack<call_v_<pop_back_v_<>, 1, 2, 3, 4>>;
+	using pop_back_test_1 = PopTheFourOffBack<call_v_<pop_back_v_<>, 1, 2, 3, 4>>;
 
-template<typename T> requires(std::same_as<T, list_v_<>>)
-struct PopOnlyValue;
+	template<typename T> requires(std::same_as<T, list_v_<>>)
+	struct PopOnlyValue;
 
-using pop_back_test_2 = PopOnlyValue<call_v_<pop_back_v_<>, 1>>;
+	using pop_back_test_2 = PopOnlyValue<call_v_<pop_back_v_<>, 1>>;
 
-// TODO: Should this be the default behavior for no value?
-template<typename T> requires(std::same_as<T, list_v_<nothing_{}>>)
-struct PopNoValue;
+	// TODO: Should this be the default behavior for no value?
+	template<typename T> requires(std::same_as<T, list_v_<nothing_{}>>)
+	struct PopNoValue;
 
-using pop_back_test_3 = PopNoValue<call_v_<pop_back_v_<>>>;
+	using pop_back_test_3 = PopNoValue<call_v_<pop_back_v_<>>>;
 
 } // namespace pop_back_v_tests
 
 namespace pop_front_v_tests {
+		
+	template<typename T> requires(std::same_as<T, list_v_<2, 3, 4, 5>>)
+	struct PopOneOff;
 
-template<typename T> requires(std::same_as<T, list_v_<2, 3, 4, 5>>)
-struct PopOneOff;
+	using pop_front_v_test_1 = PopOneOff<call_v_<pop_front_v_<>, 1, 2, 3, 4, 5>>;
 
-using pop_front_v_test_1 = PopOneOff<call_v_<pop_front_v_<>, 1, 2, 3, 4, 5>>;
+	template<typename T> requires(std::same_as<T, list_v_<nothing_{}>>)
+	struct PopEmptyList;
 
-template<typename T> requires(std::same_as<T, list_v_<nothing_{}>>)
-struct PopEmptyList;
+	using pop_front_v_test_2 = PopEmptyList<call_v_<pop_front_v_<>>>;
 
-using pop_front_v_test_2 = PopEmptyList<call_v_<pop_front_v_<>>>;
+	template<typename T> requires(std::same_as<T, list_v_<>>)
+	struct PopSingleElement;
 
-template<typename T> requires(std::same_as<T, list_v_<>>)
-struct PopSingleElement;
-
-using pop_front_v_test_3 = PopSingleElement<call_v_<pop_front_v_<>, 1>>;
+	using pop_front_v_test_3 = PopSingleElement<call_v_<pop_front_v_<>, 1>>;
 
 } // namespace pop_front_v_tests
 
 namespace push_front_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<4, 1, 2, 3>>)
-struct Push4ToFront;
+	template<typename T> requires(std::same_as<T, list_v_<4, 1, 2, 3>>)
+	struct Push4ToFront;
 
-using push_front_v_test_1 = Push4ToFront<call_v_<push_front_v_<4>, 1, 2, 3>>;
+	using push_front_v_test_1 = Push4ToFront<call_v_<push_front_v_<4>, 1, 2, 3>>;
 
-template<typename T> requires(std::same_as<T, list_v_<4>>)
-struct Push4ToFrontOfNoList;
+	template<typename T> requires(std::same_as<T, list_v_<4>>)
+	struct Push4ToFrontOfNoList;
 
-using push_front_v_test_2 = Push4ToFrontOfNoList<call_v_<push_front_v_<4>>>;
+	using push_front_v_test_2 = Push4ToFrontOfNoList<call_v_<push_front_v_<4>>>;
 
-template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
-struct PushNothingToFront;
+	template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+	struct PushNothingToFront;
 
-using push_front_v_test_3 = PushNothingToFront<call_v_<push_front_v_<>, 1, 2, 3>>;
+	using push_front_v_test_3 = PushNothingToFront<call_v_<push_front_v_<>, 1, 2, 3>>;
 
 } // namespace push_front_v_tests
 
 namespace range_lo_hi_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<false>>)
-struct OutsideOf5To10;
+	template<typename T> requires(std::same_as<T, list_v_<false>>)
+	struct OutsideOf5To10;
 
-using range_lo_hi_v_test_1 = OutsideOf5To10<call_v_<range_lo_hi_v_<5, 10>, 7>>;
+	using range_lo_hi_v_test_1 = OutsideOf5To10<call_v_<range_lo_hi_v_<5, 10>, 7>>;
 
 } // namespace range_lo_hi_v_tests
 
@@ -460,40 +453,45 @@ namespace reverse_v_tests {
 
 namespace rotate_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<1, 3, 2>>)
-struct OneThreeTwo;
+	template<typename T> requires(std::same_as<T, list_v_<1, 3, 2>>)
+	struct OneThreeTwo;
 
-using rotate_v_test_1 = OneThreeTwo<call_v_<rotate_v_<2>, 3, 2, 1>>;
+	using rotate_v_test_1 = OneThreeTwo<call_v_<rotate_v_<2>, 3, 2, 1>>;
 
-template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
-struct NoRotation;
+	template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+	struct NoRotation;
 
-using rotate_v_test_2 = NoRotation<call_v_<rotate_v_<0>, 1, 2, 3>>;
+	using rotate_v_test_2 = NoRotation<call_v_<rotate_v_<0>, 1, 2, 3>>;
 
-template<typename T> requires(std::same_as<T, list_v_<2, 3, 1>>)
-struct RotateAround;
+	template<typename T> requires(std::same_as<T, list_v_<2, 3, 1>>)
+	struct RotateAround;
 
-// Equivalent to rotate_v_<1>
-using rotate_v_test_3 = RotateAround<call_v_<rotate_v_<7>, 1, 2, 3>>;
+	// Equivalent to rotate_v_<1>
+	using rotate_v_test_3 = RotateAround<call_v_<rotate_v_<7>, 1, 2, 3>>;
 
 } // namespace rotate_v_tests
 
 namespace sequence_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<1, 1, 1, 1, 1,
-													  1, 1, 1, 1, 1>>)
-struct RepeatedOnes;
+	template<typename T> requires(std::same_as<T, list_v_<1, 1, 1, 1, 1,
+														1, 1, 1, 1, 1>>)
+	struct RepeatedOnes;
 
-using sequence_v_test_1 = RepeatedOnes<call_v_<repeat_sequence_v_<10>, 1>>;
+	using sequence_v_test_1 = RepeatedOnes<call_v_<repeat_sequence_v_<10>, 1>>;
+
+	template<typename T> requires(std::same_as<T, list_v_<>>)
+	struct RepeatNothingList;
+
+	using sequence_v_test_2 = RepeatNothingList<call_v_<repeat_sequence_v_<0>, 1>>;
 
 } // namespace sequence_v_tests
 
 namespace size_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<std::size_t{3}>>)
-struct FiveValueListV;
+	template<typename T> requires(std::same_as<T, list_v_<std::size_t{3}>>)
+	struct FiveValueListV;
 
-using size_v_test_1 = FiveValueListV<call_v_<size_v_<>, 1, 2, 3>>;
+	using size_v_test_1 = FiveValueListV<call_v_<size_v_<>, 1, 2, 3>>;
 
 } // namespace size_v_tests
 
@@ -523,20 +521,20 @@ namespace take_v_tests {
 
 namespace take_last_v_tests {
 
-template<typename T> requires(std::same_as<T, list_v_<4, 5, 6>>)
-struct LastThreeOfSeries;
+	template<typename T> requires(std::same_as<T, list_v_<4, 5, 6>>)
+	struct LastThreeOfSeries;
 
-using take_last_v_test_1 = LastThreeOfSeries<call_v_<take_last_v_<3>, 1, 2, 3, 4, 5, 6>>;
+	using take_last_v_test_1 = LastThreeOfSeries<call_v_<take_last_v_<3>, 1, 2, 3, 4, 5, 6>>;
 
-template<typename T> requires(std::same_as<T, list_v_<>>)
-struct TakeNoLastElements;
+	template<typename T> requires(std::same_as<T, list_v_<>>)
+	struct TakeNoLastElements;
 
-using take_last_v_test_2 = TakeNoLastElements<call_v_<take_last_v_<0>, 1, 2, 3, 4>>;
+	using take_last_v_test_2 = TakeNoLastElements<call_v_<take_last_v_<0>, 1, 2, 3, 4>>;
 
-template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
-struct TakeAllElements;
+	template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+	struct TakeAllElements;
 
-using take_last_v_test_3 = TakeAllElements<call_v_<take_last_v_<3>, 1, 2, 3>>;
+	using take_last_v_test_3 = TakeAllElements<call_v_<take_last_v_<3>, 1, 2, 3>>;
 
 // Test here fails (as it should):
 // template<typename T> requires(std::same_as<T, list_v_<1, 2, 3, 4>>)
@@ -549,9 +547,9 @@ using take_last_v_test_3 = TakeAllElements<call_v_<take_last_v_<3>, 1, 2, 3>>;
 namespace transform_v_tests {
 
 template<typename T> requires(std::same_as<T, list_<list_v_<1>, list_v_<2>, list_v_<3>>>)
-struct AddOneToEach;
+	struct AddOneToEach;
 
-template<auto V>
+	template<auto V>
 using add_one = list_v_<V + 1>;
 
 using transform_v_test_1 = AddOneToEach<call_v_<transform_v_<lift_v_<add_one>>, 0, 1, 2>>;
