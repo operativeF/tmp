@@ -544,6 +544,15 @@ namespace take_last_v_tests {
 
 } // namespace take_last_v_tests
 
+namespace tee_v_tests {
+
+	template<typename T> requires(std::same_as<T, list_v_<1, 2, 3, 1, 2, 3>>)
+	struct MakePattern_123123;
+
+	using tee_v_test_1 = MakePattern_123123<call_v_<tee_v_<listify_v_, listify_v_, join_v_<>>, 1, 2, 3>>;
+
+} // namespace tee_v_tests
+
 namespace transform_v_tests {
 
 template<typename T> requires(std::same_as<T, list_<list_v_<1>, list_v_<2>, list_v_<3>>>)
