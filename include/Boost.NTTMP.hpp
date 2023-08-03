@@ -1067,17 +1067,6 @@ namespace impl { // index_v_
 };
 } // namespace impl
 
-// is_v_ : 
-BOOST_TMP_EXPORT template <auto P, typename C = listify_v_>
-struct is_v_ {};
-namespace impl { // is_v_
-    template <auto P, typename C>
-    struct dispatch<1, is_v_<P, C>> {
-        template <auto T>
-        using f = dispatch<1, C>::template f<(P == T)>;
-    };
-} // namespace impl
-
 // is_not_v_ : 
 BOOST_TMP_EXPORT template <auto P, typename C = listify_v_>
 struct is_not_v_ {};
@@ -1653,15 +1642,6 @@ namespace impl { // any_of_
     struct dispatch<N, any_of_v_<F, C>> : dispatch<N, or_v_<F, C>> {};
 } // namespace impl
 
-// contains_v_ : Given a non-type parameter (V), return true_ / false_ on whether a given NTTP
-// contains the value V.
-BOOST_TMP_EXPORT template <auto V, typename C = identity_>
-struct contains_v_ {};
-namespace impl { // contains_
-    template <std::size_t N, auto V, typename C>
-    struct dispatch<N, contains_v_<V, C>> : dispatch<N, or_v_<is_v_<V>, C>> {};
-} // namespace impl
-
 // and_v_ : 
 BOOST_TMP_EXPORT template <typename F, typename C = identity_>
 struct and_v_ {};
@@ -1806,6 +1786,96 @@ using typify_ = lift_v_<impl::dispatch<1, map_value_<TMap>>::template f>;
 
 BOOST_TMP_EXPORT
 using typify_default_ = lift_v_<impl::dispatch<1, map_value_<default_type_lookup_table_>>::template f>;
+
+// if_v_ : Given a predicate P, if true, return T, and if false, return F.
+BOOST_TMP_EXPORT template <typename P, typename T, typename F = always_v_<nothing_{}>>
+struct if_v_ {};
+namespace impl { // if_v_
+    template <typename B>
+    struct if_impl_v;
+    template <>
+    struct if_impl_v<list_v_<true>> {
+        template <typename T, typename U>
+        using f = T;
+    };
+    template <>
+    struct if_impl_v<list_v_<false>> {
+        template <typename T, typename U>
+        using f = U;
+    };
+    template <typename P, typename T, typename F>
+    struct dispatch<1, if_v_<P, T, F>> {
+        template <auto V0>
+        using f = dispatch<1, typename if_impl_v<typename dispatch<1, P>::template
+                        f<V0>>::template
+                            f<T, F>>::template
+                                f<V0>;
+    };
+    template <template <auto...> class P, typename T, typename F>
+    struct dispatch<1, if_v_<lift_v_<P>, T, F>> {
+        template <auto V0>
+        using f = dispatch<1, typename if_impl_v<P<V0>>::template
+                        f<T, F>>::template
+                            f<V0>;
+    };
+    template <std::size_t N, typename P, typename T, typename F>
+    struct dispatch<N, if_v_<P, T, F>> {
+        template <auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs)),
+                        typename if_impl_v<typename dispatch<find_dispatch(sizeof...(Vs)), P>::template
+                            f<Vs...>>::template f<T, F>>::template f<Vs...>;
+    };
+    template <std::size_t N, template <auto...> class P, typename T, typename F>
+    struct dispatch<N, if_v_<lift_v_<P>, T, F>> {
+        template <auto... Vs>
+        using f = dispatch<find_dispatch(sizeof...(Vs)),
+                        typename if_impl_v<P<Vs...>>::template
+                            f<T, F>>::template f<Vs...>;
+    };
+    template <template <auto...> class P, typename T, typename F>
+    struct dispatch<2, if_v_<lift_v_<P>, T, F>> {
+        template <auto V0, auto V1>
+        using f = dispatch<2, typename if_impl_v<P<V0, V1>>::template
+                        f<T, F>>::template f<V0, V1>;
+    };
+    template <template <auto...> class P>
+    struct dispatch<1, if_v_<lift_v_<P>, listify_v_, list_v_<>>> {
+        template <auto U>
+        using f = if_impl_v<P<U>>::template f<list_v_<U>, list_v_<>>;
+    };
+} // namespace impl
+
+// is_v_ :
+BOOST_TMP_EXPORT template <auto P, typename C = listify_v_, typename TMap = typify_default_>
+struct is_v_ {};
+namespace impl { // is_v_
+    template <auto P, typename C, typename TMap>
+    struct dispatch<1, is_v_<P, C, TMap>> {
+        template <auto T>
+        using f = dispatch<1, C>::template f<call_v_<transform_v_<TMap, lift_<std::is_same>>, P, T>::value>;
+    };
+} // namespace impl
+
+// like_v_ : This metaclosure is like is_v_ except it compares purely by value.
+// is_v_ is strict, and compares value *and* type. This compares *only* value for equality.
+BOOST_TMP_EXPORT template <auto P, typename C = listify_v_>
+struct like_v_ {};
+namespace impl { // is_v_
+    template <auto P, typename C>
+    struct dispatch<1, like_v_<P, C>> {
+        template <auto T>
+        using f = dispatch<1, C>::template f<(P == T)>;
+    };
+} // namespace impl
+
+// contains_v_ : Given a non-type parameter (V), return true_ / false_ on whether a given NTTP
+// contains the value V.
+BOOST_TMP_EXPORT template <auto V, typename C = identity_>
+struct contains_v_ {};
+namespace impl { // contains_
+    template <std::size_t N, auto V, typename C>
+    struct dispatch<N, contains_v_<V, C>> : dispatch<N, or_v_<is_v_<V>, C>> {};
+} // namespace impl
 
 } // namespace boost::tmp
 

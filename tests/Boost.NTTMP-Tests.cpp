@@ -36,6 +36,9 @@ namespace boost::tmp::test {
 	template<typename T>
 	concept IsFalse = std::same_as<T, false_>;
 
+	template<typename T>
+	concept IsEmptyValueList = std::same_as<T, list_v_<>>;
+
 } // namespace boost::tmp::test
 
 using namespace boost::tmp;
@@ -123,6 +126,11 @@ namespace contains_v_tests {
 	struct EmptyPackContainsNoNumbers_EvaluatesFalse;
 
 	using contains_v_test_3 = EmptyPackContainsNoNumbers_EvaluatesFalse<call_v_<contains_v_<3>>>;
+
+	template<test::IsFalse T>
+	struct DoesNotContainTwo_AmorphousValues;
+
+	using contains_v_tests_4 = DoesNotContainTwo_AmorphousValues<call_v_<contains_v_<2>, '3', 4, 1, char(2)>>;
 
 } // namespace contains_v_tests
 
@@ -252,6 +260,20 @@ namespace fold_v_tests {
 
 } // namespace fold_v_tests
 
+namespace if_v_tests {
+
+	template<typename T> requires(std::same_as<T, int_<99>>)
+	struct NineReturnsNinetyNine;
+
+	using if_v_test_1 = NineReturnsNinetyNine<call_v_<if_v_<is_v_<9>, always_v_<99, typify_default_>, always_v_<4, typify_default_>>, 9>>;
+
+	template<typename T> requires(std::same_as<T, int_<4>>)
+	struct AnythingElseReturnsFour;
+
+	using if_v_test_2 = AnythingElseReturnsFour<call_v_<if_v_<is_v_<9>, always_v_<99, typify_default_>, always_v_<4, typify_default_>>, 'l'>>;
+
+} // namespace if_v_tests
+
 namespace index_v_tests {
 	
 	template<typename T> requires(std::same_as<T, int_<9>>)
@@ -309,10 +331,10 @@ namespace is_v_tests {
 
 	using is_v_test_1 = ValueIsFive<call_v_<is_v_<5, typify_default_>, 5>>;
 
-	template<test::IsTrue T>
-	struct ValueCharCIsInt99;
+	template<test::IsFalse T>
+	struct ValueCharCIsNotInt99;
 
-	using is_v_test_2 = ValueCharCIsInt99<call_v_<is_v_<99, typify_default_>, 'c'>>;
+	using is_v_test_2 = ValueCharCIsNotInt99<call_v_<is_v_<99, typify_default_>, 'c'>>;
 
 } // namespace is_v_tests
 
