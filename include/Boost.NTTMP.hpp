@@ -1787,6 +1787,16 @@ using typify_ = lift_v_<impl::dispatch<1, map_value_<TMap>>::template f>;
 BOOST_TMP_EXPORT
 using typify_default_ = lift_v_<impl::dispatch<1, map_value_<default_type_lookup_table_>>::template f>;
 
+BOOST_TMP_EXPORT template<typename C = listify_v_>
+struct as_values_ {};
+namespace impl {
+    template<std::size_t N, typename C>
+    struct dispatch<N, as_values_<C>> {
+        template<typename... VTs>
+        using f = dispatch<find_dispatch(sizeof...(VTs)), C>::template f<VTs::value...>;
+    };
+} // namespace impl
+
 // if_v_ : Given a predicate P, if true, return T, and if false, return F.
 BOOST_TMP_EXPORT template <typename P, typename T, typename F = always_v_<nothing_{}>>
 struct if_v_ {};

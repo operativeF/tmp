@@ -382,13 +382,13 @@ namespace map_value_tests {
 
 	using map_value_test_3 = SizeValueToSizeType<call_v_<map_value_<default_type_lookup_table_>, std::size_t(3)>>;
 
-		template<typename T> requires(std::same_as<T,
-		list_<
-			int_<1>,
-			char_<'c'>
-		>>)
+	template<typename T> requires(std::same_as<T,
+	list_<
+		int_<1>,
+		char_<'c'>
+	>>)
 	struct TypifyMultipleValues;
-		
+	
 	using map_value_test_4 = TypifyMultipleValues<call_v_<transform_v_<map_value_<default_type_lookup_table_>>, 1, char('c')>>;
 
 } // namespace map_value_tests
@@ -532,7 +532,7 @@ namespace rotate_v_tests {
 namespace sequence_v_tests {
 
 	template<typename T> requires(std::same_as<T, list_v_<1, 1, 1, 1, 1,
-														1, 1, 1, 1, 1>>)
+														  1, 1, 1, 1, 1>>)
 	struct RepeatTenOnes;
 
 	using sequence_v_test_1 = RepeatTenOnes<call_v_<repeat_sequence_v_<10>, 1>>;
@@ -626,12 +626,12 @@ namespace tee_v_tests {
 
 namespace transform_v_tests {
 
-template<typename T> requires(std::same_as<T, list_<list_v_<1>, list_v_<2>, list_v_<3>>>)
+	template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
 	struct AddOneToEach;
 
 	template<auto V>
-using add_one = list_v_<V + 1>;
+	using add_one = call_v_<typify_default_, V + 1>;
 
-using transform_v_test_1 = AddOneToEach<call_v_<transform_v_<lift_v_<add_one>>, 0, 1, 2>>;
+	using transform_v_test_1 = AddOneToEach<call_v_<transform_v_<lift_v_<add_one>, as_values_<>>, 0, 1, 2>>;
 
 } // namespace transform_v_tests
