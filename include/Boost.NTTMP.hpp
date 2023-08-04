@@ -1762,11 +1762,22 @@ namespace impl { // swap_
 BOOST_TMP_EXPORT template <std::size_t N, typename C = listify_v_>
 struct take_v_ {};
 namespace impl { // take_v_
+    template<std::size_t NumTakenVals, std::size_t NumOfValues>
+    consteval auto maximum_taken() {
+        if(NumOfValues >= NumTakenVals) {
+            return NumTakenVals;
+        }
+        else {
+            return NumOfValues;
+        }
+    }
+
     template <std::size_t N, std::size_t P, typename C>
     struct dispatch<N, take_v_<P, C>> {
         template <auto... Vs>
         using f = dispatch<find_dispatch(sizeof...(Vs)),
-                        rotate_v_<P, drop_v_<(sizeof...(Vs) - P), C>>>::template f<Vs...>;
+                        rotate_v_<maximum_taken<P, sizeof...(Vs)>(),
+                            drop_v_<(sizeof...(Vs) - maximum_taken<P, sizeof...(Vs)>()), C>>>::template f<Vs...>;
     };
 } // namespace impl
 

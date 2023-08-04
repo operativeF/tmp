@@ -605,8 +605,6 @@ namespace swap_v_tests {
 
 } // namespace swap_v_tests
 
-// TODO: Add test and take_v_ for taking more than the amount of elements
-// in the value list.
 namespace take_v_tests {
 	template <typename T>
 	    requires(std::same_as<T, list_v_<1>>)
@@ -619,6 +617,11 @@ namespace take_v_tests {
 	struct TakeVFirstTwoElements_OneTwo;
 
 	using take_v_test_2 = TakeVFirstTwoElements_OneTwo<call_v_<take_v_<2>, 1, 2, 3>>;
+
+	template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+	struct TakeMoreThanListContains;
+
+	using take_v_test_3 = TakeMoreThanListContains<call_v_<take_v_<5>, 1, 2, 3>>;
 
 } // namespace take_v_tests
 
