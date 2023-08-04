@@ -1732,7 +1732,7 @@ BOOST_TMP_EXPORT template <typename UnaryPred, typename C = identity_>
 struct none_of_ {};
 namespace impl { // none_of_
     template <std::size_t N, typename F, typename C>
-    struct dispatch<N, none_of_<F, C>> : dispatch<N, and_<F, not_<C>>> {};
+    struct dispatch<N, none_of_<F, C>> : dispatch<N, or_<F, not_<C>>> {};
 } // namespace impl
 
 // flatten_ : 

@@ -116,6 +116,11 @@ namespace any_of_v_tests {
 
 	using any_of_test_3 = AllEvenNumbers<call_v_<any_of_v_<lift_v_<test::IsEvenV>>, 2, 4, 8, 12>>;
 
+	template<test::IsFalse T>
+	struct EmptyList;
+
+	using any_of_test_4 = EmptyList<call_v_<any_of_v_<lift_v_<test::IsEvenV>>>>;
+
 } // namespace any_of_v_tests
 
 namespace contains_v_tests {
@@ -400,6 +405,25 @@ namespace map_value_tests {
 	using map_value_test_4 = TypifyMultipleValues<call_v_<transform_v_<map_value_<default_type_lookup_table_>>, 1, char('c')>>;
 
 } // namespace map_value_tests
+
+namespace none_of_v_tests {
+
+	template<test::IsTrue T>
+	struct NoneOfTheNumbersAreEven;
+
+	using none_of_v_test_1 = NoneOfTheNumbersAreEven<call_v_<none_of_v_<lift_v_<test::IsEvenV>>, 1, 3, 5, 9>>;
+
+	template<test::IsFalse T>
+	struct SomeNumbersAreEven;
+
+	using none_of_v_test_2 = SomeNumbersAreEven<call_v_<none_of_v_<lift_v_<test::IsEvenV>>, 2, 1, 3, 7, 9, 10>>;
+
+	template<test::IsTrue T>
+	struct EmptyList;
+
+	using none_of_v_test_3 = EmptyList<call_v_<none_of_v_<lift_v_<test::IsEvenV>>>>;
+
+} // namespace none_of_tests
 
 namespace not_v_tests {
 

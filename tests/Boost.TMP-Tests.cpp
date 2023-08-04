@@ -425,6 +425,21 @@ namespace logic_tests {
 	using none_of_test_2 =
 	        NoneOfTheNumbersAreEven<call_<none_of_<lift_<test::is_even>>, int_<1>, int_<3>>>;
 
+	template <typename T>
+	    requires(std::same_as<T, true_>)
+	struct EmptyList;
+
+	using none_of_test_3 =
+	        NoneOfTheNumbersAreEven<call_<none_of_<lift_<test::is_even>>>>;
+
+	template <typename T>
+	    requires(std::same_as<T, false_>)
+	struct SomeOfTheNumbersAreEven;
+
+	using none_of_test_4 =
+	        SomeOfTheNumbersAreEven<call_<none_of_<lift_<test::is_even>>, int_<1>, int_<4>, int_<3>, int_<6>>>;
+
+
 } // namespace logic_tests
 
 namespace nth_values_tests {

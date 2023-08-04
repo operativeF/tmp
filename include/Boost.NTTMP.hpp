@@ -1718,6 +1718,15 @@ namespace impl { // all_of_
     struct dispatch<N, all_of_v_<F, C>> : dispatch<N, and_v_<F, C>> {};
 } // namespace impl
 
+// none_of_v_ : Given a predicate (F), return true_ / false_ if none
+// of the elements in a VPP satisfy the predicate F.
+BOOST_TMP_EXPORT template <typename UnaryPred, typename C = identity_>
+struct none_of_v_ {};
+namespace impl { // none_of_v_
+    template <std::size_t N, typename F, typename C>
+    struct dispatch<N, none_of_v_<F, C>> : dispatch<N, or_v_<F, not_<C>>> {};
+} // namespace impl
+
 // size_v_ : Given an input VPP, get the number of elements in the VPP.
 // Input: VPP
 // Input Parameters: C - defaulted to listify_v_
