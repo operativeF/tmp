@@ -1692,7 +1692,7 @@ namespace impl { // and_
     template <template <auto...> class F, typename C>
     struct dispatch<0, and_v_<lift_v_<F>, C>> {
         template <auto... Vs>
-        using f = dispatch<1, C>::template f<false_>;
+        using f = dispatch<1, C>::template f<true_>;
     };
     template <std::size_t N, typename F, typename C>
     struct dispatch<N, and_v_<F, C>> {
@@ -1705,7 +1705,7 @@ namespace impl { // and_
     template <typename F, typename C>
     struct dispatch<0, and_v_<F, C>> {
         template <auto... Vs>
-        using f = dispatch<1, C>::template f<false_>;
+        using f = dispatch<1, C>::template f<true_>;
     };
 } // namespace impl
 
