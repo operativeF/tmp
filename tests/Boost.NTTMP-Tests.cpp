@@ -75,6 +75,14 @@ namespace all_of_v_tests {
 
 	using all_of_v_test_3 = NoneAreEven<call_v_<all_of_v_<lift_v_<test::IsEvenV>>, 1, 3, 5, 9>>;
 
+	// NOTE: In order to give expected behavior, an empty VPP input to all_of_v_ will result
+	// in all_of_v_ returning true_; mirroring what is returned in the std algorithm version
+	// of all_of.
+	template<test::IsTrue T>
+	struct EmptyListResultIsTrue;
+
+	using all_of_v_test_4 = EmptyListResultIsTrue<call_v_<all_of_v_<lift_v_<test::IsEvenV>>>>;
+
 } // namespace all_of_v_tests
 
 namespace and_v_tests {
