@@ -53,7 +53,9 @@ struct call_vv_ {
     using f = impl::dispatch<impl::find_dispatch(sizeof...(Vs)), F>::template f<Vs...>;
 };
 
-// always_v_ : metaclosure returns NTTP / shovels into the continuation C.
+// always_v_ : metaclosure returns NTTP / shovels the NTTP into the continuation C.
+// Useful when a functional metaclosure is required, but you just want to use it
+// to return a certain NTTP.
 BOOST_TMP_EXPORT template <auto V, typename C = listify_v_>
 struct always_v_ {};
 namespace impl { // always_v_
@@ -64,7 +66,7 @@ namespace impl { // always_v_
     };
 } // namespace impl
 
-// drop_v_ : Remove (N) values from the front of the input VPP.
+// drop_v_ : Remove N values from the front of the input VPP.
 // Input params: Parameter value pack
 // Closure params: N - Positive integer
 //                 C - Continuation; default listify_v_
@@ -173,7 +175,13 @@ namespace impl { // drop_v_
     struct dispatch<N, drop_v_<P, C>> : make_drop_v<P, C> {};
 } // namespace impl
 
-// each_ :
+// each_v_ : Given a VPP, apply a matching metaclosure to each value parameter.
+// In other words, each VPP element gets its own corresponding metaclosure (Fs...).
+// Input Parameters: VPP
+// Closure Parameters: Fs... - Closures that map 1-to-1 to each element in VPP
+// Output: Result of last closure in (Fs...) combining results of (Fs... - 1).
+// Output type format: Depends on last metaclosure (Fs...); takes in result of every
+// prior closure.
 BOOST_TMP_EXPORT template <typename... Fs>
 struct each_v_ {};
 namespace impl { // each_
@@ -205,7 +213,7 @@ namespace impl { // each_
     };
 } // namespace impl
 
-// reverse_v_ :
+// reverse_v_ : Reverse the order of the input VPP. 
 // Input params: Value parameter pack
 // Closure params: C - Continuation; default listify_v_
 // Functional description:
@@ -374,7 +382,13 @@ namespace impl { // reverse_v_
     };
 } // namespace impl
 
-// rotate_v_
+// rotate_v_ : Move the elements of the input VPP from right to left,
+// cycling elements in the front to the back.
+// Input Parameters: VPP
+// Closure Parameters: N - Number of rotations; positive
+//                     C - Continuation; default listify_v_
+// Output: V0, V1, ..., VM
+// (rotate N) ->
 BOOST_TMP_EXPORT template <std::size_t N = 0, typename C = listify_v_>
 struct rotate_v_ {};
 namespace impl { // rotate_v_
@@ -522,7 +536,8 @@ namespace impl { // rotate_v_
     struct dispatch<N, rotate_v_<P, C>> : make_rotate_v_<P, C> {};
 } // namespace impl
 
-// join_v_ :
+// join_v_ : Given a parameter pack consisting of list_v_'s, concatenate
+// them all together into a single list_v_ in the order they are input.
 BOOST_TMP_EXPORT template<typename C = listify_v_>
 struct join_v_ {};
 namespace impl { // join_v_
@@ -605,7 +620,7 @@ namespace impl { // join_v_
 } // namespace impl
 
 
-// drop_last_v_ :
+// drop_last_v_ : Given an N >= 0, drop the last N elements off of an input VPP.
 BOOST_TMP_EXPORT template<std::size_t N, typename C = listify_v_>
 struct drop_last_v_ {};
 namespace impl { // drop_last_
@@ -613,7 +628,7 @@ namespace impl { // drop_last_
     struct dispatch<N, drop_last_v_<DropN, C>> : dispatch<N, reverse_v_<drop_v_<DropN, reverse_v_<C>>>> {};
 } // namespace impl
 
-// pop_front_v_ :
+// pop_front_v_ : Given an input VPP, remove the first element.
 BOOST_TMP_EXPORT template <typename C = listify_v_>
 struct pop_front_v_ {};
 namespace impl { // pop_front_
@@ -632,7 +647,7 @@ namespace impl { // pop_front_
 };
 } // namespace impl
 
-// Like erase_ except the nth value is given by a value, N
+// erase_v_ : Given an input VPP, erase the nth element in the VPP.
 BOOST_TMP_EXPORT template <std::size_t N, typename C = listify_v_>
 struct erase_v_ {};
 namespace impl {
@@ -651,7 +666,8 @@ namespace impl {
     };
 } // namespace impl
 
-// filter_v_:
+// filter_v_: Given an unary predicate F, keep elements from the input VPP
+// satisfying F (reword: remove elements *not* satisfying F).
 BOOST_TMP_EXPORT template <typename F, typename C = listify_v_>
 struct filter_v_ {};
 namespace impl { // filter_v_
@@ -708,7 +724,6 @@ namespace impl { // filter_v_
 /// fold left considers the first element in the input pack the initial state, use
 /// `push_front_v_<>` to add initial state if needed
 /// Multiple input, single output
-// fold_left_v_ : 
 BOOST_TMP_EXPORT template <typename F, typename C = identity_>
 struct fold_left_v_ {};
 namespace impl { // fold_left_v_
@@ -1129,7 +1144,8 @@ namespace impl { // push_back_v_
     };
 } // namespace impl
 
-// push_front_v_ :
+// push_front_v_ : Given a value V, push this value to the front of the value
+// parameter pack input.
 BOOST_TMP_EXPORT template <auto V = nothing_{}, typename C = listify_v_>
 struct push_front_v_ {};
 namespace impl { // push_front_v_
@@ -1256,9 +1272,9 @@ namespace impl { // repeat_sequence_
 //     };
 // } // namespace impl
 
-// find_if_ :
-// Returns the index of the type that satisfies UnaryPredicate.
-BOOST_TMP_EXPORT template <typename UnaryPred, typename C = identity_>
+// find_if_ : Given an input VPP, return the index of the type that satisfies the
+// unary predicate.
+BOOST_TMP_EXPORT template <typename UnaryPredicate, typename C = identity_>
 struct find_if_v_ {};
 namespace impl { // find_if_v_
     template <bool Found, std::size_t At, template <auto...> class F>
@@ -1292,6 +1308,12 @@ namespace impl { // find_if_v_
     };
 } // namespace impl
 
+// tee_v_ : Given a set of NTTP metaclosures, pipe the input VPP to 
+// each metaclosure (Fs...), with the last metaclosure being a metaclosure
+// that combines the results of each metaclosure together. This can be a join_v_,
+// listify_v_, or metaclosure that takes a specific number of parameters.
+// However it is done, it is *necessary* to do so as it essentially a Continuation
+// metaclosure.
 BOOST_TMP_EXPORT template <typename... Fs>
 struct tee_v_ {};
 namespace impl { // tee_v_
@@ -1488,7 +1510,7 @@ namespace impl { // tee_v_
                     template f<F0, F1, Fs...> {};
 } // namespace impl
 
-// insert_v_ :
+// insert_v_ : Given an input VPP, insert the NTTP (V) at index (N).
 BOOST_TMP_EXPORT template <std::size_t N, auto V, typename C = listify_v_>
 struct insert_v_ {};
 namespace impl { // insert_v_
@@ -1505,6 +1527,7 @@ namespace impl { // insert_v_
     };
 } // namespace impl
 
+// foldey_v is an internal only helper metaclosure 
 template <std::size_t S>
 struct foldey_v {
     template <typename F, std::size_t N, auto...>
@@ -1575,7 +1598,7 @@ namespace impl { // find_if_not_v_
     };
 } // namespace impl
 
-// or_ : 
+// or_v_ : Given an input VPP, 
 BOOST_TMP_EXPORT template <typename F, typename C = identity_>
 struct or_v_ {};
 namespace impl { // or_v_
@@ -1642,7 +1665,8 @@ namespace impl { // any_of_
     struct dispatch<N, any_of_v_<F, C>> : dispatch<N, or_v_<F, C>> {};
 } // namespace impl
 
-// and_v_ : 
+// and_v_ : Given a unary predicate, apply the unary predicate to each
+// value in the input value parameter pack until logic and returns true.
 BOOST_TMP_EXPORT template <typename F, typename C = identity_>
 struct and_v_ {};
 namespace impl { // and_
@@ -1685,7 +1709,7 @@ namespace impl { // and_
     };
 } // namespace impl
 
-// all_of_v_ : Given a unary predicate, return true_ / false_ on whether all elements
+// all_of_v_ : Given an unary predicate, return true_ / false_ on whether all elements
 // in a value parameter pack satisfy that predicate. Shorting (uses and_v_).
 BOOST_TMP_EXPORT template <typename F, typename C = identity_>
 struct all_of_v_ {};
@@ -1694,6 +1718,11 @@ namespace impl { // all_of_
     struct dispatch<N, all_of_v_<F, C>> : dispatch<N, and_v_<F, C>> {};
 } // namespace impl
 
+// size_v_ : Given an input VPP, get the number of elements in the VPP.
+// Input: VPP
+// Input Parameters: C - defaulted to listify_v_
+// Output: Number of elements in VPP
+// Default output format: list_v_<OutputValue>
 BOOST_TMP_EXPORT template <typename C = listify_v_>
 struct size_v_ {};
 namespace impl { // size_
@@ -1720,7 +1749,7 @@ namespace impl { // swap_
     };
 } // namespace impl
 
-// take_v_ :
+// take_v_ : Take N values from the input (index 0 to index N-1) value pack.
 BOOST_TMP_EXPORT template <std::size_t N, typename C = listify_v_>
 struct take_v_ {};
 namespace impl { // take_v_
@@ -1732,7 +1761,7 @@ namespace impl { // take_v_
     };
 } // namespace impl
 
-// take_last_v_ :
+// take_last_v_ : Given an VPP, take the last (N) elements of the VPP.
 BOOST_TMP_EXPORT template<std::size_t N, typename C = listify_v_>
 struct take_last_v_ {};
 namespace impl { // take_last_
@@ -1748,7 +1777,8 @@ namespace impl { // take_last_
     };
 } // namespace impl
 
-// transform_v_ :
+// transform_v_ : Apply a unary metaclosure to each value in the input VPP, returning
+// a list of the modified values.
 BOOST_TMP_EXPORT template <typename F, typename C = listify_>
 struct transform_v_ {};
 namespace impl { // transform_v_
@@ -1766,6 +1796,8 @@ namespace impl { // transform_v_
     };
 } // namespace impl
 
+// map_value_ : Given a value-to-type map (TMap), convert the input value into
+// a type-value (int_, bool_, etc).
 BOOST_TMP_EXPORT template<typename TMap, typename C = identity_>
 struct map_value_ {};
 namespace impl {
@@ -1774,6 +1806,7 @@ namespace impl {
         template<typename AT>
         using f = call_v_<AT, V>;
     };
+    
     template<typename TMap, typename C>
     struct dispatch<1, map_value_<TMap, C>> {
         template<auto V>
@@ -1807,7 +1840,12 @@ namespace impl {
     };
 } // namespace impl
 
-// if_v_ : Given a predicate P, if true, return T, and if false, return F.
+// if_v_ : Given a unary predicate (UnaryPredicate), return type (T) if true and type (F) if false.
+// Input: UnaryPredicate - Single value input unary predicate; must return either true_ or false_.
+//        T - type returned upon evaluation of true UnaryPredicate; *must* use always_v_<*your type*>
+//        F - type returned upon evaluation of false UnaryPredicate; *must* use always_v_<*your type*>
+// VPP: Single element
+// Output: Either (T) or (F)
 BOOST_TMP_EXPORT template <typename P, typename T, typename F = always_v_<nothing_{}>>
 struct if_v_ {};
 namespace impl { // if_v_
