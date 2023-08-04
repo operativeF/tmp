@@ -1781,11 +1781,13 @@ namespace impl {
     };
 } // namespace impl
 
-BOOST_TMP_EXPORT template<typename TMap>
-using typify_ = lift_v_<impl::dispatch<1, map_value_<TMap>>::template f>;
+// typify_ : Shorthand Continuation for map_value; must be given a TMap type.
+BOOST_TMP_EXPORT template<typename TMap, typename C = identity_>
+using typify_ = lift_v_<impl::dispatch<1, map_value_<TMap, C>>::template f>;
 
 BOOST_TMP_EXPORT
-using typify_default_ = lift_v_<impl::dispatch<1, map_value_<default_type_lookup_table_>>::template f>;
+template<typename C = identity_>
+using typify_default_ = lift_v_<impl::dispatch<1, map_value_<default_type_lookup_table_, C>>::template f>;
 
 BOOST_TMP_EXPORT template<typename C = listify_v_>
 struct as_values_ {};

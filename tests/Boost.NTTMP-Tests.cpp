@@ -265,12 +265,12 @@ namespace if_v_tests {
 	template<typename T> requires(std::same_as<T, int_<99>>)
 	struct NineReturnsNinetyNine;
 
-	using if_v_test_1 = NineReturnsNinetyNine<call_v_<if_v_<is_v_<9>, always_v_<99, typify_default_>, always_v_<4, typify_default_>>, 9>>;
+	using if_v_test_1 = NineReturnsNinetyNine<call_v_<if_v_<is_v_<9>, always_v_<99, typify_default_<>>, always_v_<4, typify_default_<>>>, 9>>;
 
 	template<typename T> requires(std::same_as<T, int_<4>>)
 	struct AnythingElseReturnsFour;
 
-	using if_v_test_2 = AnythingElseReturnsFour<call_v_<if_v_<is_v_<9>, always_v_<99, typify_default_>, always_v_<4, typify_default_>>, 'l'>>;
+	using if_v_test_2 = AnythingElseReturnsFour<call_v_<if_v_<is_v_<9>, always_v_<99, typify_default_<>>, always_v_<4, typify_default_<>>>, 'l'>>;
 
 } // namespace if_v_tests
 
@@ -279,12 +279,12 @@ namespace index_v_tests {
 	template<typename T> requires(std::same_as<T, int_<9>>)
 	struct AtIndexTwo;
 
-	using index_v_test_1 = AtIndexTwo<call_v_<iv2_<typify_default_>, 1, 4, 9, 10>>;
+	using index_v_test_1 = AtIndexTwo<call_v_<iv2_<typify_default_<>>, 1, 4, 9, 10>>;
 
 	template<typename T> requires(std::same_as<T, int_<2>>)
 	struct AtUnpackedIndexTen;
 
-	using index_v_test_2 = AtUnpackedIndexTen<call_<unpack_index_v_<10, typify_default_>, list_v_<1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2>>>;
+	using index_v_test_2 = AtUnpackedIndexTen<call_<unpack_index_v_<10, typify_default_<>>, list_v_<1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2>>>;
 
 } // namespace index_v_tests
 
@@ -329,12 +329,12 @@ namespace is_v_tests {
 	template<test::IsTrue T>
 	struct ValueIsFive;
 
-	using is_v_test_1 = ValueIsFive<call_v_<is_v_<5, typify_default_>, 5>>;
+	using is_v_test_1 = ValueIsFive<call_v_<is_v_<5, typify_default_<>>, 5>>;
 
 	template<test::IsFalse T>
 	struct ValueCharCIsNotInt99;
 
-	using is_v_test_2 = ValueCharCIsNotInt99<call_v_<is_v_<99, typify_default_>, 'c'>>;
+	using is_v_test_2 = ValueCharCIsNotInt99<call_v_<is_v_<99, typify_default_<>>, 'c'>>;
 
 } // namespace is_v_tests
 
@@ -343,12 +343,12 @@ namespace is_not_v_tests {
 	template<test::IsTrue T>
 	struct ValueIsNotFive_EvaluatesTrue;
 
-	using is_not_v_test_1 = ValueIsNotFive_EvaluatesTrue<call_v_<is_not_v_<5, typify_default_>, 2>>;
+	using is_not_v_test_1 = ValueIsNotFive_EvaluatesTrue<call_v_<is_not_v_<5, typify_default_<>>, 2>>;
 
 	template<test::IsFalse T>
 	struct ValueIsNine_EvaluatesFalse;
 
-	using is_not_v_test_2 = ValueIsNine_EvaluatesFalse<call_v_<is_not_v_<9, typify_default_>, 9>>;
+	using is_not_v_test_2 = ValueIsNine_EvaluatesFalse<call_v_<is_not_v_<9, typify_default_<>>, 9>>;
 
 } // namespace is_v_tests
 
@@ -398,12 +398,12 @@ namespace not_v_tests {
 	template<test::IsTrue T>
 	struct ValueIsNotFalse_EvaluatesTrue;
 
-	using not_v_test_1 = ValueIsNotFalse_EvaluatesTrue<call_v_<not_v_<typify_default_>, false>>;
+	using not_v_test_1 = ValueIsNotFalse_EvaluatesTrue<call_v_<not_v_<typify_default_<>>, false>>;
 
 	template<test::IsFalse T>
 	struct ValueIsNotTrue_ResultsFalse;
 
-	using not_v_test_2 = ValueIsNotTrue_ResultsFalse<call_v_<not_v_<typify_default_>, true>>;
+	using not_v_test_2 = ValueIsNotTrue_ResultsFalse<call_v_<not_v_<typify_default_<>>, true>>;
 
 } // namespace not_v_tests
 
@@ -484,7 +484,7 @@ namespace range_lo_hi_v_tests {
 	template<test::IsFalse T>
 	struct OutsideOf5To10;
 
-	using range_lo_hi_v_test_1 = OutsideOf5To10<call_v_<range_lo_hi_v_<5, 10, typify_default_>, 7>>;
+	using range_lo_hi_v_test_1 = OutsideOf5To10<call_v_<range_lo_hi_v_<5, 10, typify_default_<>>, 7>>;
 
 } // namespace range_lo_hi_v_tests
 
@@ -630,7 +630,7 @@ namespace transform_v_tests {
 	struct AddOneToEach;
 
 	template<auto V>
-	using add_one = call_v_<typify_default_, V + 1>;
+	using add_one = call_v_<typify_default_<>, V + 1>;
 
 	using transform_v_test_1 = AddOneToEach<call_v_<transform_v_<lift_v_<add_one>, as_values_<>>, 0, 1, 2>>;
 
