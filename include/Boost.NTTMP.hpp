@@ -1027,9 +1027,8 @@ using uiv6_ = unpack_<index_v_<6, C>>;
 BOOST_TMP_EXPORT template<typename C = listify_v_>
 using uiv7_ = unpack_<index_v_<7, C>>;
 namespace impl { // index_v_
-    // TODO: Use a "mechanical" method for this instead of using other metaclosures.
     template <std::size_t N, std::size_t I, typename C>
-    struct dispatch<N, index_v_<I, C>> : dispatch<N, drop_v_<I, front_v_<C>>> {};
+    struct dispatch<N, index_v_<I, C>> : dispatch<N, rotate_v_<I, front_v_<C>>> {};
 
     template <std::size_t N, typename C>
     struct dispatch<N, index_v_<std::numeric_limits<std::size_t>::max(), C>> { // 
