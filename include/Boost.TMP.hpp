@@ -9,14 +9,14 @@
 #ifndef __BOOST_TMP_HPP
 #define __BOOST_TMP_HPP
 
-#if defined(__GNUC__) || defined(__clang__) || !defined(ENABLE_CPP_MODULE)
+#if defined(__GNUC__) || defined(DISABLE_STD_MODULE)
 #include <array>
 #include <concepts>
 #include <cstdint>
 #include <limits>
 #include <type_traits>
 #define BOOST_TMP_EXPORT
-#endif // defined(__GNUC__ ) || defined(__clang__)
+#endif // defined(__GNUC__ ) || defined(DISABLE_STD_MODULE)
 
 #include "Boost.TMP.Base.hpp"
 
