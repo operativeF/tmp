@@ -3,9 +3,9 @@ module;
 
 export module Boost.TMP;
 
-#ifdef _MSC_VER || defined(__clang__) && !defined(DISABLE_STD_MODULE)
+#ifdef _MSC_VER
 import std;
-#endif // _MSC_VER || defined(__clang__)
+#endif // _MSC_VER
 
 #include "Boost.TMP.Base.hpp"
 #include "Boost.TMP.hpp"

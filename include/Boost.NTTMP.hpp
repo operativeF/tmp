@@ -8,11 +8,11 @@
 #ifndef __BOOST_NTTMP_HPP
 #define __BOOST_NTTMP_HPP
 
-#if defined(__GNUC__) || defined(DISABLE_STD_MODULE)
+#if defined(__GNUC__) || defined(__clang__) || !defined(ENABLE_CPP_MODULE)
 #include <cstdint>
 #include <limits>
 #define BOOST_TMP_EXPORT
-#endif // defined(__GNUC__ ) || defined(DISABLE_STD_MODULE)
+#endif // defined(__GNUC__ ) || defined(__clang__)
 
 #include "Boost.TMP.Base.hpp"
 #include "Boost.TMP.hpp"

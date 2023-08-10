@@ -11,9 +11,12 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 option(ENABLE_BENCHMARKING "Enable benchmarking" OFF)
 option(ENABLE_CPP_MODULE "Enable C++ module of Boost.TMP" OFF)
 option(ENABLE_COMPILE_TIME_TESTING "Enable compile-time testing using concepts." ON)
-option(DISABLE_STD_MODULE "Disable the usage of the module of the C++ standard library" OFF)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+option(ENABLE_BENCHMARKING "Enable benchmarking" OFF)
+option(ENABLE_CPP_MODULE "Enable C++ module of Boost.TMP" OFF)
+option(ENABLE_COMPILE_TIME_TESTING "Enable compile-time testing using concepts." ON)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 	# Enable usage of updated __cplusplus macro
@@ -40,10 +43,10 @@ else()
     string(CONCAT CMAKE_EXPERIMENTAL_CXX_SCANDEP_SOURCE
     "<CMAKE_CXX_COMPILER> <DEFINES> <INCLUDES> <FLAGS> -E -x c++ <SOURCE>"
     " -MT <DYNDEP_FILE> -MD -MF <DEP_FILE>"
-    " -fdep-file=<DYNDEP_FILE> -fdep-output=<OBJECT> -fdep-format=trtbd"
+    " -fmodules-ts -fdep-file=<DYNDEP_FILE> -fdep-output=<OBJECT> -fdep-format=trtbd"
     " -o <PREPROCESSED_SOURCE>")
     set(CMAKE_EXPERIMENTAL_CXX_MODULE_MAP_FORMAT "clang")
-    set(CMAKE_EXPERIMENTAL_CXX_MODULE_MAP_FLAG "-fmodule-mapper=<MODULE_MAP_FILE> -fdep-format=trtbd -x c++")
+    set(CMAKE_EXPERIMENTAL_CXX_MODULE_MAP_FLAG "-fmodules-ts -fmodule-mapper=<MODULE_MAP_FILE> -fdep-format=trtbd -x c++")
   endif()
 endif()
 
