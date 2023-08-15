@@ -327,7 +327,7 @@ namespace insert_v_tests {
 	using insert_test_3 =
 	        Insert_C_AtPositionTwo<call_v_<insert_v_<2, 'c'>, 1, 2>>;
 
-	// Insert char_<'c'> into no list (returns a list_ with char_<'c'> in it)
+	// Insert 'c' into no list (returns a list_v_ with 'c' in it)
 	template <typename T>
 	    requires(std::same_as<T, list_v_<'c'>>)
 	struct EmptyPackInsertionReturnsSingleElementList;
@@ -467,7 +467,7 @@ namespace pop_back_v_tests {
 
 	// TODO: Should this be the default behavior for no value?
 	template<typename T> requires(std::same_as<T, list_v_<nothing_{}>>)
-	struct PopNoValue;
+	struct PopNoValue; 
 
 	using pop_back_test_3 = PopNoValue<call_v_<pop_back_v_<>>>;
 
@@ -664,6 +664,18 @@ namespace swap_v_tests {
 	struct SwapUnrelatedValues;
 
 	using swap_v_test_2 = SwapUnrelatedValues<call_v_<swap_v_<>, 3, 'd'>>;
+
+	template<typename T> requires(std::same_as<T, list_v_<>>)
+	struct SwapNoValues;
+
+	using swap_v_test_3 = SwapNoValues<call_v_<swap_v_<>>>;
+
+	// Must swap either 0 or 2 values.
+	// Code below will fail constraints.
+	// template<typename T> requires(std::same_as<T, list_v_<>>)
+	// struct SwapThreeValuesInvalid;
+
+	// using swap_v_test_4 = SwapNoValues<call_v_<swap_v_<>, 1, 2, 3>>;
 
 } // namespace swap_v_tests
 

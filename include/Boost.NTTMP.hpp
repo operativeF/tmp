@@ -448,7 +448,7 @@ namespace impl { // rotate_v_
     template <typename C>
     struct rotate_v_impl<5, C> {
         template <auto V0, auto V1, auto V2, auto V3, auto V4,
-                typename... Vs>
+                  auto... Vs>
         using f = dispatch<find_dispatch(sizeof...(Vs) + 5), C>::template
                         f<Vs..., V0, V1, V2, V3, V4>;
     };
@@ -1750,9 +1750,15 @@ namespace impl { // swap_
         template <auto T, auto U>
         using f = dispatch<2, C>::template f<U, T>;
     };
-    template<std::size_t N, typename C> requires(N == 2)
-    struct dispatch<N, swap_v_<C>> {
+    template<typename C>
+    struct dispatch<0, swap_v_<C>> {
         template<auto...>
+        using f = list_v_<>;
+    };
+    // Reaching here is always an error.
+    template<std::size_t N, typename C>
+    struct dispatch<N, swap_v_<C>> {
+        template<auto... Vs> requires(sizeof...(Vs) == 2 || sizeof...(Vs) == 0)
         using f = nothing_;
     };
 } // namespace impl
@@ -1796,7 +1802,7 @@ namespace impl { // take_last_
     };
 } // namespace impl
 
-// transform_v_ : Apply a unary metaclosure to each value in the input VPP, returning
+// transform_v_ : Apply a unary closure to each value in the input VPP, returning
 // a list of the modified values.
 BOOST_TMP_EXPORT template <typename F, typename C = listify_>
 struct transform_v_ {};
