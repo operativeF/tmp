@@ -231,6 +231,11 @@ namespace filter_v_tests {
 
 	using filter_test_1 = FilterOutOddValues<call_v_<filter_v_<lift_v_<test::IsEvenV>>, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10>>;
 
+	template<typename T> requires(std::same_as<T, list_v_<>>)
+	struct FilterEmptyList;
+
+	using filter_test_2 = FilterEmptyList<call_v_<filter_v_<lift_v_<test::IsEvenV>>>>;
+
 }
 
 namespace find_if_not_v_tests {
@@ -375,6 +380,16 @@ namespace join_v_tests {
 	// Notice the use of call_ here, and *not* call_v_.
 	// While we are dealing with combining values, types are being used to ferry the values.
 	using join_v_test_1 = JoinLists123<call_<join_v_<>, list_v_<1>, list_v_<2>, list_v_<3>>>;
+
+	template<typename T> requires(std::same_as<T, list_v_<>>)
+	struct JoinEmptyList;
+
+	using join_v_test_2 = JoinEmptyList<call_v_<join_v_<>>>;
+
+	// template<typename T> requires(std::same_as<T, list_v_<1, 2, 3>>)
+	// struct JoinAmorphousList;
+
+	// using join_v_test_3 = JoinAmorphousList<call_v_<join_v_<>, int_<1>, int_<2>, list_v_<3>>>;
 
 } // namespace join_v_tests
 
@@ -730,6 +745,12 @@ namespace tee_v_tests {
 	struct MakePattern_123123;
 
 	using tee_v_test_1 = MakePattern_123123<call_v_<tee_v_<listify_v_, listify_v_, join_v_<>>, 1, 2, 3>>;
+
+	template<typename T> requires(std::same_as<T, list_<list_v_<1, 2, 3>>>)
+	struct MakeListOfLists;
+
+	// NOTE: Continuation requires a type.
+	using tee_v_test_2 = MakeListOfLists<call_v_<tee_v_<listify_v_, listify_>, 1, 2, 3>>;
 
 } // namespace tee_v_tests
 
