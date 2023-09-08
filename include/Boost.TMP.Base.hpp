@@ -11,7 +11,6 @@
 
 #if defined(__GNUC__) || defined(__clang__) || !defined(ENABLE_CPP_MODULE)
 #include <concepts>
-#include <cstddef>
 #include <cstdint>
 #include <type_traits>
 #define BOOST_TMP_EXPORT
@@ -61,10 +60,6 @@ struct bool_ { static constexpr bool value = B; };
 // bool_ type aliases
 BOOST_TMP_EXPORT using true_  = bool_<true>;
 BOOST_TMP_EXPORT using false_ = bool_<false>;
-
-// std::byte type wrapper
-BOOST_TMP_EXPORT template<std::byte B>
-struct byte_ { static constexpr std::byte value = B; };
 
 // Char type wrappers
 BOOST_TMP_EXPORT template<char C>
