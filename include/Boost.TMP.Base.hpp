@@ -118,12 +118,6 @@ namespace impl { // identity_
     };
 } // namespace impl
 
-// identity_v_ :
-BOOST_TMP_EXPORT template<auto V>
-consteval auto identity_v_() {
-    return std::forward<decltype(V)>(V);
-}
-
 // lift_ : Used for lifting a type into a function.
 BOOST_TMP_EXPORT template <template <typename...> class F, typename C = identity_>
 struct lift_ {};
