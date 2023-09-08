@@ -11,7 +11,6 @@
 
 #include <array>
 #include <concepts>
-#include <cstdint>
 #include <type_traits>
 #else //
 import Boost.TMP;
@@ -405,7 +404,7 @@ namespace map_value_tests {
 	template<typename T> requires(std::same_as<T, sizet_<3>>)
 	struct SizeValueToSizeType;
 
-	using map_value_test_3 = SizeValueToSizeType<call_v_<map_value_<default_type_lookup_table_>, std::size_t(3)>>;
+	using map_value_test_3 = SizeValueToSizeType<call_v_<map_value_<default_type_lookup_table_>, size_t(3)>>;
 
 	template<typename T> requires(std::same_as<T,
 	list_<
@@ -652,12 +651,12 @@ namespace sequence_v_tests {
 
 namespace size_v_tests {
 
-	template<typename T> requires(std::same_as<T, list_v_<std::size_t{3}>>)
+	template<typename T> requires(std::same_as<T, list_v_<size_t{3}>>)
 	struct ThreeValuesInPack;
 
 	using size_v_test_1 = ThreeValuesInPack<call_v_<size_v_<>, 1, 2, 3>>;
 
-	template<typename T> requires(std::same_as<T, list_v_<std::size_t{0}>>)
+	template<typename T> requires(std::same_as<T, list_v_<size_t{0}>>)
 	struct ZeroValuesInPack;
 
 	using size_v_test_2 = ZeroValuesInPack<call_v_<size_v_<>>>;

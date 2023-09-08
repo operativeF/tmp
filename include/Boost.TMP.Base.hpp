@@ -11,20 +11,38 @@
 
 #if defined(__GNUC__) || defined(__clang__) || !defined(ENABLE_CPP_MODULE)
 #include <concepts>
-#include <cstdint>
 #include <type_traits>
 #define BOOST_TMP_EXPORT
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
 namespace boost::tmp {
 
+using int8_t   = signed char;
+using int16_t  = short;
+using int32_t  = int;
+using int64_t  = long long;
+using uint8_t  = unsigned char;
+using uint16_t = unsigned short;
+using uint32_t = unsigned int;
+using uint64_t = unsigned long long;
+
+#ifdef _WIN64
+    using size_t    = uint64_t;
+    using ptrdiff_t = int64_t;
+    using intptr_t  = int64_t;
+#else
+    using size_t    = unsigned int;
+    using ptrdiff_t = int;
+    using intptr_t  = int;
+#endif
+
 namespace impl { // dispatch
     // dispatch : The type finds the appropriate metaclosure to invoke and forms
     // the basis of the library.
-    template <std::size_t N, typename T>
+    template <size_t N, typename T>
     struct dispatch;
     // find_dispatch : 
-    consteval std::size_t find_dispatch(std::size_t n) {
+    consteval size_t find_dispatch(size_t n) {
         return n <= 8 ? n :
                         n < 16 ?
                         9 :
@@ -48,7 +66,7 @@ namespace impl { // dispatch
         using f = dispatch<find_dispatch(sizeof...(Vs)), C>::template f<Vs...>;
     };
 
-    consteval std::size_t step_selector(std::size_t N) {
+    consteval size_t step_selector(size_t N) {
         return N <= 8 ? N : N < 16 ? 8 : N < 32 ? 16 : N < 64 ? 32 : 64;
     }
 } // namespace impl
@@ -80,24 +98,24 @@ BOOST_TMP_EXPORT template<unsigned int V>
 struct uint_ { static constexpr unsigned int value = V; };
 BOOST_TMP_EXPORT template<int I>
 struct int_ { static constexpr int value = I; };
-BOOST_TMP_EXPORT template<std::size_t S>
-struct sizet_ { static constexpr std::size_t value = S; };
-BOOST_TMP_EXPORT template<std::uint8_t V>
-struct uint8_ { static constexpr std::uint8_t value = V; };
-BOOST_TMP_EXPORT template<std::uint16_t V>
-struct uint16_ { static constexpr std::uint16_t value = V; };
-BOOST_TMP_EXPORT template<std::uint32_t V>
-struct uint32_ { static constexpr std::uint32_t value = V; };
-BOOST_TMP_EXPORT template<std::uint64_t V>
-struct uint64_ { static constexpr std::uint64_t value = V; };
-BOOST_TMP_EXPORT template<std::int8_t V>
-struct int8_ { static constexpr std::int8_t value = V; };
-BOOST_TMP_EXPORT template<std::int16_t V>
-struct int16_ { static constexpr std::int16_t value = V; };
-BOOST_TMP_EXPORT template<std::int32_t V>
-struct int32_ { static constexpr std::int32_t value = V; };
-BOOST_TMP_EXPORT template<std::int64_t V>
-struct int64_ { static constexpr std::int64_t value = V; };
+BOOST_TMP_EXPORT template<size_t S>
+struct sizet_ { static constexpr size_t value = S; };
+BOOST_TMP_EXPORT template<uint8_t V>
+struct uint8_ { static constexpr uint8_t value = V; };
+BOOST_TMP_EXPORT template<uint16_t V>
+struct uint16_ { static constexpr uint16_t value = V; };
+BOOST_TMP_EXPORT template<uint32_t V>
+struct uint32_ { static constexpr uint32_t value = V; };
+BOOST_TMP_EXPORT template<uint64_t V>
+struct uint64_ { static constexpr uint64_t value = V; };
+BOOST_TMP_EXPORT template<int8_t V>
+struct int8_ { static constexpr int8_t value = V; };
+BOOST_TMP_EXPORT template<int16_t V>
+struct int16_ { static constexpr int16_t value = V; };
+BOOST_TMP_EXPORT template<int32_t V>
+struct int32_ { static constexpr int32_t value = V; };
+BOOST_TMP_EXPORT template<int64_t V>
+struct int64_ { static constexpr int64_t value = V; };
 
 // nothing_ : 
 BOOST_TMP_EXPORT struct nothing_ {};
@@ -136,7 +154,7 @@ namespace impl { // lift_
         template <typename T0, typename T1, typename T2, typename T3>
         using f = dispatch<1, C>::template f<F<T0, T1, T2, T3>>;
     };
-    template <std::size_t N, template <typename...> class F, typename C>
+    template <size_t N, template <typename...> class F, typename C>
     struct dispatch<N, lift_<F, C>> {
         template <typename... Ts>
         using f = dispatch<1, C>::template f<F<Ts...>>;
@@ -167,7 +185,7 @@ namespace impl { // lift_v_
         template <auto V0, auto V1, auto V2, auto V3>
         using f = dispatch<1, C>::template f<F<V0, V1, V2, V3>>;
     };
-    template <std::size_t N, template <auto...> class F, typename C>
+    template <size_t N, template <auto...> class F, typename C>
     struct dispatch<N, lift_v_<F, C>> {
         template <auto... Vs>
         using f = dispatch<1, C>::template f<F<Vs...>>;
@@ -198,7 +216,7 @@ namespace impl { // lift_tv_
         template <typename T, auto V0, auto V1, auto V2, auto V3>
         using f = dispatch<1, C>::template f<F<T, V0, V1, V2, V3>>;
     };
-    template <std::size_t N, template <typename, auto...> class F, typename C>
+    template <size_t N, template <typename, auto...> class F, typename C>
     struct dispatch<N, lift_tv_<F, C>> {
         template <typename T, auto... Vs>
         using f = dispatch<1, C>::template f<F<T, Vs...>>;
@@ -221,38 +239,38 @@ template<typename T>
 concept Boolable = std::convertible_to<decltype(T::value), bool>;
 
 template<typename I>
-concept Sizable = std::same_as<std::remove_cvref_t<decltype(I::value)>, std::size_t>;
+concept Sizable = std::same_as<std::remove_cvref_t<decltype(I::value)>, size_t>;
 
 template<typename F>
 concept Predicatable = std::same_as<std::remove_cvref_t<decltype(F::return_type)>, bool>;
 
 // foldey functions are internal only.
-consteval std::size_t select_foldey_loop(std::size_t rest_size) {
-    return static_cast<std::size_t>(rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008);
+consteval size_t select_foldey_loop(size_t rest_size) {
+    return static_cast<size_t>(rest_size < 8 ? (rest_size == 0 ? 1000 : 1001) : 1008);
 }
-consteval std::size_t select_foldey(std::size_t chunk_size, std::size_t rest_size, std::size_t found_at_index) {
+consteval size_t select_foldey(size_t chunk_size, size_t rest_size, size_t found_at_index) {
         return found_at_index == -1 ? select_foldey_loop(rest_size) :
                                         chunk_size - found_at_index;
 }
 
-template <std::size_t S>
+template <size_t S>
 struct foldey {
-    template <typename F, std::size_t N, typename...>
+    template <typename F, size_t N, typename...>
     using f = sizet_<N - S>;
 };
 template <>
 struct foldey<1000> {
-    template <typename F, std::size_t N, typename... Ts>
+    template <typename F, size_t N, typename... Ts>
     using f = nothing_;
 };
 template <>
 struct foldey<1001> {
-    template <typename F, std::size_t N, typename T0, typename... Ts> 
+    template <typename F, size_t N, typename T0, typename... Ts> 
     using f = foldey<select_foldey(1, sizeof...(Ts), F::template f<T0>::value)>::template f<F, N + 1, Ts...>;
 };
 template <>
 struct foldey<1008> {
-    template <typename F, std::size_t N, typename T0, typename T1, typename T2,
+    template <typename F, size_t N, typename T0, typename T1, typename T2,
                 typename T3, typename T4, typename T5, typename T6, typename T7,
                 typename... Ts>
     using f = foldey<select_foldey(8, sizeof...(Ts),
@@ -281,7 +299,7 @@ using call_t = impl::dispatch<impl::find_dispatch(sizeof...(Ts)), T>::template
 BOOST_TMP_EXPORT template <typename C = identity_>
 struct call_f_ {};
 namespace impl { // call_f_
-    template <std::size_t N, typename C>
+    template <size_t N, typename C>
     struct dispatch<N, call_f_<C>> {
         template <typename F, typename... Ts>
         using f = dispatch<1, C>::template f<

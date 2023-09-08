@@ -12,7 +12,6 @@
 
 #include <array>
 #include <concepts>
-#include <cstdint>
 #include <type_traits>
 #else //
 import Boost.TMP;
