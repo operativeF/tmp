@@ -14,7 +14,6 @@
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
-#include <utility>
 #define BOOST_TMP_EXPORT
 #endif // defined(__GNUC__ ) || defined(__clang__)
 
