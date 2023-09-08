@@ -13,7 +13,6 @@
 #include <array>
 #include <concepts>
 #include <cstdint>
-#include <limits>
 #include <type_traits>
 #define BOOST_TMP_EXPORT
 #endif // defined(__GNUC__ ) || defined(__clang__)
@@ -1784,7 +1783,7 @@ struct find_if_ {};
 namespace impl { // find_if_
     template <bool Found, std::size_t At, template <typename...> class F>
     struct county {
-        static constexpr auto value{std::numeric_limits<std::size_t>::max()};
+        static constexpr auto value{SIZE_MAX};
         template <typename T>
         using f = county<F<T>::value, (At + 1), F>;
     };
@@ -1800,7 +1799,7 @@ namespace impl { // find_if_
         using f = typename dispatch<1, C>::template f<
                         typename foldey<select_foldey_loop(sizeof...(Ts))>::template f<
                         county<false,
-                                std::numeric_limits<std::size_t>::max(),
+                                SIZE_MAX,
                                 dispatch<1, F>::template f>, 0, Ts...>>;
     };
     template <std::size_t N, template <typename...> class F, typename C>
@@ -1808,7 +1807,7 @@ namespace impl { // find_if_
             template <typename... Ts>
             using f = typename dispatch<1, C>::template f<typename foldey<select_foldey_loop(
                         sizeof...(Ts))>::template f<county<false,
-                                                            std::numeric_limits<std::size_t>::max(),
+                                                            SIZE_MAX,
                                                             F>, 0, Ts...>>;
     };
 } // namespace impl
@@ -1819,7 +1818,7 @@ struct find_if_not_ {};
 namespace impl { // find_if_not_
     template <bool Found, std::size_t At, template <typename...> class F>
     struct county_not {
-        static constexpr auto value{std::numeric_limits<std::size_t>::max()};
+        static constexpr auto value{SIZE_MAX};
         template <typename T>
         using f = county_not<F<T>::value, (At + 1), F>;
     };
@@ -1835,7 +1834,7 @@ namespace impl { // find_if_not_
         using f = typename dispatch<1, C>::template f<
                         typename foldey<select_foldey_loop(sizeof...(Ts))>::template f<
                         county_not<true,
-                                std::numeric_limits<std::size_t>::max(),
+                                SIZE_MAX,
                                 dispatch<1, F>::template f>, 0, Ts...>>;
     };
     template <std::size_t N, template <typename...> class F, typename C>
@@ -1843,7 +1842,7 @@ namespace impl { // find_if_not_
             template <typename... Ts>
             using f = typename dispatch<1, C>::template f<typename foldey<select_foldey_loop(
                         sizeof...(Ts))>::template f<county_not<true,
-                                                            std::numeric_limits<std::size_t>::max(),
+                                                            SIZE_MAX,
                                                             F>, 0, Ts...>>;
     };
 } // namespace impl
