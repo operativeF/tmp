@@ -1029,7 +1029,7 @@ namespace impl { // index_v_
     struct dispatch<N, index_v_<I, C>> : dispatch<N, rotate_v_<I, front_v_<C>>> {};
 
     template <size_t N, typename C>
-    struct dispatch<N, index_v_<SIZE_MAX, C>> { // 
+    struct dispatch<N, index_v_<-1, C>> { // 
         template <auto... Vs>
         using f = dispatch<1, C>::template f<nothing_{}>;
     };
@@ -1276,7 +1276,7 @@ struct find_if_v_ {};
 namespace impl { // find_if_v_
     template <bool Found, size_t At, template <auto...> class F>
     struct county_v {
-        static constexpr auto value{SIZE_MAX};
+        static constexpr auto value{-1};
         template <auto V>
         using f = county_v<F<V>::value, (At + 1), F>;
     };
@@ -1292,7 +1292,7 @@ namespace impl { // find_if_v_
         using f = typename dispatch<1, C>::template f<
                         typename foldey<select_foldey_loop(sizeof...(Vs))>::template f<
                         county_v<false,
-                                SIZE_MAX,
+                                -1,
                                 dispatch<1, F>::template f>, 0, Vs...>>;
     };
     template <size_t N, template <auto...> class F, typename C>
@@ -1300,7 +1300,7 @@ namespace impl { // find_if_v_
             template <auto... Vs>
             using f = typename dispatch<1, C>::template f<typename foldey<select_foldey_loop(
                         sizeof...(Vs))>::template f<county_v<false,
-                                                            SIZE_MAX,
+                                                            -1,
                                                             F>, 0, Vs...>>;
     };
 } // namespace impl
@@ -1566,7 +1566,7 @@ struct find_if_not_v_ {};
 namespace impl { // find_if_not_v_
     template <bool Found, size_t At, template <auto...> class F>
     struct county_not_v {
-        static constexpr auto value{SIZE_MAX};
+        static constexpr auto value{-1};
         template <auto V>
         using f = county_not_v<F<V>::value, (At + 1), F>;
     };
@@ -1582,7 +1582,7 @@ namespace impl { // find_if_not_v_
         using f = typename dispatch<1, C>::template f<
                         foldey_v<select_foldey_loop(sizeof...(Vs))>::template f<
                         county_not_v<true,
-                                SIZE_MAX,
+                                -1,
                                 dispatch<1, F>::template f>, 0, Vs...>>;
     };
     template <size_t N, template <auto...> class F, typename C>
@@ -1590,7 +1590,7 @@ namespace impl { // find_if_not_v_
             template <auto... Vs>
             using f = typename dispatch<1, C>::template f<typename foldey_v<select_foldey_loop(
                         sizeof...(Vs))>::template f<county_not_v<true,
-                                                            SIZE_MAX,
+                                                            -1,
                                                             F>, 0, Vs...>>;
     };
 } // namespace impl

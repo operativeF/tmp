@@ -20,6 +20,8 @@
 
 namespace boost::tmp {
 
+
+
 // always_ : metaclosure returns type / shovels into the continuation C.
 BOOST_TMP_EXPORT template <typename T, typename C = identity_>
 struct always_ {};
@@ -1782,7 +1784,7 @@ struct find_if_ {};
 namespace impl { // find_if_
     template <bool Found, size_t At, template <typename...> class F>
     struct county {
-        static constexpr auto value{SIZE_MAX};
+        static constexpr size_t value{-1};
         template <typename T>
         using f = county<F<T>::value, (At + 1), F>;
     };
@@ -1798,7 +1800,7 @@ namespace impl { // find_if_
         using f = typename dispatch<1, C>::template f<
                         typename foldey<select_foldey_loop(sizeof...(Ts))>::template f<
                         county<false,
-                                SIZE_MAX,
+                                -1,
                                 dispatch<1, F>::template f>, 0, Ts...>>;
     };
     template <size_t N, template <typename...> class F, typename C>
@@ -1806,7 +1808,7 @@ namespace impl { // find_if_
             template <typename... Ts>
             using f = typename dispatch<1, C>::template f<typename foldey<select_foldey_loop(
                         sizeof...(Ts))>::template f<county<false,
-                                                            SIZE_MAX,
+                                                            -1,
                                                             F>, 0, Ts...>>;
     };
 } // namespace impl
@@ -1817,7 +1819,7 @@ struct find_if_not_ {};
 namespace impl { // find_if_not_
     template <bool Found, size_t At, template <typename...> class F>
     struct county_not {
-        static constexpr auto value{SIZE_MAX};
+        static constexpr auto value{-1};
         template <typename T>
         using f = county_not<F<T>::value, (At + 1), F>;
     };
@@ -1833,7 +1835,7 @@ namespace impl { // find_if_not_
         using f = typename dispatch<1, C>::template f<
                         typename foldey<select_foldey_loop(sizeof...(Ts))>::template f<
                         county_not<true,
-                                SIZE_MAX,
+                                -1,
                                 dispatch<1, F>::template f>, 0, Ts...>>;
     };
     template <size_t N, template <typename...> class F, typename C>
@@ -1841,7 +1843,7 @@ namespace impl { // find_if_not_
             template <typename... Ts>
             using f = typename dispatch<1, C>::template f<typename foldey<select_foldey_loop(
                         sizeof...(Ts))>::template f<county_not<true,
-                                                            SIZE_MAX,
+                                                            -1,
                                                             F>, 0, Ts...>>;
     };
 } // namespace impl
