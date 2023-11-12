@@ -480,7 +480,7 @@ using IndexSeq = std::index_sequence<Is...>;
 // template<int... Is>
 // using IntSeq = std::integer_sequence<Is...>;
 
-BOOST_TMP_EXPORT template<typename... Ts> requires(std::same_as<Ts, size_t> && ...)
+BOOST_TMP_EXPORT template<typename... Ts>
 using into_sequence = IndexSeq<Ts::value...>;
 
 namespace impl {
